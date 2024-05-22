@@ -1,0 +1,72 @@
+.select-input {
+  @apply relative;
+  z-index: auto;
+  &__button {
+    @apply py-2 px-4 w-full text-left;
+  }
+  &__option {
+    @apply py-2 px-3 relative cursor-default select-none;
+    &--active {
+      @apply bg-emerald-500 text-emerald-900;
+    }
+  }
+  &__list {
+    @apply w-full absolute overflow-auto rounded-lg mt-2 z-10;
+    max-height: 18rem;
+    min-width: 5rem;
+    &--type {
+      width: 18rem;
+    }
+    &--tonic {
+      width: 7rem;
+    }
+  }
+  &__label {
+    @apply mb-3 text-emerald-500;
+  }
+  &--ghost,
+  &--outlined {
+    .select-input {
+      &__button {
+        @apply py-2 px-4 rounded-lg border-[2px];
+        font-size: 2.75rem;
+        line-height: 1.25;
+        transition: 0.25s ease all;
+      }
+      &__list {
+        @apply bg-neutral-700;
+      }
+    }
+  }
+  &--ghost {
+    .select-input {
+      &__button {
+        @apply border-transparent bg-neutral-800;
+        &:hover,
+        &[data-headlessui-state="open"] {
+          @apply bg-neutral-600 border-neutral-400;
+        }
+      }
+    }
+  }
+  &--outlined {
+    .select-input {
+      &__button {
+        @apply border-neutral-400 bg-transparent;
+        &:hover,
+        &[data-headlessui-state="open"] {
+          @apply bg-neutral-600 border-neutral-300;
+        }
+      }
+    }
+  }
+  &--sm {
+    .select-input {
+      &__button {
+        @apply py-1;
+        font-size: 1.5rem;
+        line-height: 1.25;
+      }
+    }
+  }
+}
