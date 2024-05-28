@@ -3,6 +3,7 @@ import YouTube, { YouTubeProps } from "react-youtube";
 import Panel from "@/components/modules/Player/Panel";
 import Playlist from "@/components/modules/Playlist/Playlist";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 
 declare namespace YT {
   enum PlayerState {
@@ -46,6 +47,13 @@ const Home = () => {
   const playerRef = useRef<TPlayer>(null);
   const { setCurrentTime, setDuration, setIsPlaying, setVolume, volume, videoId, setVideoId } =
     usePlayerStore();
+  const playlistQuery = usePlaylistQuery();
+
+  useEffect(() => {
+    if (!playlistQuery.isLoading && playlistQuery.data) {
+      setVideoId(playlistQuery.data.items[0].snippet.resourceId.videoId);
+    }
+  }, [playlistQuery.isLoading, playlistQuery.data, setVideoId]);
 
   useEffect(() => {
     if (playerRef.current) {
@@ -129,7 +137,7 @@ const Home = () => {
           handleSliderChange={handleSliderChange}
           handleVolumeChange={handleVolumeChange}
         />
-        <Playlist setVideoId={setVideoId}/>
+        <Playlist />
       </div>
     </div>
   );

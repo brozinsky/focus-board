@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
+import usePlayerStore from "@/stores/zustand/usePlayerStore";
 
 type TSnippet = {
   videoOwnerChannelTitle: string;
@@ -23,13 +24,10 @@ type TPlaylistItem = {
   snippet: TSnippet;
 };
 
-type TProps = {
-  setVideoId: (videoId: string) => void
-}
-
-const Playlist = ({setVideoId}: TProps) => {
+const Playlist = () => {
   const playlistQuery = usePlaylistQuery();
   const { isPlaylistOpen, setIsPlaylistOpen } = usePlaylistStore();
+  const { setVideoId } = usePlayerStore();
   const [playlistItems, setPlaylistItems] = useState<TPlaylistItem[] | null>(
     null
   );
