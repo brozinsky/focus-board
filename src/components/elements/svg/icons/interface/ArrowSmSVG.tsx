@@ -1,4 +1,4 @@
-import { TSVG } from "@/utils/types";
+import { TSVG } from "@/types/ui-types";
 import clsx from "clsx";
 
 type TProps = TSVG & {

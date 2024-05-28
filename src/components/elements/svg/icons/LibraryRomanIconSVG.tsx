@@ -1,4 +1,4 @@
-import { TSVG } from "@/utils/types";
+import { TSVG } from "@/types/ui-types";
 
 export default function LibraryRomanIconSVG({ className, width = "24" }: TSVG) {
   return (

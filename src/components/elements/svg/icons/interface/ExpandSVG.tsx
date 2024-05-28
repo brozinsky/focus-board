@@ -1,4 +1,4 @@
-import { TSVG } from "@/utils/types";
+import { TSVG } from "@/types/ui-types";
 
 export default function ExpandSVG({ className, width = "24", pathClass = "fill-foreground" }: TSVG) {
   return (

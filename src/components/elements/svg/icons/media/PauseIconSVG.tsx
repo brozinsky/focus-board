@@ -1,4 +1,4 @@
-import { TSVG } from "@/utils/types";
+import { TSVG } from "@/types/ui-types";
 
 export default function PauseIconSVG({ className, width = "24" }: TSVG) {
   return (
