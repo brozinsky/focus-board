@@ -3,15 +3,30 @@ import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import React from "react";
 import Volume from "@/components/modules/settings/_partials/Volume";
 import Slider from "@/components/ui/inputs/Slider";
-import usePlayer from "@/hooks/usePlayer";
+import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 
-const Panel: React.FC = () => {
+interface IPanelProps {
+  handleRewind: () => void;
+  handlePlayPause: () => void;
+  handleForward: () => void;
+  handleSliderChange: (value: number[]) => void;
+  handleVolumeChange: (value: number[]) => void;
+}
+
+const Panel: React.FC<IPanelProps> = ({
+  handleRewind,
+  handlePlayPause,
+  handleForward,
+  handleSliderChange,
+  handleVolumeChange,
+})  => {
   const { isPlaying, currentTime, duration, volume } = usePlayerStore();
-  const { handlePlayPause, handleRewind, handleForward, handleSliderChange, handleVolumeChange } = usePlayer();
+  const { setIsPlaylistOpen } = usePlaylistStore();
 
   return (
     <>
       <div id="Panel" className="gap-4 absolute bottom-10 left-0 py-4 flex items-center justify-center z-20 bg-white/50 w-full">
+        <Button onClick={() => setIsPlaylistOpen(true)}>Playlist</Button>
         <Button onClick={handleRewind}>-10s</Button>
         <Button onClick={handlePlayPause}>
           {isPlaying ? "Pause" : "Play"}
