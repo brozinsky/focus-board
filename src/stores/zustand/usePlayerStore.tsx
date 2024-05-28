@@ -1,25 +1,29 @@
 import { create } from "zustand";
 
 interface PlayerState {
-  isPlaying: boolean;
-  currentTime: number;
-  duration: number;
+  videoId: string | null;
   volume: number;
-  setIsPlaying: (isPlaying: boolean) => void;
-  setCurrentTime: (time: number) => void;
-  setDuration: (duration: number) => void;
+  duration: number;
+  currentTime: number;
+  isPlaying: boolean;
+  setVideoId: (id: string | null) => void;
   setVolume: (volume: number) => void;
+  setDuration: (duration: number) => void;
+  setCurrentTime: (time: number) => void;
+  setIsPlaying: (isPlaying: boolean) => void;
 }
 
 const usePlayerStore = create<PlayerState>((set) => ({
-  isPlaying: false,
-  currentTime: 0,
-  duration: 0,
+  videoId: null,
   volume: 50,
-  setIsPlaying: (isPlaying) => set({ isPlaying }),
-  setCurrentTime: (time) => set({ currentTime: time }),
-  setDuration: (duration) => set({ duration }),
+  duration: 0,
+  currentTime: 0,
+  isPlaying: false,
+  setVideoId: (videoId) => set({ videoId }),
   setVolume: (volume) => set({ volume }),
+  setDuration: (duration) => set({ duration }),
+  setCurrentTime: (currentTime) => set({ currentTime }),
+  setIsPlaying: (isPlaying) => set({ isPlaying }),
 }));
 
 export default usePlayerStore;
