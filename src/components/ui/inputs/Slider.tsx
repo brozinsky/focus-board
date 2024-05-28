@@ -32,7 +32,7 @@ const Slider = ({
         <RxSlider.Track className="bg-foreground relative grow rounded-full h-[4px]">
           <RxSlider.Range
             className={clsx(
-              color === "default" && "bg-primary-500",
+              color === "default" && "transition bg-primary-500 opacity-40 group-hover:opacity-100",
               color === "gray" && "bg-white",
               "absolute rounded-full h-full"
             )}

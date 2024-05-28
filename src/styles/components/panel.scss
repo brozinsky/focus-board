@@ -1,0 +1,9 @@
+.panel {
+  @apply gap-4 absolute bottom-4 left-0 py-4 flex items-center justify-center z-20 w-full;
+  @extend %glass;
+  max-width: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: rgba(98, 98, 98, 0.4);
+}

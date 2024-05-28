@@ -15,7 +15,7 @@ import shortid from "shortid";
 type TProps = {
   onClick?: any;
   children?: ReactNode;
-  variant?: "neutral" | "emerald" | "ghost" | null | undefined;
+  variant?: "neutral" | "emerald" | "ghost" | "glass" | null | undefined;
   icon?: string;
   className?: string;
   shape?: "rectangle" | "circle" | "square" | null | undefined;
@@ -52,6 +52,7 @@ export default function Button({
         neutral: "bg-neutral-500 hover:bg-neutral-400",
         emerald: "bg-emerald-500 text-neutral-600 font-bold",
         ghost: "group bg-transparent-500 hover:bg-neutral-500 text-neutral-500 hover:text-neutral-500 font-bold",
+        glass: "glass-btn",
       },
       shape: {
         rectangle: "rounded-xl",

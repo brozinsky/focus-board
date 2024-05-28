@@ -127,7 +127,7 @@ const Home = () => {
                 enablejsapi: 1,
               },
             }}
-            className="bg-video relative"
+            className="bg-video bg-overlay relative"
           />
         )}
         <Panel
