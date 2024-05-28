@@ -4,6 +4,8 @@ import React from "react";
 import Volume from "@/components/modules/settings/_partials/Volume";
 import Slider from "@/components/ui/inputs/Slider";
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
+import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
+import PauseIconSVG from "@/components/elements/svg/icons/media/PauseIconSVG";
 
 interface IPanelProps {
   handleRewind: () => void;
@@ -26,14 +28,14 @@ const Panel: React.FC<IPanelProps> = ({
   return (
     <>
       <div id="Panel" className="panel">
-        <Button variant="glass" onClick={() => setIsPlaylistOpen(true)}>
+        <Button variant="glass-ghost" onClick={() => setIsPlaylistOpen(true)}>
           Playlist
         </Button>
         <Button variant="glass" onClick={handleRewind}>
           -10s
         </Button>
         <Button variant="glass" onClick={handlePlayPause}>
-          {isPlaying ? "Pause" : "Play"}
+          {isPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
         </Button>
         <Button variant="glass" onClick={handleForward}>
           +10s
