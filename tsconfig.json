@@ -38,6 +38,7 @@
       "@/hooks/*": ["./hooks/*"],
       "@/fonts/*": ["./fonts/*"],
       "@/assets/*": ["./assets/*"],
+      "@/types/*": ["./types/*"],
     }
   },
   "include": ["src"],
