@@ -1,19 +1,76 @@
 .modal {
-  &__content {
-    @apply z-50 fixed left-1/2 top-1/2;
-    transform: translate(-50%, -50%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100000000;
+
+  height: 100vh;
+  padding: 4.8rem 1.2rem;
+  background: var(--bg-opaque);
+  backdrop-filter: blur(12px);
+
+  overflow-y: scroll;
+
+  display: flex;
+  justify-content: center;
+
+  cursor: pointer;
+
+  &__image-wrap {
+    @apply bg-transparent border border-neutral-600 rounded-xl w-full;
+    overflow: hidden;
   }
-  &__body {
-    @apply p-8 bg-neutral-600 text-neutral-100 rounded-xl overflow-auto;
-    width: 1000px;
-    max-width: 95vw;
-    min-height: 300px;
-    max-height: 95vh;
-  }
-  &__overlay {
-    @apply bg-neutral-950 z-50;
+  &__image {
+    @apply object-cover w-full h-auto bg-transparent;
+    height: 100%;
+    cursor: pointer;
     opacity: 0.6;
-    position: fixed;
-    inset: 0;
+    transition: 0.5s;
+    @media (max-width: 768px) {
+      opacity: 1;
+    }
+    &:hover {
+      transform: scale(1.05);
+      opacity: 1;
+      @media (max-width: 768px) {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
+
+  &__card {
+    @apply w-full max-w-[85%] h-fit rounded-xl overflow-hidden cursor-auto;
+    background: var(--background-light);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  &__tech {
+    @apply flex justify-center flex-wrap gap-4 text-xs text-primary-500;
+  }
+  &__content {
+    @apply flex flex-col gap-4 text-xs font-light;
+  }
+  &__subtitle {
+    @apply font-medium mb-1;
+    font-size: 1.25rem;
+  }
+  &__list {
+    @apply pl-4;
+    li {
+      @apply font-light pl-1;
+      font-size: 1rem;
+      list-style-type: square;
+    }
+  }
+  &__close {
+    @apply absolute p-2 right-4 top-4 transition rounded-lg bg-transparent border-none cursor-pointer;
+
+    color: var(--text);
+    font-size: 1.5rem;
+
+    &:hover {
+      @apply bg-white/[0.12];
+    }
   }
 }
