@@ -6,6 +6,8 @@ import Slider from "@/components/ui/inputs/Slider";
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
 import PauseIconSVG from "@/components/elements/svg/icons/media/PauseIconSVG";
+import MixerIconSVG from "@/components/elements/svg/icons/interface/MixerIconSVG";
+import useWindowsStore from "@/stores/zustand/useWindowsStore";
 
 interface IPanelProps {
   handleRewind: () => void;
@@ -24,12 +26,16 @@ const Panel: React.FC<IPanelProps> = ({
 }) => {
   const { isPlaying, currentTime, duration, volume } = usePlayerStore();
   const { setIsPlaylistOpen } = usePlaylistStore();
+  const { setIsSoundFXOpen, isSoundFXOpen } = useWindowsStore();
 
   return (
     <>
       <div id="Panel" className="panel">
         <Button variant="glass-ghost" onClick={() => setIsPlaylistOpen(true)}>
           Playlist
+        </Button>
+        <Button variant="glass-ghost" onClick={() => setIsSoundFXOpen(!isSoundFXOpen)}>
+          <MixerIconSVG />
         </Button>
         <Button variant="glass" onClick={handleRewind}>
           -10s

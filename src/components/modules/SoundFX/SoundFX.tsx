@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import WavesSVG from "@/components/elements/svg/icons/fx/WavesSVG";
 import WindSVG from "@/components/elements/svg/icons/fx/WindSVG";
 import MoonSVG from "@/components/elements/svg/icons/fx/MoonSVG";
@@ -23,10 +23,35 @@ import FireSVG from "@/components/elements/svg/icons/fx/FireSVG";
 import CitySVG from "@/components/elements/svg/icons/fx/CitySVG";
 import ForestSVG from "@/components/elements/svg/icons/fx/ForestSVG";
 import CpuSVG from "@/components/elements/svg/icons/fx/CpuSVG";
+import useWindowsStore from "@/stores/zustand/useWindowsStore";
 
 const SoundFX = () => {
+  const {
+    setIsSoundFXOpen,
+    isSoundFXOpen,
+    setIsSoundFXFirstOpen,
+    isSoundFXFirstOpen,
+  } = useWindowsStore();
+  const [openCount, setOpenCount] = useState(0);
+
+  useEffect(() => {
+    console.log(isSoundFXFirstOpen);
+  }, [isSoundFXFirstOpen]);
+
+  useEffect(() => {
+    if (isSoundFXOpen) {
+      setOpenCount((prevCount) => prevCount + 1);
+    }
+  }, [isSoundFXOpen]);
+
+  useEffect(() => {
+    if (openCount === 2) {
+      setIsSoundFXFirstOpen(true);
+    }
+  }, [openCount, setIsSoundFXFirstOpen]);
+
   return (
-    <Window title={"Sound FX"} isOpen={true}>
+    <Window title={"Sound FX"} isOpen={isSoundFXOpen}>
       <div className="flex flex-col gap-2 pr-6">
         <FxItem
           icon={<RainSVG width={30} />}

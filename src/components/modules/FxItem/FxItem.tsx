@@ -61,8 +61,14 @@ const FxItem = ({ icon, audio, name }: IProps) => {
 
   return (
     <div className="flex flex-row items-center gap-4">
-      <ButtonFX tooltip={name} isActive={isActive} isLoading={isLoading} icon={icon} onClick={handleClick} />
-      <div className={cn(isActive ? "opacity-100": "opacity-30","w-40")}>
+      <ButtonFX
+        tooltip={name}
+        isActive={isActive}
+        isLoading={isLoading}
+        icon={icon}
+        onClick={handleClick}
+      />
+      <div className={cn(isActive ? "opacity-100" : "opacity-30", "w-40")}>
         <Slider
           value={[volume * 100]}
           onValueChange={handleVolumeChange}
