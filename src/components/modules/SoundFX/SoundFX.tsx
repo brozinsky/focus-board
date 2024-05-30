@@ -51,7 +51,11 @@ const SoundFX = () => {
   }, [openCount, setIsSoundFXFirstOpen]);
 
   return (
-    <Window title={"Sound FX"} isOpen={isSoundFXOpen}>
+    <Window
+      title={"Sound FX"}
+      isOpen={isSoundFXOpen}
+      closeWindow={() => setIsSoundFXOpen(false)}
+    >
       <div className="flex flex-col gap-2 pr-6">
         <FxItem
           icon={<RainSVG width={30} />}

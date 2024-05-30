@@ -1,5 +1,5 @@
 .window {
-    @apply w-fit h-fit rounded-b-xl rounded-t-none cursor-auto;
+    @apply rounded-b-xl rounded-t-none cursor-auto;
     @extend  %glass-dark;
     transition: all 0.15s ease;
     border: 1px solid transparent;

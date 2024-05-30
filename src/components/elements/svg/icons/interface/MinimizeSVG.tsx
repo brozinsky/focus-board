@@ -1,9 +1,9 @@
 import { TSVG } from "@/types/ui-types";
 
-export default function CloseIconSVG({
+export default function MinimizeSVG({
   className,
   width = "24",
-  pathClass = "stroke-foreground",
+  pathClass = "stroke-neutral-100",
 }: TSVG) {
   return (
     <svg
@@ -19,7 +19,7 @@ export default function CloseIconSVG({
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={1.5}
-        d="M6 18 18 6M18 18 6 6"
+        d="M6 12h12"
       />
     </svg>
   );
