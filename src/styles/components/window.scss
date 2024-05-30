@@ -1,0 +1,21 @@
+.window {
+    @apply w-fit h-fit rounded-b-xl rounded-t-none cursor-auto;
+    @extend  %glass-dark;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+    box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.7);
+    &:hover {
+        box-shadow: 5px 12px 12px rgba(0, 0, 0, 0.7);
+    }
+    &__drag-bar {
+        @apply absolute -top-3 -left-[1px] right-0 rounded-t-lg rounded-b-sm;
+        height: 1.5rem;
+        width: 101%;
+        @extend %glass-dark-solid;
+        cursor: grab;
+        transition: 0.15s ease all;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    }
+}
