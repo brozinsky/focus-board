@@ -8,6 +8,8 @@ import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
 import PauseIconSVG from "@/components/elements/svg/icons/media/PauseIconSVG";
 import MixerIconSVG from "@/components/elements/svg/icons/interface/MixerIconSVG";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import MaximizeSVG from "@/components/elements/svg/icons/interface/MaximizeSVG";
+import { goFullscreen } from "@/utils/functions/fn-common";
 
 interface IPanelProps {
   handleRewind: () => void;
@@ -34,7 +36,10 @@ const Panel: React.FC<IPanelProps> = ({
         <Button variant="glass-ghost" onClick={() => setIsPlaylistOpen(true)}>
           Playlist
         </Button>
-        <Button variant="glass-ghost" onClick={() => setIsSoundFXOpen(!isSoundFXOpen)}>
+        <Button
+          variant="glass-ghost"
+          onClick={() => setIsSoundFXOpen(!isSoundFXOpen)}
+        >
           <MixerIconSVG />
         </Button>
         <Button variant="glass" onClick={handleRewind}>
@@ -58,6 +63,9 @@ const Panel: React.FC<IPanelProps> = ({
             onValueChange={handleSliderChange}
           />
         </div>
+        <Button variant="glass-ghost" onClick={goFullscreen}>
+          <MaximizeSVG />
+        </Button>
       </div>
     </>
   );
