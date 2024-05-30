@@ -13,6 +13,12 @@
   border: none;
   box-shadow: none;
 }
+.hover-glass-dark {
+  @apply transition;
+  &:hover {
+    @extend %glass-dark;
+  }
+}
 %glass-dark-solid {
   @extend %glass-dark;
   background-color: rgba(0, 0, 0, 0.7);

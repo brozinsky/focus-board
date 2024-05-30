@@ -5,6 +5,7 @@ import Playlist from "@/components/modules/Playlist/Playlist";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import SoundFX from "@/components/modules/SoundFX/SoundFX";
+import Clock from "@/components/modules/Clock/Clock";
 
 declare namespace YT {
   enum PlayerState {
@@ -131,6 +132,7 @@ const Home = () => {
 
   return (
     <div className="App" unselectable="on">
+      <Clock />
       <div unselectable="on">
         {videoId && (
           <YouTube
