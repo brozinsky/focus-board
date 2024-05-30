@@ -8,6 +8,7 @@ interface IProps {
   max?: number;
   step?: number;
   color?: string;
+  disabled?: boolean;
 }
 
 const Slider = ({
@@ -16,7 +17,8 @@ const Slider = ({
   min = 0,
   max = 100,
   step = 1,
-  color = "default"
+  color = "default",
+  disabled
 }: IProps) => {
   return (
     <div className="flex flex-row gap-2 items-center text-white w-full">
@@ -28,6 +30,7 @@ const Slider = ({
         max={max}
         min={min}
         step={step}
+        disabled={disabled}
       >
         <RxSlider.Track className="bg-foreground relative grow rounded-full h-[4px]">
           <RxSlider.Range

@@ -92,7 +92,7 @@ const Playlist = () => {
                       src={img.url}
                       height={img.height}
                       width={img.width}
-                      alt={title}
+                       alt={title}
                     />
                   </div>
 

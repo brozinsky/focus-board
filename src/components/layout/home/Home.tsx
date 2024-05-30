@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
 import Panel from "@/components/modules/Player/Panel";
 import Playlist from "@/components/modules/Playlist/Playlist";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
+import SoundFX from "@/components/modules/SoundFX/SoundFX";
 
 declare namespace YT {
   enum PlayerState {
@@ -45,8 +46,15 @@ type TPlayer = YT.Player | null;
 
 const Home = () => {
   const playerRef = useRef<TPlayer>(null);
-  const { setCurrentTime, setDuration, setIsPlaying, setVolume, volume, videoId, setVideoId } =
-    usePlayerStore();
+  const {
+    setCurrentTime,
+    setDuration,
+    setIsPlaying,
+    setVolume,
+    volume,
+    videoId,
+    setVideoId,
+  } = usePlayerStore();
   const playlistQuery = usePlaylistQuery();
 
   useEffect(() => {
@@ -101,19 +109,25 @@ const Home = () => {
     }
   }, []);
 
-  const handleSliderChange = useCallback((newValue: number[]) => {
-    const player = playerRef.current;
-    if (player && newValue.length > 0) {
-      player.seekTo(newValue[0], true);
-      setCurrentTime(newValue[0]);
-    }
-  }, [setCurrentTime]);
+  const handleSliderChange = useCallback(
+    (newValue: number[]) => {
+      const player = playerRef.current;
+      if (player && newValue.length > 0) {
+        player.seekTo(newValue[0], true);
+        setCurrentTime(newValue[0]);
+      }
+    },
+    [setCurrentTime]
+  );
 
-  const handleVolumeChange = useCallback((newValue: number[]) => {
-    if (newValue.length > 0) {
-      setVolume(newValue[0]);
-    }
-  }, [setVolume]);
+  const handleVolumeChange = useCallback(
+    (newValue: number[]) => {
+      if (newValue.length > 0) {
+        setVolume(newValue[0]);
+      }
+    },
+    [setVolume]
+  );
 
   return (
     <div className="App" unselectable="on">
@@ -137,6 +151,7 @@ const Home = () => {
           handleSliderChange={handleSliderChange}
           handleVolumeChange={handleVolumeChange}
         />
+        <SoundFX />
         <Playlist />
       </div>
     </div>
