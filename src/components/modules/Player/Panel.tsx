@@ -10,6 +10,7 @@ import MixerIconSVG from "@/components/elements/svg/icons/interface/MixerIconSVG
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import MaximizeSVG from "@/components/elements/svg/icons/interface/MaximizeSVG";
 import { goFullscreen } from "@/utils/functions/fn-common";
+import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
 
 interface IPanelProps {
   handleRewind: () => void;
@@ -34,7 +35,7 @@ const Panel: React.FC<IPanelProps> = ({
     <>
       <div id="Panel" className="panel">
         <Button variant="glass-ghost" onClick={() => setIsPlaylistOpen(true)}>
-          Playlist
+          <PlaylistSVG />
         </Button>
         <Button
           variant="glass-ghost"

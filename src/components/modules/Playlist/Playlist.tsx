@@ -4,6 +4,8 @@ import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
+import { Separator } from "@/components/ui/Separator/Separator";
 
 type TSnippet = {
   videoOwnerChannelTitle: string;
@@ -42,15 +44,15 @@ const Playlist = () => {
     }
   }, [playlistQuery.isLoading, playlistQuery.data]);
 
-//   useEffect(() => {
-//     const body = document.querySelector("body");
+  //   useEffect(() => {
+  //     const body = document.querySelector("body");
 
-//     if (isPlaylistOpen) {
-//       body!.style.overflowY = "hidden";
-//     } else {
-//       body!.style.overflowY = "scroll";
-//     }
-//   }, [isPlaylistOpen]);
+  //     if (isPlaylistOpen) {
+  //       body!.style.overflowY = "hidden";
+  //     } else {
+  //       body!.style.overflowY = "scroll";
+  //     }
+  //   }, [isPlaylistOpen]);
 
   if (!isPlaylistOpen) return;
 
@@ -71,36 +73,41 @@ const Playlist = () => {
         onClick={(e) => e.stopPropagation()}
         className={"modal__card"}
       >
-        <div
-          className={"p-8 gap-8 grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1"}
-        >
-          {playlistItems &&
-            playlistItems.map(({ snippet }: any) => {
-              const channelTitle = snippet.videoOwnerChannelTitle;
-              const title = snippet.title;
-              const img = snippet.thumbnails.high;
-              const videoId = snippet.resourceId.videoId;
-              return (
-                <div
-                  className="cursor-pointer"
-                  onClick={() => handleClick(videoId)}
-                  key={title}
-                >
-                  <div className="modal__image-wrap">
-                    <img
-                      className="aspect-video object-cover modal__image"
-                      src={img.url}
-                      height={img.height}
-                      width={img.width}
-                       alt={title}
-                    />
+        <div className={"p-8 gap-6 flex flex-col"}>
+          <h2 className="flex flex-row items-center text-xl gap-4 tracking-wide">
+            <PlaylistSVG /> Media playlist
+          </h2>
+          {/* <Separator className="bg-white/30" /> */}
+          <div
+            className={"gap-8 grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1"}
+          >
+            {playlistItems &&
+              playlistItems.map(({ snippet }: any) => {
+                const channelTitle = snippet.videoOwnerChannelTitle;
+                const title = snippet.title;
+                const img = snippet.thumbnails.high;
+                const videoId = snippet.resourceId.videoId;
+                return (
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => handleClick(videoId)}
+                    key={title}
+                  >
+                    <div className="modal__image-wrap">
+                      <img
+                        className="aspect-video object-cover modal__image"
+                        src={img.url}
+                        height={img.height}
+                        width={img.width}
+                        alt={title}
+                      />
+                    </div>
+                    <div className="text-xl tracking-wide">{title}</div>
+                    <div className="text-lg tracking-wide">{channelTitle}</div>
                   </div>
-
-                  <div>{title}</div>
-                  <div>{channelTitle}</div>
-                </div>
-              );
-            })}
+                );
+              })}
+          </div>
         </div>
       </motion.div>
     </div>
