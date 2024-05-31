@@ -1,3 +1,4 @@
+import PauseIconSVG from "@/components/elements/svg/icons/media/PauseIconSVG";
 import { cn } from "@/lib/utils";
 
 interface IProps {
@@ -56,7 +57,7 @@ export default function GaugeCircle({
             strokeDashoffset="0"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className=" opacity-100"
+            className=" opacity-50"
             style={
               {
                 stroke: gaugeSecondaryColor,
@@ -101,9 +102,14 @@ export default function GaugeCircle({
       </svg>
       <span
         data-current-value={currentPercent}
-        className="w-[205px] flex items-center justify-center text-7xl font-light tracking-widest duration-[var(--transition-length)] delay-[var(--delay)] absolute inset-0 m-auto h-fit w-fit ease-linear animate-in fade-in"
+        className="group overflow-hidden w-[300px] flex items-center justify-center text-7xl font-light tracking-widest duration-[var(--transition-length)] delay-[var(--delay)] absolute inset-0 m-auto h-fit ease-linear animate-in fade-in"
       >
-        {displayValue}
+        <span className="translate-y-0 transition group-hover:-translate-y-[150%]">
+          {displayValue}
+        </span>
+        <span className="cursor-pointer absolute translate-y-[150%] transition group-hover:translate-y-0">
+          <PauseIconSVG width="50" height="50" />
+        </span>
       </span>
     </div>
   );
