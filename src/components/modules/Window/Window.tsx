@@ -21,7 +21,7 @@ const Window = ({ children, title, isOpen, closeWindow }: IProps) => {
     <div
       className={cn(
         !isMinimized && "pl-6 pt-8 pb-4 pr-2 ",
-        "absolute top-1/2 right-1/3 window w-[280px]"
+        "absolute top-1/2 right-1/3 window w-[280px] z-30"
       )}
     >
       <div className="window__drag-bar pt-1 px-3 text-xs flex justify-between">
