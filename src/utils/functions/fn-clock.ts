@@ -8,6 +8,14 @@ export const formatTime = (
   );
 };
 
+export const formatDuration = (time: number) => {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  return `${minutes.toString().padStart(2, "0")}:${seconds
+    .toString()
+    .padStart(2, "0")}`;
+};
+
 export const getFormattedTime = (date: Date, hours24: boolean): string => {
   if (!hours24) {
     if (date.getHours() < 12) {
