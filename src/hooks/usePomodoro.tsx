@@ -1,23 +1,28 @@
+import { useEffect, useRef, useState } from "react";
 import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
-import { useEffect, useRef } from "react";
+
+const TOTAL_SESSIONS = 4;
 
 const usePomodoro = () => {
   const {
     workTimeMin,
+    setWorkTimeMin,
     breakTimeMin,
+    setBreakTimeMin,
     longBreakTimeMin,
-    timeLeft,
-    isRunning,
-    isWorkSession,
+    setLongBreakTimeMin,
     currentSession,
-    setTimeLeft,
-    setProgress,
-    setIsRunning,
-    setIsWorkSession,
     setCurrentSession,
+    isWorkSession,
+    setIsWorkSession,
   } = usePomodoroStore();
 
-  const timerRef = useRef<any>(null);
+  const [progress, setProgress] = useState<number>(100);
+  const [timeLeft, setTimeLeft] = useState<number>(workTimeMin * 60);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [timeOption, setTimeOption] = useState<string>("25/5");
+
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleStart = () => {
     setIsRunning(true);
@@ -37,63 +42,80 @@ const usePomodoro = () => {
     }
     if (isWorkSession) {
       setTimeLeft(workTimeMin * 60);
-    } else if (currentSession === 4) {
+      setProgress(100);
+    } else if (currentSession === TOTAL_SESSIONS) {
       setTimeLeft(longBreakTimeMin * 60);
+      setProgress(100);
     } else {
       setTimeLeft(breakTimeMin * 60);
+      setProgress(100);
     }
-    setProgress(100);
   };
 
   const handleNext = () => {
     setIsRunning(false);
-    if (isWorkSession && currentSession < 4) {
+    if (isWorkSession && currentSession < TOTAL_SESSIONS) {
       setIsWorkSession(false);
       setTimeLeft(breakTimeMin * 60);
-    } else if (!isWorkSession && currentSession < 4) {
+      setProgress(100);
+    } else if (!isWorkSession && currentSession < TOTAL_SESSIONS) {
       setIsWorkSession(true);
       setCurrentSession(currentSession + 1);
       setTimeLeft(workTimeMin * 60);
-    } else if (isWorkSession && currentSession === 4) {
+      setProgress(100);
+    } else if (isWorkSession && currentSession === TOTAL_SESSIONS) {
       setIsWorkSession(false);
       setTimeLeft(longBreakTimeMin * 60);
-    } else if (!isWorkSession && currentSession === 4) {
+      setProgress(100);
+    } else if (!isWorkSession && currentSession === TOTAL_SESSIONS) {
       setIsWorkSession(true);
       setCurrentSession(1);
       setTimeLeft(workTimeMin * 60);
+      setProgress(100);
     }
-    setProgress(100);
+  };
+
+  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+    setTimeOption(value);
+
+    if (value === "25/5") {
+      setWorkTimeMin(25);
+      setBreakTimeMin(5);
+      setLongBreakTimeMin(10);
+    } else if (value === "30/5") {
+      setWorkTimeMin(30);
+      setBreakTimeMin(10);
+      setLongBreakTimeMin(20);
+    } else if (value === "50/10") {
+      setWorkTimeMin(50);
+      setBreakTimeMin(10);
+      setLongBreakTimeMin(20);
+    } else if (value === "custom") {
+    }
+
+    handleRestart();
   };
 
   const handleAdd10Minutes = () => {
-    //@ts-ignore
-    setTimeLeft((prevTimeLeft: number) => prevTimeLeft + 600);
-    setProgress(
-      //@ts-ignore
-      (prevProgress: number) => (prevProgress * (timeLeft + 600)) / timeLeft
-    );
+    setTimeLeft(timeLeft + 600);
   };
 
   useEffect(() => {
     if (isRunning) {
       timerRef.current = setInterval(() => {
-        //@ts-ignore
-        setTimeLeft((prevTimeLeft: number) => prevTimeLeft - 1);
+        setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
         if (isWorkSession) {
           setProgress(
-            //@ts-ignore
-            (prevProgress: number) => prevProgress - 100 / (workTimeMin * 60)
+            (prevProgress) => prevProgress - 100 / (workTimeMin * 60)
           );
-        } else if (currentSession === 4) {
+        } else if (currentSession === TOTAL_SESSIONS) {
           setProgress(
-            //@ts-ignore
-            (prevProgress: number) =>
-              prevProgress - 100 / (longBreakTimeMin * 60)
+            (prevProgress) => prevProgress - 100 / (longBreakTimeMin * 60)
           );
         } else {
           setProgress(
-            //@ts-ignore
-            (prevProgress: number) => prevProgress - 100 / (breakTimeMin * 60)
+            (prevProgress) => prevProgress - 100 / (breakTimeMin * 60)
           );
         }
       }, 1000);
@@ -111,8 +133,6 @@ const usePomodoro = () => {
     workTimeMin,
     breakTimeMin,
     longBreakTimeMin,
-    setTimeLeft,
-    setProgress,
   ]);
 
   useEffect(() => {
@@ -125,7 +145,7 @@ const usePomodoro = () => {
       }
       handleNext();
     }
-  }, [timeLeft, setIsRunning, setTimeLeft, setProgress, handleNext]);
+  }, [timeLeft]);
 
   return {
     handleStart,
@@ -133,6 +153,11 @@ const usePomodoro = () => {
     handleRestart,
     handleNext,
     handleAdd10Minutes,
+    handleOptionChange,
+    progress,
+    timeOption,
+    timeLeft,
+    isRunning,
   };
 };
 
