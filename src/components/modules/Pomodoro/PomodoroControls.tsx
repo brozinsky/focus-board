@@ -1,3 +1,10 @@
+import AddTenSVG from "@/components/elements/svg/icons/media/AddTenSVG";
+import NextTrackSVG from "@/components/elements/svg/icons/media/NextTrackSVG";
+import PauseIconSVG from "@/components/elements/svg/icons/media/PauseIconSVG";
+import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
+import RefreshSVG from "@/components/elements/svg/icons/media/RefreshSVG";
+import Button from "@/components/ui/buttons/Button";
+
 interface IProps {
   isRunning: boolean;
   handleRestart: () => void;
@@ -17,39 +24,24 @@ const PomodoroControls = ({
 }: IProps) => {
   return (
     <div className="mt-4 flex gap-4">
-      <button
-        onClick={handleRestart}
-        className="px-4 py-2 bg-blue-500 text-white rounded"
-      >
-        Restart
-      </button>
+      <Button variant="glass" onClick={handleRestart}>
+        <RefreshSVG />
+      </Button>
       {!isRunning ? (
-        <button
-          onClick={handleStart}
-          className="px-4 py-2 bg-green-500 text-white rounded"
-        >
-          Start
-        </button>
+        <Button variant="glass" onClick={handleStart}>
+          <PlayIconSVG />
+        </Button>
       ) : (
-        <button
-          onClick={handlePause}
-          className="px-4 py-2 bg-red-500 text-white rounded"
-        >
-          Pause
-        </button>
+        <Button variant="glass" onClick={handlePause}>
+          <PauseIconSVG />
+        </Button>
       )}
-      <button
-        onClick={handleNext}
-        className="px-4 py-2 bg-blue-500 text-white rounded"
-      >
-        Next
-      </button>
-      <button
-        onClick={handleAdd10Minutes}
-        className="px-4 py-2 bg-yellow-500 text-white rounded"
-      >
-        +10
-      </button>
+      <Button variant="glass" onClick={handleNext}>
+        <NextTrackSVG />
+      </Button>
+      <Button variant="glass" onClick={handleAdd10Minutes}>
+        +10m
+      </Button>
     </div>
   );
 };
