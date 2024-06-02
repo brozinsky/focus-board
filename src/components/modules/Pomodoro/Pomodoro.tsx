@@ -74,43 +74,23 @@ const Pomodoro = () => {
       setWorkTimeMin(25);
       setBreakTimeMin(5);
       setLongBreakTimeMin(10);
-      if (isWorkSession) {
-        setTimeLeft(25 * 60);
-      } else {
-        setTimeLeft(5 * 60);
-      }
     } else if (value === "30/5") {
       setWorkTimeMin(30);
-      setBreakTimeMin(5);
+      setBreakTimeMin(10);
       setLongBreakTimeMin(20);
-      if (isWorkSession) {
-        setTimeLeft(30 * 60);
-      } else {
-        setTimeLeft(5 * 60);
-      }
-    } else if (value === "50/10") {
+    }else if (value === "50/10") {
       setWorkTimeMin(50);
       setBreakTimeMin(10);
       setLongBreakTimeMin(20);
-      if (isWorkSession) {
-        setTimeLeft(50 * 60);
-      } else {
-        setTimeLeft(10 * 60);
-      }
     } else if (value === "custom") {
       // Leave the custom values as they are
     }
 
-    setProgress(100);
-    setIsRunning(false);
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
+    handleRestart();
   };
 
   const handleAdd10Minutes = () => {
     setTimeLeft(timeLeft + 600);
-    setProgress((prevProgress) => (prevProgress * (timeLeft + 600)) / timeLeft);
   };
 
   useEffect(() => {
