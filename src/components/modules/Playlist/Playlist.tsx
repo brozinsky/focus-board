@@ -6,6 +6,7 @@ import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
 import { Separator } from "@/components/ui/Separator/Separator";
+import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
 
 type TSnippet = {
   videoOwnerChannelTitle: string;
@@ -94,13 +95,23 @@ const Playlist = () => {
                     key={title}
                   >
                     <div className="modal__image-wrap">
-                      <img
-                        className="aspect-video object-cover modal__image"
-                        src={img.url}
-                        height={img.height}
-                        width={img.width}
-                        alt={title}
-                      />
+                      {img ? (
+                        <img
+                          className="aspect-video object-cover modal__image"
+                          src={img.url}
+                          loading={"lazy"}
+                          height={img.height}
+                          width={img.width}
+                          alt={title}
+                        />
+                      ) : (
+                        <div className="aspect-video bg-white/50 flex items-center justify-center">
+                          <PictureSVG
+                            pathClass="stroke-neutral-500"
+                            width={60}
+                          />
+                        </div>
+                      )}
                     </div>
                     <div className="text-xl tracking-wide">{title}</div>
                     <div className="text-lg tracking-wide">{channelTitle}</div>

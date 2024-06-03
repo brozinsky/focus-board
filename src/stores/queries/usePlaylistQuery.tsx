@@ -11,6 +11,7 @@ const fetchPlaylistItems = async () => {
       key: import.meta.env.VITE_YT_API_KEY,
       playlistId: import.meta.env.VITE_YT_PLAYLIST_ID_ALL,
       part: "snippet",
+      maxResults: 50
     },
   });
   return response.data;
