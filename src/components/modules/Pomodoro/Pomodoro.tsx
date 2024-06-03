@@ -4,11 +4,15 @@ import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import { formatDuration } from "@/utils/functions/fn-clock";
 import PomodoroControls from "./PomodoroControls";
 import PomodoroSessions from "./PomodoroSessions";
+import { useEffect, useRef } from "react";
 // import PomodoroTimeOptions from "./PomodoroTimeOptions";
+import bellRingMP3 from "@/assets/audio/one-shots/bell-ring.mp3";
 
 const TOTAL_SESSIONS = 4;
 
 const Pomodoro = () => {
+  const soundRef = useRef<Howl | null>(null);
+
   const {
     handleStart,
     handlePause,
@@ -23,6 +27,18 @@ const Pomodoro = () => {
   } = usePomodoro();
 
   const { currentSession, isWorkSession } = usePomodoroStore();
+
+  useEffect(() => {
+    soundRef.current = new Howl({
+      src: [bellRingMP3],
+    });
+  }, []);
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      soundRef.current?.play();
+    }
+  }, [timeLeft]);
 
   return (
     <div className="glass-blur absolute translate-x-1/2 -translate-y-1/2 right-1/2 top-1/2 text-neutral-100 z-20">

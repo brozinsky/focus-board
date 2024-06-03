@@ -53,26 +53,23 @@ const usePomodoro = () => {
   };
 
   const handleNext = () => {
-    setIsRunning(false);
     if (isWorkSession && currentSession < TOTAL_SESSIONS) {
       setIsWorkSession(false);
       setTimeLeft(breakTimeMin * 60);
-      setProgress(100);
     } else if (!isWorkSession && currentSession < TOTAL_SESSIONS) {
       setIsWorkSession(true);
       setCurrentSession(currentSession + 1);
       setTimeLeft(workTimeMin * 60);
-      setProgress(100);
     } else if (isWorkSession && currentSession === TOTAL_SESSIONS) {
       setIsWorkSession(false);
       setTimeLeft(longBreakTimeMin * 60);
-      setProgress(100);
     } else if (!isWorkSession && currentSession === TOTAL_SESSIONS) {
       setIsWorkSession(true);
       setCurrentSession(1);
       setTimeLeft(workTimeMin * 60);
-      setProgress(100);
     }
+    setProgress(100);
+    setIsRunning(true);
   };
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
