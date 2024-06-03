@@ -1,0 +1,13 @@
+.tea {
+  .steamL {
+    stroke-dasharray: 13;
+    stroke-dashoffset: 13;
+    animation: steamLarge 5s infinite;
+  }
+
+  .steamR {
+    stroke-dasharray: 9;
+    stroke-dashoffset: 9;
+    animation: steamSmall 5s infinite;
+  }
+}

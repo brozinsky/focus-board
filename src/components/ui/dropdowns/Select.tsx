@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { TInputOption, TSetState, TState } from "@/utils/types";
 import { Listbox, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import { Fragment, useState } from "react";

@@ -4,7 +4,7 @@ import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import { formatDuration } from "@/utils/functions/fn-clock";
 import PomodoroControls from "./PomodoroControls";
 import PomodoroSessions from "./PomodoroSessions";
-import PomodoroTimeOptions from "./PomodoroTimeOptions";
+// import PomodoroTimeOptions from "./PomodoroTimeOptions";
 
 const TOTAL_SESSIONS = 4;
 
@@ -15,9 +15,9 @@ const Pomodoro = () => {
     handleRestart,
     handleNext,
     handleAdd10Minutes,
-    handleOptionChange,
+    // handleOptionChange,
     progress,
-    timeOption,
+    // timeOption,
     timeLeft,
     isRunning,
   } = usePomodoro();
@@ -35,6 +35,18 @@ const Pomodoro = () => {
           gaugeSecondaryColor="var(--color-neutral-200)"
           className="h-80 w-80 glass-blur glass-bg-dark rounded-full"
           displayValue={formatDuration(timeLeft)}
+          sessionName={
+            isWorkSession
+              ? "Focus"
+              : currentSession === TOTAL_SESSIONS
+              ? "Long Break"
+              : "Break"
+          }
+          {...{
+            handleStart,
+            handlePause,
+            isRunning,
+          }}
         />
         <PomodoroControls
           {...{
@@ -53,12 +65,13 @@ const Pomodoro = () => {
             totalSessions: TOTAL_SESSIONS,
           }}
         />
-        <PomodoroTimeOptions
+        {/* TODO - handle settings */}
+        {/* <PomodoroTimeOptions
           {...{
             timeOption,
             handleOptionChange,
           }}
-        />
+        /> */}
       </div>
     </div>
   );

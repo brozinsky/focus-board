@@ -6,3 +6,29 @@
     transform: translateX(0);
   }
 }
+
+@keyframes steamLarge {
+  0% {
+    stroke-dashoffset: 13;
+    opacity: 0.6;
+  }
+  100% {
+    stroke-dashoffset: 39;
+    opacity: 0;
+  }
+}
+
+@keyframes steamSmall {
+  10% {
+    stroke-dashoffset: 9;
+    opacity: 0.8;
+  }
+  80% {
+    stroke-dashoffset: 18;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 18;
+    opacity: 0;
+  }
+}
