@@ -7,6 +7,8 @@ import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import SoundFX from "@/components/modules/SoundFX/SoundFX";
 import Clock from "@/components/modules/Clock/Clock";
 import Pomodoro from "@/components/modules/Pomodoro/Pomodoro";
+import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
+import { cn } from "@/lib/utils";
 
 declare namespace YT {
   enum PlayerState {
@@ -58,6 +60,8 @@ const Home = () => {
     setVideoId,
   } = usePlayerStore();
   const playlistQuery = usePlaylistQuery();
+
+  const { isPomodoroOpen } = usePomodoroStore();
 
   useEffect(() => {
     if (!playlistQuery.isLoading && playlistQuery.data) {
@@ -134,8 +138,11 @@ const Home = () => {
   return (
     <div className="App" unselectable="on">
       <Clock />
-      <Pomodoro />
-      <div className="bg-overlay-focus" unselectable="on">
+      {isPomodoroOpen && <Pomodoro />}
+      <div
+        className={cn(isPomodoroOpen && "bg-overlay-focus")}
+        unselectable="on"
+      >
         {videoId && (
           <YouTube
             videoId={videoId}

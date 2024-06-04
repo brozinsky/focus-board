@@ -11,6 +11,8 @@ import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import MaximizeSVG from "@/components/elements/svg/icons/interface/MaximizeSVG";
 import { goFullscreen } from "@/utils/functions/fn-common";
 import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
+import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
+import TimerPlusSVG from "@/components/elements/svg/icons/interface/TimerPlusSVG";
 
 interface IPanelProps {
   handleRewind: () => void;
@@ -29,6 +31,7 @@ const Panel: React.FC<IPanelProps> = ({
 }) => {
   const { isPlaying, currentTime, duration, volume } = usePlayerStore();
   const { setIsPlaylistOpen } = usePlaylistStore();
+  const { isPomodoroOpen, setIsPomodoroOpen } = usePomodoroStore();
   const { setIsSoundFXOpen, isSoundFXOpen } = useWindowsStore();
 
   return (
@@ -36,6 +39,12 @@ const Panel: React.FC<IPanelProps> = ({
       <div id="Panel" className="panel">
         <Button variant="glass-ghost" onClick={() => setIsPlaylistOpen(true)}>
           <PlaylistSVG />
+        </Button>
+        <Button
+          variant="glass-ghost"
+          onClick={() => setIsPomodoroOpen(!isPomodoroOpen)}
+        >
+          <TimerPlusSVG />
         </Button>
         <Button
           variant="glass-ghost"

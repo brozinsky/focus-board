@@ -16,7 +16,7 @@ const usePomodoro = () => {
     isWorkSession,
     setIsWorkSession,
     timeOption,
-    setTimeOption
+    setTimeOption,
   } = usePomodoroStore();
 
   const [progress, setProgress] = useState<number>(100);
@@ -52,6 +52,10 @@ const usePomodoro = () => {
       setProgress(100);
     }
   };
+
+  useEffect(() => {
+    handleRestart();
+  }, [workTimeMin, breakTimeMin, longBreakTimeMin]);
 
   const handleNext = () => {
     if (isWorkSession && currentSession < TOTAL_SESSIONS) {
