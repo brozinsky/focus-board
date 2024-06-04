@@ -1,3 +1,4 @@
+import { getFromLocalStorage, setToLocalStorage } from "@/utils/functions/fn-common";
 import { create } from "zustand";
 
 interface PlayerState {
@@ -14,12 +15,15 @@ interface PlayerState {
 }
 
 const usePlayerStore = create<PlayerState>((set) => ({
-  videoId: null,
+  videoId: getFromLocalStorage("videoId", null),
   volume: 50,
   duration: 0,
   currentTime: 0,
   isPlaying: false,
-  setVideoId: (videoId) => set({ videoId }),
+  setVideoId: (value) => {
+    setToLocalStorage("videoId", value);
+    set({ videoId: value });
+  },
   setVolume: (volume) => set({ volume }),
   setDuration: (duration) => set({ duration }),
   setCurrentTime: (currentTime) => set({ currentTime }),

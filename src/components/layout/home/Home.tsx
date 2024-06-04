@@ -64,7 +64,7 @@ const Home = () => {
   const { isPomodoroOpen } = usePomodoroStore();
 
   useEffect(() => {
-    if (!playlistQuery.isLoading && playlistQuery.data) {
+    if (!playlistQuery.isLoading && playlistQuery.data && videoId === null) {
       setVideoId(playlistQuery.data.items[0].snippet.resourceId.videoId);
     }
   }, [playlistQuery.isLoading, playlistQuery.data, setVideoId]);
