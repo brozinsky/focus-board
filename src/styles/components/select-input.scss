@@ -2,10 +2,10 @@
   @apply relative;
   z-index: auto;
   &__button {
-    @apply py-2 px-4 w-full text-left;
+    @apply py-2 px-4 w-full text-left capitalize;
   }
   &__option {
-    @apply py-2 px-3 relative cursor-default select-none;
+    @apply py-2 px-3 relative cursor-default select-none capitalize;
     &--active {
       @apply bg-emerald-500 text-emerald-900;
     }
@@ -38,6 +38,18 @@
       }
     }
   }
+  &--glass {
+    .select-input {
+      &__button {
+        @extend .glass;
+        transition: 0.25s ease all;
+      }
+      &__list {
+        @extend .glass;
+        @apply cursor-pointer;
+      }
+    }
+  }
   &--ghost {
     .select-input {
       &__button {
@@ -64,7 +76,7 @@
     .select-input {
       &__button {
         @apply py-1;
-        font-size: 1.5rem;
+        font-size: 1.125rem;
         line-height: 1.25;
       }
     }

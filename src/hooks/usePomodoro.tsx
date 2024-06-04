@@ -15,12 +15,13 @@ const usePomodoro = () => {
     setCurrentSession,
     isWorkSession,
     setIsWorkSession,
+    timeOption,
+    setTimeOption
   } = usePomodoroStore();
 
   const [progress, setProgress] = useState<number>(100);
   const [timeLeft, setTimeLeft] = useState<number>(workTimeMin * 60);
   const [isRunning, setIsRunning] = useState<boolean>(false);
-  const [timeOption, setTimeOption] = useState<string>("25/5");
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -72,27 +73,24 @@ const usePomodoro = () => {
     setIsRunning(true);
   };
 
-  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    setTimeOption(value);
-
-    if (value === "25/5") {
+  useEffect(() => {
+    if (timeOption === "25/5") {
       setWorkTimeMin(25);
       setBreakTimeMin(5);
       setLongBreakTimeMin(10);
-    } else if (value === "30/5") {
+    } else if (timeOption === "30/5") {
       setWorkTimeMin(30);
       setBreakTimeMin(10);
       setLongBreakTimeMin(20);
-    } else if (value === "50/10") {
+    } else if (timeOption === "50/10") {
       setWorkTimeMin(50);
       setBreakTimeMin(10);
       setLongBreakTimeMin(20);
-    } else if (value === "custom") {
+    } else if (timeOption === "custom") {
     }
 
     handleRestart();
-  };
+  }, [timeOption]);
 
   const handleAdd10Minutes = () => {
     setTimeLeft(timeLeft + 600);
@@ -150,7 +148,7 @@ const usePomodoro = () => {
     handleRestart,
     handleNext,
     handleAdd10Minutes,
-    handleOptionChange,
+    setTimeOption,
     progress,
     timeOption,
     timeLeft,

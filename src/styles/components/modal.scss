@@ -1,21 +1,15 @@
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  @apply flex justify-center top-0 left-0 right-0 fixed cursor-pointer;
   z-index: 100000000;
-
   height: 100vh;
   padding: 4.8rem 1.2rem;
   background: var(--bg-opaque);
   backdrop-filter: blur(12px);
-
   overflow-y: scroll;
 
-  display: flex;
-  justify-content: center;
-
-  cursor: pointer;
+  &--centered {
+  @apply items-center;
+  }
 
   &__image-wrap {
     @apply bg-transparent rounded-xl w-full;
@@ -45,6 +39,9 @@
     // background: var(--background-light);
     @extend  %glass-dark;
     // box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    &--overflow-visible {
+      @apply overflow-visible;
+    }
   }
   &__tech {
     @apply flex justify-center flex-wrap gap-4 text-xs text-primary-500;

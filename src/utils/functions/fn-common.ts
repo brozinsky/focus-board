@@ -9,3 +9,19 @@ export const goFullscreen = () => {
     document.exitFullscreen();
   }
 };
+
+export const getFromLocalStorage = (key: string, defaultValue: any) => {
+  if (typeof window !== "undefined") {
+    const storedValue = localStorage.getItem(key);
+    if (storedValue !== null) {
+      return JSON.parse(storedValue);
+    }
+  }
+  return defaultValue;
+};
+
+export const setToLocalStorage = (key: string, value: any) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+};

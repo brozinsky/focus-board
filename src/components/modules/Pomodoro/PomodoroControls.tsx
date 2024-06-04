@@ -1,4 +1,3 @@
-import AddTenSVG from "@/components/elements/svg/icons/media/AddTenSVG";
 import NextTrackSVG from "@/components/elements/svg/icons/media/NextTrackSVG";
 import PauseIconSVG from "@/components/elements/svg/icons/media/PauseIconSVG";
 import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";

@@ -1,13 +1,13 @@
 import { cn } from "@/lib/utils";
 import { Listbox, Transition } from "@headlessui/react";
 import clsx from "clsx";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 type TProps = {
   label?: string;
   options: any;
   defaultValue?: string;
-  variant?: "base" | "ghost" | "outlined";
+  variant?: "base" | "ghost" | "glass" | "outlined";
   state: any;
   setState: any;
   displayValue?: string;
@@ -43,7 +43,7 @@ export default function Select({
       onChange={setState}
     >
       {label && (
-        <Listbox.Label className={"select-input__label block"}>
+        <Listbox.Label className={" select-input__label block"}>
           {label}
         </Listbox.Label>
       )}
