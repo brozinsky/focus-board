@@ -77,6 +77,7 @@ const Home = () => {
 
   const onReady: YouTubeProps["onReady"] = (event) => {
     playerRef.current = event.target;
+    event.target.setVolume(volume);
     setDuration(event.target.getDuration());
     setInterval(() => {
       if (playerRef.current) {
@@ -150,6 +151,7 @@ const Home = () => {
             opts={{
               playerVars: {
                 enablejsapi: 1,
+                volume: 10
               },
             }}
             className="bg-video bg-overlay relative"
