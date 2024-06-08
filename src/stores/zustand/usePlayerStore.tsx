@@ -1,13 +1,17 @@
-import { getFromLocalStorage, setToLocalStorage } from "@/utils/functions/fn-common";
+import { ICurrentVideo } from "@/types/query-types";
+import {
+  getFromLocalStorage,
+  setToLocalStorage,
+} from "@/utils/functions/fn-common";
 import { create } from "zustand";
 
 interface PlayerState {
-  videoId: string | null;
+  currentVideo: ICurrentVideo | null;
   volume: number;
   duration: number;
   currentTime: number;
   isPlaying: boolean;
-  setVideoId: (id: string | null) => void;
+  setCurrentVideo: (currentVideo: ICurrentVideo | null) => void;
   setVolume: (volume: number) => void;
   setDuration: (duration: number) => void;
   setCurrentTime: (time: number) => void;
@@ -15,14 +19,14 @@ interface PlayerState {
 }
 
 const usePlayerStore = create<PlayerState>((set) => ({
-  videoId: getFromLocalStorage("videoId", null),
+  currentVideo: getFromLocalStorage("currentVideo", null),
   volume: getFromLocalStorage("volume", 50),
   duration: 0,
   currentTime: 0,
   isPlaying: false,
-  setVideoId: (value) => {
-    setToLocalStorage("videoId", value);
-    set({ videoId: value });
+  setCurrentVideo: (value) => {
+    setToLocalStorage("currentVideo", value);
+    set({ currentVideo: value });
   },
   setVolume: (value) => {
     setToLocalStorage("volume", value);

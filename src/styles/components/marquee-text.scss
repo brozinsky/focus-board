@@ -1,0 +1,28 @@
+.marquee-text {
+  position: relative;
+  height: 2rem;
+  width: 100%;
+  overflow: hidden;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+  span {
+    position: absolute;
+    display: block;
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee 20s linear infinite;
+    animation-delay: 0s;
+    animation-delay: 4s;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}

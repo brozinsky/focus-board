@@ -3,3 +3,14 @@
   width: 18px;
   height: 18px;
 }
+
+.button-close {
+  @apply absolute p-2 right-1 top-1 transition rounded-lg bg-transparent border-none cursor-pointer;
+
+  color: var(--text);
+  font-size: 1.5rem;
+
+  &:hover {
+    @apply bg-white/[0.12];
+  }
+}

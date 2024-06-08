@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
 import Panel from "@/components/modules/Player/Panel";
 import Playlist from "@/components/modules/Playlist/Playlist";
@@ -9,6 +9,7 @@ import Clock from "@/components/modules/Clock/Clock";
 import Pomodoro from "@/components/modules/Pomodoro/Pomodoro";
 import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import { cn } from "@/lib/utils";
+import NowPlaying from "@/components/ui/NowPlaying";
 
 declare namespace YT {
   enum PlayerState {
@@ -50,24 +51,43 @@ type TPlayer = YT.Player | null;
 
 const Home = () => {
   const playerRef = useRef<TPlayer>(null);
+  const [isLoading, setIsLoading] = useState(true); // Add state for loading
   const {
     setCurrentTime,
     setDuration,
     setIsPlaying,
     setVolume,
     volume,
-    videoId,
-    setVideoId,
+    currentVideo,
+    setCurrentVideo,
   } = usePlayerStore();
   const playlistQuery = usePlaylistQuery();
 
   const { isPomodoroOpen } = usePomodoroStore();
 
   useEffect(() => {
-    if (!playlistQuery.isLoading && playlistQuery.data && videoId === null) {
-      setVideoId(playlistQuery.data.items[0].snippet.resourceId.videoId);
+    console.log(currentVideo);
+  }, [currentVideo]);
+
+  useEffect(() => {
+    if (
+      !playlistQuery.isLoading &&
+      playlistQuery.data &&
+      currentVideo?.videoId === null
+    ) {
+      // setVideoId(playlistQuery.data.items[0].snippet.resourceId.videoId);
+      setCurrentVideo({
+        title: playlistQuery.data.items[0].snippet.title,
+        videoId: playlistQuery.data.items[0].snippet.resourceId.videoId,
+        imgHi: playlistQuery.data.items[0].snippet.thumbnails.high,
+        imgHd: playlistQuery.data.items[0].snippet.thumbnails.maxres,
+        videoOwnerChannelTitle:
+          playlistQuery.data.items[0].snippet.videoOwnerChannelTitle,
+        videoOwnerChannelId:
+          playlistQuery.data.items[0].snippet.videoOwnerChannelId,
+      });
     }
-  }, [playlistQuery.isLoading, playlistQuery.data, setVideoId]);
+  }, [playlistQuery.isLoading, playlistQuery.data, setCurrentVideo]);
 
   useEffect(() => {
     if (playerRef.current) {
@@ -79,6 +99,24 @@ const Home = () => {
     playerRef.current = event.target;
     event.target.setVolume(volume);
     setDuration(event.target.getDuration());
+
+    const checkAndPlay = () => {
+      const state = event.target.getPlayerState();
+
+      if (state === YT.PlayerState.PLAYING) {
+        setIsPlaying(true);
+        return;
+      }
+
+      if (state === YT.PlayerState.CUED || state === YT.PlayerState.UNSTARTED) {
+        event.target.playVideo();
+      }
+
+      setTimeout(checkAndPlay, 500);
+    };
+
+    checkAndPlay();
+
     setInterval(() => {
       if (playerRef.current) {
         setCurrentTime(playerRef.current.getCurrentTime());
@@ -88,14 +126,21 @@ const Home = () => {
 
   const handlePlayPause = useCallback(() => {
     const player = playerRef.current;
+
     if (player) {
       const state = player.getPlayerState();
-      if (state === YT.PlayerState.PLAYING) {
-        player.pauseVideo();
-        setIsPlaying(false);
-      } else {
-        player.playVideo();
-        setIsPlaying(true);
+      console.log("Player state:", state);
+      if (
+        state !== YT.PlayerState.UNSTARTED &&
+        state !== YT.PlayerState.BUFFERING
+      ) {
+        if (state === YT.PlayerState.PLAYING) {
+          player.pauseVideo();
+          setIsPlaying(false);
+        } else {
+          player.playVideo();
+          setIsPlaying(true);
+        }
       }
     }
   }, [setIsPlaying]);
@@ -144,14 +189,19 @@ const Home = () => {
         className={cn(isPomodoroOpen && "bg-overlay-focus")}
         unselectable="on"
       >
-        {videoId && (
+        {isLoading && (
+          <div className="absolute top-1/2 right-0 w-full flex items-center justify-center">
+            <div className="buffer">Buffering...</div>
+          </div>
+        )}
+        {currentVideo?.videoId && (
           <YouTube
-            videoId={videoId}
+            videoId={currentVideo.videoId}
             onReady={onReady}
             opts={{
               playerVars: {
                 enablejsapi: 1,
-                volume: 10
+                autoplay: 1,
               },
             }}
             className="bg-video bg-overlay relative"
@@ -166,6 +216,18 @@ const Home = () => {
         />
         <SoundFX />
         <Playlist />
+        <div className="bg-overlay-frame__wrap">
+          <div className="bg-overlay-frame">
+            {currentVideo?.title && <NowPlaying title={currentVideo?.title} />}
+          </div>
+
+          <div className="bg-overlay-frame__blur">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import Button from "@/components/ui/buttons/Button";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import React from "react";
+import React, { useState } from "react";
 import Volume from "@/components/modules/settings/_partials/Volume";
 import Slider from "@/components/ui/inputs/Slider";
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
@@ -13,6 +13,12 @@ import { goFullscreen } from "@/utils/functions/fn-common";
 import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
 import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import TimerPlusSVG from "@/components/elements/svg/icons/interface/TimerPlusSVG";
+import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
+import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsIconSVG";
+import VolumeLoIconSVG from "@/components/elements/svg/icons/media/VolumeLoIconSVG";
+import NextTrackSVG from "@/components/elements/svg/icons/media/NextTrackSVG";
+import PrevTrackSVG from "@/components/elements/svg/icons/media/PrevTrackSVG";
+import Dropdown from "@/components/ui/dropdowns/Dropdown";
 
 interface IPanelProps {
   handleRewind: () => void;
@@ -29,53 +35,109 @@ const Panel: React.FC<IPanelProps> = ({
   handleSliderChange,
   handleVolumeChange,
 }) => {
-  const { isPlaying, currentTime, duration, volume } = usePlayerStore();
+  const { isPlaying, currentTime, duration, volume, setVolume } =
+    usePlayerStore();
   const { setIsPlaylistOpen } = usePlaylistStore();
   const { isPomodoroOpen, setIsPomodoroOpen } = usePomodoroStore();
   const { setIsSoundFXOpen, isSoundFXOpen } = useWindowsStore();
 
+  const toggleMute = () => {
+    if (volume === 0) {
+      setVolume(prevVolume);
+    } else {
+      setVolume(0);
+    }
+  };
+
+  const getVolumeIcon = (volume: number) => {
+    if (volume >= 0.5) {
+      return "volume-hi";
+    } else if (volume > 0) {
+      return "volume-lo";
+    } else {
+      return "volume-mute";
+    }
+  };
+
   return (
     <>
       <div id="Panel" className="panel">
-        <Button variant="glass-ghost" onClick={() => setIsPlaylistOpen(true)}>
-          <PlaylistSVG />
-        </Button>
-        <Button
-          variant="glass-ghost"
-          onClick={() => setIsPomodoroOpen(!isPomodoroOpen)}
-        >
-          <TimerPlusSVG />
-        </Button>
-        <Button
-          variant="glass-ghost"
-          onClick={() => setIsSoundFXOpen(!isSoundFXOpen)}
-        >
-          <MixerIconSVG />
-        </Button>
-        <Button variant="glass" onClick={handleRewind}>
-          -10s
-        </Button>
-        <Button variant="glass" onClick={handlePlayPause}>
-          {isPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
-        </Button>
-        <Button variant="glass" onClick={handleForward}>
-          +10s
-        </Button>
-        <div className="w-[150px]">
-          <Volume volume={volume} handleVolumeChange={handleVolumeChange} />
-        </div>
-        <div className="absolute bottom-[52px] rounded-full overflow-hidden left-0 py-4 w-full flex justify-center z-20">
-          <Slider
-            value={[currentTime]}
-            min={0}
-            max={duration}
-            step={1}
-            onValueChange={handleSliderChange}
+        <div className="panel__group">
+          <ButtonIcon
+            onClick={() => setIsPlaylistOpen(true)}
+            icon={<PlaylistSVG />}
+            tooltip={"Playlist"}
+          />
+          <ButtonIcon
+            onClick={() => setIsPomodoroOpen(!isPomodoroOpen)}
+            icon={<TimerPlusSVG />}
+            tooltip={"Pomodoro"}
+          />
+          <ButtonIcon
+            onClick={() => setIsSoundFXOpen(!isSoundFXOpen)}
+            icon={<MixerIconSVG />}
+            tooltip={"Sound effects"}
           />
         </div>
-        <Button variant="glass-ghost" onClick={goFullscreen}>
-          <MaximizeSVG />
-        </Button>
+        <div className="panel__group">
+          {/* <Button variant="glass" onClick={handleRewind}>
+            -10s
+          </Button> */}
+          <ButtonIcon
+            onClick={handleForward}
+            icon={<PrevTrackSVG />}
+            tooltip={"Previous track"}
+          />
+          <Button variant="glass" onClick={handlePlayPause}>
+            {isPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
+          </Button>
+          <ButtonIcon
+            onClick={handleForward}
+            icon={<NextTrackSVG />}
+            tooltip={"Next track"}
+          />
+          {/* <div className="absolute bottom-[52px] rounded-full overflow-hidden left-0 py-4 w-full flex justify-center z-20">
+            <Slider
+              value={[currentTime]}
+              min={0}
+              max={duration}
+              step={1}
+              onValueChange={handleSliderChange}
+            />
+          </div> */}
+        </div>
+        <div className="panel__group">
+          <Dropdown
+            position="top"
+            trigger={
+              <ButtonIcon
+                icon={<VolumeLoIconSVG />}
+                tooltip={"Volume"}
+              />
+            }
+          >
+            <div className="flex flex-row gap-1 py-1 pl-1.5 pr-4">
+              <Button
+                label="Toggle mute"
+                onClick={toggleMute}
+                icon={getVolumeIcon(volume)}
+                size="sm"
+                variant="ghost"
+              />
+              <Volume volume={volume} handleVolumeChange={handleVolumeChange} />
+            </div>
+          </Dropdown>
+          <ButtonIcon
+            onClick={goFullscreen}
+            icon={<SettingsIconSVG />}
+            tooltip={"Settings"}
+          />
+          <ButtonIcon
+            onClick={goFullscreen}
+            icon={<MaximizeSVG />}
+            tooltip={"Fullscreen"}
+          />
+        </div>
       </div>
     </>
   );

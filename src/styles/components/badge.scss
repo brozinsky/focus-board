@@ -1,0 +1,44 @@
+$anim-duration: 4;
+$anim-speed: 2;
+
+:root {
+  --shine-degree: 120deg;
+  --shine-color: rgba(255, 255, 255, 0.2);
+  --shine-effect: linear-gradient(
+    var(--shine-degree),
+    transparent,
+    var(--shine-color),
+    transparent
+  );
+  --shine-transition: all #{$anim-speed}s ease-in-out;
+}
+
+.btn {
+  @apply relative overflow-hidden px-2 text-sm py-0.5 font-bold rounded-md w-fit;
+
+  @apply bg-red-700 border-transparent text-red-100;
+
+  &::before {
+    @apply absolute top-0 w-full h-full;
+    content: "";
+    background: var(--shine-effect);
+  }
+}
+
+.btn-anim {
+  &::before {
+    animation: shine #{$anim-duration}s ease-in-out infinite;
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+    transition-property: left;
+  }
+  #{($anim-speed / ($anim-duration + $anim-speed) * 100%)},
+  100% {
+    left: 100%;
+    transition-property: left;
+  }
+}

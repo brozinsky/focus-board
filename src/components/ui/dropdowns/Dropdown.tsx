@@ -6,9 +6,15 @@ type TProps = {
   children: ReactNode;
   trigger?: ReactNode;
   isCenter?: boolean;
-}
+  position?: "bottom" | "top";
+};
 
-export default function Dropdown({ children, trigger, isCenter = false }: TProps) {
+export default function Dropdown({
+  position = "bottom",
+  children,
+  trigger,
+  isCenter = false,
+}: TProps) {
   return (
     <div id="Dropdown" className="">
       <Menu as="div" className="relative inline-block text-left">
@@ -32,7 +38,9 @@ export default function Dropdown({ children, trigger, isCenter = false }: TProps
         >
           <Menu.Items
             className={clsx(
-              "z-50 absolute mt-3 w-56 origin-top-right divide-y divide-neutral-800 rounded-md bg-neutral-500",
+              position === "top" && "-top-16 left-1/2 -translate-x-1/2",
+              position === "bottom" && "",
+              "z-50 absolute mt-3 w-56 origin-top-right glass-neutral divide-y divide-neutral-800 rounded-md",
               isCenter ? "left-1/2 -translate-x-1/2" : "right-0"
             )}
           >

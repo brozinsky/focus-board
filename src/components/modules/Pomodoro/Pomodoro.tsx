@@ -10,6 +10,7 @@ import bellRingMP3 from "@/assets/audio/one-shots/bell-ring.mp3";
 import Button from "@/components/ui/buttons/Button";
 import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsIconSVG";
 import PomodoroSettings from "./PomodoroSettings";
+import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 
 const TOTAL_SESSIONS = 4;
 
@@ -27,10 +28,11 @@ const Pomodoro = () => {
     timeOption,
     timeLeft,
     isRunning,
-    setTimeOption
+    setTimeOption,
   } = usePomodoro();
 
-  const { currentSession, isWorkSession, isSoundNotification } = usePomodoroStore();
+  const { currentSession, isWorkSession, isSoundNotification } =
+    usePomodoroStore();
 
   useEffect(() => {
     soundRef.current = new Howl({
@@ -54,7 +56,10 @@ const Pomodoro = () => {
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
       />
-      <div className="glass-blur absolute translate-x-1/2 -translate-y-1/2 right-1/2 top-1/2 text-neutral-100 z-20">
+      <div className="border-[2px] border-white/30 rounded-lg glass-dark absolute translate-x-1/2 -translate-y-1/2 right-1/2 top-1/2 text-neutral-100 z-20">
+        <button className={"button-close"} onClick={() => setIsModalOpen(false)}>
+          <CloseIconSVG />
+        </button>
         <div className="flex flex-col items-center gap-1 cursor-default p-8">
           <div className="relative">
             <GaugeCircle

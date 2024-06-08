@@ -10,6 +10,11 @@
 %glass-blur {
   backdrop-filter: blur(4px);
 }
+.glass-neutral,
+%glass-blur {
+  @extend %glass-blur;
+  background-color: rgba(55, 54, 59, 0.6);
+}
 .glass-bg-dark,
 %glass-bg-dark {
   background-color: rgba(0, 0, 0, 0.2);

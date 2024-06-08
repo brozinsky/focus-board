@@ -13,13 +13,13 @@ const Clock: React.FC = () => {
   }, [setDate]);
 
   return (
-    <div className="absolute right-4 top-4 p-4 text-neutral-100 z-20">
-      <div className="flex flex-col gap-1 hover-glass-dark cursor-default p-4 rounded-lg">
+    <div className="absolute flex items-end right-[3%] h-[6rem] top-0 text-neutral-100 z-20">
+      <div className="flex flex-col gap-1 cursor-default rounded-lg py-2">
         <div
-          className="text-5xl font-light tracking-widest"
+          className="text-4xl font-light tracking-widest"
           dangerouslySetInnerHTML={{ __html: getFormattedTime(date, hours24) }}
         />
-        <p className="text-xs text-center tracking-widest">{getFormattedDate(date, MONTHS)}</p>
+        {/* <p className="text-xs text-center tracking-widest">{getFormattedDate(date, MONTHS)}</p> */}
       </div>
     </div>
   );
