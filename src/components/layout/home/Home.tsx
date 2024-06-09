@@ -10,6 +10,9 @@ import Pomodoro from "@/components/modules/Pomodoro/Pomodoro";
 import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import { cn } from "@/lib/utils";
 import NowPlaying from "@/components/ui/NowPlaying";
+import Overlay from "@/components/modules/Overlay/Overlay";
+import useSceneStore from "@/stores/zustand/useSceneStore";
+import clsx from "clsx";
 
 declare namespace YT {
   enum PlayerState {
@@ -51,7 +54,10 @@ type TPlayer = YT.Player | null;
 
 const Home = () => {
   const playerRef = useRef<TPlayer>(null);
-  const [isLoading, setIsLoading] = useState(true); // Add state for loading
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const { isBgBlur, isBgShadow, blurValue, shadowValue } = useSceneStore();
+
   const {
     setCurrentTime,
     setDuration,
@@ -66,8 +72,14 @@ const Home = () => {
   const { isPomodoroOpen } = usePomodoroStore();
 
   useEffect(() => {
-    console.log(currentVideo);
-  }, [currentVideo]);
+    if (rootRef.current) {
+      rootRef.current.style.setProperty("--bg-overlay-blur", `${blurValue}px`);
+      rootRef.current.style.setProperty(
+        "--bg-overlay-shadow-amount",
+        `${shadowValue}`
+      );
+    }
+  }, [blurValue, shadowValue, isBgBlur, isBgShadow]);
 
   useEffect(() => {
     if (
@@ -182,7 +194,7 @@ const Home = () => {
   );
 
   return (
-    <div className="App" unselectable="on">
+    <div className="App" unselectable="on" ref={rootRef}>
       <Clock />
       {isPomodoroOpen && <Pomodoro />}
       <div
@@ -204,7 +216,11 @@ const Home = () => {
                 autoplay: 1,
               },
             }}
-            className="bg-video bg-overlay relative"
+            className={clsx(
+              "bg-video bg-overlay relative",
+              isBgBlur && "bg-overlay--blur",
+              isBgShadow && "bg-overlay--shadow",
+            )}
           />
         )}
         <Panel
@@ -216,18 +232,7 @@ const Home = () => {
         />
         <SoundFX />
         <Playlist />
-        <div className="bg-overlay-frame__wrap">
-          <div className="bg-overlay-frame">
-            {currentVideo?.title && <NowPlaying title={currentVideo?.title} />}
-          </div>
-
-          <div className="bg-overlay-frame__blur">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
+        <Overlay />
       </div>
     </div>
   );

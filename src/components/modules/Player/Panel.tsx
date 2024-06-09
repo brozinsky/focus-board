@@ -19,6 +19,8 @@ import VolumeLoIconSVG from "@/components/elements/svg/icons/media/VolumeLoIconS
 import NextTrackSVG from "@/components/elements/svg/icons/media/NextTrackSVG";
 import PrevTrackSVG from "@/components/elements/svg/icons/media/PrevTrackSVG";
 import Dropdown from "@/components/ui/dropdowns/Dropdown";
+import useSceneStore from "@/stores/zustand/useSceneStore";
+import SceneSettings from "../settings/SceneSettings";
 
 interface IPanelProps {
   handleRewind: () => void;
@@ -40,6 +42,7 @@ const Panel: React.FC<IPanelProps> = ({
   const { setIsPlaylistOpen } = usePlaylistStore();
   const { isPomodoroOpen, setIsPomodoroOpen } = usePomodoroStore();
   const { setIsSoundFXOpen, isSoundFXOpen } = useWindowsStore();
+  const { isSceneModalOpen, setIsSceneModalOpen } = useSceneStore();
 
   const toggleMute = () => {
     if (volume === 0) {
@@ -61,6 +64,10 @@ const Panel: React.FC<IPanelProps> = ({
 
   return (
     <>
+      <SceneSettings
+        isOpen={isSceneModalOpen}
+        setIsOpen={setIsSceneModalOpen}
+      />
       <div id="Panel" className="panel">
         <div className="panel__group">
           <ButtonIcon
@@ -110,10 +117,7 @@ const Panel: React.FC<IPanelProps> = ({
           <Dropdown
             position="top"
             trigger={
-              <ButtonIcon
-                icon={<VolumeLoIconSVG />}
-                tooltip={"Volume"}
-              />
+              <ButtonIcon icon={<VolumeLoIconSVG />} tooltip={"Volume"} />
             }
           >
             <div className="flex flex-row gap-1 py-1 pl-1.5 pr-4">
@@ -128,7 +132,7 @@ const Panel: React.FC<IPanelProps> = ({
             </div>
           </Dropdown>
           <ButtonIcon
-            onClick={goFullscreen}
+            onClick={() => setIsSceneModalOpen(true)}
             icon={<SettingsIconSVG />}
             tooltip={"Settings"}
           />

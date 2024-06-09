@@ -1,3 +1,8 @@
+%bg-after-shared {
+  @apply absolute top-0 left-0 right-0 bottom-0;
+  content: "";
+  transition: all 0.15s ease;
+}
 .bg-overlay {
   &:after {
     @apply absolute top-0 left-0 right-0 bottom-0;
@@ -14,17 +19,39 @@
       rgba(0, 0, 0, 1) 100%
     );
   }
+  &--blur {
+    &::after {
+      @extend %bg-after-shared;
+      backdrop-filter: blur(var(--bg-overlay-blur, 4px));
+    }
+  }
+  &--shadow {
+    &::after {
+      @extend %bg-after-shared;
+      background: linear-gradient(
+        0deg,
+        rgb(26, 26, 28) 0%,
+        rgba(26, 26, 28, var(--bg-overlay-shadow-amount, 0.5)) 15%,
+        rgba(26, 26, 28, var(--bg-overlay-shadow-amount, 0.5)) 85%,
+        rgba(26, 26, 28, 1) 100%
+      );
+    }
+  }
 }
 
 .bg-overlay-frame {
   @apply absolute top-0 left-0 right-0 bottom-0;
-  border: 2px solid;
-  border-color: rgba(255, 255, 255, 0.1);
   margin-left: 3%;
   margin-right: 3%;
   margin-bottom: 6rem;
   margin-top: 3rem;
-  transition: 0.4s ease border-color;
+  border-color: transparent;
+
+  &--glass-frame {
+    border: 2px solid;
+    border-color: rgba(255, 255, 255, 0.1);
+    transition: 0.4s ease border-color;
+  }
   &__wrap {
     @apply absolute top-0 left-0 right-0 bottom-0;
     z-index: 0;
@@ -33,6 +60,18 @@
     //     border-color: rgba(255, 255, 255, 0.4);
     //   }
     // }
+    &--vignette {
+      -webkit-box-shadow: inset 0px 0px 85px rgba(0, 0, 0, 0.4);
+      -moz-box-shadow: inset 0px 0px 85px rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0px 0px 85px rgba(0, 0, 0, 0.4);
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      content: "";
+    }
   }
   &__blur {
     @apply absolute top-0 left-0 right-0 bottom-0;
