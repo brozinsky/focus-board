@@ -4,19 +4,20 @@ import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsI
 import { Switch } from "@/components/ui/buttons/Switch";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import Select from "@/components/ui/dropdowns/Select";
+import useQuoteStore from "@/stores/zustand/useQuoteStore";
 
 const options = [
-    {
-      id: 0,
-      value: "glass-frame",
-      name: "Glass",
-    },
-    {
-      id: 1,
-      value: "none",
-      name: "None",
-    },
-  ];
+  {
+    id: 0,
+    value: "glass-frame",
+    name: "Glass",
+  },
+  {
+    id: 1,
+    value: "none",
+    name: "None",
+  },
+];
 
 const SceneSettings = () => {
   const {
@@ -34,6 +35,9 @@ const SceneSettings = () => {
     setFrameType,
   } = useSceneStore();
 
+  const { isQuoteActive, quoteTags, setIsQuoteActive, setQuoteTags } =
+    useQuoteStore();
+
   const handleBlurChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBlurValue(Number(event.target.value));
   };
@@ -43,15 +47,9 @@ const SceneSettings = () => {
 
   if (!isSceneModalOpen) return;
 
-  <div className="flex gap-8 max-w-[320px] absolute left-2 bottom-2 z-10 glass-blur p-2">
-    <button onClick={() => setFrameType("glass-frame")}>Glass frame</button>
-    <button onClick={() => setFrameType("vignette")}>Vignette</button>
-    <button onClick={() => setIsBgBlur(!isBgBlur)}>Focus</button>
-  </div>;
-
   return (
     <div
-      id="PomodoroSettings"
+      id="SceneSettings"
       className={"modal modal--centered"}
       onClick={() => setIsSceneModalOpen(false)}
     >
@@ -67,8 +65,18 @@ const SceneSettings = () => {
       >
         <div className={"p-8 gap-6 flex flex-col"}>
           <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide">
-            <SettingsIconSVG /> Scene settings
+            <SettingsIconSVG /> Settings
           </h3>
+          <div className="flex flex-col gap-1">
+            <div className="flex justify-between items-center">
+              <div>Show quotes</div>
+              <Switch
+                checked={isQuoteActive}
+                onCheckedChange={setIsQuoteActive}
+              />
+            </div>
+          </div>
+
           <div className="flex flex-col gap-1">
             <div className="flex justify-between items-center">
               <div>Background blur</div>
@@ -121,7 +129,9 @@ const SceneSettings = () => {
               variant={"glass"}
               contentType={"tonic"}
               options={options}
-              displayValue={options.find(item => item.value === frameType)?.name}
+              displayValue={
+                options.find((item) => item.value === frameType)?.name
+              }
               state={frameType}
               setState={setFrameType}
             />

@@ -4,10 +4,12 @@ import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import clsx from "clsx";
 import React from "react";
+import Quote from "../Quote/Quote";
 
 const Overlay = () => {
   const { currentVideo } = usePlayerStore();
-  const { frameType, setFrameType, setIsBgBlur, isBgBlur } = useSceneStore();
+  const { frameType } = useSceneStore();
+
   return (
     <div className={cn("bg-overlay-frame__wrap")}>
       <div
@@ -16,6 +18,7 @@ const Overlay = () => {
           "bg-overlay-frame"
         )}
       >
+        <Quote />
         {currentVideo?.title && <NowPlaying title={currentVideo?.title} />}
       </div>
 
