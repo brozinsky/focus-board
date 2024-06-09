@@ -3,19 +3,35 @@ import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG
 import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsIconSVG";
 import { Switch } from "@/components/ui/buttons/Switch";
 import useSceneStore from "@/stores/zustand/useSceneStore";
+import Select from "@/components/ui/dropdowns/Select";
+
+const options = [
+    {
+      id: 0,
+      value: "glass-frame",
+      name: "Glass",
+    },
+    {
+      id: 1,
+      value: "none",
+      name: "None",
+    },
+  ];
 
 const SceneSettings = () => {
   const {
+    frameType,
     blurValue,
-    setShadowValue,
     shadowValue,
-    setBlurValue,
     isBgBlur,
     isBgShadow,
-    setIsBgShadow,
-    setIsBgBlur,
     isSceneModalOpen,
+    setBlurValue,
+    setShadowValue,
+    setIsBgBlur,
+    setIsBgShadow,
     setIsSceneModalOpen,
+    setFrameType,
   } = useSceneStore();
 
   const handleBlurChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +42,12 @@ const SceneSettings = () => {
   };
 
   if (!isSceneModalOpen) return;
+
+  <div className="flex gap-8 max-w-[320px] absolute left-2 bottom-2 z-10 glass-blur p-2">
+    <button onClick={() => setFrameType("glass-frame")}>Glass frame</button>
+    <button onClick={() => setFrameType("vignette")}>Vignette</button>
+    <button onClick={() => setIsBgBlur(!isBgBlur)}>Focus</button>
+  </div>;
 
   return (
     <div
@@ -90,6 +112,19 @@ const SceneSettings = () => {
                 }}
               />
             )}
+          </div>
+
+          <div className="flex flex-row justify-between">
+            <label htmlFor="time-option">Frame type</label>
+            <Select
+              size={"sm"}
+              variant={"glass"}
+              contentType={"tonic"}
+              options={options}
+              displayValue={options.find(item => item.value === frameType)?.name}
+              state={frameType}
+              setState={setFrameType}
+            />
           </div>
         </div>
       </motion.div>

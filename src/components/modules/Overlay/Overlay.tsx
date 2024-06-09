@@ -17,13 +17,6 @@ const Overlay = () => {
         )}
       >
         {currentVideo?.title && <NowPlaying title={currentVideo?.title} />}
-        <div className="flex gap-8 max-w-[320px] absolute left-2 bottom-2 z-10 glass-blur p-2">
-          <button onClick={() => setFrameType("glass-frame")}>
-            Glass frame
-          </button>
-          <button onClick={() => setFrameType("vignette")}>Vignette</button>
-          <button onClick={() => setIsBgBlur(!isBgBlur)}>Focus</button>
-        </div>
       </div>
 
       {frameType == "glass-frame" && (
