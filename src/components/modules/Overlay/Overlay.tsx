@@ -5,6 +5,7 @@ import useSceneStore from "@/stores/zustand/useSceneStore";
 import clsx from "clsx";
 import React from "react";
 import Quote from "../Quote/Quote";
+import Clock from "../Clock/Clock";
 
 const Overlay = () => {
   const { currentVideo } = usePlayerStore();
@@ -18,6 +19,7 @@ const Overlay = () => {
           "bg-overlay-frame"
         )}
       >
+        <Clock />
         <Quote />
         {currentVideo?.title && <NowPlaying title={currentVideo?.title} />}
       </div>

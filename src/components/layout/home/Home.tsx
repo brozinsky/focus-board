@@ -5,11 +5,9 @@ import Playlist from "@/components/modules/Playlist/Playlist";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import SoundFX from "@/components/modules/SoundFX/SoundFX";
-import Clock from "@/components/modules/Clock/Clock";
 import Pomodoro from "@/components/modules/Pomodoro/Pomodoro";
 import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import { cn } from "@/lib/utils";
-import NowPlaying from "@/components/ui/NowPlaying";
 import Overlay from "@/components/modules/Overlay/Overlay";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import clsx from "clsx";
@@ -195,7 +193,6 @@ const Home = () => {
 
   return (
     <div className="App" unselectable="on" ref={rootRef}>
-      <Clock />
       {isPomodoroOpen && <Pomodoro />}
       <div
         className={cn(isPomodoroOpen && "bg-overlay-focus")}

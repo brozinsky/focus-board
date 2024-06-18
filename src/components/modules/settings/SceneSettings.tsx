@@ -5,6 +5,7 @@ import { Switch } from "@/components/ui/buttons/Switch";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import Select from "@/components/ui/dropdowns/Select";
 import useQuoteStore from "@/stores/zustand/useQuoteStore";
+import { useClockStore } from "@/stores/zustand/useClockStore";
 
 const options = [
   {
@@ -16,6 +17,32 @@ const options = [
     id: 1,
     value: "none",
     name: "None",
+  },
+];
+
+const clockOptions = [
+  {
+    id: 0,
+    value: "top-right",
+    name: "Top right",
+  },
+  {
+    id: 1,
+    value: "center",
+    name: "Center",
+  },
+];
+
+const timeFormatOptions = [
+  {
+    id: 0,
+    value: "24",
+    name: "24 hours",
+  },
+  {
+    id: 1,
+    value: "12",
+    name: "12 hours",
   },
 ];
 
@@ -35,8 +62,9 @@ const SceneSettings = () => {
     setFrameType,
   } = useSceneStore();
 
-  const { isQuoteActive, quoteTags, setIsQuoteActive, setQuoteTags } =
-    useQuoteStore();
+  const { isQuoteActive, setIsQuoteActive } = useQuoteStore();
+
+  const { timeFormat, setTimeFormat, clockPosition, setClockPosition } = useClockStore();
 
   const handleBlurChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBlurValue(Number(event.target.value));
@@ -75,6 +103,32 @@ const SceneSettings = () => {
                 onCheckedChange={setIsQuoteActive}
               />
             </div>
+          </div>
+
+          <div className="flex flex-row justify-between">
+            <label htmlFor="time-option">Clock position</label>
+            <Select
+              size={"sm"}
+              variant={"glass"}
+              options={clockOptions}
+              displayValue={
+                clockOptions.find((item) => item.value === frameType)?.name
+              }
+              state={clockPosition}
+              setState={setClockPosition}
+            />
+          </div>
+
+          <div className="flex flex-row justify-between">
+            <label htmlFor="time-option">Time format</label>
+            <Select
+              size={"sm"}
+              variant={"glass"}
+              options={timeFormatOptions}
+              displayValue={`${timeFormat} hours`}
+              state={timeFormat}
+              setState={setTimeFormat}
+            />
           </div>
 
           <div className="flex flex-col gap-1">
