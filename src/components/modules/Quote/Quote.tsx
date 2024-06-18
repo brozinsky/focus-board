@@ -1,9 +1,10 @@
 import RefreshSVG from "@/components/elements/svg/icons/media/RefreshSVG";
+import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import useQuoteQuery from "@/stores/queries/useQuoteQuery";
 import useQuoteStore from "@/stores/zustand/useQuoteStore";
 
 const Quote = () => {
-  const { data, isLoading, isError, refetch } = useQuoteQuery();
+  const { data, isLoading, isError, refetch, isRefetching } = useQuoteQuery();
   const { isQuoteActive } = useQuoteStore();
 
   if (isLoading || isError || !data || !isQuoteActive) {
@@ -12,6 +13,11 @@ const Quote = () => {
 
   return (
     <blockquote className="group relative m-4 glass-blur bg-black/5 rounded-lg p-8 pr-12 max-w-[400px]">
+      {isRefetching && (
+        <div className="opacity-50 absolute right-2 top-2">
+          <LoadingSpinner />
+        </div>
+      )}
       <button
         onClick={() => refetch()}
         title="New quote"
