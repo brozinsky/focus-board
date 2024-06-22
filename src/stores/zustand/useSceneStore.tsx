@@ -12,12 +12,14 @@ interface ISceneStore {
   isBgBlur: boolean;
   isBgShadow: boolean;
   isSceneModalOpen: boolean;
+  isSceneOpen: boolean;
   blurValue: number;
   shadowValue: number;
   setFrameType: (frameType: TFrameType) => void;
   setIsBgBlur: (isBgBlur: boolean) => void;
   setIsBgShadow: (isBgShadow: boolean) => void;
   setIsSceneModalOpen: (isSceneModalOpen: boolean) => void;
+  setIsSceneOpen: (isSceneOpen: boolean) => void;
   setBlurValue: (blurValue: number) => void;
   setShadowValue: (shadowValue: number) => void;
 }
@@ -50,6 +52,9 @@ const useSceneStore = create<ISceneStore>((set) => ({
   },
   isSceneModalOpen: false,
   setIsSceneModalOpen: (isSceneModalOpen) => set({ isSceneModalOpen }),
+  isSceneOpen: false,
+  setIsSceneOpen: (isSceneOpen) => set({ isSceneOpen }),
+
 }));
 
 export default useSceneStore;

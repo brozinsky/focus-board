@@ -21,6 +21,7 @@ import PrevTrackSVG from "@/components/elements/svg/icons/media/PrevTrackSVG";
 import Dropdown from "@/components/ui/dropdowns/Dropdown";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import SceneSettings from "../settings/SceneSettings";
+import SceneEditSVG from "@/components/elements/svg/icons/interface/SceneEditSVG";
 
 interface IPanelProps {
   handleRewind: () => void;
@@ -42,7 +43,7 @@ const Panel: React.FC<IPanelProps> = ({
   const { setIsPlaylistOpen } = usePlaylistStore();
   const { isPomodoroOpen, setIsPomodoroOpen } = usePomodoroStore();
   const { setIsSoundFXOpen, isSoundFXOpen } = useWindowsStore();
-  const { isSceneModalOpen, setIsSceneModalOpen } = useSceneStore();
+  const { setIsSceneModalOpen, setIsSceneOpen } = useSceneStore();
 
   const toggleMute = () => {
     if (volume === 0) {
@@ -64,17 +65,9 @@ const Panel: React.FC<IPanelProps> = ({
 
   return (
     <>
-      <SceneSettings
-        isOpen={isSceneModalOpen}
-        setIsOpen={setIsSceneModalOpen}
-      />
+      <SceneSettings />
       <div id="Panel" className="panel">
         <div className="panel__group">
-          <ButtonIcon
-            onClick={() => setIsPlaylistOpen(true)}
-            icon={<PlaylistSVG />}
-            tooltip={"Playlist"}
-          />
           <ButtonIcon
             onClick={() => setIsPomodoroOpen(!isPomodoroOpen)}
             icon={<TimerPlusSVG />}
@@ -90,19 +83,19 @@ const Panel: React.FC<IPanelProps> = ({
           {/* <Button variant="glass" onClick={handleRewind}>
             -10s
           </Button> */}
-          <ButtonIcon
+          {/* <ButtonIcon
             onClick={handleForward}
             icon={<PrevTrackSVG />}
             tooltip={"Previous track"}
-          />
+          /> */}
           <Button variant="glass" onClick={handlePlayPause}>
             {isPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
           </Button>
-          <ButtonIcon
+          {/* <ButtonIcon
             onClick={handleForward}
             icon={<NextTrackSVG />}
             tooltip={"Next track"}
-          />
+          /> */}
           {/* <div className="absolute bottom-[52px] rounded-full overflow-hidden left-0 py-4 w-full flex justify-center z-20">
             <Slider
               value={[currentTime]}
@@ -114,6 +107,16 @@ const Panel: React.FC<IPanelProps> = ({
           </div> */}
         </div>
         <div className="panel__group">
+          <ButtonIcon
+            onClick={() => setIsPlaylistOpen(true)}
+            icon={<PlaylistSVG />}
+            tooltip={"Playlist"}
+          />
+          <ButtonIcon
+            onClick={() => setIsSceneOpen(true)}
+            icon={<SceneEditSVG />}
+            tooltip={"Scene Settings"}
+          />
           <Dropdown
             position="top"
             trigger={

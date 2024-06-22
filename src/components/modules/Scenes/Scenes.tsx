@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
-import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
-import { Separator } from "@/components/ui/Separator/Separator";
 import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
 import { ICurrentVideo } from "@/types/query-types";
+import useSceneStore from "@/stores/zustand/useSceneStore";
 
 type TSnippet = {
   videoOwnerChannelTitle: string;
@@ -28,16 +27,16 @@ type TPlaylistItem = {
   snippet: TSnippet;
 };
 
-const Playlist = () => {
+const Scenes = () => {
   const playlistQuery = usePlaylistQuery();
-  const { isPlaylistOpen, setIsPlaylistOpen } = usePlaylistStore();
-  const { setCurrentAudio, setCurrentVideo, isSharedVideoAndAudio } = usePlayerStore();
+  const { isSceneOpen, setIsSceneOpen } = useSceneStore();
+  const { setCurrentVideo } = usePlayerStore();
   const [playlistItems, setPlaylistItems] = useState<TPlaylistItem[] | null>(
     null
   );
   const handleClick = (value: ICurrentVideo) => {
-    isSharedVideoAndAudio ? setCurrentVideo(value) : setCurrentAudio(value);
-    setIsPlaylistOpen(false);
+    setCurrentVideo(value);
+    setIsSceneOpen(false);
   };
 
   useEffect(() => {
@@ -46,23 +45,14 @@ const Playlist = () => {
     }
   }, [playlistQuery.isLoading, playlistQuery.data]);
 
-  //   useEffect(() => {
-  //     const body = document.querySelector("body");
 
-  //     if (isPlaylistOpen) {
-  //       body!.style.overflowY = "hidden";
-  //     } else {
-  //       body!.style.overflowY = "scroll";
-  //     }
-  //   }, [isPlaylistOpen]);
-
-  if (!isPlaylistOpen) return;
+  if (!isSceneOpen) return;
 
   return (
     <div
-      id="Playlist"
+      id="Scenes"
       className={"modal"}
-      onClick={() => setIsPlaylistOpen(false)}
+      onClick={() => setIsSceneOpen(false)}
     >
       <button className={"modal__close"}>
         {/* <MdClose /> */}
@@ -77,7 +67,7 @@ const Playlist = () => {
       >
         <div className={"p-8 gap-6 flex flex-col"}>
           <h2 className="flex flex-row items-center text-xl gap-4 tracking-wide">
-            <PlaylistSVG /> Media playlist
+            <PlaylistSVG /> Scene selection
           </h2>
           {/* <Separator className="bg-white/30" /> */}
           <div
@@ -160,4 +150,4 @@ const Playlist = () => {
   );
 };
 
-export default Playlist;
+export default Scenes;

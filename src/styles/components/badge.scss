@@ -36,7 +36,7 @@ $anim-speed: 2;
     left: -100%;
     transition-property: left;
   }
-  #{($anim-speed / ($anim-duration + $anim-speed) * 100%)},
+  #{calc($anim-speed / ($anim-duration + $anim-speed) * 100%)},
   100% {
     left: 100%;
     transition-property: left;

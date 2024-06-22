@@ -11,6 +11,9 @@ import { cn } from "@/lib/utils";
 import Overlay from "@/components/modules/Overlay/Overlay";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import clsx from "clsx";
+import YTAudio from "@/components/modules/Player/YTAudio";
+import YTVideo from "@/components/modules/Player/YTVideo";
+import Scenes from "@/components/modules/Scenes/Scenes";
 
 declare namespace YT {
   enum PlayerState {
@@ -63,7 +66,10 @@ const Home = () => {
     setVolume,
     volume,
     currentVideo,
+    currentAudio,
     setCurrentVideo,
+    setCurrentAudio,
+    isSharedVideoAndAudio,
   } = usePlayerStore();
   const playlistQuery = usePlaylistQuery();
 
@@ -85,7 +91,16 @@ const Home = () => {
       playlistQuery.data &&
       currentVideo?.videoId === null
     ) {
-      // setVideoId(playlistQuery.data.items[0].snippet.resourceId.videoId);
+      setCurrentAudio({
+        title: playlistQuery.data.items[0].snippet.title,
+        videoId: playlistQuery.data.items[0].snippet.resourceId.videoId,
+        imgHi: playlistQuery.data.items[0].snippet.thumbnails.high,
+        imgHd: playlistQuery.data.items[0].snippet.thumbnails.maxres,
+        videoOwnerChannelTitle:
+          playlistQuery.data.items[0].snippet.videoOwnerChannelTitle,
+        videoOwnerChannelId:
+          playlistQuery.data.items[0].snippet.videoOwnerChannelId,
+      });
       setCurrentVideo({
         title: playlistQuery.data.items[0].snippet.title,
         videoId: playlistQuery.data.items[0].snippet.resourceId.videoId,
@@ -97,7 +112,12 @@ const Home = () => {
           playlistQuery.data.items[0].snippet.videoOwnerChannelId,
       });
     }
-  }, [playlistQuery.isLoading, playlistQuery.data, setCurrentVideo]);
+  }, [
+    playlistQuery.isLoading,
+    playlistQuery.data,
+    setCurrentVideo,
+    setCurrentAudio,
+  ]);
 
   useEffect(() => {
     if (playerRef.current) {
@@ -108,6 +128,7 @@ const Home = () => {
   const onReady: YouTubeProps["onReady"] = (event) => {
     playerRef.current = event.target;
     event.target.setVolume(volume);
+    event.target.setPlaybackQuality("small");
     setDuration(event.target.getDuration());
 
     const checkAndPlay = () => {
@@ -139,7 +160,6 @@ const Home = () => {
 
     if (player) {
       const state = player.getPlayerState();
-      console.log("Player state:", state);
       if (
         state !== YT.PlayerState.UNSTARTED &&
         state !== YT.PlayerState.BUFFERING
@@ -204,22 +224,15 @@ const Home = () => {
           </div>
         )}
         {currentVideo?.videoId && (
-          <YouTube
-            videoId={currentVideo.videoId}
-            onReady={onReady}
-            opts={{
-              playerVars: {
-                enablejsapi: 1,
-                autoplay: 1,
-              },
-            }}
-            className={clsx(
-              "bg-video bg-overlay relative",
-              isBgBlur && "bg-overlay--blur",
-              isBgShadow && "bg-overlay--shadow",
-            )}
-          />
+          <YTVideo id={currentVideo.videoId} onReady={onReady} />
         )}
+        {isSharedVideoAndAudio
+          ? currentVideo?.videoId && (
+              <YTAudio id={currentVideo.videoId} onReady={onReady} />
+            )
+          : currentAudio?.videoId && (
+              <YTAudio id={currentAudio.videoId} onReady={onReady} />
+            )}
         <Panel
           handleRewind={handleRewind}
           handlePlayPause={handlePlayPause}
@@ -229,6 +242,7 @@ const Home = () => {
         />
         <SoundFX />
         <Playlist />
+        <Scenes />
         <Overlay />
       </div>
     </div>

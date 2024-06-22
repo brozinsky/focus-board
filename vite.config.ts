@@ -5,7 +5,7 @@ import * as path from 'path';
 
 // https://vitejs.dev/config/
 const plugins = [react()];
-plugins.unshift(MillionLint.vite())
+// plugins.unshift(MillionLint.vite())
 export default defineConfig({
   plugins: plugins,
   resolve: {
