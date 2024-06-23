@@ -73,7 +73,7 @@ const PomodoroSettings = ({
       >
         <div className={"p-8 gap-6 flex flex-col"}>
           <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide">
-            <SettingsIconSVG /> Pomodoro settings
+            <SettingsIconSVG /> Timer settings
           </h3>
           <div className="flex flex-col gap-6">
             <div className="gap-4">
@@ -112,7 +112,7 @@ const PomodoroSettings = ({
               )}
             </div>
             <div className="flex justify-between items-center">
-              <div>Sound notification</div>
+              <div>Play sound notification</div>
               <Switch
                 checked={isSoundNotification}
                 onCheckedChange={setIsSoundNotification}

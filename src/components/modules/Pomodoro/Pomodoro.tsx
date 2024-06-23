@@ -11,6 +11,7 @@ import Button from "@/components/ui/buttons/Button";
 import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsIconSVG";
 import PomodoroSettings from "./PomodoroSettings";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
+import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 
 const TOTAL_SESSIONS = 4;
 
@@ -31,7 +32,7 @@ const Pomodoro = () => {
     setTimeOption,
   } = usePomodoro();
 
-  const { currentSession, isWorkSession, isSoundNotification } =
+  const { setIsPomodoroOpen, currentSession, isWorkSession, isSoundNotification } =
     usePomodoroStore();
 
   useEffect(() => {
@@ -56,10 +57,21 @@ const Pomodoro = () => {
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
       />
-      <div className="border-[2px] border-white/30 rounded-lg glass-dark absolute translate-x-1/2 -translate-y-1/2 right-1/2 top-1/2 text-neutral-100 z-20">
-        <button className={"button-close"} onClick={() => setIsModalOpen(false)}>
-          <CloseIconSVG />
-        </button>
+      <div className="group/timer rounded-lg absolute translate-x-1/2 -translate-y-1/2 right-1/2 top-1/2 text-neutral-100 z-20">
+        <ButtonIcon
+          className="right-0 top-0 absolute group-hover/timer:flex hidden transition opacity-50"
+          variant="glass"
+          onClick={() => setIsPomodoroOpen(false)}
+          icon={<CloseIconSVG />}
+          tooltip={"Close timer"}
+        />
+        <ButtonIcon
+          className="right-12 top-0 absolute group-hover/timer:flex hidden transition opacity-50"
+          variant="glass"
+          onClick={() => setIsModalOpen(true)}
+          icon={<SettingsIconSVG />}
+          tooltip={"Timer settings"}
+        />
         <div className="flex flex-col items-center gap-1 cursor-default p-8">
           <div className="relative">
             <GaugeCircle
@@ -68,7 +80,7 @@ const Pomodoro = () => {
               value={progress}
               gaugePrimaryColor="var(--color-primary-200)"
               gaugeSecondaryColor="var(--color-neutral-200)"
-              className="h-80 w-80 glass-blur glass-bg-dark rounded-full"
+              className="h-80 w-80 glass-blur rounded-full"
               displayValue={formatDuration(timeLeft)}
               sessionName={
                 isWorkSession
@@ -83,15 +95,14 @@ const Pomodoro = () => {
                 isRunning,
               }}
             />
-            <div className="flex justify-end absolute bottom-0 right-0">
-              <Button
-                variant="glass-ghost"
-                size="sm"
+            {/* <div className="flex justify-end absolute bottom-0 right-0">
+              <ButtonIcon
+                variant="glass"
                 onClick={() => setIsModalOpen(true)}
-              >
-                <SettingsIconSVG />
-              </Button>
-            </div>
+                icon={<SettingsIconSVG />}
+                tooltip={"Timer settings"}
+              />
+            </div> */}
           </div>
           <PomodoroControls
             {...{

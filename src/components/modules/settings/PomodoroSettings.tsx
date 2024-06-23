@@ -81,7 +81,7 @@ const PomodoroSettings = () => {
         </div>
       )}
       <div className="flex justify-between items-center max-w-sm">
-        <div>Sound notification</div>
+        <div>Play sound notification</div>
         <Switch
           checked={isSoundNotification}
           onCheckedChange={setIsSoundNotification}

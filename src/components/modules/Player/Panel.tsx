@@ -89,9 +89,11 @@ const Panel: React.FC<IPanelProps> = ({
             icon={<PrevTrackSVG />}
             tooltip={"Previous track"}
           /> */}
-          <Button variant="glass" onClick={handlePlayPause}>
-            {isPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
-          </Button>
+          <ButtonIcon
+            onClick={() => handlePlayPause()}
+            icon={isPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
+            tooltip={isPlaying ? "Pause audio" : "Play audio"}
+          />
           {/* <ButtonIcon
             onClick={handleForward}
             icon={<NextTrackSVG />}

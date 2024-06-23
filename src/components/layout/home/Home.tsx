@@ -215,7 +215,7 @@ const Home = () => {
     <div className="App" unselectable="on" ref={rootRef}>
       {isPomodoroOpen && <Pomodoro />}
       <div
-        className={cn(isPomodoroOpen && "bg-overlay-focus")}
+        // className={cn(isPomodoroOpen && "bg-overlay-focus")}
         unselectable="on"
       >
         {isLoading && (
