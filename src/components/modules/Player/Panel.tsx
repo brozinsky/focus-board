@@ -22,6 +22,7 @@ import Dropdown from "@/components/ui/dropdowns/Dropdown";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import SceneSettings from "../settings/SceneSettings";
 import SceneEditSVG from "@/components/elements/svg/icons/interface/SceneEditSVG";
+import Settings from "../settings/Settings";
 
 interface IPanelProps {
   handleRewind: () => void;
@@ -65,7 +66,7 @@ const Panel: React.FC<IPanelProps> = ({
 
   return (
     <>
-      <SceneSettings />
+      <Settings />
       <div id="Panel" className="panel">
         <div className="panel__group">
           <ButtonIcon

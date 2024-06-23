@@ -14,3 +14,16 @@
     @apply bg-white/[0.12];
   }
 }
+
+.button-settings {
+  @apply px-4 py-2 transition w-full rounded-lg flex items-start justify-start;
+  &:hover {
+    @apply bg-white/10;
+  }
+  &--active {
+    @apply bg-white/20;
+    &:hover {
+      @apply bg-white/20;
+    }
+  }
+}
