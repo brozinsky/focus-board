@@ -32,8 +32,12 @@ const Pomodoro = () => {
     setTimeOption,
   } = usePomodoro();
 
-  const { setIsPomodoroOpen, currentSession, isWorkSession, isSoundNotification } =
-    usePomodoroStore();
+  const {
+    setIsPomodoroOpen,
+    currentSession,
+    isWorkSession,
+    isSoundNotification,
+  } = usePomodoroStore();
 
   useEffect(() => {
     soundRef.current = new Howl({
@@ -61,13 +65,15 @@ const Pomodoro = () => {
         <ButtonIcon
           className="right-0 top-0 absolute group-hover/timer:flex hidden transition opacity-50"
           variant="glass"
+          size="sm"
           onClick={() => setIsPomodoroOpen(false)}
           icon={<CloseIconSVG />}
           tooltip={"Close timer"}
         />
         <ButtonIcon
-          className="right-12 top-0 absolute group-hover/timer:flex hidden transition opacity-50"
+          className="right-10 top-0 absolute group-hover/timer:flex hidden transition opacity-50"
           variant="glass"
+          size="sm"
           onClick={() => setIsModalOpen(true)}
           icon={<SettingsIconSVG />}
           tooltip={"Timer settings"}

@@ -8,6 +8,7 @@ export default function SettingsIconSVG({ className, width = "24" }: TSVG) {
       width={width}
       height={width}
       fill="none"
+      viewBox="0 0 24 24"
     >
       <path
         className="stroke-foreground"

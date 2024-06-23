@@ -5,7 +5,7 @@ interface IProps {
   onClick?: () => void;
   icon: ReactNode;
   tooltip: string;
-  size?: "lg" | "md";
+  size?: "lg" | "md" | "sm";
   className?: string;
   variant?: "ghost" | "glass";
 }
@@ -23,6 +23,7 @@ const ButtonIcon = ({
       title={tooltip}
       onClick={onClick}
       className={cn(
+        size === "sm" && "p-1.5 h-8 w-8",
         size === "lg" && "p-4 h-18 w-18",
         size === "md" && "p-2 h-10 w-10",
         variant === "ghost" && "hover:bg-white/20",
