@@ -7,6 +7,10 @@ import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
 import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
 import { ICurrentVideo } from "@/types/query-types";
 import useSceneStore from "@/stores/zustand/useSceneStore";
+import useBgVideosQuery from "@/stores/queries/useBgVideosQuery";
+import { AdvancedImage } from "@cloudinary/react";
+import { Cloudinary } from "@cloudinary/url-gen/index";
+import { Separator } from "@/components/ui/Separator/Separator";
 
 type TSnippet = {
   videoOwnerChannelTitle: string;
@@ -27,15 +31,29 @@ type TPlaylistItem = {
   snippet: TSnippet;
 };
 
+const cld = new Cloudinary({
+  cloud: { cloudName: import.meta.env.VITE_CLOUD_NAME },
+});
+
 const Scenes = () => {
   const playlistQuery = usePlaylistQuery();
+  const bgVideosQuery = useBgVideosQuery();
+
   const { isSceneOpen, setIsSceneOpen } = useSceneStore();
-  const { setCurrentVideo } = usePlayerStore();
+  const { activeScene, setActiveScene, setCurrentVideo, setCurrentBgVideoId } =
+    usePlayerStore();
   const [playlistItems, setPlaylistItems] = useState<TPlaylistItem[] | null>(
     null
   );
   const handleClick = (value: ICurrentVideo) => {
+    activeScene !== "yt" && setActiveScene("yt");
     setCurrentVideo(value);
+    setIsSceneOpen(false);
+  };
+
+  const handleBgVideoClick = (value: string) => {
+    activeScene !== "bg-video" && setActiveScene("bg-video");
+    setCurrentBgVideoId(value);
     setIsSceneOpen(false);
   };
 
@@ -45,15 +63,10 @@ const Scenes = () => {
     }
   }, [playlistQuery.isLoading, playlistQuery.data]);
 
-
   if (!isSceneOpen) return;
 
   return (
-    <div
-      id="Scenes"
-      className={"modal"}
-      onClick={() => setIsSceneOpen(false)}
-    >
+    <div id="Scenes" className={"modal"} onClick={() => setIsSceneOpen(false)}>
       <button className={"modal__close"}>
         {/* <MdClose /> */}
         <CloseIconSVG />
@@ -69,9 +82,36 @@ const Scenes = () => {
           <h2 className="flex flex-row items-center text-xl gap-4 tracking-wide">
             <PlaylistSVG /> Scene selection
           </h2>
-          {/* <Separator className="bg-white/30" /> */}
+          <Separator className="bg-white/30" />
+          <p className="text-xl mb-2">Animated Backgrounds</p>
           <div
-            className={"gap-8 grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1"}
+            className={
+              "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
+            }
+          >
+            {bgVideosQuery.data &&
+              bgVideosQuery.data.length >= 0 &&
+              bgVideosQuery.data?.map((item: { public_id: string }) => {
+                return (
+                  <div
+                    key={item.public_id}
+                    onClick={() => handleBgVideoClick(item.public_id)}
+                    className="modal__image-wrap"
+                  >
+                    <AdvancedImage
+                      className="aspect-video object-cover modal__image"
+                      cldImg={cld.video(item.public_id).format("auto")}
+                    />
+                  </div>
+                );
+              })}
+          </div>
+          <Separator className="bg-white/30 mt-4" />
+          <p className="text-xl mb-2">Youtube videos</p>
+          <div
+            className={
+              "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
+            }
           >
             {playlistItems &&
               playlistItems.map(({ snippet }: any) => {

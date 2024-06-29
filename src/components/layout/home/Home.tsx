@@ -14,6 +14,14 @@ import clsx from "clsx";
 import YTAudio from "@/components/modules/Player/YTAudio";
 import YTVideo from "@/components/modules/Player/YTVideo";
 import Scenes from "@/components/modules/Scenes/Scenes";
+import { AdvancedVideo } from "@cloudinary/react";
+import { Cloudinary } from "@cloudinary/url-gen/index";
+import { video } from "@cloudinary/url-gen/qualifiers/source";
+import BgVideo from "@/components/modules/Player/BgVideo";
+
+const cld = new Cloudinary({
+  cloud: { cloudName: import.meta.env.VITE_CLOUD_NAME },
+});
 
 declare namespace YT {
   enum PlayerState {
@@ -65,8 +73,10 @@ const Home = () => {
     setIsPlaying,
     setVolume,
     volume,
+    activeScene,
     currentVideo,
     currentAudio,
+    currentBgVideoId,
     setCurrentVideo,
     setCurrentAudio,
     isSharedVideoAndAudio,
@@ -211,6 +221,11 @@ const Home = () => {
     [setVolume]
   );
 
+  useEffect(() => {
+    console.log(currentVideo?.videoId);
+    console.log(activeScene);
+  }, [currentVideo, activeScene]);
+
   return (
     <div className="App" unselectable="on" ref={rootRef}>
       {isPomodoroOpen && <Pomodoro />}
@@ -223,16 +238,21 @@ const Home = () => {
             <div className="buffer">Buffering...</div>
           </div>
         )}
-        {currentVideo?.videoId && (
+        {activeScene === "yt" && currentVideo?.videoId && (
           <YTVideo id={currentVideo.videoId} onReady={onReady} />
         )}
-        {isSharedVideoAndAudio
+        {activeScene === "yt" && isSharedVideoAndAudio
           ? currentVideo?.videoId && (
               <YTAudio id={currentVideo.videoId} onReady={onReady} />
             )
           : currentAudio?.videoId && (
               <YTAudio id={currentAudio.videoId} onReady={onReady} />
             )}
+
+        {activeScene === "bg-video" && currentBgVideoId && (
+          <BgVideo id={currentBgVideoId} />
+        )}
+
         <Panel
           handleRewind={handleRewind}
           handlePlayPause={handlePlayPause}

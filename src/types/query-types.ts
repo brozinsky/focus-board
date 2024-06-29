@@ -12,3 +12,6 @@ export interface ICurrentVideo {
   videoOwnerChannelTitle: string;
   videoOwnerChannelId: string;
 }
+
+export type TActiveScene = "yt" | "bg-video" | "wallpaper"
+
