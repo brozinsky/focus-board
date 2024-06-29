@@ -1,7 +1,8 @@
 .bg-video {
   // pointer-events: none;
   aspect-ratio: 16/9;
-  & > iframe {
+  & > iframe,
+  & > video {
     height: 100dvh;
     width: 100vw;
     transition: transform 500ms;
@@ -9,5 +10,10 @@
     @include lg {
       transform: scale(1.2);
     }
+  }
+
+  & > img {
+    height: 100dvh;
+    width: 100vw;
   }
 }

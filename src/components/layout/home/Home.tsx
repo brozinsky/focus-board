@@ -18,6 +18,7 @@ import { AdvancedVideo } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen/index";
 import { video } from "@cloudinary/url-gen/qualifiers/source";
 import BgVideo from "@/components/modules/Player/BgVideo";
+import BgWallpaper from "@/components/modules/Player/BgWallpaper";
 
 const cld = new Cloudinary({
   cloud: { cloudName: import.meta.env.VITE_CLOUD_NAME },
@@ -251,6 +252,10 @@ const Home = () => {
 
         {activeScene === "bg-video" && currentBgVideoId && (
           <BgVideo id={currentBgVideoId} />
+        )}
+
+        {activeScene === "wallpaper" && currentBgVideoId && (
+          <BgWallpaper id={currentBgVideoId} />
         )}
 
         <Panel

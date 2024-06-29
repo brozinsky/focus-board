@@ -11,6 +11,7 @@ import useBgVideosQuery from "@/stores/queries/useBgVideosQuery";
 import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen/index";
 import { Separator } from "@/components/ui/Separator/Separator";
+import useBgWallpapersQuery from "@/stores/queries/useBgWallpapersQuery";
 
 type TSnippet = {
   videoOwnerChannelTitle: string;
@@ -38,6 +39,7 @@ const cld = new Cloudinary({
 const Scenes = () => {
   const playlistQuery = usePlaylistQuery();
   const bgVideosQuery = useBgVideosQuery();
+  const bgWallpapersQuery = useBgWallpapersQuery();
 
   const { isSceneOpen, setIsSceneOpen } = useSceneStore();
   const { activeScene, setActiveScene, setCurrentVideo, setCurrentBgVideoId } =
@@ -53,6 +55,12 @@ const Scenes = () => {
 
   const handleBgVideoClick = (value: string) => {
     activeScene !== "bg-video" && setActiveScene("bg-video");
+    setCurrentBgVideoId(value);
+    setIsSceneOpen(false);
+  };
+
+  const handleWallpaperClick = (value: string) => {
+    activeScene !== "wallpaper" && setActiveScene("wallpaper");
     setCurrentBgVideoId(value);
     setIsSceneOpen(false);
   };
@@ -101,6 +109,30 @@ const Scenes = () => {
                     <AdvancedImage
                       className="aspect-video object-cover modal__image"
                       cldImg={cld.video(item.public_id).format("auto")}
+                    />
+                  </div>
+                );
+              })}
+          </div>
+          <Separator className="bg-white/30 mt-4" />
+          <p className="text-xl mb-2">Wallpapers</p>
+          <div
+            className={
+              "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
+            }
+          >
+            {bgWallpapersQuery.data &&
+              bgWallpapersQuery.data.length >= 0 &&
+              bgWallpapersQuery.data?.map((item: { public_id: string }) => {
+                return (
+                  <div
+                    key={item.public_id}
+                    onClick={() => handleWallpaperClick(item.public_id)}
+                    className="modal__image-wrap"
+                  >
+                    <AdvancedImage
+                      className="aspect-video object-cover modal__image"
+                      cldImg={cld.image(item.public_id).format("auto")}
                     />
                   </div>
                 );
