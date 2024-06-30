@@ -19,6 +19,10 @@
 %glass-bg-dark {
   background-color: rgba(0, 0, 0, 0.2);
 }
+.glass-bg-dark-4,
+%glass-bg-dark {
+  background-color: rgba(0, 0, 0, 0.4);
+}
 .glass-dark-lighter,
 %glass-dark-lighter {
   @extend %glass;

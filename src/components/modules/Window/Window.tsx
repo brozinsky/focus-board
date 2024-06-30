@@ -21,10 +21,10 @@ const Window = ({ children, title, isOpen, closeWindow }: IProps) => {
     <div
       className={cn(
         !isMinimized && "pl-6 pt-8 pb-4 pr-2 ",
-        "absolute top-1/2 right-1/3 window w-[280px] z-30"
+        "absolute left-12 bottom-24 window w-[280px] z-30"
       )}
     >
-      <div className="window__drag-bar pt-1 px-3 text-xs flex justify-between">
+      {/* <div className="window__drag-bar pt-1 px-3 text-xs flex justify-between">
         {title}
         <div className="flex gap-2.5 items-center h-full pb-1.5">
           <button
@@ -39,9 +39,9 @@ const Window = ({ children, title, isOpen, closeWindow }: IProps) => {
             </button>
           )}
         </div>
-      </div>
+      </div> */}
       <ScrollArea
-        className={cn(isMinimized && "hidden", "h-[200px] rounded-md")}
+        className={cn(isMinimized && "hidden", "h-[340px] rounded-md")}
       >
         {children}
       </ScrollArea>
