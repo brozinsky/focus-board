@@ -12,6 +12,7 @@ import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen/index";
 import { Separator } from "@/components/ui/Separator/Separator";
 import useBgWallpapersQuery from "@/stores/queries/useBgWallpapersQuery";
+import { fill } from '@cloudinary/url-gen/actions/resize';
 
 type TSnippet = {
   videoOwnerChannelTitle: string;
@@ -91,7 +92,7 @@ const Scenes = () => {
             <PlaylistSVG /> Scene selection
           </h2>
           <Separator className="bg-white/30" />
-          <p className="text-xl mb-2">Animated Backgrounds</p>
+          <p className="text-xl mb-2">Animated Wallpapers</p>
           <div
             className={
               "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
@@ -108,14 +109,14 @@ const Scenes = () => {
                   >
                     <AdvancedImage
                       className="aspect-video object-cover modal__image"
-                      cldImg={cld.video(item.public_id).format("auto")}
+                      cldImg={cld.video(item.public_id).resize(fill().width(305).height(171)).format('auto')}
                     />
                   </div>
                 );
               })}
           </div>
           <Separator className="bg-white/30 mt-4" />
-          <p className="text-xl mb-2">Wallpapers</p>
+          <p className="text-xl mb-2">Static Wallpapers</p>
           <div
             className={
               "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
@@ -132,7 +133,7 @@ const Scenes = () => {
                   >
                     <AdvancedImage
                       className="aspect-video object-cover modal__image"
-                      cldImg={cld.image(item.public_id).format("auto")}
+                      cldImg={cld.image(item.public_id).resize(fill().width(305).height(171)).format('auto')}
                     />
                   </div>
                 );

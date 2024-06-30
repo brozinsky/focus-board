@@ -8,6 +8,7 @@ const BgVideo = ({ id }: { id: string }) => {
 
   return (
     <motion.div
+      key={id}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
