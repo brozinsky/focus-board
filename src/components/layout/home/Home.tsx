@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import YouTube, { YouTubeProps } from "react-youtube";
+import { YouTubeProps } from "react-youtube";
 import Panel from "@/components/modules/Player/Panel";
 import Playlist from "@/components/modules/Playlist/Playlist";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
@@ -7,22 +7,15 @@ import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import SoundFX from "@/components/modules/SoundFX/SoundFX";
 import Pomodoro from "@/components/modules/Pomodoro/Pomodoro";
 import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
-import { cn } from "@/lib/utils";
 import Overlay from "@/components/modules/Overlay/Overlay";
 import useSceneStore from "@/stores/zustand/useSceneStore";
-import clsx from "clsx";
 import YTAudio from "@/components/modules/Player/YTAudio";
 import YTVideo from "@/components/modules/Player/YTVideo";
 import Scenes from "@/components/modules/Scenes/Scenes";
-import { AdvancedVideo } from "@cloudinary/react";
-import { Cloudinary } from "@cloudinary/url-gen/index";
-import { video } from "@cloudinary/url-gen/qualifiers/source";
 import BgVideo from "@/components/modules/Player/BgVideo";
 import BgWallpaper from "@/components/modules/Player/BgWallpaper";
-
-const cld = new Cloudinary({
-  cloud: { cloudName: import.meta.env.VITE_CLOUD_NAME },
-});
+import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
+import DevLogger from "@/components/modules/Utility/Logger";
 
 declare namespace YT {
   enum PlayerState {
@@ -66,7 +59,8 @@ const Home = () => {
   const playerRef = useRef<TPlayer>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { isBgBlur, isBgShadow, blurValue, shadowValue } = useSceneStore();
+  const { isSceneOpen, isBgBlur, isBgShadow, blurValue, shadowValue } = useSceneStore();
+  const { isPlaylistOpen } = usePlaylistStore();
 
   const {
     setCurrentTime,
@@ -222,11 +216,6 @@ const Home = () => {
     [setVolume]
   );
 
-  useEffect(() => {
-    console.log(currentVideo?.videoId);
-    console.log(activeScene);
-  }, [currentVideo, activeScene]);
-
   return (
     <div className="App" unselectable="on" ref={rootRef}>
       {isPomodoroOpen && <Pomodoro />}
@@ -266,9 +255,10 @@ const Home = () => {
           handleVolumeChange={handleVolumeChange}
         />
         <SoundFX />
-        <Playlist />
-        <Scenes />
+        {isPlaylistOpen && <Playlist />}
+        {isSceneOpen && <Scenes />}
         <Overlay />
+        <DevLogger />
       </div>
     </div>
   );
