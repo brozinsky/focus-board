@@ -8,12 +8,13 @@ import { useState } from "react";
 import TimeSettings from "./TimeSettings";
 import SceneSettings from "./SceneSettings";
 import clsx from "clsx";
+import AudioSettings from "./AudioSettings";
 
 const Settings = () => {
   const { isSceneModalOpen, setIsSceneModalOpen } = useSceneStore();
 
   const [activeSettings, setActiveSettings] = useState<
-    "main" | "scene" | "time" | "pomodoro"
+    "main" | "scene" | "time" | "audio" | "pomodoro"
   >("main");
 
   if (!isSceneModalOpen) return null;
@@ -59,6 +60,15 @@ const Settings = () => {
                 Scene
               </button>
               <button
+                onClick={() => setActiveSettings("audio")}
+                className={clsx(
+                  activeSettings === "audio" && "button-settings--active",
+                  "button-settings "
+                )}
+              >
+                Audio
+              </button>
+              <button
                 onClick={() => setActiveSettings("time")}
                 className={clsx(
                   activeSettings === "time" && "button-settings--active",
@@ -75,12 +85,14 @@ const Settings = () => {
                 {activeSettings === "main" && "Main Settings"}
                 {activeSettings === "scene" && "Scene Settings"}
                 {activeSettings === "time" && "Clock / Timer Settings"}
+                {activeSettings === "audio" && "Audio Settings"}
               </h3>
               <Separator className="my-4 bg-white/30" />
             </div>
             {activeSettings === "main" && <MainSettings />}
             {activeSettings === "time" && <TimeSettings />}
             {activeSettings === "scene" && <SceneSettings />}
+            {activeSettings === "audio" && <AudioSettings />}
           </div>
         </div>
       </motion.div>
