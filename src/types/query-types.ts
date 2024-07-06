@@ -9,6 +9,7 @@ export interface ICurrentVideo {
   title: string;
   imgHd: IImage;
   imgHi: IImage;
+  imgDefault: IImage;
   videoOwnerChannelTitle: string;
   videoOwnerChannelId: string;
 }
