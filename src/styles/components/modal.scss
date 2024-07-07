@@ -14,9 +14,15 @@
   &__image-wrap {
     @apply bg-transparent rounded-xl w-full;
     overflow: hidden;
+    &--active {
+      @apply border-2 border-white/50;
+        .modal__image {
+          opacity: 1;
+        }
+    }
   }
   &__image {
-    @apply object-cover w-full h-auto bg-transparent;
+    @apply object-cover w-full h-auto bg-white/50;
     height: 100%;
     cursor: pointer;
     opacity: 0.6;
@@ -55,6 +61,9 @@
     // box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
     &--overflow-visible {
       @apply overflow-visible;
+    }
+    &--min-h {
+      @apply min-h-full;
     }
   }
   &__tech {

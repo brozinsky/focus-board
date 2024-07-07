@@ -16,7 +16,6 @@ import BgVideo from "@/components/modules/Player/BgVideo";
 import BgWallpaper from "@/components/modules/Player/BgWallpaper";
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import DevLogger from "@/components/modules/Utility/Logger";
-
 declare namespace YT {
   enum PlayerState {
     UNSTARTED = -1,
@@ -59,7 +58,8 @@ const Home = () => {
   const playerRef = useRef<TPlayer>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { isSceneOpen, isBgBlur, isBgShadow, blurValue, shadowValue } = useSceneStore();
+  const { isSceneOpen, isBgBlur, isBgShadow, blurValue, shadowValue } =
+    useSceneStore();
   const { isPlaylistOpen } = usePlaylistStore();
 
   const {
@@ -207,15 +207,6 @@ const Home = () => {
     [setCurrentTime]
   );
 
-  const handleVolumeChange = useCallback(
-    (newValue: number[]) => {
-      if (newValue.length > 0) {
-        setVolume(newValue[0]);
-      }
-    },
-    [setVolume]
-  );
-
   return (
     <div className="App" unselectable="on" ref={rootRef}>
       {isPomodoroOpen && <Pomodoro />}
@@ -231,6 +222,7 @@ const Home = () => {
         {activeScene === "yt" && currentVideo?.videoId && (
           <YTVideo id={currentVideo.videoId} onReady={onReady} />
         )}
+
         {activeScene === "yt" && isSharedVideoAndAudio
           ? currentVideo?.videoId && (
               <YTAudio id={currentVideo.videoId} onReady={onReady} />
@@ -252,7 +244,6 @@ const Home = () => {
           handlePlayPause={handlePlayPause}
           handleForward={handleForward}
           handleSliderChange={handleSliderChange}
-          handleVolumeChange={handleVolumeChange}
         />
         <SoundFX />
         {isPlaylistOpen && <Playlist />}

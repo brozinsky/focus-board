@@ -1,14 +1,32 @@
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import PlaylistItem from "../Card/PlaylistItem";
+import Volume from "./_partials/Volume";
+import useVolume from "@/hooks/useVolume";
+import Button from "@/components/ui/buttons/Button";
 
 const AudioSettings = () => {
   const { currentAudio } = usePlayerStore();
   const { setIsPlaylistOpen } = usePlaylistStore();
+  const { changeVolume, toggleMute, getVolumeIcon, volume } = useVolume();
 
   return (
     <>
       <div className="flex flex-col gap-4">
+        <div className="max-w-sm">
+          <div className="mb-2">Master volume</div>
+          <div className="flex-center gap-2">
+            <Button
+              label="Toggle mute"
+              onClick={toggleMute}
+              icon={getVolumeIcon(volume)}
+              size="sm"
+              variant="ghost"
+            />
+            <Volume volume={volume} handleVolumeChange={changeVolume} />
+          </div>
+        </div>
+
         <div>Current audio track</div>
         {currentAudio ? (
           <PlaylistItem

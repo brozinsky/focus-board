@@ -5,10 +5,9 @@ import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
-import { Separator } from "@/components/ui/Separator/Separator";
-import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
 import { ICurrentVideo } from "@/types/query-types";
 import PlaylistItem from "../Card/PlaylistItem";
+import DropdownVolume from "@/components/ui/dropdowns/DropdownVolume";
 
 type TSnippet = {
   videoOwnerChannelTitle: string;
@@ -54,7 +53,7 @@ const Playlist = () => {
   const handleClick = (value: ICurrentVideo) => {
     // isSharedVideoAndAudio ? setCurrentVideo(value) : setCurrentAudio(value);
 
-    setCurrentAudio(value)
+    setCurrentAudio(value);
     // setIsPlaylistOpen(false);
   };
 
@@ -94,9 +93,12 @@ const Playlist = () => {
         className={"modal__card"}
       >
         <div className={"p-8 gap-6 flex flex-col"}>
-          <h2 className="flex flex-row items-center text-xl gap-4 tracking-wide">
-            <PlaylistSVG /> Media playlist
-          </h2>
+          <div className="flex justify-between items-center">
+            <h2 className="flex flex-row items-center text-xl gap-4 tracking-wide">
+                <PlaylistSVG /> Media playlist
+            </h2>
+            <DropdownVolume position="bottom" />
+          </div>
           {/* <Separator className="bg-white/30" /> */}
           <div
             className={"gap-8 grid xl:grid-cols-2 md:grid-cols-1 grid-cols-1"}

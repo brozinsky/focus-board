@@ -35,7 +35,7 @@ const usePlayerStore = create<PlayerState>((set) => ({
   duration: 0,
   currentTime: 0,
   isPlaying: false,
-  isSharedVideoAndAudio: true,
+  isSharedVideoAndAudio: getFromLocalStorage("isSharedVideoAndAudio", false),
   setIsSharedVideoAndAudio: (value) => {
     setToLocalStorage("isSharedVideoAndAudio", value);
     set({ isSharedVideoAndAudio: value });

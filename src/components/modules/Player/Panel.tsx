@@ -1,8 +1,5 @@
-import Button from "@/components/ui/buttons/Button";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import React, { useState } from "react";
-import Volume from "@/components/modules/settings/_partials/Volume";
-import Slider from "@/components/ui/inputs/Slider";
+import React from "react";
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
 import PauseIconSVG from "@/components/elements/svg/icons/media/PauseIconSVG";
@@ -15,21 +12,16 @@ import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import TimerPlusSVG from "@/components/elements/svg/icons/interface/TimerPlusSVG";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsIconSVG";
-import VolumeLoIconSVG from "@/components/elements/svg/icons/media/VolumeLoIconSVG";
-import NextTrackSVG from "@/components/elements/svg/icons/media/NextTrackSVG";
-import PrevTrackSVG from "@/components/elements/svg/icons/media/PrevTrackSVG";
-import Dropdown from "@/components/ui/dropdowns/Dropdown";
 import useSceneStore from "@/stores/zustand/useSceneStore";
-import SceneSettings from "../settings/SceneSettings";
 import SceneEditSVG from "@/components/elements/svg/icons/interface/SceneEditSVG";
 import Settings from "../settings/Settings";
+import DropdownVolume from "@/components/ui/dropdowns/DropdownVolume";
 
 interface IPanelProps {
   handleRewind: () => void;
   handlePlayPause: () => void;
   handleForward: () => void;
   handleSliderChange: (value: number[]) => void;
-  handleVolumeChange: (value: number[]) => void;
 }
 
 const Panel: React.FC<IPanelProps> = ({
@@ -37,32 +29,12 @@ const Panel: React.FC<IPanelProps> = ({
   handlePlayPause,
   handleForward,
   handleSliderChange,
-  handleVolumeChange,
 }) => {
-  const { isPlaying, currentTime, duration, volume, setVolume } =
-    usePlayerStore();
+  const { isPlaying, currentTime, duration } = usePlayerStore();
   const { setIsPlaylistOpen } = usePlaylistStore();
   const { isPomodoroOpen, setIsPomodoroOpen } = usePomodoroStore();
   const { setIsSoundFXOpen, isSoundFXOpen } = useWindowsStore();
   const { setIsSceneModalOpen, setIsSceneOpen } = useSceneStore();
-
-  const toggleMute = () => {
-    if (volume === 0) {
-      setVolume(prevVolume);
-    } else {
-      setVolume(0);
-    }
-  };
-
-  const getVolumeIcon = (volume: number) => {
-    if (volume >= 0.5) {
-      return "volume-hi";
-    } else if (volume > 0) {
-      return "volume-lo";
-    } else {
-      return "volume-mute";
-    }
-  };
 
   return (
     <>
@@ -120,23 +92,7 @@ const Panel: React.FC<IPanelProps> = ({
             icon={<SceneEditSVG />}
             tooltip={"Scene Settings"}
           />
-          <Dropdown
-            position="top"
-            trigger={
-              <ButtonIcon icon={<VolumeLoIconSVG />} tooltip={"Volume"} />
-            }
-          >
-            <div className="flex flex-row gap-1 py-1 pl-1.5 pr-4">
-              <Button
-                label="Toggle mute"
-                onClick={toggleMute}
-                icon={getVolumeIcon(volume)}
-                size="sm"
-                variant="ghost"
-              />
-              <Volume volume={volume} handleVolumeChange={handleVolumeChange} />
-            </div>
-          </Dropdown>
+          <DropdownVolume />
           <ButtonIcon
             onClick={() => setIsSceneModalOpen(true)}
             icon={<SettingsIconSVG />}

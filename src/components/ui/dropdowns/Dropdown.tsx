@@ -23,7 +23,7 @@ export default function Dropdown({
             {trigger ? (
               trigger
             ) : (
-              <button className="cursor-pointer">Dropdown</button>
+              <span className="cursor-pointer">Dropdown</span>
             )}
           </Menu.Button>
         </div>
