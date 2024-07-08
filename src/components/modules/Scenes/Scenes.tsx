@@ -1,83 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { motion } from "framer-motion";
-import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
-import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
-import { ICurrentVideo } from "@/types/query-types";
 import useSceneStore from "@/stores/zustand/useSceneStore";
-import useBgVideosQuery from "@/stores/queries/useBgVideosQuery";
-import { AdvancedImage } from "@cloudinary/react";
-import { Cloudinary } from "@cloudinary/url-gen/index";
 import { Separator } from "@/components/ui/Separator/Separator";
-import useBgWallpapersQuery from "@/stores/queries/useBgWallpapersQuery";
-import { fill } from '@cloudinary/url-gen/actions/resize';
+import AnimatedWallpapers from "./AnimatedWallpapers";
+import Wallpapers from "./Wallpapers";
+import YoutubeVideos from "./YoutubeVideos";
+import { TActiveScene } from "@/types/query-types";
+import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import ButtonTab from "@/components/ui/buttons/ButtonTab";
 
-type TSnippet = {
-  videoOwnerChannelTitle: string;
-  title: string;
-  thumbnails: {
-    high: {
-      url: string;
-      width: number;
-      height: number;
-    };
-  };
-  resourceId: {
-    videoId: string;
-  };
+type TTab = {
+  id: string;
+  content: string;
+  component: ReactNode;
 };
 
-type TPlaylistItem = {
-  snippet: TSnippet;
-};
-
-const cld = new Cloudinary({
-  cloud: { cloudName: import.meta.env.VITE_CLOUD_NAME },
-});
+const tabs: TTab[] = [
+  {
+    id: "bg-video",
+    content: "Animated wallpapers",
+    component: <AnimatedWallpapers />,
+  },
+  { id: "wallpaper", content: "Static wallpapers", component: <Wallpapers /> },
+  { id: "yt", content: "Youtube videos", component: <YoutubeVideos /> },
+];
 
 const Scenes = () => {
-  const playlistQuery = usePlaylistQuery();
-  const bgVideosQuery = useBgVideosQuery();
-  const bgWallpapersQuery = useBgWallpapersQuery();
-
   const { isSceneOpen, setIsSceneOpen } = useSceneStore();
-  const { activeScene, setActiveScene, setCurrentVideo, setCurrentBgVideoId } =
-    usePlayerStore();
-  const [playlistItems, setPlaylistItems] = useState<TPlaylistItem[] | null>(
-    null
-  );
-  const handleClick = (value: ICurrentVideo) => {
-    activeScene !== "yt" && setActiveScene("yt");
-    setCurrentVideo(value);
-    setIsSceneOpen(false);
-  };
+  const { activeScene } = usePlayerStore();
 
-  const handleBgVideoClick = (value: string) => {
-    activeScene !== "bg-video" && setActiveScene("bg-video");
-    setCurrentBgVideoId(value);
-    setIsSceneOpen(false);
-  };
-
-  const handleWallpaperClick = (value: string) => {
-    activeScene !== "wallpaper" && setActiveScene("wallpaper");
-    setCurrentBgVideoId(value);
-    setIsSceneOpen(false);
-  };
-
-  useEffect(() => {
-    if (!playlistQuery.isLoading && playlistQuery.data) {
-      setPlaylistItems(playlistQuery.data.items);
-    }
-  }, [playlistQuery.isLoading, playlistQuery.data]);
+  const [activeTab, setActiveTab] = useState<TActiveScene>(activeScene);
 
   if (!isSceneOpen) return;
 
   return (
     <div id="Scenes" className={"modal"} onClick={() => setIsSceneOpen(false)}>
       <button className={"modal__close"}>
-        {/* <MdClose /> */}
         <CloseIconSVG />
       </button>
 
@@ -85,137 +45,39 @@ const Scenes = () => {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         onClick={(e) => e.stopPropagation()}
-        className={"modal__card"}
+        className={"modal__card modal__card--min-h"}
       >
-        <div className={"p-8 gap-6 flex flex-col"}>
-          <h2 className="flex flex-row items-center text-xl gap-4 tracking-wide">
-            <PlaylistSVG /> Scene selection
-          </h2>
-          <Separator className="bg-white/30" />
-          <p className="text-xl mb-2">Animated Wallpapers</p>
-          <div
-            className={
-              "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
-            }
-          >
-            {bgVideosQuery.data &&
-              bgVideosQuery.data.length >= 0 &&
-              bgVideosQuery.data?.map((item: { public_id: string }) => {
-                return (
-                  <div
-                    key={item.public_id}
-                    onClick={() => handleBgVideoClick(item.public_id)}
-                    className="modal__image-wrap"
-                  >
-                    <AdvancedImage
-                      className="aspect-video object-cover modal__image"
-                      cldImg={cld.video(item.public_id).resize(fill().width(305).height(171)).format('auto')}
-                    />
-                  </div>
-                );
-              })}
+        <div className="grid grid-cols-[20%_80%]">
+          <div className="p-8 pr-0">
+            <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide">
+              <PlaylistSVG /> Scene selection
+            </h3>
+            <div className="flex flex-col items-start gap-2 mt-8">
+              {tabs.map(({ content, id }: { content: string; id: string }) => (
+                <ButtonTab
+                  key={id}
+                  onClick={() => setActiveTab(id as TActiveScene)}
+                  isActive={activeTab === id}
+                >
+                  {content}
+                </ButtonTab>
+              ))}
+            </div>
           </div>
-          <Separator className="bg-white/30 mt-4" />
-          <p className="text-xl mb-2">Static Wallpapers</p>
-          <div
-            className={
-              "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
-            }
-          >
-            {bgWallpapersQuery.data &&
-              bgWallpapersQuery.data.length >= 0 &&
-              bgWallpapersQuery.data?.map((item: { public_id: string }) => {
-                return (
-                  <div
-                    key={item.public_id}
-                    onClick={() => handleWallpaperClick(item.public_id)}
-                    className="modal__image-wrap"
-                  >
-                    <AdvancedImage
-                      className="aspect-video object-cover modal__image"
-                      cldImg={cld.image(item.public_id).resize(fill().width(305).height(171)).format('auto')}
-                    />
-                  </div>
-                );
-              })}
-          </div>
-          <Separator className="bg-white/30 mt-4" />
-          <p className="text-xl mb-2">Youtube videos</p>
-          <div
-            className={
-              "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
-            }
-          >
-            {playlistItems &&
-              playlistItems.map(({ snippet }: any) => {
-                const currVid = {
-                  title: snippet.title,
-                  videoId: snippet.resourceId.videoId,
-                  imgHi: snippet.thumbnails.high,
-                  imgHd: snippet.thumbnails.maxres,
-                  videoOwnerChannelTitle: snippet.videoOwnerChannelTitle,
-                  videoOwnerChannelId: snippet.videoOwnerChannelId,
-                };
-                if (currVid.title === "Private video") {
-                  return null;
-                }
-                return (
-                  <div
-                    className="cursor-pointer"
-                    onClick={() => handleClick(currVid)}
-                    key={currVid.title}
-                  >
-                    <div className="modal__image-wrap">
-                      {currVid.imgHi ? (
-                        <img
-                          className="aspect-video object-cover modal__image"
-                          src={currVid.imgHi.url}
-                          loading={"lazy"}
-                          height={currVid.imgHi.height}
-                          width={currVid.imgHi.width}
-                          alt={currVid.title}
-                        />
-                      ) : (
-                        <div className="aspect-video bg-white/50 flex items-center justify-center">
-                          <PictureSVG
-                            pathClass="stroke-neutral-500"
-                            width={60}
-                          />
-                        </div>
-                      )}
-                    </div>
-                    <div className="text-xl tracking-wide line-clamp-2 mb-2">
-                      {currVid.title}
-                      {/* <div className="bstn btn-anim">Live</div> */}
-                    </div>
-                    <div className="text-md tracking-wide">
-                      <a
-                        href=""
-                        className="pr-4 group relative inline-flex items-center justify-center overflow-hidden "
-                      >
-                        <span>{currVid.videoOwnerChannelTitle}</span>
-                        <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">
-                          <svg
-                            width="15"
-                            height="15"
-                            viewBox="0 0 15 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                          >
-                            <path
-                              d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
-                              fill="currentColor"
-                              fillRule="evenodd"
-                              clipRule="evenodd"
-                            ></path>
-                          </svg>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                );
-              })}
+          <div className={"p-8 gap-6 flex flex-col"}>
+            <div className="flex flex-col gap-1">
+              <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide">
+                {activeTab === "bg-video" && "Animated Wallpapers"}
+                {activeTab === "wallpaper" && "Static Wallpapers"}
+                {activeTab === "yt" && "Youtube videos"}
+              </h3>
+              <Separator className="my-4 bg-white/30" />
+            </div>
+            {tabs.map(({ id, component }: TTab) => {
+              if (activeTab === id) {
+                return <div key={id}>{component}</div>;
+              }
+            })}
           </div>
         </div>
       </motion.div>
