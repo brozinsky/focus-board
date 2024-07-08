@@ -18,19 +18,11 @@ import Settings from "../settings/Settings";
 import DropdownVolume from "@/components/ui/dropdowns/DropdownVolume";
 
 interface IPanelProps {
-  handleRewind: () => void;
   handlePlayPause: () => void;
-  handleForward: () => void;
-  handleSliderChange: (value: number[]) => void;
 }
 
-const Panel: React.FC<IPanelProps> = ({
-  handleRewind,
-  handlePlayPause,
-  handleForward,
-  handleSliderChange,
-}) => {
-  const { isPlaying, currentTime, duration } = usePlayerStore();
+const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
+  const { isAudioPlaying } = usePlayerStore();
   const { setIsPlaylistOpen } = usePlaylistStore();
   const { isPomodoroOpen, setIsPomodoroOpen } = usePomodoroStore();
   const { setIsSoundFXOpen, isSoundFXOpen } = useWindowsStore();
@@ -63,8 +55,8 @@ const Panel: React.FC<IPanelProps> = ({
           /> */}
           <ButtonIcon
             onClick={() => handlePlayPause()}
-            icon={isPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
-            tooltip={isPlaying ? "Pause audio" : "Play audio"}
+            icon={isAudioPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
+            tooltip={isAudioPlaying ? "Pause audio" : "Play audio"}
           />
           {/* <ButtonIcon
             onClick={handleForward}

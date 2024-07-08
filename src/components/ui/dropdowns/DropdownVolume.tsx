@@ -11,7 +11,7 @@ const DropdownVolume = ({
 }: {
   position?: "top" | "bottom";
 }) => {
-  const { changeVolume, toggleMute, getVolumeIcon, volume } = useVolume();
+  const { changeVolume, toggleMute, getVolumeIcon, volumeAudio } = useVolume();
 
   return (
     <Dropdown
@@ -22,11 +22,11 @@ const DropdownVolume = ({
         <Button
           label="Toggle mute"
           onClick={toggleMute}
-          icon={getVolumeIcon(volume)}
+          icon={getVolumeIcon(volumeAudio)}
           size="sm"
           variant="ghost"
         />
-        <Volume volume={volume} handleVolumeChange={changeVolume} />
+        <Volume volume={volumeAudio} handleVolumeChange={changeVolume} />
       </div>
     </Dropdown>
   );

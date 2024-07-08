@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { YouTubeProps } from "react-youtube";
+import { useEffect, useRef, useState } from "react";
 import Panel from "@/components/modules/Player/Panel";
 import Playlist from "@/components/modules/Playlist/Playlist";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
@@ -16,46 +15,10 @@ import BgVideo from "@/components/modules/Player/BgVideo";
 import BgWallpaper from "@/components/modules/Player/BgWallpaper";
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import DevLogger from "@/components/modules/Utility/Logger";
-declare namespace YT {
-  enum PlayerState {
-    UNSTARTED = -1,
-    ENDED = 0,
-    PLAYING = 1,
-    PAUSED = 2,
-    BUFFERING = 3,
-    CUED = 5,
-  }
-
-  class Player {
-    constructor(elementId: string | HTMLElement, options: IPlayerOptions);
-    playVideo(): void;
-    pauseVideo(): void;
-    seekTo(seconds: number, allowSeekAhead: boolean): void;
-    getCurrentTime(): number;
-    getPlayerState(): PlayerState;
-    stopVideo(): void;
-    destroy(): void;
-    setVolume(volume: number): void;
-  }
-
-  interface IPlayerOptions {
-    height?: string;
-    width?: string;
-    videoId?: string;
-    events?: {
-      onReady?: (event: any) => void;
-      onStateChange?: (event: any) => any;
-      onError?: (event: any) => void;
-      onPlaybackQualityChange?: (event: any) => void;
-      onPlaybackRateChange?: (event: any) => void;
-    };
-  }
-}
-
-type TPlayer = YT.Player | null;
+import useVideoPlayer from "@/hooks/useVideoPlayer";
+import useAudioPlayer from "@/hooks/useAudioPlayer";
 
 const Home = () => {
-  const playerRef = useRef<TPlayer>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { isSceneOpen, isBgBlur, isBgShadow, blurValue, shadowValue } =
@@ -63,11 +26,6 @@ const Home = () => {
   const { isPlaylistOpen } = usePlaylistStore();
 
   const {
-    setCurrentTime,
-    setDuration,
-    setIsPlaying,
-    setVolume,
-    volume,
     activeScene,
     currentVideo,
     currentAudio,
@@ -79,6 +37,11 @@ const Home = () => {
   const playlistQuery = usePlaylistQuery();
 
   const { isPomodoroOpen } = usePomodoroStore();
+
+  const { onReady: onVideoReady } = useVideoPlayer();
+
+  const { onReady: onAudioReady, handlePlayPause: handleAudioPlayPause } =
+    useAudioPlayer();
 
   useEffect(() => {
     if (rootRef.current) {
@@ -99,6 +62,7 @@ const Home = () => {
       setCurrentAudio({
         title: playlistQuery.data.items[0].snippet.title,
         videoId: playlistQuery.data.items[0].snippet.resourceId.videoId,
+        imgDefault: playlistQuery.data.items[0].snippet.thumbnails.default,
         imgHi: playlistQuery.data.items[0].snippet.thumbnails.high,
         imgHd: playlistQuery.data.items[0].snippet.thumbnails.maxres,
         videoOwnerChannelTitle:
@@ -109,6 +73,7 @@ const Home = () => {
       setCurrentVideo({
         title: playlistQuery.data.items[0].snippet.title,
         videoId: playlistQuery.data.items[0].snippet.resourceId.videoId,
+        imgDefault: playlistQuery.data.items[0].snippet.thumbnails.default,
         imgHi: playlistQuery.data.items[0].snippet.thumbnails.high,
         imgHd: playlistQuery.data.items[0].snippet.thumbnails.maxres,
         videoOwnerChannelTitle:
@@ -124,111 +89,25 @@ const Home = () => {
     setCurrentAudio,
   ]);
 
-  useEffect(() => {
-    if (playerRef.current) {
-      playerRef.current.setVolume(volume);
-    }
-  }, [volume]);
-
-  const onReady: YouTubeProps["onReady"] = (event) => {
-    playerRef.current = event.target;
-    event.target.setVolume(volume);
-    event.target.setPlaybackQuality("small");
-    setDuration(event.target.getDuration());
-
-    const checkAndPlay = () => {
-      const state = event.target.getPlayerState();
-
-      if (state === YT.PlayerState.PLAYING) {
-        setIsPlaying(true);
-        return;
-      }
-
-      if (state === YT.PlayerState.CUED || state === YT.PlayerState.UNSTARTED) {
-        event.target.playVideo();
-      }
-
-      setTimeout(checkAndPlay, 500);
-    };
-
-    checkAndPlay();
-
-    setInterval(() => {
-      if (playerRef.current) {
-        setCurrentTime(playerRef.current.getCurrentTime());
-      }
-    }, 1000);
-  };
-
-  const handlePlayPause = useCallback(() => {
-    const player = playerRef.current;
-
-    if (player) {
-      const state = player.getPlayerState();
-      if (
-        state !== YT.PlayerState.UNSTARTED &&
-        state !== YT.PlayerState.BUFFERING
-      ) {
-        if (state === YT.PlayerState.PLAYING) {
-          player.pauseVideo();
-          setIsPlaying(false);
-        } else {
-          player.playVideo();
-          setIsPlaying(true);
-        }
-      }
-    }
-  }, [setIsPlaying]);
-
-  const handleRewind = useCallback(() => {
-    const player = playerRef.current;
-    if (player) {
-      const currentTime = player.getCurrentTime();
-      player.seekTo(currentTime - 10, true);
-    }
-  }, []);
-
-  const handleForward = useCallback(() => {
-    const player = playerRef.current;
-    if (player) {
-      const currentTime = player.getCurrentTime();
-      player.seekTo(currentTime + 10, true);
-    }
-  }, []);
-
-  const handleSliderChange = useCallback(
-    (newValue: number[]) => {
-      const player = playerRef.current;
-      if (player && newValue.length > 0) {
-        player.seekTo(newValue[0], true);
-        setCurrentTime(newValue[0]);
-      }
-    },
-    [setCurrentTime]
-  );
-
   return (
     <div className="App" unselectable="on" ref={rootRef}>
       {isPomodoroOpen && <Pomodoro />}
-      <div
-        // className={cn(isPomodoroOpen && "bg-overlay-focus")}
-        unselectable="on"
-      >
+      <div unselectable="on">
         {isLoading && (
           <div className="absolute top-1/2 right-0 w-full flex items-center justify-center">
             <div className="buffer">Buffering...</div>
           </div>
         )}
         {activeScene === "yt" && currentVideo?.videoId && (
-          <YTVideo id={currentVideo.videoId} onReady={onReady} />
+          <YTVideo id={currentVideo.videoId} onReady={onVideoReady} />
         )}
 
         {activeScene === "yt" && isSharedVideoAndAudio
           ? currentVideo?.videoId && (
-              <YTAudio id={currentVideo.videoId} onReady={onReady} />
+              <YTAudio id={currentVideo.videoId} onReady={onAudioReady} />
             )
           : currentAudio?.videoId && (
-              <YTAudio id={currentAudio.videoId} onReady={onReady} />
+              <YTAudio id={currentAudio.videoId} onReady={onAudioReady} />
             )}
 
         {activeScene === "bg-video" && currentBgVideoId && (
@@ -239,12 +118,7 @@ const Home = () => {
           <BgWallpaper id={currentBgVideoId} />
         )}
 
-        <Panel
-          handleRewind={handleRewind}
-          handlePlayPause={handlePlayPause}
-          handleForward={handleForward}
-          handleSliderChange={handleSliderChange}
-        />
+        <Panel handlePlayPause={handleAudioPlayPause} />
         <SoundFX />
         {isPlaylistOpen && <Playlist />}
         {isSceneOpen && <Scenes />}

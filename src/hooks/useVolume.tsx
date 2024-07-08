@@ -2,32 +2,32 @@ import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import { useCallback, useState } from "react";
 
 const useVolume = () => {
-  const { volume, setVolume } = usePlayerStore();
+  const { volumeAudio, setVolumeAudio } = usePlayerStore();
 
-  const [prevVolume, setPrevVolume] = useState(volume);
+  const [prevVolume, setPrevVolume] = useState(volumeAudio);
 
   const changeVolume = useCallback(
     (newValue: number[]) => {
       if (newValue.length > 0) {
-        setVolume(newValue[0]);
+        setVolumeAudio(newValue[0]);
       }
     },
-    [setVolume]
+    [setVolumeAudio]
   );
 
   const toggleMute = () => {
-    if (volume === 0) {
-      setVolume(prevVolume);
+    if (volumeAudio === 0) {
+      setVolumeAudio(prevVolume);
     } else {
-      setPrevVolume(volume);
-      setVolume(0);
+      setPrevVolume(volumeAudio);
+      setVolumeAudio(0);
     }
   };
 
-  const getVolumeIcon = (volume: number) => {
-    if (volume >= 0.5) {
+  const getVolumeIcon = (volumeAudio: number) => {
+    if (volumeAudio >= 0.5) {
       return "volume-hi";
-    } else if (volume > 0) {
+    } else if (volumeAudio > 0) {
       return "volume-lo";
     } else {
       return "volume-mute";
@@ -35,7 +35,7 @@ const useVolume = () => {
   };
 
   return {
-    volume,
+    volumeAudio,
     changeVolume,
     toggleMute,
     getVolumeIcon,
