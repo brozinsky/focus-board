@@ -61,6 +61,7 @@
     "shortid": "^2.2.16",
     "swiper": "10.0.0",
     "tailwind-merge": "^1.14.0",
+    "transitions-kit": "^1.2.3",
     "vercel": "^32.3.0",
     "zustand": "^4.4.1"
   },

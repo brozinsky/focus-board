@@ -102,6 +102,9 @@ module.exports = {
         13: "repeat(13, minmax(0, 1fr))",
         26: "repeat(26, minmax(0, 1fr))",
       },
+      aspectRatio: {
+        image: "4 / 3",
+      },
       gridColumn: {
         "span-13": "span 13 / span 13",
         "span-14": "span 14 / span 14",

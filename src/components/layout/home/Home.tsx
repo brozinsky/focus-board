@@ -17,6 +17,9 @@ import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import DevLogger from "@/components/modules/Utility/Logger";
 import useVideoPlayer from "@/hooks/useVideoPlayer";
 import useAudioPlayer from "@/hooks/useAudioPlayer";
+import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import AllAudioSFX from "@/components/modules/SoundFX/AllAudioSFX";
+import useFxStore from "@/stores/zustand/useFxStore";
 
 const Home = () => {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -24,6 +27,13 @@ const Home = () => {
   const { isSceneOpen, isBgBlur, isBgShadow, blurValue, shadowValue } =
     useSceneStore();
   const { isPlaylistOpen } = usePlaylistStore();
+  const { isSoundFXOpen } = useWindowsStore();
+
+  const { initializeAudio } = useFxStore();
+
+  useEffect(() => {
+    initializeAudio();
+  }, []);
 
   const {
     activeScene,
@@ -119,9 +129,9 @@ const Home = () => {
         )}
 
         <Panel handlePlayPause={handleAudioPlayPause} />
-        <SoundFX />
         {isPlaylistOpen && <Playlist />}
         {isSceneOpen && <Scenes />}
+        {isSoundFXOpen && <SoundFX />}
         <Overlay />
         <DevLogger />
       </div>

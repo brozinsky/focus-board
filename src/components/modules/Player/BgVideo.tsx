@@ -23,7 +23,7 @@ const BgVideo = ({ id }: { id: string }) => {
         className="min-h-screen min-w-screen"
         loop={true}
         //@ts-ignore
-        autoplay=""
+        autoPlay=""
         muted={true}
       >
         <source

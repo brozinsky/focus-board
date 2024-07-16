@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export enum PlayerState {
   UNSTARTED = -1,
   ENDED = 0,
@@ -35,3 +37,11 @@ export class Player {
   destroy(): void {}
   setVolume(volume: number): void {}
 }
+
+export type TSoundFX = {
+  id: string;
+  name: string;
+  volume: number;
+  audio: string;
+  isActive: boolean;
+};

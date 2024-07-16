@@ -1,7 +1,11 @@
-import YouTube from "react-youtube";
+import YouTube, { YouTubeEvent } from "react-youtube";
 
-const YTAudio = ({ onReady, id }) => {
+type TProps = {
+  id: string;
+  onReady: (event: YouTubeEvent<any>) => void;
+};
 
+const YTAudio = ({ onReady, id }: TProps) => {
   return (
     <YouTube
       videoId={id}

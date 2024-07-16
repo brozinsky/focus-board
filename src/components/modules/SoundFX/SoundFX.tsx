@@ -17,13 +17,18 @@ import nightMP3 from "@/assets/audio/fx/night-forest.mp3";
 import wavesMP3 from "@/assets/audio/fx/waves.mp3";
 import windMP3 from "@/assets/audio/fx/wind.mp3";
 import FxItem from "@/components/modules/FxItem/FxItem";
-import Window from "@/components/modules/Window/Window";
 import CoffeeSVG from "@/components/elements/svg/icons/fx/CoffeeSVG";
 import FireSVG from "@/components/elements/svg/icons/fx/FireSVG";
 import CitySVG from "@/components/elements/svg/icons/fx/CitySVG";
 import ForestSVG from "@/components/elements/svg/icons/fx/ForestSVG";
 import CpuSVG from "@/components/elements/svg/icons/fx/CpuSVG";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import { motion } from "framer-motion";
+import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
+import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
+import FxItemLg from "../FxItem/FxItemLg";
+import MixerIconSVG from "@/components/elements/svg/icons/interface/MixerIconSVG";
+import { SFX_AUDIO } from "@/lib/constants/const-sfx";
 
 const SoundFX = () => {
   const {
@@ -51,48 +56,40 @@ const SoundFX = () => {
   }, [openCount, setIsSoundFXFirstOpen]);
 
   return (
-    <Window
-      title={"Sound FX"}
-      isOpen={isSoundFXOpen}
-      closeWindow={() => setIsSoundFXOpen(false)}
+    <div
+      id="Playlist"
+      className={"modal"}
+      onClick={() => setIsSoundFXOpen(false)}
     >
-      <div className="flex flex-col gap-2 pr-6">
-        <FxItem
-          icon={<RainSVG width={30} />}
-          audio={rainMP3}
-          name={"Ocean waves"}
-        />
-        <FxItem
-          icon={<ForestSVG width={30} />}
-          audio={forestMP3}
-          name={"Forest"}
-        />
-        <FxItem
-          icon={<WavesSVG width={30} />}
-          audio={wavesMP3}
-          name={"Ocean waves"}
-        />
-        <FxItem icon={<WindSVG width={30} />} audio={windMP3} name={"Wind"} />
-        <FxItem icon={<MoonSVG width={30} />} audio={nightMP3} name={"Night"} />
-        <FxItem
-          icon={<CpuSVG width={30} />}
-          audio={futureCityMP3}
-          name={"Future city"}
-        />
-        <FxItem icon={<StormSVG width={30} />} audio={rainMP3} name={"Storm"} />
-        <FxItem
-          icon={<CoffeeSVG width={30} />}
-          audio={cafeMP3}
-          name={"Coffe shop"}
-        />
-        <FxItem
-          icon={<FireSVG width={30} />}
-          audio={campfireMP3}
-          name={"Campfire"}
-        />
-        <FxItem icon={<CitySVG width={30} />} audio={cityMP3} name={"City"} />
-      </div>
-    </Window>
+      <button className={"modal__close"}>
+        {/* <MdClose /> */}
+        <CloseIconSVG />
+      </button>
+
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        onClick={(e) => e.stopPropagation()}
+        className={"modal__card"}
+      >
+        <div className={"p-8 gap-6 flex flex-col"}>
+          <div className="flex justify-between items-center">
+            <h2 className="flex flex-row items-center text-xl gap-4 tracking-wide">
+              <MixerIconSVG /> Sound effects
+            </h2>
+          </div>
+          <div
+            className={
+              "gap-8 grid xl:grid-cols-5 md:grid-cols-3 lg:grid-cols-4 grid-cols-1"
+            }
+          >
+            {SFX_AUDIO.map(({ name, id }) => {
+              return <FxItemLg key={id} id={id} name={name} />;
+            })}
+          </div>
+        </div>
+      </motion.div>
+    </div>
   );
 };
 
