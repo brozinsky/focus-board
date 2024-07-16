@@ -21,12 +21,16 @@ const SceneSettings = () => {
     frameType,
     blurValue,
     shadowValue,
+    noiseValue,
     isBgBlur,
     isBgShadow,
+    isBgNoise,
     setBlurValue,
+    setNoiseValue,
     setShadowValue,
     setIsBgBlur,
     setIsBgShadow,
+    setIsBgNoise,
     setFrameType,
   } = useSceneStore();
 
@@ -35,6 +39,9 @@ const SceneSettings = () => {
   };
   const handleShadowChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setShadowValue(Number(event.target.value));
+  };
+  const handleNoiseChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNoiseValue(Number(event.target.value));
   };
 
   return (
@@ -84,6 +91,30 @@ const SceneSettings = () => {
           />
         )}
       </div>
+
+      <div className="flex flex-col gap-1">
+        <div className="flex justify-between items-center max-w-sm">
+          <div>Background noise</div>
+          <Switch checked={isBgNoise} onCheckedChange={setIsBgNoise} />
+        </div>
+        {isBgNoise && (
+          <input
+            className="max-w-sm mt-2"
+            type="range"
+            min="0"
+            max="0.6"
+            step={0.1}
+            value={noiseValue}
+            onChange={handleNoiseChange}
+            style={{
+              top: "40px",
+              left: "10px",
+              zIndex: "9999999",
+            }}
+          />
+        )}
+      </div>
+
       <div className="flex flex-row justify-between max-w-sm">
         <label htmlFor="time-option">Frame type</label>
         <Select

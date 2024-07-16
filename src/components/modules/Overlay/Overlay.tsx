@@ -3,16 +3,19 @@ import { cn } from "@/lib/utils";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import clsx from "clsx";
-import React from "react";
 import Quote from "../Quote/Quote";
 import Clock from "../Clock/Clock";
 
 const Overlay = () => {
-  const { currentVideo } = usePlayerStore();
-  const { frameType } = useSceneStore();
+  const { currentAudio } = usePlayerStore();
+  const { frameType, noiseValue } = useSceneStore();
 
   return (
     <div className={cn("bg-overlay-frame__wrap")}>
+      {noiseValue > 0 && (
+        <div className="bg-overlay-noise" style={{ opacity: noiseValue }}></div>
+      )}
+
       <div
         className={clsx(
           frameType == "glass-frame" && "bg-overlay-frame--glass-frame",
@@ -21,7 +24,7 @@ const Overlay = () => {
       >
         <Clock />
         <Quote />
-        {currentVideo?.title && <NowPlaying title={currentVideo?.title} />}
+        {currentAudio?.title && <NowPlaying title={currentAudio?.title} />}
       </div>
 
       {frameType == "glass-frame" && (

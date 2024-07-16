@@ -117,3 +117,8 @@
     );
   }
 }
+
+.bg-overlay-noise {
+  @apply absolute top-0 left-0 right-0 bottom-0;
+  background-image: url("../assets/img/noise-light.png");
+}
