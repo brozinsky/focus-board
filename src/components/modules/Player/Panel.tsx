@@ -16,6 +16,7 @@ import useSceneStore from "@/stores/zustand/useSceneStore";
 import SceneEditSVG from "@/components/elements/svg/icons/interface/SceneEditSVG";
 import Settings from "../settings/Settings";
 import DropdownVolume from "@/components/ui/dropdowns/DropdownVolume";
+import { Separator } from "@/components/ui/Separator/Separator";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -34,15 +35,11 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
       <div id="Panel" className="panel">
         <div className="panel__group">
           <ButtonIcon
-            onClick={() => setIsPomodoroOpen(!isPomodoroOpen)}
-            icon={<TimerPlusSVG />}
-            tooltip={"Pomodoro"}
+            onClick={() => handlePlayPause()}
+            icon={isAudioPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
+            tooltip={isAudioPlaying ? "Pause audio" : "Play audio"}
           />
-          <ButtonIcon
-            onClick={() => setIsSoundFXOpen(!isSoundFXOpen)}
-            icon={<MixerIconSVG />}
-            tooltip={"Sound effects"}
-          />
+          <DropdownVolume />
         </div>
         <div className="panel__group">
           {/* <Button variant="glass" onClick={handleRewind}>
@@ -53,11 +50,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             icon={<PrevTrackSVG />}
             tooltip={"Previous track"}
           /> */}
-          <ButtonIcon
-            onClick={() => handlePlayPause()}
-            icon={isAudioPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
-            tooltip={isAudioPlaying ? "Pause audio" : "Play audio"}
-          />
+
           {/* <ButtonIcon
             onClick={handleForward}
             icon={<NextTrackSVG />}
@@ -75,6 +68,12 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
         </div>
         <div className="panel__group">
           <ButtonIcon
+            onClick={() => setIsPomodoroOpen(!isPomodoroOpen)}
+            icon={<TimerPlusSVG />}
+            tooltip={"Pomodoro"}
+          />
+          <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
+          <ButtonIcon
             onClick={() => setIsPlaylistOpen(true)}
             icon={<PlaylistSVG />}
             tooltip={"Playlist"}
@@ -84,7 +83,12 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             icon={<SceneEditSVG />}
             tooltip={"Scene Settings"}
           />
-          <DropdownVolume />
+          <ButtonIcon
+            onClick={() => setIsSoundFXOpen(!isSoundFXOpen)}
+            icon={<MixerIconSVG />}
+            tooltip={"Sound effects"}
+          />
+          <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
           <ButtonIcon
             onClick={() => setIsSceneModalOpen(true)}
             icon={<SettingsIconSVG />}
