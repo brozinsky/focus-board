@@ -39,8 +39,8 @@ const MainSettings = () => {
                 className="aspect-video object-cover modal__image"
                 src={currentVideo.imgHi.url}
                 loading={"lazy"}
-                height={currentVideo.imgHi.height}
-                width={currentVideo.imgHi.width}
+                height={198}
+                width={352}
                 alt={currentVideo.title}
               />
             ) : (
@@ -72,16 +72,8 @@ const MainSettings = () => {
                     : currentAudio.imgHi.url
                 }
                 loading={"lazy"}
-                height={
-                  isSharedVideoAndAudio
-                    ? currentVideo.imgHi.height
-                    : currentAudio.imgHi.height
-                }
-                width={
-                  isSharedVideoAndAudio
-                    ? currentVideo.imgHi.width
-                    : currentAudio.imgHi.width
-                }
+                height={198}
+                width={352}
                 alt={
                   isSharedVideoAndAudio
                     ? currentVideo.title

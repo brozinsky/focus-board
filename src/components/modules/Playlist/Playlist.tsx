@@ -5,34 +5,9 @@ import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
-import { ICurrentVideo } from "@/types/query-types";
+import { ICurrentVideo, TSnippet } from "@/types/query-types";
 import PlaylistItem from "../Card/PlaylistItem";
 import DropdownVolume from "@/components/ui/dropdowns/DropdownVolume";
-
-type TSnippet = {
-  videoOwnerChannelTitle: string;
-  title: string;
-  thumbnails: {
-    high: {
-      url: string;
-      width: number;
-      height: number;
-    };
-    default: {
-      url: string;
-      width: number;
-      height: number;
-    };
-    maxres: {
-      url: string;
-      width: number;
-      height: number;
-    };
-  };
-  resourceId: {
-    videoId: string;
-  };
-};
 
 type TPlaylistItem = {
   snippet: TSnippet;

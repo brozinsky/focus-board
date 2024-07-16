@@ -1,5 +1,5 @@
 import useBgWallpapersQuery from "@/stores/queries/useBgWallpapersQuery";
-import { AdvancedImage } from "@cloudinary/react";
+import { AdvancedImage, lazyload } from "@cloudinary/react";
 import React from "react";
 import { fill } from "@cloudinary/url-gen/actions/resize";
 import useSceneStore from "@/stores/zustand/useSceneStore";
@@ -55,6 +55,14 @@ const Wallpapers = () => {
               >
                 <AdvancedImage
                   className="aspect-video object-cover modal__image"
+                  width="305"
+                  height="171"
+                  plugins={[
+                    lazyload({
+                      rootMargin: "10px 20px 10px 30px",
+                      threshold: 0.25,
+                    }),
+                  ]}
                   cldImg={cld
                     .image(item.public_id)
                     .resize(fill().width(305).height(171))

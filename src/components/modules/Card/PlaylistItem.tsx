@@ -3,6 +3,7 @@ import { ICurrentVideo } from "@/types/query-types";
 import clsx from "clsx";
 import { AsyncImage } from "loadable-image";
 import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
+import { Blur, Grow } from "transitions-kit";
 
 type TProps = {
   handleClick: (item: ICurrentVideo) => void;
@@ -11,7 +12,12 @@ type TProps = {
   item: ICurrentVideo;
 };
 
-const PlaylistItem = ({ handleClick, item, isActive, isHoverable = true }: TProps) => {
+const PlaylistItem = ({
+  handleClick,
+  item,
+  isActive,
+  isHoverable = true,
+}: TProps) => {
   return (
     <div
       className={clsx(
@@ -40,7 +46,7 @@ const PlaylistItem = ({ handleClick, item, isActive, isHoverable = true }: TProp
               <PlayIconSVG width="40" className="" />
             </div>
           </div>
-          {item.imgHi ? (
+          {item.imgDefault ? (
             <AsyncImage
               src={item.imgDefault.url}
               style={{
@@ -48,10 +54,11 @@ const PlaylistItem = ({ handleClick, item, isActive, isHoverable = true }: TProp
                 height: 118,
                 borderRadius: 3,
               }}
+              Transition={Blur}
               loader={<div className="bg-white/50 glass" />}
             />
           ) : (
-            <div className="aspect-video bg-white/50 flex items-center justify-center">
+            <div className="aspect-video h-full w-[210px] bg-white/50 flex items-center justify-center">
               <PictureSVG pathClass="stroke-neutral-500" width={60} />
             </div>
           )}

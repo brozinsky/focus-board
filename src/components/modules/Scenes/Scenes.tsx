@@ -10,6 +10,7 @@ import YoutubeVideos from "./YoutubeVideos";
 import { TActiveScene } from "@/types/query-types";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import ButtonTab from "@/components/ui/buttons/ButtonTab";
+import SceneEditSVG from "@/components/elements/svg/icons/interface/SceneEditSVG";
 
 type TTab = {
   id: string;
@@ -50,7 +51,7 @@ const Scenes = () => {
         <div className="grid grid-cols-[20%_80%]">
           <div className="p-8 pr-0">
             <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide">
-              <PlaylistSVG /> Scene selection
+              <SceneEditSVG /> Scene selection
             </h3>
             <div className="flex flex-col items-start gap-2 mt-8">
               {tabs.map(({ content, id }: { content: string; id: string }) => (
