@@ -4,6 +4,9 @@ import PlaylistItem from "../Card/PlaylistItem";
 import Volume from "./_partials/Volume";
 import useVolume from "@/hooks/useVolume";
 import Button from "@/components/ui/buttons/Button";
+import { Separator } from "@/components/ui/Separator/Separator";
+import FxItem from "../FxItem/FxItem";
+import { SFX_AUDIO } from "@/lib/constants/const-sfx";
 
 const AudioSettings = () => {
   const { currentAudio } = usePlayerStore();
@@ -51,6 +54,17 @@ const AudioSettings = () => {
           >
             Add custom audio
           </button>
+        </div>
+
+        <Separator className="my-4 bg-white/30" />
+
+        <div>Active sound effects</div>
+        <div>
+          <div className="grid grid-cols-3 gap-2">
+            {SFX_AUDIO.map(({ name, id }) => {
+              return <FxItem key={id} id={id} name={name} variant="md" />;
+            })}
+          </div>
         </div>
       </div>
     </>

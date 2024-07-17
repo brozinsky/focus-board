@@ -84,7 +84,7 @@ const SoundFX = () => {
             }
           >
             {SFX_AUDIO.map(({ name, id }) => {
-              return <FxItemLg key={id} id={id} name={name} />;
+              return <FxItem key={id} id={id} name={name} variant="lg" />;
             })}
           </div>
         </div>
