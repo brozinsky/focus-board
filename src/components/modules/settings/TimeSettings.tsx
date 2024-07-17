@@ -3,6 +3,7 @@ import { useClockStore } from "@/stores/zustand/useClockStore";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import React from "react";
 import PomodoroSettings from "./PomodoroSettings";
+import { Switch } from "@/components/ui/buttons/Switch";
 
 const clockOptions = [
   {
@@ -31,8 +32,14 @@ const timeFormatOptions = [
 ];
 
 const TimeSettings = () => {
-  const { timeFormat, setTimeFormat, clockPosition, setClockPosition } =
-    useClockStore();
+  const {
+    timeFormat,
+    setTimeFormat,
+    clockPosition,
+    setClockPosition,
+    isSecondsVisible,
+    setIsSecondsVisible,
+  } = useClockStore();
   const { frameType } = useSceneStore();
 
   return (
@@ -40,6 +47,24 @@ const TimeSettings = () => {
       <p className="text-xl mb-2">Clock</p>
       <div className="flex flex-row justify-between max-w-sm">
         <label htmlFor="time-option">Clock position</label>
+        {/* <div className="grid grid-cols-3 gap-4">
+          <div className="flex flex-col">
+            <img
+              className="rounded-lg mb-2"
+              src="https://picsum.photos/160/90"
+              alt=""
+            />
+            <p>Center</p>
+          </div>
+          <div className="flex flex-col">
+            <img
+              className="rounded-lg mb-2"
+              src="https://picsum.photos/160/90"
+              alt=""
+            />
+            <p>Center</p>
+          </div>
+        </div> */}
         <Select
           buttonClassName="w-[120px]"
           size={"sm"}
@@ -62,6 +87,13 @@ const TimeSettings = () => {
           displayValue={`${timeFormat} hours`}
           state={timeFormat}
           setState={setTimeFormat}
+        />
+      </div>
+      <div className="flex flex-row justify-between max-w-sm">
+        <label htmlFor="time-option">Show seconds</label>
+        <Switch
+          checked={isSecondsVisible}
+          onCheckedChange={setIsSecondsVisible}
         />
       </div>
       <PomodoroSettings />

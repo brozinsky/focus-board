@@ -52,6 +52,7 @@
     "react-aria": "^3.27.0",
     "react-dom": "^18.2.0",
     "react-fast-marquee": "^1.6.4",
+    "react-flip-numbers": "^3.0.8",
     "react-infinite-scroll": "^0.1.5",
     "react-lazy-load-image-component": "^1.6.2",
     "react-router": "^6.16.0",

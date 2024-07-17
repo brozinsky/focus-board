@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import TimeInput from "../Pomodoro/TimeInput";
 import Select from "@/components/ui/dropdowns/Select";
 import { Switch } from "@/components/ui/buttons/Switch";
 import usePomodoro from "@/hooks/usePomodoro";
 import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import { Separator } from "@/components/ui/Separator/Separator";
+import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
+import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
+import bellRingMP3 from "@/assets/audio/one-shots/bell-ring.mp3";
 
 const options = [
   {
@@ -31,6 +34,7 @@ const options = [
 
 const PomodoroSettings = () => {
   const { timeOption, setTimeOption } = usePomodoro();
+
   const {
     workTimeMin,
     setWorkTimeMin,
@@ -42,12 +46,24 @@ const PomodoroSettings = () => {
     setIsSoundNotification,
   } = usePomodoroStore();
 
+  const notificationSoundRef = useRef<Howl | null>(null);
+
+  useEffect(() => {
+    notificationSoundRef.current = new Howl({
+      src: [bellRingMP3],
+    });
+  }, []);
+
+  const playNotificationSound = () => {
+    notificationSoundRef.current?.play();
+  };
+
   return (
     <>
       <Separator className="my-4 bg-white/30" />
-      <p className="text-xl mb-2">Timer</p>
+      <p className="text-xl mb-2">Pomodoro</p>
       <div className="flex flex-row justify-between max-w-sm">
-        <label htmlFor="time-option">Time option</label>
+        <label htmlFor="time-option">Focus / break durations (mins)</label>
         <Select
           buttonClassName="w-[120px]"
           size={"sm"}
@@ -80,12 +96,24 @@ const PomodoroSettings = () => {
           />
         </div>
       )}
-      <div className="flex justify-between items-center max-w-sm">
+      <div className="flex justify-between items-center max-w-sm min-h-8">
         <div>Play sound notification</div>
-        <Switch
-          checked={isSoundNotification}
-          onCheckedChange={setIsSoundNotification}
-        />
+        <div className="flex flex-row gap-2 items-center">
+          {isSoundNotification && (
+            <ButtonIcon
+              onClick={() => {
+                playNotificationSound();
+              }}
+              size="sm"
+              icon={<PlayIconSVG />}
+              tooltip={"Play audio"}
+            />
+          )}
+          <Switch
+            checked={isSoundNotification}
+            onCheckedChange={setIsSoundNotification}
+          />
+        </div>
       </div>
     </>
   );
