@@ -17,6 +17,8 @@ interface ISceneStore {
   blurValue: number;
   shadowValue: number;
   noiseValue: number;
+  fontFamily: string;
+  setFontFamily: (fontFamily: string) => void;
   setFrameType: (frameType: TFrameType) => void;
   setIsBgBlur: (isBgBlur: boolean) => void;
   setIsBgShadow: (isBgShadow: boolean) => void;
@@ -63,6 +65,11 @@ const useSceneStore = create<ISceneStore>((set) => ({
   setIsBgNoise: (value) => {
     setToLocalStorage("isBgNoise", value);
     set({ isBgNoise: value });
+  },
+  fontFamily: getFromLocalStorage("fontFamily", "WorkSans"),
+  setFontFamily: (value) => {
+    setToLocalStorage("fontFamily", value);
+    set({ fontFamily: value });
   },
   isSceneModalOpen: false,
   setIsSceneModalOpen: (isSceneModalOpen) => set({ isSceneModalOpen }),

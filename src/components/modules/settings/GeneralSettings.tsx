@@ -1,5 +1,6 @@
 import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
 import { Switch } from "@/components/ui/buttons/Switch";
+import Select from "@/components/ui/dropdowns/Select";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import useQuoteStore from "@/stores/zustand/useQuoteStore";
@@ -7,8 +8,26 @@ import useSceneStore from "@/stores/zustand/useSceneStore";
 import clsx from "clsx";
 import React from "react";
 
-const MainSettings = () => {
-  const { setIsSceneOpen } = useSceneStore();
+const fontFamilyOptions = [
+  {
+    id: 0,
+    value: "WorkSans",
+    name: "WorkSans",
+  },
+  {
+    id: 1,
+    value: "Quicksand",
+    name: "Quicksand",
+  },
+  {
+    id: 2,
+    value: "HelveticaNeue",
+    name: "Helvetica Neue",
+  },
+];
+
+const GeneralSettings = () => {
+  const { setIsSceneOpen, fontFamily, setFontFamily } = useSceneStore();
   const {
     currentVideo,
     currentAudio,
@@ -20,6 +39,20 @@ const MainSettings = () => {
 
   return (
     <>
+      <div className="flex flex-row justify-between max-w-sm">
+        <label htmlFor="time-option">Font</label>
+        <Select
+          buttonClassName="w-[120px]"
+          size={"sm"}
+          variant={"glass"}
+          options={fontFamilyOptions}
+          displayValue={
+            fontFamilyOptions.find((item) => item.value === fontFamily)?.name
+          }
+          state={fontFamily}
+          setState={setFontFamily}
+        />
+      </div>
       <div className="flex justify-between items-center max-w-sm">
         <div>Use same video and audio source</div>
         <Switch
@@ -98,4 +131,4 @@ const MainSettings = () => {
   );
 };
 
-export default MainSettings;
+export default GeneralSettings;

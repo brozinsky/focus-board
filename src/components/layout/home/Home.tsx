@@ -18,10 +18,11 @@ import DevLogger from "@/components/modules/Utility/Logger";
 import useVideoPlayer from "@/hooks/useVideoPlayer";
 import useAudioPlayer from "@/hooks/useAudioPlayer";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
-import AllAudioSFX from "@/components/modules/SoundFX/AllAudioSFX";
 import useFxStore from "@/stores/zustand/useFxStore";
+import { fontFamilyExt } from "@/lib/constants/const-theme";
 
 const Home = () => {
+  const { fontFamily } = useSceneStore();
   const rootRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { isSceneOpen, isBgBlur, isBgShadow, blurValue, shadowValue } =
@@ -99,8 +100,15 @@ const Home = () => {
     setCurrentAudio,
   ]);
 
+  const combinedFontFamily = [fontFamily, ...fontFamilyExt].join(', ')
+
   return (
-    <div className="App" unselectable="on" ref={rootRef}>
+    <div
+      style={{ fontFamily:  combinedFontFamily}}
+      className="App"
+      unselectable="on"
+      ref={rootRef}
+    >
       {isPomodoroOpen && <Pomodoro />}
       <div unselectable="on">
         {isLoading && (

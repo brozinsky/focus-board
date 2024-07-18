@@ -37,3 +37,187 @@ $font-path: "@/fonts/";
   font-display: swap;
   src: url("#{$font-path}/Quicksand/Quicksand-Bold.ttf") format("truetype");
 }
+
+// ---------------------------------------------HelveticaNeue------------------------------------------
+// ------------------------------------------------------------------------------------------------
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueBold.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueItalic.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueLight.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueLightItalic.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueMedium.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueBlack.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueBlackItalic.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueBoldItalic.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueHeavy.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueHeavyItalic.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueMediumItalic.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueRoman.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueThin.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueThinItalic.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueUltraLight.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+  src: url("#{$font-path}/HelveticaNeue/HelveticaNeueUltraLightItalic.otf")
+    format("opentype");
+}
+
+// ---------------------------------------------WorkSans------------------------------------------
+// ------------------------------------------------------------------------------------------------
+@font-face {
+  font-family: "WorkSans";
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/WorkSans/WorkSans-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "WorkSans";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/WorkSans/WorkSans-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "WorkSans";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/WorkSans/WorkSans-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "WorkSans";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/WorkSans/WorkSans-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "WorkSans";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/WorkSans/WorkSans-Bold.ttf") format("truetype");
+}

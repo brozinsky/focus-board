@@ -3,7 +3,7 @@ import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG
 import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsIconSVG";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import { Separator } from "@/components/ui/Separator/Separator";
-import MainSettings from "./MainSettings";
+import GeneralSettings from "./GeneralSettings";
 import { useState } from "react";
 import TimeSettings from "./TimeSettings";
 import SceneSettings from "./SceneSettings";
@@ -89,7 +89,7 @@ const Settings = () => {
               </h3>
               <Separator className="my-4 bg-white/30" />
             </div>
-            {activeSettings === "main" && <MainSettings />}
+            {activeSettings === "main" && <GeneralSettings />}
             {activeSettings === "time" && <TimeSettings />}
             {activeSettings === "scene" && <SceneSettings />}
             {activeSettings === "audio" && <AudioSettings />}
