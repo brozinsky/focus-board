@@ -66,7 +66,7 @@ const TimeSettings = () => {
           </div>
         </div> */}
         <Select
-          buttonClassName="w-[120px]"
+          buttonClassName="w-[160px]"
           size={"sm"}
           variant={"glass"}
           options={clockOptions}
@@ -80,7 +80,7 @@ const TimeSettings = () => {
       <div className="flex flex-row justify-between max-w-sm">
         <label htmlFor="time-option">Time format</label>
         <Select
-          buttonClassName="w-[120px]"
+          buttonClassName="w-[160px]"
           size={"sm"}
           variant={"glass"}
           options={timeFormatOptions}

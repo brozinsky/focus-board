@@ -42,7 +42,7 @@ const GeneralSettings = () => {
       <div className="flex flex-row justify-between max-w-sm">
         <label htmlFor="time-option">Font</label>
         <Select
-          buttonClassName="w-[120px]"
+          buttonClassName="w-[160px]"
           size={"sm"}
           variant={"glass"}
           options={fontFamilyOptions}

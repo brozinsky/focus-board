@@ -1,3 +1,4 @@
+import ArrowSmSVG from "@/components/elements/svg/icons/interface/ArrowSmSVG";
 import { cn } from "@/lib/utils";
 import { Listbox, Transition } from "@headlessui/react";
 import clsx from "clsx";
@@ -54,6 +55,13 @@ export default function Select({
           }
         >
           {displayValue ? displayValue : state}
+          <span className="absolute right-1.5 top-2">
+            <ArrowSmSVG
+              width={12}
+              className="rotate-90 "
+              pathClass="stroke-white"
+            />
+          </span>
         </Listbox.Button>
       </div>
       <Transition
