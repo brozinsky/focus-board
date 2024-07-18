@@ -25,7 +25,9 @@ const PlaylistItem = ({
         "cursor-pointer playlist-item relative",
         !isHoverable && "hover-none !cursor-default"
       )}
-      onClick={() => handleClick(item)}
+      onClick={() => {
+        !isActive && handleClick(item);
+      }}
       key={item.title}
     >
       <div className="relative">
@@ -41,11 +43,13 @@ const PlaylistItem = ({
           Playing
         </div> */}
         <div className="playlist-item__image-wrap">
-          <div className="playlist-item__play-overlay">
-            <div className="p-5 rounded-xl">
-              <PlayIconSVG width="40" className="" />
+          {!isActive && (
+            <div className="playlist-item__play-overlay">
+              <div className="p-5 rounded-xl">
+                <PlayIconSVG width="40" className="" />
+              </div>
             </div>
-          </div>
+          )}
           {item.imgDefault ? (
             <AsyncImage
               src={item.imgDefault.url}
@@ -74,10 +78,7 @@ const PlaylistItem = ({
           {item.title}
         </div>
         <div className="text-md tracking-wide">
-          <a
-            href=""
-            className="pr-4 group relative inline-flex items-center justify-center overflow-hidden "
-          >
+          <div className="pr-4 group relative inline-flex items-center justify-center overflow-hidden ">
             <span>{item.videoOwnerChannelTitle}</span>
             {/* <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">
               <svg
@@ -96,7 +97,7 @@ const PlaylistItem = ({
                 ></path>
               </svg>
             </div> */}
-          </a>
+          </div>
         </div>
       </div>
     </div>

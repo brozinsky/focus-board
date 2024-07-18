@@ -11,26 +11,26 @@ import { SFX_AUDIO } from "@/lib/constants/const-sfx";
 const AudioSettings = () => {
   const { currentAudio } = usePlayerStore();
   const { setIsPlaylistOpen } = usePlaylistStore();
-  const { changeVolume, toggleMute, getVolumeIcon, volume } = useVolume();
+  const { changeVolume, toggleMute, getVolumeIcon, volumeAudio } = useVolume();
 
   return (
     <>
       <div className="flex flex-col gap-4">
         <div className="max-w-sm">
-          <div className="mb-2">Master volume</div>
+          <div className="mb-2">Audio track volume</div>
           <div className="flex-center gap-2">
             <Button
               label="Toggle mute"
               onClick={toggleMute}
-              icon={getVolumeIcon(volume)}
+              icon={getVolumeIcon(volumeAudio)}
               size="sm"
               variant="ghost"
             />
-            <Volume volume={volume} handleVolumeChange={changeVolume} />
+            <Volume volume={volumeAudio} handleVolumeChange={changeVolume} />
           </div>
         </div>
 
-        <div>Current audio track</div>
+        <div>Current track</div>
         {currentAudio ? (
           <PlaylistItem
             isHoverable={false}
@@ -46,7 +46,7 @@ const AudioSettings = () => {
             onClick={() => setIsPlaylistOpen(true)}
             className="border border-white/30 bg-transparent glass-blur rounded-lg px-4 py-3 hover:bg-white/20 transition"
           >
-            Change audio
+            Change station
           </button>
           <button
             title="Not available yet"

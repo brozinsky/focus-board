@@ -70,7 +70,7 @@ const Playlist = () => {
         <div className={"p-8 gap-6 flex flex-col"}>
           <div className="flex justify-between items-center">
             <h2 className="flex flex-row items-center text-xl gap-4 tracking-wide">
-                <PlaylistSVG /> Media playlist
+              <PlaylistSVG /> Media playlist
             </h2>
             <DropdownVolume position="bottom" />
           </div>
@@ -97,7 +97,10 @@ const Playlist = () => {
 
                   const isActive = currVid.videoId === currentAudio?.videoId;
 
-                  if (currVid.title === "Private video") {
+                  if (
+                    currVid.title === "Deleted video" ||
+                    currVid.title === "Private video"
+                  ) {
                     return;
                   }
 
