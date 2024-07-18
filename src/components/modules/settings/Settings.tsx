@@ -48,7 +48,7 @@ const Settings = () => {
                   "button-settings "
                 )}
               >
-                Main
+                General
               </button>
               <button
                 onClick={() => setActiveSettings("scene")}
@@ -82,7 +82,7 @@ const Settings = () => {
           <div className={"p-8 gap-6 flex flex-col"}>
             <div className="flex flex-col gap-1">
               <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide">
-                {activeSettings === "main" && "Main Settings"}
+                {activeSettings === "main" && "General Settings"}
                 {activeSettings === "scene" && "Scene Settings"}
                 {activeSettings === "time" && "Clock / Timer Settings"}
                 {activeSettings === "audio" && "Audio Settings"}

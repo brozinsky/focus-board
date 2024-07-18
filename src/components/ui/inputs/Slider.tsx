@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import * as RxSlider from "@radix-ui/react-slider";
 import clsx from "clsx";
 
@@ -9,6 +10,7 @@ interface IProps {
   step?: number;
   color?: string;
   disabled?: boolean;
+  className?: string;
 }
 
 const Slider = ({
@@ -18,10 +20,16 @@ const Slider = ({
   max = 100,
   step = 1,
   color = "default",
-  disabled
+  disabled,
+  className,
 }: IProps) => {
   return (
-    <div className="flex flex-row gap-2 items-center text-white w-full">
+    <div
+      className={cn(
+        "flex flex-row gap-2 items-center text-white w-full",
+        className
+      )}
+    >
       <RxSlider.Root
         className="group relative flex items-center self-center select-none touch-none w-full h-5"
         defaultValue={value}
@@ -35,7 +43,8 @@ const Slider = ({
         <RxSlider.Track className="bg-foreground relative grow rounded-full h-[4px]">
           <RxSlider.Range
             className={clsx(
-              color === "default" && "transition bg-primary-500 opacity-40 group-hover:opacity-100",
+              color === "default" &&
+                "transition bg-primary-500 opacity-80 group-hover:opacity-100",
               color === "gray" && "bg-white",
               "absolute rounded-full h-full"
             )}
