@@ -37,7 +37,7 @@
 .glass-dark,
 %glass-dark {
   @extend %glass;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--color-background);
   border: none;
   box-shadow: none;
 }

@@ -44,7 +44,7 @@ const Slider = ({
           <RxSlider.Range
             className={clsx(
               color === "default" &&
-                "transition bg-primary-500 opacity-80 group-hover:opacity-100",
+                "transition bg-primary opacity-80 group-hover:opacity-100",
               color === "gray" && "bg-white",
               "absolute rounded-full h-full"
             )}

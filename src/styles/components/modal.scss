@@ -67,7 +67,7 @@
     }
   }
   &__tech {
-    @apply flex justify-center flex-wrap gap-4 text-xs text-primary-500;
+    @apply flex justify-center flex-wrap gap-4 text-xs text-primary;
   }
   &__content {
     @apply flex flex-col gap-4 text-xs font-light;

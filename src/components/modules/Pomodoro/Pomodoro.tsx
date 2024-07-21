@@ -84,7 +84,7 @@ const Pomodoro = () => {
               max={100}
               min={0}
               value={progress}
-              gaugePrimaryColor="var(--color-primary-200)"
+              gaugePrimaryColor="var(--color-primary)"
               gaugeSecondaryColor="var(--color-neutral-200)"
               className="h-80 w-80 glass-blur rounded-full"
               displayValue={formatDuration(timeLeft)}

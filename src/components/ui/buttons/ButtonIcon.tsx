@@ -26,8 +26,8 @@ const ButtonIcon = ({
         size === "sm" && "p-1.5 h-8 w-8",
         size === "lg" && "p-4 h-18 w-18",
         size === "md" && "p-2 h-10 w-10",
-        variant === "ghost" && "hover:bg-white/20",
-        variant === "glass" && "hover:bg-white/20 bg-white/15",
+        variant === "ghost" && "hover:bg-secondary",
+        variant === "glass" && "hover:bg-secondary bg-secondary",
         "transition hover:opacity-100 flex items-center justify-center rounded-md",
         className
       )}

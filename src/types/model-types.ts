@@ -45,3 +45,21 @@ export type TSoundFX = {
   audio: string;
   isActive: boolean;
 };
+
+export type TThemeColor = {
+  name: string;
+  colors: {
+    primary: string;
+    primaryMuted: string;
+    secondary: string;
+    secondaryMuted: string;
+    foreground: string;
+    foregroundPrimary: string;
+    foregroundMuted: string;
+    background: string;
+  };
+};
+
+export type TThemeColors = {
+  [key: string]: TThemeColor;
+};

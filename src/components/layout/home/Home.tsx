@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Panel from "@/components/modules/Player/Panel";
 import Playlist from "@/components/modules/Playlist/Playlist";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
@@ -20,6 +20,7 @@ import useAudioPlayer from "@/hooks/useAudioPlayer";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import useFxStore from "@/stores/zustand/useFxStore";
 import { fontFamilyExt } from "@/lib/constants/const-theme";
+import useThemeStore from "@/stores/zustand/useThemeStore";
 
 const Home = () => {
   const { fontFamily } = useSceneStore();
@@ -53,6 +54,12 @@ const Home = () => {
 
   const { onReady: onAudioReady, handlePlayPause: handleAudioPlayPause } =
     useAudioPlayer();
+
+  const { colorTheme, setColorTheme, updateCSSVariables } = useThemeStore();
+
+  useLayoutEffect(() => {
+    updateCSSVariables();
+  }, [updateCSSVariables]);
 
   useEffect(() => {
     if (rootRef.current) {
@@ -100,22 +107,17 @@ const Home = () => {
     setCurrentAudio,
   ]);
 
-  const combinedFontFamily = [fontFamily, ...fontFamilyExt].join(', ')
+  const combinedFontFamily = [fontFamily, ...fontFamilyExt].join(", ");
 
   return (
     <div
-      style={{ fontFamily:  combinedFontFamily}}
+      style={{ fontFamily: combinedFontFamily }}
       className="App"
       unselectable="on"
       ref={rootRef}
     >
       {isPomodoroOpen && <Pomodoro />}
       <div unselectable="on">
-        {isLoading && (
-          <div className="absolute top-1/2 right-0 w-full flex items-center justify-center">
-            <div className="buffer">Buffering...</div>
-          </div>
-        )}
         {activeScene === "yt" && currentVideo?.videoId && (
           <YTVideo id={currentVideo.videoId} onReady={onVideoReady} />
         )}

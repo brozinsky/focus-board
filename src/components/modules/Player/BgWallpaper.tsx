@@ -25,7 +25,7 @@ const BgWallpaper = ({ id }: { id: string }) => {
       )}
     >
       <AdvancedImage
-        className="aspect-video object-cover modal__image"
+        className="aspect-video object-cover"
         cldImg={cld.image(id).format("auto")}
       />
     </motion.div>

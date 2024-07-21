@@ -21,9 +21,12 @@
     @apply bg-white/10;
   }
   &--active {
-    @apply bg-white/20;
+    // @apply bg-white/20;
+    @apply bg-primary-muted;
+
     &:hover {
-      @apply bg-white/20;
+      // @apply bg-white/20;
+      @apply bg-primary;
     }
   }
 }

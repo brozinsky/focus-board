@@ -5,13 +5,13 @@ function Badge({ className, variant, ...props }) {
   return (
     <a
       href="#projects"
-      className="relative inline-flex items-center justify-center h-12 px-10 overflow-hidden font-medium duration-500 bg-transparent border rounded-md bg-neutral-900 border-primary-500 group text-primary-500 border-1"
+      className="relative inline-flex items-center justify-center h-12 px-10 overflow-hidden font-medium duration-500 bg-transparent border rounded-md bg-neutral-900 border-primary group text-primary border-1"
     >
       <span className="translate-y-0 opacity-100 transition group-hover:-translate-y-[150%] group-hover:opacity-0">
         See my projects
       </span>
       <div className="button-shine">
-        <div className="relative w-20 h-full bg-primary-500/30"></div>
+        <div className="relative w-20 h-full bg-primary/30"></div>
       </div>
       <span className="absolute translate-y-[150%] opacity-0 transition group-hover:translate-y-0 group-hover:opacity-100">
         <svg

@@ -7,7 +7,7 @@
   &__option {
     @apply py-2 px-3 relative cursor-default select-none capitalize;
     &--active {
-      @apply bg-emerald-500 text-emerald-900;
+      @apply bg-primary text-white;
     }
   }
   &__list {
@@ -22,7 +22,7 @@
     }
   }
   &__label {
-    @apply mb-3 text-emerald-500;
+    @apply mb-3 text-foreground;
   }
   &--ghost,
   &--outlined {
