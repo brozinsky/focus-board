@@ -48,6 +48,8 @@ export type TSoundFX = {
 
 export type TThemeStyle = "glass" | "solid";
 
+export type TUIStyle = "glass" | "ghost";
+
 export type TThemeColor = {
   name: string;
   colors: {

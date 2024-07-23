@@ -1,5 +1,5 @@
 import { themeColors } from "@/lib/constants/const-theme";
-import { TThemeColor, TThemeStyle } from "@/types/model-types";
+import { TThemeColor, TThemeStyle, TUIStyle } from "@/types/model-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
@@ -10,14 +10,17 @@ import { create } from "zustand";
 interface ISceneStore {
   colorTheme: TThemeColor;
   themeStyle: TThemeStyle;
+  uiStyle: TUIStyle;
   setColorTheme: (colorTheme: TThemeColor) => void;
   setThemeStyle: (themeStyle: TThemeStyle) => void;
+  setUIStyle: (uiStyle: TUIStyle) => void;
   updateCSSVariables: () => void;
 }
 
 const useThemeStore = create<ISceneStore>((set, get) => ({
   colorTheme: getFromLocalStorage("colorTheme", themeColors.emerald),
   themeStyle: getFromLocalStorage("themeStyle", "glass"),
+  uiStyle: getFromLocalStorage("uiStyle", "ghost"),
   setColorTheme: (value) => {
     setToLocalStorage("colorTheme", value);
     set({ colorTheme: value });
@@ -26,6 +29,10 @@ const useThemeStore = create<ISceneStore>((set, get) => ({
   setThemeStyle: (value) => {
     setToLocalStorage("themeStyle", value);
     set({ themeStyle: value });
+  },
+  setUIStyle: (value) => {
+    setToLocalStorage("uiStyle", value);
+    set({ uiStyle: value });
   },
   updateCSSVariables: () => {
     const colorTheme = get().colorTheme.colors;

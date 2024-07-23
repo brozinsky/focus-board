@@ -41,6 +41,19 @@ const themeStyleOptions = [
   },
 ];
 
+const uiStyleOptions = [
+  {
+    id: 0,
+    value: "ghost",
+    name: "Ghost",
+  },
+  {
+    id: 1,
+    value: "glass",
+    name: "Glass",
+  },
+];
+
 const themeColorsArray = Object.entries(themeColors).map(([key, value]) => ({
   value: key,
   name: value.name,
@@ -83,8 +96,14 @@ const themeColorsOptions = [
 
 const GeneralSettings = () => {
   const { setIsSceneOpen, fontFamily, setFontFamily } = useSceneStore();
-  const { colorTheme, setColorTheme, setThemeStyle, themeStyle } =
-    useThemeStore();
+  const {
+    colorTheme,
+    setColorTheme,
+    setThemeStyle,
+    themeStyle,
+    uiStyle,
+    setUIStyle,
+  } = useThemeStore();
   const currentThemeName = themeColorOptions.find(
     (option) => option.value === colorTheme.name
   )?.name;
@@ -94,13 +113,13 @@ const GeneralSettings = () => {
     setColorTheme(selectedTheme);
   };
 
-  const {
-    currentVideo,
-    currentAudio,
-    isSharedVideoAndAudio,
-    setIsSharedVideoAndAudio,
-  } = usePlayerStore();
-  const { setIsPlaylistOpen } = usePlaylistStore();
+  // const {
+  //   currentVideo,
+  //   currentAudio,
+  //   isSharedVideoAndAudio,
+  //   setIsSharedVideoAndAudio,
+  // } = usePlayerStore();
+  // const { setIsPlaylistOpen } = usePlaylistStore();
   const { isQuoteActive, setIsQuoteActive } = useQuoteStore();
 
   return (
@@ -134,6 +153,20 @@ const GeneralSettings = () => {
           setState={setThemeStyle}
           displayValue={
             themeStyleOptions.find((item) => item.value === themeStyle)?.name
+          }
+        />
+      </div>
+      <div className="flex flex-row justify-between max-w-sm">
+        <label htmlFor="time-option">Button interface style</label>
+        <Select
+          buttonClassName="w-[160px]"
+          size={"sm"}
+          variant={"glass"}
+          options={uiStyleOptions}
+          state={uiStyle}
+          setState={setUIStyle}
+          displayValue={
+            uiStyleOptions.find((item) => item.value === uiStyle)?.name
           }
         />
       </div>
