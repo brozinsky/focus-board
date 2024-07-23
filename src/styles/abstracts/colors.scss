@@ -1,137 +1,45 @@
-:root {
-  --bg-opaque: rgb(17, 17, 17, 0.25);
-  --background-light: rgb(35, 35, 35);
+@layer base {
+  :root {
+    --color-primary: #a855f7;
 
-  --color-primary-100: #8dc6fb;
-  --color-primary-200: #6ab4fa;
-  --color-primary-300: #48a3f8;
-  --color-primary-400: #2592f7;
-  --color-primary-500: #1188f7;
-  --color-primary-600: #066ecf;
-  --color-primary-700: #055cac;
-  --color-primary-800: #04498a;
-  --color-primary-900: #033767;
+    --color-secondary: hsla(0, 0%, 100%, 0.2);
+    --color-secondary: #ccc2d633;
 
-  --color-emerald-100: #dbfaed;
-  --color-emerald-200: #b7f5db;
-  --color-emerald-300: #92f1ca;
-  --color-emerald-400: #6eecb8;
-  --color-emerald-500: #4ae7a6;
-  --color-emerald-600: #3bb985;
-  --color-emerald-700: #2c8b64;
-  --color-emerald-800: #1e5c42;
-  --color-emerald-900: #143e2c;
+    --color-foreground: rgb(204, 194, 214);
+    --color-foreground-muted: rgba(225, 231, 239, 0.576);
 
-  --color-neutral-50: #f2f3f5;
-  --color-neutral-100: #d7d7d8;
-  --color-neutral-200: #afafb1;
-  --color-neutral-300: #878689;
-  --color-neutral-400: #4a4950;
-  --color-neutral-500: #37363b;
-  --color-neutral-600: #2c2b2f;
-  --color-neutral-700: #26252a;
-  --color-neutral-800: #212023;
-  --color-neutral-900: #1a1a1c;
-  --color-neutral-950: #1a1a1c;
+    --color-background: #00000080;
 
-  --color-text-100: #efefef;
-  --color-text-300: #dedede;
-  --color-text-500: #eee;
-  --color-text-900: #fff;
+    color: #9a3df233;
+    color: #e1e7ef80;
+    color: #2196f34d;
 
-  --color-green-500: hsl(158, 81%, 39%);
-  --color-green-dark: hsla(158, 90%, 39%, 0.08);
+
+    // modal overlay
+    --bg-opaque: rgb(17, 17, 17, 0.25);
+
+    --radius: 0.5rem;
+  }
 }
 
-@layer {
-  .bg-background {
-    @apply bg-neutral-800;
-  }
-  .bg-background-deep {
-    @apply bg-neutral-900;
-  }
-  .bg-background-tester {
-    @apply bg-neutral-500;
-  }
-  .bg-card {
-    @apply bg-neutral-500;
-  }
-  .text-muted {
-    @apply text-neutral-200;
-  }
-  .text-foreground {
-    @apply text-neutral-100;
-  }
-  .text-light {
-    @apply text-neutral-50;
-  }
-}
 
 @layer base {
   :root {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
+    --color-primary: #a855f7;
 
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
+    --color-primary: #1c1917;
 
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
+    --color-input: #59576B;
 
-    --popover: 224 71% 4%;
-    --popover-foreground: 215 20.2% 65.1%;
+    --color-foreground: rgb(204, 194, 214);
+    --color-foreground-primary: rgb(204, 194, 214);
 
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
+    --color-foreground-muted: rgba(225, 231, 239, 0.576);
 
-    --card: 224 71% 4%;
-    --card-foreground: 213 31% 91%;
+    --color-background: #00000080;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 1.2%;
 
-    --secondary: 222.2 47.4% 11.2%;
-    --secondary-foreground: 210 40% 98%;
+    --color-ads: hsla(240 10% 3.9%; 0.502);
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-
-    --ring: 216 34% 17%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
-
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
-
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
-
-    --popover: 224 71% 4%;
-    --popover-foreground: 215 20.2% 65.1%;
-
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
-
-    --card: 224 71% 4%;
-    --card-foreground: 213 31% 91%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 1.2%;
-
-    --secondary: 222.2 47.4% 11.2%;
-    --secondary-foreground: 210 40% 98%;
-
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-
-    --ring: 216 34% 17%;
-
-    --radius: 0.5rem;
   }
 }
-

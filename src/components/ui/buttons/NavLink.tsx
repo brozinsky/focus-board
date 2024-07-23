@@ -13,7 +13,7 @@ const NavLink = ({ children, href }: TProps) => {
       <span
         className={`${
           location.pathname === href ? "navlink--active" : ""
-        } text-muted navlink select-none block text-lg cursor-pointer lg:inline-block lg:mt-0 `}
+        } text-foreground-muted navlink select-none block text-lg cursor-pointer lg:inline-block lg:mt-0 `}
       >
         {children}
       </span>

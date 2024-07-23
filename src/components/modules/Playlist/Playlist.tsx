@@ -8,6 +8,8 @@ import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
 import { ICurrentVideo, TSnippet } from "@/types/query-types";
 import PlaylistItem from "../Card/PlaylistItem";
 import DropdownVolume from "@/components/ui/dropdowns/DropdownVolume";
+import useThemeStore from "@/stores/zustand/useThemeStore";
+import { cn } from "@/lib/utils";
 
 type TPlaylistItem = {
   snippet: TSnippet;
@@ -16,6 +18,7 @@ type TPlaylistItem = {
 const Playlist = () => {
   const playlistQuery = usePlaylistQuery();
   const { isPlaylistOpen, setIsPlaylistOpen } = usePlaylistStore();
+  const { themeStyle } = useThemeStore();
   const {
     currentAudio,
     setCurrentAudio,
@@ -65,7 +68,10 @@ const Playlist = () => {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         onClick={(e) => e.stopPropagation()}
-        className={"modal__card"}
+        className={cn(
+          "modal__card",
+          themeStyle == "glass" && "modal__card--glass"
+        )}
       >
         <div className={"p-8 gap-6 flex flex-col"}>
           <div className="flex justify-between items-center">

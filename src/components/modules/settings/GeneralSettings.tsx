@@ -1,10 +1,12 @@
 import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
 import { Switch } from "@/components/ui/buttons/Switch";
 import Select from "@/components/ui/dropdowns/Select";
+import { themeColors } from "@/lib/constants/const-theme";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import useQuoteStore from "@/stores/zustand/useQuoteStore";
 import useSceneStore from "@/stores/zustand/useSceneStore";
+import useThemeStore from "@/stores/zustand/useThemeStore";
 import clsx from "clsx";
 import React from "react";
 
@@ -26,19 +28,148 @@ const fontFamilyOptions = [
   },
 ];
 
+const themeStyleOptions = [
+  {
+    id: 0,
+    value: "solid",
+    name: "Solid",
+  },
+  {
+    id: 1,
+    value: "glass",
+    name: "Glass",
+  },
+];
+
+const uiStyleOptions = [
+  {
+    id: 0,
+    value: "ghost",
+    name: "Ghost",
+  },
+  {
+    id: 1,
+    value: "glass",
+    name: "Glass",
+  },
+];
+
+const themeColorsArray = Object.entries(themeColors).map(([key, value]) => ({
+  value: key,
+  name: value.name,
+  theme: value,
+}));
+
+const transformThemeColors = (colors: typeof themeColors) => {
+  return Object.keys(colors).map((key) => ({
+    id: key,
+    name: colors[key].name,
+    value: key,
+  }));
+};
+
+const themeColorOptions = transformThemeColors(themeColors);
+
+const themeColorsOptions = [
+  {
+    id: 0,
+    name: "Purple",
+    colors: {
+      primary: "#a855f7",
+    },
+  },
+  {
+    id: 1,
+    name: "Emerald",
+    colors: {
+      primary: "#10b981",
+    },
+  },
+  {
+    id: 2,
+    name: "Blue",
+    colors: {
+      primary: "#3b82f6",
+    },
+  },
+];
+
 const GeneralSettings = () => {
   const { setIsSceneOpen, fontFamily, setFontFamily } = useSceneStore();
   const {
-    currentVideo,
-    currentAudio,
-    isSharedVideoAndAudio,
-    setIsSharedVideoAndAudio,
-  } = usePlayerStore();
-  const { setIsPlaylistOpen } = usePlaylistStore();
+    colorTheme,
+    setColorTheme,
+    setThemeStyle,
+    themeStyle,
+    uiStyle,
+    setUIStyle,
+  } = useThemeStore();
+  const currentThemeName = themeColorOptions.find(
+    (option) => option.value === colorTheme.name
+  )?.name;
+
+  const handleThemeChange = (selectedValue: string) => {
+    const selectedTheme = themeColors[selectedValue];
+    setColorTheme(selectedTheme);
+  };
+
+  // const {
+  //   currentVideo,
+  //   currentAudio,
+  //   isSharedVideoAndAudio,
+  //   setIsSharedVideoAndAudio,
+  // } = usePlayerStore();
+  // const { setIsPlaylistOpen } = usePlaylistStore();
   const { isQuoteActive, setIsQuoteActive } = useQuoteStore();
 
   return (
     <>
+      <div className="flex flex-row justify-between max-w-sm">
+        <label htmlFor="time-option">Theme color</label>
+        <Select
+          buttonClassName="w-[160px]"
+          size={"sm"}
+          variant={"glass"}
+          options={themeColorOptions}
+          state={colorTheme.name}
+          setState={handleThemeChange}
+          displayValue={currentThemeName}
+        />
+      </div>
+      <div className="flex justify-end max-w-sm items-center gap-2">
+        <span className="bg-primary w-8 h-8 rounded-sm"></span>
+        <span className="bg-secondary w-8 h-8 rounded-sm"></span>
+        <span className="bg-foreground w-8 h-8 rounded-sm"></span>
+        <span className="bg-background border-white/40 border w-8 h-8 rounded-sm"></span>
+      </div>
+      <div className="flex flex-row justify-between max-w-sm">
+        <label htmlFor="time-option">Theme style</label>
+        <Select
+          buttonClassName="w-[160px]"
+          size={"sm"}
+          variant={"glass"}
+          options={themeStyleOptions}
+          state={themeStyle}
+          setState={setThemeStyle}
+          displayValue={
+            themeStyleOptions.find((item) => item.value === themeStyle)?.name
+          }
+        />
+      </div>
+      <div className="flex flex-row justify-between max-w-sm">
+        <label htmlFor="time-option">Button interface style</label>
+        <Select
+          buttonClassName="w-[160px]"
+          size={"sm"}
+          variant={"glass"}
+          options={uiStyleOptions}
+          state={uiStyle}
+          setState={setUIStyle}
+          displayValue={
+            uiStyleOptions.find((item) => item.value === uiStyle)?.name
+          }
+        />
+      </div>
       <div className="flex flex-row justify-between max-w-sm">
         <label htmlFor="time-option">Font</label>
         <Select
@@ -53,14 +184,14 @@ const GeneralSettings = () => {
           setState={setFontFamily}
         />
       </div>
-      <div className="flex justify-between items-center max-w-sm">
+      {/* <div className="flex justify-between items-center max-w-sm">
         <div>Use same video and audio source</div>
         <Switch
           checked={isSharedVideoAndAudio}
           onCheckedChange={setIsSharedVideoAndAudio}
         />
-      </div>
-      <div className="flex flex-row gap-8">
+      </div> */}
+      {/* <div className="flex flex-row gap-8">
         <div className="flex flex-col gap-1">
           <div className="flex justify-between items-center">
             <div>Video</div>
@@ -120,7 +251,7 @@ const GeneralSettings = () => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="flex flex-col gap-1">
         <div className="flex justify-between items-center max-w-sm">
           <div>Show quotes</div>

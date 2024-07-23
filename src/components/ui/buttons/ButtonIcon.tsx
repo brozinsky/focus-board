@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import useThemeStore from "@/stores/zustand/useThemeStore";
 
 interface IProps {
   onClick?: () => void;
@@ -7,7 +8,6 @@ interface IProps {
   tooltip: string;
   size?: "lg" | "md" | "sm";
   className?: string;
-  variant?: "ghost" | "glass";
 }
 
 const ButtonIcon = ({
@@ -16,8 +16,8 @@ const ButtonIcon = ({
   icon,
   size = "md",
   className,
-  variant = "ghost",
 }: IProps) => {
+  const { uiStyle } = useThemeStore();
   return (
     <button
       title={tooltip}
@@ -26,9 +26,9 @@ const ButtonIcon = ({
         size === "sm" && "p-1.5 h-8 w-8",
         size === "lg" && "p-4 h-18 w-18",
         size === "md" && "p-2 h-10 w-10",
-        variant === "ghost" && "hover:bg-white/20",
-        variant === "glass" && "hover:bg-white/20 bg-white/15",
-        "transition hover:opacity-100 flex items-center justify-center rounded-md",
+        uiStyle === "ghost" && " button-icon--ghost",
+        uiStyle === "glass" && "button-icon--glass",
+        "button-icon",
         className
       )}
     >

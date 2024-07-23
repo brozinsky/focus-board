@@ -21,14 +21,14 @@
 }
 .swiper-button-next,
 .swiper-button-prev {
-  @apply p-4 h-10 w-10 bottom-0 top-auto rounded-xl border border-transparent text-light flex flex-row items-center justify-center gap-2;
+  @apply p-4 h-10 w-10 bottom-0 top-auto rounded-xl border border-transparent text-foreground flex flex-row items-center justify-center gap-2;
   background: transparent;
   transition: 0.25s ease all;
   &:after {
     @apply text-foreground text-xl;
   }
   &:hover {
-    @apply bg-card;
+    @apply bg-background;
     background: theme("colors.neutral.500") !important;
   }
 }

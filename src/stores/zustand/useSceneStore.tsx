@@ -66,7 +66,8 @@ const useSceneStore = create<ISceneStore>((set) => ({
     setToLocalStorage("isBgNoise", value);
     set({ isBgNoise: value });
   },
-  fontFamily: getFromLocalStorage("fontFamily", "WorkSans"),
+  // fontFamily: getFromLocalStorage("fontFamily", "WorkSans"),
+  fontFamily: "WorkSans",
   setFontFamily: (value) => {
     setToLocalStorage("fontFamily", value);
     set({ fontFamily: value });

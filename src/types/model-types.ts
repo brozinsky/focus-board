@@ -45,3 +45,24 @@ export type TSoundFX = {
   audio: string;
   isActive: boolean;
 };
+
+export type TThemeStyle = "glass" | "solid";
+
+export type TUIStyle = "glass" | "ghost";
+
+export type TThemeColor = {
+  name: string;
+  colors: {
+    primary: string;
+    secondary: string;
+    foreground: string;
+    foregroundPrimary: string;
+    foregroundMuted: string;
+    background: string;
+    input: string;
+  };
+};
+
+export type TThemeColors = {
+  [key: string]: TThemeColor;
+};

@@ -5,6 +5,8 @@ import { Switch } from "@/components/ui/buttons/Switch";
 import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import Select from "@/components/ui/dropdowns/Select";
 import TimeInput from "./TimeInput";
+import { cn } from "@/lib/utils";
+import useThemeStore from "@/stores/zustand/useThemeStore";
 
 type TProps = {
   isOpen: boolean;
@@ -52,6 +54,7 @@ const PomodoroSettings = ({
     isSoundNotification,
     setIsSoundNotification,
   } = usePomodoroStore();
+  const { themeStyle } = useThemeStore();
 
   if (!isOpen) return;
 
@@ -69,7 +72,10 @@ const PomodoroSettings = ({
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         onClick={(e) => e.stopPropagation()}
-        className={"modal__card modal__card--overflow-visible !w-[400px]"}
+        className={cn(
+          "modal__card modal__card--overflow-visible !w-[400px]",
+          themeStyle == "glass" && "modal__card--glass"
+        )}
       >
         <div className={"p-8 gap-6 flex flex-col"}>
           <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide">

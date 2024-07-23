@@ -56,8 +56,7 @@
 
   &__card {
     @apply w-full max-w-[85%] h-fit rounded-xl overflow-hidden cursor-auto;
-    // background: var(--background-light);
-    @extend  %glass-dark;
+    background: var(--color-background);
     // box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
     &--overflow-visible {
       @apply overflow-visible;
@@ -65,9 +64,13 @@
     &--min-h {
       @apply min-h-full;
     }
+    &--glass {
+      @extend %glass;
+      background-color: var(--color-background-glass);
+    }
   }
   &__tech {
-    @apply flex justify-center flex-wrap gap-4 text-xs text-primary-500;
+    @apply flex justify-center flex-wrap gap-4 text-xs text-primary;
   }
   &__content {
     @apply flex flex-col gap-4 text-xs font-light;

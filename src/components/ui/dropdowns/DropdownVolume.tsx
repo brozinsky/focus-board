@@ -5,6 +5,7 @@ import VolumeLoIconSVG from "@/components/elements/svg/icons/media/VolumeLoIconS
 import Button from "../buttons/Button";
 import Volume from "@/components/modules/settings/_partials/Volume";
 import useVolume from "@/hooks/useVolume";
+import VolumeMuteIconSVG from "@/components/elements/svg/icons/media/VolumeMuteIconSVG";
 
 const DropdownVolume = ({
   position = "top",
@@ -16,7 +17,12 @@ const DropdownVolume = ({
   return (
     <Dropdown
       position={position}
-      trigger={<ButtonIcon icon={<VolumeLoIconSVG />} tooltip={"Volume"} />}
+      trigger={
+        <ButtonIcon
+          icon={volumeAudio > 0 ? <VolumeLoIconSVG /> : <VolumeMuteIconSVG />}
+          tooltip={"Volume"}
+        />
+      }
     >
       <div className="flex flex-row gap-1 py-1 pl-1.5 pr-4">
         <Button
