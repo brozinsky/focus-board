@@ -57,6 +57,7 @@ export type TThemeColor = {
     foregroundPrimary: string;
     foregroundMuted: string;
     background: string;
+    input: string;
   };
 };
 

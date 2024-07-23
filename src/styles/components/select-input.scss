@@ -7,7 +7,7 @@
   &__option {
     @apply py-2 px-3 relative cursor-default select-none capitalize;
     &--active {
-      @apply bg-primary text-white;
+      @apply bg-primary text-foreground-primary;
     }
   }
   &__list {
@@ -41,11 +41,12 @@
   &--glass {
     .select-input {
       &__button {
-        @extend .glass;
+        @apply text-foreground;
+        @extend .glass-input;
         transition: 0.25s ease all;
       }
       &__list {
-        @extend .glass;
+        @extend .glass-input;
         @apply cursor-pointer;
       }
     }

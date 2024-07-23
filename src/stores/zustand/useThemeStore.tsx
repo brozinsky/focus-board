@@ -26,16 +26,8 @@ const useThemeStore = create<ISceneStore>((set, get) => ({
       colorTheme.primary
     );
     document.documentElement.style.setProperty(
-      "--color-primary-muted",
-      colorTheme.primaryMuted
-    );
-    document.documentElement.style.setProperty(
       "--color-secondary",
       colorTheme.secondary
-    );
-    document.documentElement.style.setProperty(
-      "--color-secondary-muted",
-      colorTheme.secondaryMuted
     );
     document.documentElement.style.setProperty(
       "--color-foreground",
@@ -52,6 +44,10 @@ const useThemeStore = create<ISceneStore>((set, get) => ({
     document.documentElement.style.setProperty(
       "--color-background",
       colorTheme.background
+    );
+    document.documentElement.style.setProperty(
+      "--color-input",
+      colorTheme.input
     );
   },
 }));

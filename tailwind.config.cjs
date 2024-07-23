@@ -24,12 +24,10 @@ module.exports = {
     extend: {
       colors: {
         border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
+        input: "var(--color-input)",
         ring: "hsl(var(--ring))",
         primary: "var(--color-primary)",
-        "primary-muted": "var(--color-primary-muted)",
         secondary: "var(--color-secondary)",
-        "secondary-muted": "var(--color-secondary-muted)",
         background: "var(--color-neutral-950)",
         foreground: "var(--color-foreground)",
         "foreground-primary": "var(--color-foreground-primary)",
