@@ -9,9 +9,12 @@ import TimeSettings from "./TimeSettings";
 import SceneSettings from "./SceneSettings";
 import clsx from "clsx";
 import AudioSettings from "./AudioSettings";
+import { cn } from "@/lib/utils";
+import useThemeStore from "@/stores/zustand/useThemeStore";
 
 const Settings = () => {
   const { isSceneModalOpen, setIsSceneModalOpen } = useSceneStore();
+  const { themeStyle } = useThemeStore();
 
   const [activeSettings, setActiveSettings] = useState<
     "main" | "scene" | "time" | "audio" | "pomodoro"
@@ -33,7 +36,10 @@ const Settings = () => {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         onClick={(e) => e.stopPropagation()}
-        className={"modal__card modal__card--overflow-visible !max-w-[1000px]"}
+        className={cn(
+          "modal__card modal__card--overflow-visible !max-w-[1000px]",
+          themeStyle == "glass" && "modal__card--glass"
+        )}
       >
         <div className="grid grid-cols-[20%_80%]">
           <div className="p-8 pr-0">

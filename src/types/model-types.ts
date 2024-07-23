@@ -46,13 +46,13 @@ export type TSoundFX = {
   isActive: boolean;
 };
 
+export type TThemeStyle = "glass" | "solid";
+
 export type TThemeColor = {
   name: string;
   colors: {
     primary: string;
-    primaryMuted: string;
     secondary: string;
-    secondaryMuted: string;
     foreground: string;
     foregroundPrimary: string;
     foregroundMuted: string;

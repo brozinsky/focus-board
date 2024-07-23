@@ -29,6 +29,8 @@ import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
 import FxItemLg from "../FxItem/FxItemLg";
 import MixerIconSVG from "@/components/elements/svg/icons/interface/MixerIconSVG";
 import { SFX_AUDIO } from "@/lib/constants/const-sfx";
+import { cn } from "@/lib/utils";
+import useThemeStore from "@/stores/zustand/useThemeStore";
 
 const SoundFX = () => {
   const {
@@ -38,6 +40,7 @@ const SoundFX = () => {
     isSoundFXFirstOpen,
   } = useWindowsStore();
   const [openCount, setOpenCount] = useState(0);
+  const { themeStyle } = useThemeStore();
 
   useEffect(() => {
     console.log(isSoundFXFirstOpen);
@@ -70,7 +73,10 @@ const SoundFX = () => {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         onClick={(e) => e.stopPropagation()}
-        className={"modal__card"}
+        className={cn(
+          "modal__card",
+          themeStyle == "glass" && "modal__card--glass"
+        )}
       >
         <div className={"p-8 gap-6 flex flex-col"}>
           <div className="flex justify-between items-center">

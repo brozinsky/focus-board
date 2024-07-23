@@ -1,4 +1,4 @@
-import { TThemeColor, TThemeColors } from "@/types/model-types";
+import { TThemeColors } from "@/types/model-types";
 
 export const fontFamilyExt = [
   "ui-sans-serif",
@@ -22,13 +22,11 @@ export const themeColors: TThemeColors = {
     name: "Neutral",
     colors: {
       primary: "#e1e7ef",
-      primaryMuted: "#e1e7ef80",
-      secondary: "#e1e7ef",
-      secondaryMuted: "#e1e7ef80",
+      secondary: "#e1e7ef4d",
       foreground: "#e1e7ef",
       foregroundPrimary: "#222",
       foregroundMuted: "#e1e7ef80",
-      background: "#00000080",
+      background: "#000",
       input: "#4D545C",
     },
   },
@@ -36,9 +34,7 @@ export const themeColors: TThemeColors = {
     name: "Blue",
     colors: {
       primary: "#2196F3",
-      primaryMuted: "#2196F3",
-      secondary: "#2196F3",
-      secondaryMuted: "#2196F3",
+      secondary: "#2196f34d",
       foreground: "#ccc",
       foregroundPrimary: "#ccc",
       foregroundMuted: "#e1e7ef93",
@@ -50,13 +46,11 @@ export const themeColors: TThemeColors = {
     name: "Purple",
     colors: {
       primary: "#9a3df2",
-      primaryMuted: "#a955f7b3",
-      secondary: "#ccc2d633",
-      secondaryMuted: "#ffffff33",
+      secondary: "#9a3df233",
       foreground: "#ccc2d6",
       foregroundPrimary: "#ccc2d6",
       foregroundMuted: "#e1e7ef93",
-      background: "#210f2e99",
+      background: "#210f2e",
       input: "#59576B",
     },
   },
@@ -64,9 +58,7 @@ export const themeColors: TThemeColors = {
     name: "Emerald",
     colors: {
       primary: "#22c55e",
-      primaryMuted: "#22c55ebb",
       secondary: "#ccc2d633",
-      secondaryMuted: "#ffffff33",
       foreground: "#ccc2d6",
       foregroundPrimary: "#1c1917",
       foregroundMuted: "#e1e7ef93",

@@ -22,5 +22,29 @@
   }
   &--active {
     @apply bg-primary text-foreground-primary;
+    &:hover {
+      @apply bg-primary;
+    }
+  }
+}
+
+.button-icon {
+  @apply transition flex items-center justify-center rounded-md;
+  &:hover {
+    @apply opacity-100;
+  }
+  &--ghost {
+    &:hover {
+      @apply bg-white/20;
+    }
+  }
+  &--glass {
+    @apply bg-white/20;
+    &:hover {
+      @apply bg-primary;
+      & > svg path {
+        @apply stroke-foreground-primary;
+      }
+    }
   }
 }

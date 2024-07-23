@@ -11,6 +11,8 @@ import { TActiveScene } from "@/types/query-types";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import ButtonTab from "@/components/ui/buttons/ButtonTab";
 import SceneEditSVG from "@/components/elements/svg/icons/interface/SceneEditSVG";
+import { cn } from "@/lib/utils";
+import useThemeStore from "@/stores/zustand/useThemeStore";
 
 type TTab = {
   id: string;
@@ -31,6 +33,7 @@ const tabs: TTab[] = [
 const Scenes = () => {
   const { isSceneOpen, setIsSceneOpen } = useSceneStore();
   const { activeScene } = usePlayerStore();
+  const { themeStyle } = useThemeStore();
 
   const [activeTab, setActiveTab] = useState<TActiveScene>(activeScene);
 
@@ -46,7 +49,10 @@ const Scenes = () => {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         onClick={(e) => e.stopPropagation()}
-        className={"modal__card modal__card--min-h"}
+        className={cn(
+          "modal__card modal__card--min-h",
+          themeStyle == "glass" && "modal__card--glass"
+        )}
       >
         <div className="grid grid-cols-[20%_80%]">
           <div className="p-8 pr-0">

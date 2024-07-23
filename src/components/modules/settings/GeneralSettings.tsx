@@ -28,6 +28,19 @@ const fontFamilyOptions = [
   },
 ];
 
+const themeStyleOptions = [
+  {
+    id: 0,
+    value: "solid",
+    name: "Solid",
+  },
+  {
+    id: 1,
+    value: "glass",
+    name: "Glass",
+  },
+];
+
 const themeColorsArray = Object.entries(themeColors).map(([key, value]) => ({
   value: key,
   name: value.name,
@@ -70,7 +83,8 @@ const themeColorsOptions = [
 
 const GeneralSettings = () => {
   const { setIsSceneOpen, fontFamily, setFontFamily } = useSceneStore();
-  const { colorTheme, setColorTheme } = useThemeStore();
+  const { colorTheme, setColorTheme, setThemeStyle, themeStyle } =
+    useThemeStore();
   const currentThemeName = themeColorOptions.find(
     (option) => option.value === colorTheme.name
   )?.name;
@@ -110,6 +124,20 @@ const GeneralSettings = () => {
         <span className="bg-background border-white/40 border w-8 h-8 rounded-sm"></span>
       </div>
       <div className="flex flex-row justify-between max-w-sm">
+        <label htmlFor="time-option">Theme style</label>
+        <Select
+          buttonClassName="w-[160px]"
+          size={"sm"}
+          variant={"glass"}
+          options={themeStyleOptions}
+          state={themeStyle}
+          setState={setThemeStyle}
+          displayValue={
+            themeStyleOptions.find((item) => item.value === themeStyle)?.name
+          }
+        />
+      </div>
+      <div className="flex flex-row justify-between max-w-sm">
         <label htmlFor="time-option">Font</label>
         <Select
           buttonClassName="w-[160px]"
@@ -123,14 +151,14 @@ const GeneralSettings = () => {
           setState={setFontFamily}
         />
       </div>
-      <div className="flex justify-between items-center max-w-sm">
+      {/* <div className="flex justify-between items-center max-w-sm">
         <div>Use same video and audio source</div>
         <Switch
           checked={isSharedVideoAndAudio}
           onCheckedChange={setIsSharedVideoAndAudio}
         />
-      </div>
-      <div className="flex flex-row gap-8">
+      </div> */}
+      {/* <div className="flex flex-row gap-8">
         <div className="flex flex-col gap-1">
           <div className="flex justify-between items-center">
             <div>Video</div>
@@ -190,7 +218,7 @@ const GeneralSettings = () => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="flex flex-col gap-1">
         <div className="flex justify-between items-center max-w-sm">
           <div>Show quotes</div>
