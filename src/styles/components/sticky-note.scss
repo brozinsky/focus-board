@@ -1,0 +1,109 @@
+$color-note-yellow-100: hsl(60, 100%, 94%);
+$color-note-yellow-500: rgb(255, 251, 176);
+$color-note-yellow-600: hsl(35, 92%, 33%);
+$color-note-yellow-900: hsl(26, 83%, 14%);
+
+$color-note-green-100: hsl(117, 75%, 89%);
+$color-note-green-500: rgb(182, 255, 179);
+$color-note-green-600: hsl(117, 40%, 28%);
+$color-note-green-900: hsl(117, 83%, 14%);
+
+$color-note-violet-100: hsl(251, 91%, 95%);
+$color-note-violet-500: rgb(255, 207, 230);
+$color-note-violet-600: hsl(296, 40%, 28%);
+$color-note-violet-900: hsl(297, 83%, 14%);
+
+$color-note-cyan-100: hsl(195, 75%, 89%);
+$color-note-cyan-500: rgb(207, 238, 248);
+$color-note-cyan-600: hsl(194, 40%, 28%);
+$color-note-cyan-900: hsl(194, 83%, 14%);
+
+$color-note-purple-100: hsl(251, 75%, 89%);
+$color-note-purple-500: rgb(235, 212, 253);
+$color-note-purple-600: hsl(274, 40%, 28%);
+$color-note-purple-900: hsl(274, 83%, 14%);
+
+$color-note-white-100: hsl(0, 0%, 89%);
+$color-note-white-500: rgb(255, 255, 255);
+$color-note-white-600: hsl(0, 0%, 28%);
+$color-note-white-900: hsl(0, 0%, 14%);
+
+.sticky-note {
+  @apply max-w-80 min-h-56 min-w-56 px-6 py-2 flex flex-col w-full rounded-md;
+  @extend .glass-blur;
+  &--yellow {
+    background: rgba($color-note-yellow-500, 0.8);
+  }
+  &--green {
+    background: rgba($color-note-green-500, 0.8);
+  }
+  &--purple {
+    background: rgba($color-note-purple-500, 0.8);
+  }
+  &--cyan {
+    background: rgba($color-note-cyan-500, 0.8);
+  }
+  &--violet {
+    background: rgba($color-note-violet-500, 0.8);
+  }
+  &--white {
+    background: rgba($color-note-white-500, 0.8);
+  }
+  &__textarea {
+    @apply resize-none p-2 w-full bg-transparent;
+
+    &:focus {
+      @apply border-none outline-none bg-white;
+      background-color: rgba(white, 0.5);
+    }
+    &--yellow {
+      color: $color-note-yellow-900;
+      &::-moz-selection,
+      &::selection {
+        color: $color-note-yellow-100;
+        background: $color-note-yellow-600;
+      }
+    }
+    &--green {
+      color: $color-note-green-900;
+      &::-moz-selection,
+      &::selection {
+        color: $color-note-green-100;
+        background: $color-note-green-600;
+      }
+    }
+    &--purple {
+      color: $color-note-purple-900;
+      &::-moz-selection,
+      &::selection {
+        color: $color-note-purple-100;
+        background: $color-note-purple-600;
+      }
+    }
+    &--cyan {
+      color: $color-note-cyan-900;
+      &::-moz-selection,
+      &::selection {
+        color: $color-note-cyan-100;
+        background: $color-note-cyan-600;
+
+      }
+    }
+    &--violet {
+      color: $color-note-violet-900;
+      &::-moz-selection,
+      &::selection {
+        color: $color-note-violet-100;
+        background: $color-note-violet-600;
+      }
+    }
+    &--white {
+      color: $color-note-white-900;
+      &::-moz-selection,
+      &::selection {
+        color: $color-note-white-100;
+        background: $color-note-white-600;
+      }
+    }
+  }
+}
