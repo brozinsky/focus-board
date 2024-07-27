@@ -42,6 +42,18 @@ export const themeColors: TThemeColors = {
       input: "#4D4D4D",
     },
   },
+  violet: {
+    name: "Violet",
+    colors: {
+      primary: "#484DDF",
+      secondary: "#9a3df233",
+      foreground: "#EEEEEE",
+      foregroundPrimary: "#EEEEEE",
+      foregroundMuted: "#EEEEEE",
+      background: "#1F1F21",
+      input: "#363638",
+    },
+  },
   purple: {
     name: "Purple",
     colors: {
@@ -64,6 +76,18 @@ export const themeColors: TThemeColors = {
       foregroundMuted: "#e1e7ef93",
       background: "#1c1917",
       input: "#555351",
+    },
+  },
+  orange: {
+    name: "Orange",
+    colors: {
+      primary: "#FB8E31",
+      secondary: "#FB8E31",
+      foreground: "#D4D4D4",
+      foregroundPrimary: "#262626",
+      foregroundMuted: "#D4D4D4",
+      background: "#333333",
+      input: "#5C5C5C",
     },
   },
 };
