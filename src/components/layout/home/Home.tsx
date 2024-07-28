@@ -21,6 +21,7 @@ import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import useFxStore from "@/stores/zustand/useFxStore";
 import { fontFamilyExt } from "@/lib/constants/const-theme";
 import useThemeStore from "@/stores/zustand/useThemeStore";
+import StickyNotes from "@/components/modules/StickyNotes/StickyNotes";
 
 const Home = () => {
   const { fontFamily } = useSceneStore();
@@ -117,6 +118,7 @@ const Home = () => {
       ref={rootRef}
     >
       {isPomodoroOpen && <Pomodoro />}
+      <StickyNotes />
       <div unselectable="on">
         {activeScene === "yt" && currentVideo?.videoId && (
           <YTVideo id={currentVideo.videoId} onReady={onVideoReady} />
