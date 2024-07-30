@@ -3,11 +3,12 @@ import { cn } from "@/lib/utils";
 import useThemeStore from "@/stores/zustand/useThemeStore";
 
 interface IProps {
-  onClick?: () => void;
+  onClick?: (e: any) => void;
   icon: ReactNode;
   tooltip: string;
   size?: "lg" | "md" | "sm";
   className?: string;
+  variant?: "ghost" | "glass";
 }
 
 const ButtonIcon = ({
@@ -16,8 +17,12 @@ const ButtonIcon = ({
   icon,
   size = "md",
   className,
+  variant,
 }: IProps) => {
   const { uiStyle } = useThemeStore();
+
+  const buttonVariant = variant || uiStyle;
+
   return (
     <button
       title={tooltip}
@@ -26,8 +31,8 @@ const ButtonIcon = ({
         size === "sm" && "p-1.5 h-8 w-8",
         size === "lg" && "p-4 h-18 w-18",
         size === "md" && "p-2 h-10 w-10",
-        uiStyle === "ghost" && " button-icon--ghost",
-        uiStyle === "glass" && "button-icon--glass",
+        buttonVariant === "ghost" && "button-icon--ghost",
+        buttonVariant === "glass" && "button-icon--glass",
         "button-icon",
         className
       )}

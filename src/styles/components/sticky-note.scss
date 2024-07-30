@@ -86,7 +86,6 @@ $color-note-white-900: hsl(0, 0%, 14%);
       &::selection {
         color: $color-note-cyan-100;
         background: $color-note-cyan-600;
-
       }
     }
     &--violet {
@@ -104,6 +103,41 @@ $color-note-white-900: hsl(0, 0%, 14%);
         color: $color-note-white-100;
         background: $color-note-white-600;
       }
+    }
+  }
+  &__colors {
+    @extend .glass;
+    @apply flex absolute items-center justify-center gap-1.5 rounded-sm px-4 py-2;
+    top: -58px;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    background-color: var(--color-background-glass);
+  }
+  &__color {
+    @apply aspect-square rounded-sm flex items-center justify-center;
+    width: 100%;
+    opacity: 0.8;
+    &--yellow {
+      background: $color-note-yellow-500;
+    }
+    &--green {
+      background: $color-note-green-500;
+    }
+    &--purple {
+      background: $color-note-purple-500;
+    }
+    &--cyan {
+      background: $color-note-cyan-500;
+    }
+    &--violet {
+      background: $color-note-violet-500;
+    }
+    &--white {
+      background: $color-note-white-500;
+    }
+    &--active {
+      opacity: 1;
     }
   }
 }
