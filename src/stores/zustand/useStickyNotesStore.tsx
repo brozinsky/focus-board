@@ -71,7 +71,6 @@ const useStickyNotesStore = create<IPlaylistState>((set) => ({
   },
   updateStickyNote: (id, updates) =>
     set((state) => {
-      console.log("updateing...");
       const updatedNotes = state.stickyNotes.map((note) =>
         note.id === id ? { ...note, ...updates } : note
       );
@@ -81,8 +80,6 @@ const useStickyNotesStore = create<IPlaylistState>((set) => ({
   removeStickyNote: (id) =>
     set((state) => {
       const updatedNotes = state.stickyNotes.filter((note) => note.id !== id);
-      console.log(`Removing note with id: ${id}`);
-      console.log(`Updated notes: ${JSON.stringify(updatedNotes)}`);
       setToLocalStorage("stickyNotes", updatedNotes);
       return { stickyNotes: updatedNotes };
     }),

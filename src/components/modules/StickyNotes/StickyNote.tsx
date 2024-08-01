@@ -38,7 +38,6 @@ export function StickyNote({
   isContent,
 }: TProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [isTitleActive, setIsTitleActive] = useState(false);
   const { attributes, listeners, setNodeRef, transform, setActivatorNodeRef } =
     useDraggable({
       id,
@@ -97,14 +96,12 @@ export function StickyNote({
   };
 
   const handleContentCheckbox = (value: boolean) => {
-    console.log("click", value);
     if (isEditing) {
       updateStickyNote(id, { isContent: value });
     }
   };
 
   const handleEditToggle = (e: Event) => {
-    console.log("click");
     e.stopPropagation();
     setIsEditing(!isEditing);
   };
@@ -141,7 +138,7 @@ export function StickyNote({
             "absolute -bottom-12 left-2 bg-background hover:opacity-100 ",
             !isEditing && "group-hover:opacity-100 opacity-0"
           )}
-          onClick={removeStickyNote}
+          onClick={() => removeStickyNote(id)}
           icon={<TrashIconSVG pathClass="stroke-foreground" />}
           tooltip={"Delete"}
         />
