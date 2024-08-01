@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   DndContext,
   DragEndEvent,
-  MouseSensor,
   PointerSensor,
-  TouchSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import { StickyNote } from "./StickyNote";
-import { TStickyNote } from "@/types/model-types";
 import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
+import { restrictToParentElement } from "@dnd-kit/modifiers";
 
 const StickyNotes = () => {
   const { stickyNotes, setStickyNotes } = useStickyNotesStore();
@@ -35,10 +33,16 @@ const StickyNotes = () => {
       },
     })
   );
+
   return (
-    <div className="flex flex-wrap absolute top-1/2 -translate-y-1/2 right-1/2 z-20 translate-x-1/2 gap-6">
-      {stickyNotes.map((note) => (
-        <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+    <div className="absolute z-20 overflow-hidden top-4 right-4 left-4 bottom-4">
+      <DndContext
+        autoScroll={false}
+        modifiers={[restrictToParentElement]}
+        onDragEnd={handleDragEnd}
+        sensors={sensors}
+      >
+        {stickyNotes.map((note) => (
           <StickyNote
             key={note.id}
             color={note.color}
@@ -51,8 +55,8 @@ const StickyNotes = () => {
             content={note.content}
             title={note.title}
           />
-        </DndContext>
-      ))}
+        ))}
+      </DndContext>
     </div>
   );
 };
