@@ -22,6 +22,8 @@ const NOTES_DATA: TStickyNote[] = [
       y: 0,
     },
     color: "yellow",
+    isTitle: true,
+    isContent: true,
   },
   {
     id: "0",
@@ -32,6 +34,8 @@ const NOTES_DATA: TStickyNote[] = [
       y: 0,
     },
     color: "cyan",
+    isTitle: true,
+    isContent: true,
   },
   {
     id: "2",
@@ -42,6 +46,8 @@ const NOTES_DATA: TStickyNote[] = [
       y: 0,
     },
     color: "purple",
+    isTitle: true,
+    isContent: true,
   },
   {
     id: "3",
@@ -52,6 +58,8 @@ const NOTES_DATA: TStickyNote[] = [
       y: 0,
     },
     color: "green",
+    isTitle: true,
+    isContent: true,
   },
 ];
 

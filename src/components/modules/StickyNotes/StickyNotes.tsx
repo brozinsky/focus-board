@@ -54,6 +54,8 @@ const StickyNotes = () => {
             id={note.id}
             content={note.content}
             title={note.title}
+            isTitle={note.isTitle}
+            isContent={note.isContent}
           />
         ))}
       </DndContext>

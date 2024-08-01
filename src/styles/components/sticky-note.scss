@@ -29,7 +29,7 @@ $color-note-white-600: hsl(0, 0%, 28%);
 $color-note-white-900: hsl(0, 0%, 14%);
 
 .sticky-note {
-  @apply max-w-80 min-h-56 min-w-56 px-6 py-2 flex flex-col w-full rounded-md;
+  @apply max-w-80 w-80 min-h-56 min-w-56 px-6 py-2 flex flex-col rounded-md;
   @extend .glass-blur;
   &--yellow {
     background: rgba($color-note-yellow-500, 0.8);

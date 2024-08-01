@@ -84,4 +84,6 @@ export type TStickyNote = {
     y: number;
   };
   color: TStickyNoteColor;
+  isTitle: boolean;
+  isContent: boolean;
 };
