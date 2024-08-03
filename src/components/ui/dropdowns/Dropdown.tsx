@@ -38,9 +38,9 @@ export default function Dropdown({
         >
           <Menu.Items
             className={clsx(
-              position === "top" && "-top-16 left-1/2 -translate-x-1/2",
-              position === "bottom" && "",
-              "z-50 absolute mt-3 w-56 origin-top-right glass-neutral divide-y divide-neutral-800 rounded-md",
+              position === "top" && "bottom-12 left-1/2 -translate-x-1/2 origin-bottom",
+              position === "bottom" && "origin-top-right",
+              "z-50 absolute mt-3 w-56 glass-neutral divide-y divide-neutral-800 rounded-md",
               isCenter ? "left-1/2 -translate-x-1/2" : "right-0"
             )}
           >

@@ -1,5 +1,5 @@
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import React from "react";
+import React, { useState } from "react";
 import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
 import PauseIconSVG from "@/components/elements/svg/icons/media/PauseIconSVG";
@@ -10,6 +10,7 @@ import { goFullscreen } from "@/utils/functions/fn-common";
 import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
 import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import TimerPlusSVG from "@/components/elements/svg/icons/interface/TimerPlusSVG";
+import NotesSVG from "@/components/elements/svg/icons/interface/NotesSVG";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsIconSVG";
 import useSceneStore from "@/stores/zustand/useSceneStore";
@@ -17,6 +18,10 @@ import SceneEditSVG from "@/components/elements/svg/icons/interface/SceneEditSVG
 import Settings from "../settings/Settings";
 import DropdownVolume from "@/components/ui/dropdowns/DropdownVolume";
 import { Separator } from "@/components/ui/Separator/Separator";
+import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
+import Dropdown from "@/components/ui/dropdowns/Dropdown";
+import Checkbox from "@/components/ui/inputs/Checkbox";
+import ButtonDropdown from "@/components/ui/buttons/ButtonDropdown";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -28,6 +33,8 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
   const { isPomodoroOpen, setIsPomodoroOpen } = usePomodoroStore();
   const { setIsSoundFXOpen, isSoundFXOpen } = useWindowsStore();
   const { setIsSceneModalOpen, setIsSceneOpen } = useSceneStore();
+  const { addStickyNote, areNotesVisible, setAreNotesVisible } =
+    useStickyNotesStore();
 
   return (
     <>
@@ -67,6 +74,32 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           </div> */}
         </div>
         <div className="panel__group">
+          <Dropdown
+            position={"top"}
+            trigger={
+              <ButtonIcon icon={<NotesSVG />} tooltip={"Sticky notes"} />
+            }
+          >
+            <div className="flex flex-col gap-3 p-4">
+              <div className="text-xl">Sticky notes</div>
+              <Separator className="bg-white/30" />
+              <ButtonDropdown
+                onClick={addStickyNote}
+                isDsabled={!areNotesVisible}
+              >
+                + Add new
+              </ButtonDropdown>
+              <Checkbox
+                isDisabled={false}
+                isSelected={areNotesVisible}
+                state={areNotesVisible}
+                onChange={setAreNotesVisible}
+              >
+                Show notes
+              </Checkbox>
+            </div>
+          </Dropdown>
+
           <ButtonIcon
             onClick={() => setIsPomodoroOpen(!isPomodoroOpen)}
             icon={<TimerPlusSVG />}

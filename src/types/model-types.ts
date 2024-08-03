@@ -66,3 +66,24 @@ export type TThemeColor = {
 export type TThemeColors = {
   [key: string]: TThemeColor;
 };
+
+export type TStickyNoteColor =
+  | "yellow"
+  | "purple"
+  | "cyan"
+  | "violet"
+  | "green"
+  | "white";
+
+export type TStickyNote = {
+  id: string;
+  title: string;
+  content: string;
+  position: {
+    x: number;
+    y: number;
+  };
+  color: TStickyNoteColor;
+  isTitle: boolean;
+  isContent: boolean;
+};
