@@ -11,7 +11,8 @@ import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 
 const StickyNotes = () => {
-  const { stickyNotes, setStickyNotes } = useStickyNotesStore();
+  const { stickyNotes, setStickyNotes, areNotesVisible } =
+    useStickyNotesStore();
 
   function handleDragEnd(e: DragEndEvent) {
     const note = stickyNotes.find((x) => x.id === e.active.id);
@@ -34,6 +35,9 @@ const StickyNotes = () => {
     })
   );
 
+  if (!areNotesVisible) {
+    return null;
+  }
   return (
     <div className="absolute z-20 overflow-hidden top-4 right-4 left-4 bottom-4">
       <DndContext

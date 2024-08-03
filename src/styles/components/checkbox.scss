@@ -7,7 +7,7 @@
   &--selected {
     @apply bg-primary border-primary;
     & > svg {
-      @apply text-foreground;
+      @apply text-foreground-primary;
     }
   }
   &--empty {
