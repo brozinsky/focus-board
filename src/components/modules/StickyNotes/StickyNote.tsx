@@ -1,22 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { cn } from "@/lib/utils";
 import CheckSVG from "@/components/elements/svg/icons/interface/CheckSVG";
-import { TStickyNoteColor } from "@/types/model-types";
+import { TStickyNoteColor, TTodo } from "@/types/model-types";
 import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
 import EditIconSVG from "@/components/elements/svg/icons/interface/EditIconSVG";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import TrashIconSVG from "@/components/elements/svg/icons/interface/TrashIconSVG";
 import Checkbox from "@/components/ui/inputs/Checkbox";
+import TodoInput from "./TodoInput";
 
 type TProps = {
   id: string;
   color: TStickyNoteColor;
-  title: string;
-  content: string;
+  title?: string;
+  content?: string;
   styles: any;
-  isTitle: boolean;
-  isContent: boolean;
+  isTitle?: boolean;
+  isContent?: boolean;
+  todos?: TTodo[];
 };
 
 const COLORS = [
@@ -32,12 +34,16 @@ export function StickyNote({
   id,
   color,
   styles,
-  content,
-  title,
-  isTitle,
-  isContent,
+  content = "",
+  title = "",
+  isTitle = false,
+  isContent = false,
+  todos = [],
 }: TProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [newTask, setNewTask] = useState<string>("");
+  const [tasks, setTasks] = useState<TTodo[]>(todos);
+
   const { attributes, listeners, setNodeRef, transform, setActivatorNodeRef } =
     useDraggable({
       id,
@@ -45,7 +51,8 @@ export function StickyNote({
     });
   const textareaRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
 
-  const { updateStickyNote, removeStickyNote } = useStickyNotesStore();
+  const { updateStickyNote, removeStickyNote, stickyNotes } =
+    useStickyNotesStore();
 
   useEffect(() => {
     const handleResize = () => {
@@ -101,9 +108,49 @@ export function StickyNote({
     }
   };
 
+  useEffect(() => {
+    updateStickyNote(id, { todos: tasks });
+  }, [tasks]);
+
+  useEffect(() => {
+    console.log(stickyNotes);
+  }, [stickyNotes]);
+
+  // const handleTasksChange = (value: TTodo[]) => {
+  //   if (isEditing) {
+  //     updateStickyNote(id, { todos: value });
+  //   }
+  // };
+
   const handleEditToggle = (e: Event) => {
     e.stopPropagation();
     setIsEditing(!isEditing);
+  };
+
+  const addTask = () => {
+    if (newTask.trim()) {
+      setTasks([
+        ...tasks,
+        { id: String(Date.now()), content: newTask, isCompleted: false },
+      ]);
+      setNewTask("");
+    }
+  };
+
+  const deleteTask = (taskId: string) => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(updatedTasks);
+  };
+
+  const toggleTask = (taskId: string) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, isCompleted: !task.isCompleted } : task
+    );
+    setTasks(updatedTasks);
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewTask(e.target.value);
   };
 
   return (
@@ -113,8 +160,9 @@ export function StickyNote({
       {...listeners}
       {...attributes}
       style={{ ...style, ...styles }}
+      className="group pb-14"
     >
-      <div className={`group sticky-note relative sticky-note--${color}`}>
+      <div className={`sticky-note relative sticky-note--${color}`}>
         {!isEditing && (
           <div className="absolute top-0 bottom-0 right-0 left-0 cursor-grab"></div>
         )}
@@ -154,6 +202,39 @@ export function StickyNote({
             unselectable="on"
           />
         )}
+        <TodoInput
+          onChange={handleInputChange}
+          value={newTask}
+          onClick={addTask}
+        />
+        <ul className="list-none p-0">
+          {todos.map((task) => (
+            // <TodoItem key={task.id}/>
+            <li
+              key={task.id}
+              className={`flex items-center justify-between p-2 mb-2 border text-${
+                task.isCompleted ? "line-through" : ""
+              }`}
+            >
+              <input
+                type="checkbox"
+                checked={task.isCompleted}
+                onChange={() => toggleTask(task.id)}
+                className="mr-2"
+              />
+              {task.content}
+              <ButtonIcon
+                size="sm"
+                className={cn(
+                  "p-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600"
+                )}
+                onClick={() => deleteTask(task.id)}
+                icon={<TrashIconSVG pathClass="stroke-white" />}
+                tooltip={"Delete"}
+              />
+            </li>
+          ))}
+        </ul>
         {isContent && (
           <textarea
             ref={(el) => (textareaRefs.current[1] = el)}

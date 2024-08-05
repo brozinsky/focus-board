@@ -9,6 +9,8 @@ import {
 import { StickyNote } from "./StickyNote";
 import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
+import { TodoList } from "./TodoList";
+import Tester from "./Tester";
 
 const StickyNotes = () => {
   const { stickyNotes, setStickyNotes, areNotesVisible } =
@@ -46,6 +48,7 @@ const StickyNotes = () => {
         onDragEnd={handleDragEnd}
         sensors={sensors}
       >
+        <Tester />
         {stickyNotes.map((note) => (
           <StickyNote
             key={note.id}
@@ -60,6 +63,7 @@ const StickyNotes = () => {
             title={note.title}
             isTitle={note.isTitle}
             isContent={note.isContent}
+            todos={note.todos}
           />
         ))}
       </DndContext>

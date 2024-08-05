@@ -1,83 +1,25 @@
-import { TStickyNote, TStickyNoteColor } from "@/types/model-types";
+import create from "zustand";
+import { TStickyNote, TStickyNoteColor, TTodo } from "@/types/model-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
 } from "@/utils/functions/fn-common";
-import { create } from "zustand";
 
-const COLORS: TStickyNoteColor[] = [
-  "yellow",
-  "purple",
-  "cyan",
-  "violet",
-  "green",
-  "white",
-];
-
-interface IPlaylistState {
+type IPlaylistState = {
   stickyNotes: TStickyNote[];
-  setStickyNotes: (stickyNotes: TStickyNote[]) => void;
+  setStickyNotes: (value: TStickyNote[]) => void;
+  areNotesVisible: boolean;
+  setAreNotesVisible: (value: boolean) => void;
   updateStickyNote: (id: string, updates: Partial<TStickyNote>) => void;
   removeStickyNote: (id: string) => void;
   addStickyNote: () => void;
   colorIndex: number;
-  areNotesVisible: boolean;
-  setAreNotesVisible: (value: boolean) => void;
-}
+};
 
-const NOTES_DATA: TStickyNote[] = [
-  {
-    id: "1",
-    title: "Note",
-    content: "Study English",
-    position: {
-      x: 0,
-      y: 0,
-    },
-    color: "yellow",
-    isTitle: true,
-    isContent: true,
-  },
-  {
-    id: "0",
-    title: "Note",
-    content: "Study English",
-    position: {
-      x: 0,
-      y: 0,
-    },
-    color: "cyan",
-    isTitle: true,
-    isContent: true,
-  },
-  {
-    id: "2",
-    title: "Note",
-    content: "Study English",
-    position: {
-      x: 0,
-      y: 0,
-    },
-    color: "purple",
-    isTitle: true,
-    isContent: true,
-  },
-  {
-    id: "3",
-    title: "Note",
-    content: "Study English",
-    position: {
-      x: 0,
-      y: 0,
-    },
-    color: "green",
-    isTitle: true,
-    isContent: true,
-  },
-];
+const COLORS = ["yellow", "cyan", "purple", "green", "violet", "white"];
 
 const useStickyNotesStore = create<IPlaylistState>((set) => ({
-  stickyNotes: getFromLocalStorage("stickyNotes", NOTES_DATA),
+  stickyNotes: getFromLocalStorage("stickyNotes", []),
   setStickyNotes: (value) => {
     setToLocalStorage("stickyNotes", value);
     set({ stickyNotes: value });
@@ -107,14 +49,18 @@ const useStickyNotesStore = create<IPlaylistState>((set) => ({
         id: String(Date.now()),
         title: "New Note",
         content: "",
+        todos: [],
         position: {
           x: window.innerWidth / 2 - 50,
           y: window.innerHeight / 2 - 50,
         },
         color:
-          state.stickyNotes.length === 0 ? "yellow" : COLORS[state.colorIndex],
+          state.stickyNotes.length === 0
+            ? "yellow"
+            : (COLORS[state.colorIndex] as TStickyNoteColor),
         isTitle: true,
         isContent: true,
+        isTodos: false,
       };
       const updatedNotes = [...state.stickyNotes, newNote];
       return {
