@@ -28,6 +28,28 @@ $color-note-white-500: rgb(255, 255, 255);
 $color-note-white-600: hsl(0, 0%, 28%);
 $color-note-white-900: hsl(0, 0%, 14%);
 
+.text-note {
+  &-yellow {
+    color: $color-note-yellow-900;
+  }
+  &-green {
+    color: $color-note-green-900;
+  }
+  &-violet {
+    color: $color-note-violet-900;
+  }
+  &-note-cyan {
+    color: $color-note-cyan-900;
+  }
+  &-purple {
+    color: $color-note-purple-900;
+  }
+
+  &-white {
+    color: $color-note-white-900;
+  }
+}
+
 .sticky-note {
   @apply max-w-80 w-80 min-h-56 min-w-56 px-6 py-2 flex flex-col rounded-md;
   @extend .glass-blur;
@@ -52,9 +74,13 @@ $color-note-white-900: hsl(0, 0%, 14%);
   &__textarea {
     @apply resize-none p-2 w-full bg-transparent;
 
-    &:focus {
+    &:focus,
+    &.active {
       @apply border-none outline-none bg-white;
       background-color: rgba(white, 0.5);
+    }
+    &:focus {
+      background-color: rgba(white, 0.7);
     }
     &--yellow {
       color: $color-note-yellow-900;
