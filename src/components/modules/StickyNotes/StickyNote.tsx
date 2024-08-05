@@ -9,6 +9,7 @@ import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import TrashIconSVG from "@/components/elements/svg/icons/interface/TrashIconSVG";
 import Checkbox from "@/components/ui/inputs/Checkbox";
 import TodoInput from "./TodoInput";
+import TodoItem from "./TodoItem";
 
 type TProps = {
   id: string;
@@ -164,7 +165,7 @@ export function StickyNote({
     >
       <div className={`sticky-note relative sticky-note--${color}`}>
         {!isEditing && (
-          <div className="absolute top-0 bottom-0 right-0 left-0 cursor-grab"></div>
+          <div className="absolute top-0 bottom-0 right-0 left-0 cursor-grab pointer-events-none"></div>
         )}
         <ButtonIcon
           className={cn(
@@ -194,7 +195,10 @@ export function StickyNote({
           <textarea
             rows={1}
             ref={(el) => (textareaRefs.current[0] = el)}
-            className={`overflow-hidden text-xl sticky-note__textarea sticky-note__textarea--${color}`}
+            className={cn(
+              isEditing && "active",
+              `overflow-hidden text-xl sticky-note__textarea sticky-note__textarea--${color}`
+            )}
             value={title}
             onChange={(e) => handleTitleChange(e)}
             onKeyDown={(e) => e.stopPropagation()}
@@ -202,43 +206,34 @@ export function StickyNote({
             unselectable="on"
           />
         )}
-        <TodoInput
-          onChange={handleInputChange}
-          value={newTask}
-          onClick={addTask}
-        />
-        <ul className="list-none p-0">
+        {isEditing && (
+          <TodoInput
+            onChange={handleInputChange}
+            value={newTask}
+            onClick={addTask}
+            color={color}
+          />
+        )}
+        <ul className="list-none p-0 mt-4">
           {todos.map((task) => (
-            // <TodoItem key={task.id}/>
-            <li
+            <TodoItem
               key={task.id}
-              className={`flex items-center justify-between p-2 mb-2 border text-${
-                task.isCompleted ? "line-through" : ""
-              }`}
-            >
-              <input
-                type="checkbox"
-                checked={task.isCompleted}
-                onChange={() => toggleTask(task.id)}
-                className="mr-2"
-              />
-              {task.content}
-              <ButtonIcon
-                size="sm"
-                className={cn(
-                  "p-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600"
-                )}
-                onClick={() => deleteTask(task.id)}
-                icon={<TrashIconSVG pathClass="stroke-white" />}
-                tooltip={"Delete"}
-              />
-            </li>
+              color={color}
+              tasks={tasks}
+              setTasks={setTasks}
+              content={task.content}
+              isCompleted={task.isCompleted}
+              id={task.id}
+            />
           ))}
         </ul>
         {isContent && (
           <textarea
             ref={(el) => (textareaRefs.current[1] = el)}
-            className={`select-none flex-grow resize-none sticky-note__textarea sticky-note__textarea--${color}`}
+            className={cn(
+              isEditing && "active",
+              `select-none flex-grow resize-none sticky-note__textarea sticky-note__textarea--${color}`
+            )}
             value={content}
             onChange={(e) => handleContentChange(e)}
             onKeyDown={(e) => e.stopPropagation()}
