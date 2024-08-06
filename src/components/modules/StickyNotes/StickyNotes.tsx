@@ -1,4 +1,3 @@
-import React from "react";
 import {
   DndContext,
   DragEndEvent,
@@ -9,8 +8,6 @@ import {
 import { StickyNote } from "./StickyNote";
 import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
-import { TodoList } from "./TodoList";
-import Tester from "./Tester";
 
 const StickyNotes = () => {
   const { stickyNotes, setStickyNotes, areNotesVisible } =
@@ -48,7 +45,6 @@ const StickyNotes = () => {
         onDragEnd={handleDragEnd}
         sensors={sensors}
       >
-        <Tester />
         {stickyNotes.map((note) => (
           <StickyNote
             key={note.id}
