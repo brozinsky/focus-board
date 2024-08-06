@@ -18,8 +18,9 @@ export default function EditIconSVG({
         className={pathClass}
         strokeLinecap="round"
         strokeLinejoin="round"
+        strokeMiterlimit={10}
         strokeWidth={1.5}
-        d="M11 2H9C4 2 2 4 2 9v6c0 5 2 7 7 7h6c5 0 7-2 7-7v-2"
+        d="m13.26 3.6-8.21 8.69c-.31.33-.61.98-.67 1.43l-.37 3.24c-.13 1.17.71 1.97 1.87 1.77l3.22-.55c.45-.08 1.08-.41 1.39-.75l8.21-8.69c1.42-1.5 2.06-3.21-.15-5.3-2.2-2.07-3.87-1.34-5.29.16Z"
       />
       <path
         className={pathClass}
@@ -27,15 +28,7 @@ export default function EditIconSVG({
         strokeLinejoin="round"
         strokeMiterlimit={10}
         strokeWidth={1.5}
-        d="M16.04 3.02 8.16 10.9c-.3.3-.6.89-.66 1.32l-.43 3.01c-.16 1.09.61 1.85 1.7 1.7l3.01-.43c.42-.06 1.01-.36 1.32-.66l7.88-7.88c1.36-1.36 2-2.94 0-4.94-2-2-3.58-1.36-4.94 0Z"
-      />
-      <path
-        className={pathClass}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeMiterlimit={10}
-        strokeWidth={1.5}
-        d="M14.91 4.15a7.144 7.144 0 0 0 4.94 4.94"
+        d="M11.89 5.05a6.126 6.126 0 0 0 5.45 5.15M3 22h18"
       />
     </svg>
   );
