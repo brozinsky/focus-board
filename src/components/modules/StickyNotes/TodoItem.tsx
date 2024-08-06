@@ -29,7 +29,7 @@ const TodoItem = ({
 
   const toggleTask = (taskId: string) => {
     const updatedTasks = tasks.map((task) =>
-      id === taskId ? { ...task, isCompleted: !isCompleted } : task
+      task.id === taskId ? { ...task, isCompleted: !isCompleted } : task
     );
     setTasks(updatedTasks);
   };
