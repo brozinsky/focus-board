@@ -12,7 +12,7 @@ type IPlaylistState = {
   setAreNotesVisible: (value: boolean) => void;
   updateStickyNote: (id: string, updates: Partial<TStickyNote>) => void;
   removeStickyNote: (id: string) => void;
-  addStickyNote: () => void;
+  addStickyNote: (variant: "note" | "todo") => void;
   colorIndex: number;
 };
 
@@ -43,11 +43,11 @@ const useStickyNotesStore = create<IPlaylistState>((set) => ({
       setToLocalStorage("stickyNotes", updatedNotes);
       return { stickyNotes: updatedNotes };
     }),
-  addStickyNote: () =>
+  addStickyNote: (variant) =>
     set((state) => {
       const newNote: TStickyNote = {
         id: String(Date.now()),
-        title: "New Note",
+        title: variant === "todo" ? "Todo list" : "My note",
         content: "",
         todos: [],
         position: {
@@ -59,8 +59,8 @@ const useStickyNotesStore = create<IPlaylistState>((set) => ({
             ? "yellow"
             : (COLORS[state.colorIndex] as TStickyNoteColor),
         isTitle: true,
-        isContent: true,
-        isTodos: false,
+        isContent: variant === "note",
+        isTodos: variant === "todo",
       };
       const updatedNotes = [...state.stickyNotes, newNote];
       return {

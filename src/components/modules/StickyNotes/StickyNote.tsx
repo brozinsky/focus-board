@@ -231,6 +231,7 @@ export function StickyNote({
               `overflow-hidden text-xl sticky-note__textarea sticky-note__textarea--${color}`
             )}
             value={title}
+            placeholder={isEditing ? "Title" : ""}
             onChange={(e) => handleTitleChange(e)}
             onKeyDown={(e) => e.stopPropagation()}
             disabled={!isEditing}
@@ -244,7 +245,7 @@ export function StickyNote({
               isEditing && "active",
               `select-none flex-grow resize-none sticky-note__textarea sticky-note__textarea--${color}`
             )}
-            placeholder="Your note"
+            placeholder={isEditing ? "Your note" : ""}
             value={content}
             onChange={(e) => handleContentChange(e)}
             onKeyDown={(e) => e.stopPropagation()}
