@@ -40,7 +40,8 @@ const TodoInput = ({ onChange, value, onClick, color }: TProps) => {
         className={cn(
           "group/add p-1 text-sm bg-background hover:bg-primary hover:text-primary-foreground active:translate-y-1 text-foreground rounded-lg w-12 h-10"
         )}
-        onClick={onClick}
+        disabled={value.length === 0}
+        onClick={value ? onClick : () => null}
         icon={
           <PlusSVG pathClass="group-hover/add:stroke-foreground-primary stroke-white" />
         }

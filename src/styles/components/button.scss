@@ -47,6 +47,9 @@
       }
     }
   }
+  &.disabled {
+    @apply pointer-events-none cursor-default opacity-80;
+  }
 }
 .button-dropdown {
   @apply flex items-center justify-start rounded-md px-2 py-1;

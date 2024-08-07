@@ -194,7 +194,9 @@ export function StickyNote({
       style={{ ...style, ...styles }}
       className="group pb-14"
     >
-      <div className={`sticky-note gap-2 relative sticky-note--${color}`}>
+      <div className={cn(`sticky-note gap-2 relative sticky-note--${color}`,
+         {"cursor-grab": !isEditing}
+      )}>
         {!isEditing && (
           <div className="absolute top-0 bottom-0 right-0 left-0 cursor-grab pointer-events-none"></div>
         )}
@@ -219,7 +221,9 @@ export function StickyNote({
             !isEditing && "group-hover:opacity-100 opacity-0"
           )}
           onClick={() => removeStickyNote(id)}
-          icon={<TrashIconSVG pathClass="group-hover/delete:stroke-foreground-primary stroke-foreground" />}
+          icon={
+            <TrashIconSVG pathClass="group-hover/delete:stroke-foreground-primary stroke-foreground" />
+          }
           tooltip={"Delete"}
         />
         {isTitle && (
@@ -227,7 +231,7 @@ export function StickyNote({
             rows={1}
             ref={(el) => (textareaRefs.current[0] = el)}
             className={cn(
-              isEditing && "active",
+              isEditing ? "active" : "pointer-events-none",
               `overflow-hidden text-xl sticky-note__textarea sticky-note__textarea--${color}`
             )}
             value={title}
@@ -242,7 +246,7 @@ export function StickyNote({
           <textarea
             ref={(el) => (textareaRefs.current[1] = el)}
             className={cn(
-              isEditing && "active",
+              isEditing ? "active" : "pointer-events-none",
               `select-none flex-grow resize-none sticky-note__textarea sticky-note__textarea--${color}`
             )}
             placeholder={isEditing ? "Your note" : ""}
