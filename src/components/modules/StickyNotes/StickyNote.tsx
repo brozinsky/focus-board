@@ -1,43 +1,52 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+} from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { cn } from "@/lib/utils";
-import CheckSVG from "@/components/elements/svg/icons/interface/CheckSVG";
-import { TStickyNoteColor } from "@/types/model-types";
+import { TStickyNoteColor, TTodo } from "@/types/model-types";
 import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
-import EditIconSVG from "@/components/elements/svg/icons/interface/EditIconSVG";
-import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
-import TrashIconSVG from "@/components/elements/svg/icons/interface/TrashIconSVG";
-import Checkbox from "@/components/ui/inputs/Checkbox";
+import TodoInput from "./TodoInput";
+import TodoItem from "./TodoItem";
+import autoAnimate from "@formkit/auto-animate";
+import StickyNoteEditUI from "./StickyNoteEditUI";
 
 type TProps = {
   id: string;
   color: TStickyNoteColor;
-  title: string;
-  content: string;
+  title?: string;
+  content?: string;
   styles: any;
-  isTitle: boolean;
-  isContent: boolean;
+  isTitle?: boolean;
+  isContent?: boolean;
+  isTodos?: boolean;
+  todos?: TTodo[];
 };
-
-const COLORS = [
-  { name: "yellow" },
-  { name: "cyan" },
-  { name: "purple" },
-  { name: "green" },
-  { name: "violet" },
-  { name: "white" },
-];
 
 export function StickyNote({
   id,
   color,
   styles,
-  content,
-  title,
-  isTitle,
-  isContent,
+  content = "",
+  title = "",
+  isTitle = false,
+  isContent = false,
+  isTodos = false,
+  todos = [],
 }: TProps) {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [newTask, setNewTask] = useState<string>("");
+  const [tasks, setTasks] = useState<TTodo[]>(todos);
+
+  const todoListRef = useRef(null);
+
+  useEffect(() => {
+    todoListRef.current && autoAnimate(todoListRef.current);
+  }, [todoListRef]);
+
   const { attributes, listeners, setNodeRef, transform, setActivatorNodeRef } =
     useDraggable({
       id,
@@ -45,7 +54,7 @@ export function StickyNote({
     });
   const textareaRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
 
-  const { updateStickyNote, removeStickyNote } = useStickyNotesStore();
+  const { updateStickyNote } = useStickyNotesStore();
 
   useEffect(() => {
     const handleResize = () => {
@@ -83,28 +92,32 @@ export function StickyNote({
     }
   };
 
-  const handleColorChange = (newColor: TStickyNoteColor) => {
-    if (isEditing) {
-      updateStickyNote(id, { color: newColor });
+  useEffect(() => {
+    updateStickyNote(id, { todos: tasks });
+  }, [tasks]);
+
+  const addTask = () => {
+    if (newTask.trim()) {
+      setTasks([
+        ...tasks,
+        { id: String(Date.now()), content: newTask, isCompleted: false },
+      ]);
+      setNewTask("");
     }
   };
 
-  const handleTitleCheckbox = (value: boolean) => {
-    if (isEditing) {
-      updateStickyNote(id, { isTitle: value });
-    }
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewTask(e.target.value);
   };
 
-  const handleContentCheckbox = (value: boolean) => {
-    if (isEditing) {
-      updateStickyNote(id, { isContent: value });
-    }
-  };
-
-  const handleEditToggle = (e: Event) => {
-    e.stopPropagation();
-    setIsEditing(!isEditing);
-  };
+  const incompleteTasks = useMemo(
+    () => tasks.filter((task) => !task.isCompleted),
+    [tasks]
+  );
+  const completedTasks = useMemo(
+    () => tasks.filter((task) => task.isCompleted),
+    [tasks]
+  );
 
   return (
     <div
@@ -113,41 +126,23 @@ export function StickyNote({
       {...listeners}
       {...attributes}
       style={{ ...style, ...styles }}
+      className="group pb-14"
     >
-      <div className={`group sticky-note relative sticky-note--${color}`}>
-        {!isEditing && (
-          <div className="absolute top-0 bottom-0 right-0 left-0 cursor-grab"></div>
-        )}
-        <ButtonIcon
-          className={cn(
-            "absolute -bottom-12 right-2 bg-background hover:bg-background hover:opacity-100",
-            !isEditing && "group-hover:opacity-100 opacity-0 "
-          )}
-          onClick={handleEditToggle}
-          icon={
-            !isEditing ? (
-              <EditIconSVG pathClass="stroke-foreground" />
-            ) : (
-              <CheckSVG pathClass="stroke-foreground" />
-            )
-          }
-          tooltip={"Edit"}
-        />
-        <ButtonIcon
-          className={cn(
-            "absolute -bottom-12 left-2 bg-background hover:opacity-100 ",
-            !isEditing && "group-hover:opacity-100 opacity-0"
-          )}
-          onClick={() => removeStickyNote(id)}
-          icon={<TrashIconSVG pathClass="stroke-foreground" />}
-          tooltip={"Delete"}
-        />
+      <div
+        className={cn(`sticky-note gap-2 relative sticky-note--${color}`, {
+          "cursor-grab": !isEditing,
+        })}
+      >
         {isTitle && (
           <textarea
             rows={1}
             ref={(el) => (textareaRefs.current[0] = el)}
-            className={`overflow-hidden text-xl sticky-note__textarea sticky-note__textarea--${color}`}
+            className={cn(
+              isEditing ? "active" : "pointer-events-none",
+              `overflow-hidden text-xl sticky-note__textarea sticky-note__textarea--${color}`
+            )}
             value={title}
+            placeholder={isEditing ? "Title" : ""}
             onChange={(e) => handleTitleChange(e)}
             onKeyDown={(e) => e.stopPropagation()}
             disabled={!isEditing}
@@ -157,51 +152,62 @@ export function StickyNote({
         {isContent && (
           <textarea
             ref={(el) => (textareaRefs.current[1] = el)}
-            className={`select-none flex-grow resize-none sticky-note__textarea sticky-note__textarea--${color}`}
+            className={cn(
+              isEditing ? "active" : "pointer-events-none",
+              `select-none flex-grow resize-none sticky-note__textarea sticky-note__textarea--${color}`
+            )}
+            placeholder={isEditing ? "Your note" : ""}
             value={content}
             onChange={(e) => handleContentChange(e)}
             onKeyDown={(e) => e.stopPropagation()}
             disabled={!isEditing}
           />
         )}
-        {isEditing && (
-          <div className="absolute -right-[150px] w-36 top-0">
-            <div className="bg-background p-4 rounded-md flex flex-col gap-2">
-              <Checkbox
-                isDisabled={false}
-                isSelected={isTitle}
-                state={isTitle}
-                onChange={handleTitleCheckbox}
-              >
-                Title
-              </Checkbox>
-              <Checkbox
-                isDisabled={false}
-                isSelected={isContent}
-                state={isContent}
-                onChange={handleContentCheckbox}
-              >
-                Content
-              </Checkbox>
-            </div>
-          </div>
+        {isTodos && isEditing && (
+          <TodoInput
+            onChange={handleInputChange}
+            value={newTask}
+            onClick={addTask}
+            color={color}
+          />
         )}
-        {isEditing && (
-          <div className="sticky-note__colors">
-            {COLORS.map((item) => (
-              <div
-                key={item.name}
-                className={cn(
-                  item.name === color && "sticky-note__color--active",
-                  `sticky-note__color sticky-note__color--${item.name}`
-                )}
-                onClick={() => handleColorChange(item.name as TStickyNoteColor)}
-              >
-                {item.name === color && <CheckSVG pathClass="stroke-black" />}
-              </div>
+        {isTodos && (
+          <ul ref={todoListRef} className="list-none p-0">
+            {incompleteTasks.map((task) => (
+              <TodoItem
+                key={task.id}
+                id={task.id}
+                color={color}
+                tasks={tasks}
+                setTasks={setTasks}
+                content={task.content}
+                isCompleted={task.isCompleted}
+              />
             ))}
-          </div>
+            {completedTasks.map((task) => (
+              <TodoItem
+                key={task.id}
+                id={task.id}
+                color={color}
+                tasks={tasks}
+                setTasks={setTasks}
+                content={task.content}
+                isCompleted={task.isCompleted}
+              />
+            ))}
+          </ul>
         )}
+        <StickyNoteEditUI
+          id={id}
+          color={color}
+          tasks={tasks}
+          setTasks={setTasks}
+          isTitle={isTitle}
+          isContent={isContent}
+          isTodos={isTodos}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+        />
       </div>
     </div>
   );

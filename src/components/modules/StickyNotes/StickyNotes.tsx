@@ -1,4 +1,3 @@
-import React from "react";
 import {
   DndContext,
   DragEndEvent,
@@ -60,6 +59,8 @@ const StickyNotes = () => {
             title={note.title}
             isTitle={note.isTitle}
             isContent={note.isContent}
+            isTodos={note.isTodos}
+            todos={note.todos}
           />
         ))}
       </DndContext>

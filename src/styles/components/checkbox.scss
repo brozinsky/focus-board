@@ -4,10 +4,19 @@
   & > svg {
     @apply text-foreground;
   }
+  &.dark {
+    @apply border-black;
+  }
   &--selected {
     @apply bg-primary border-primary;
     & > svg {
       @apply text-foreground-primary;
+    }
+    &.dark {
+      @apply bg-black border-black;
+      & > svg {
+        @apply text-foreground;
+      }
     }
   }
   &--empty {

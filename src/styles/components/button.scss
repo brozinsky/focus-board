@@ -47,6 +47,27 @@
       }
     }
   }
+  &.disabled {
+    @apply pointer-events-none cursor-default opacity-80;
+  }
+}
+.button-dropdown {
+  @apply flex items-center justify-start rounded-md px-2 py-1;
+  &:hover {
+    @apply bg-primary text-foreground-primary;
+  }
+  &:active {
+    transform: translateY(2px);
+  }
+  &.disabled {
+    opacity: 50%;
+    &:hover {
+      @apply bg-foreground text-background;
+    }
+    &:active {
+      transform: none;
+    }
+  }
 }
 .button-dropdown {
   @apply flex items-center justify-start rounded-md px-2 py-1;

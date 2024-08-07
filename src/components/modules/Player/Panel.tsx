@@ -84,10 +84,16 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
               <div className="text-xl">Sticky notes</div>
               <Separator className="bg-white/30" />
               <ButtonDropdown
-                onClick={addStickyNote}
+                onClick={() => addStickyNote("note")}
                 isDsabled={!areNotesVisible}
               >
-                + Add new
+                + Add sticky note
+              </ButtonDropdown>
+              <ButtonDropdown
+                onClick={() => addStickyNote("todo")}
+                isDsabled={!areNotesVisible}
+              >
+                + Add todo list
               </ButtonDropdown>
               <Checkbox
                 isDisabled={false}

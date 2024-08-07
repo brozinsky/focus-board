@@ -14,6 +14,7 @@ type TProps = {
   animationSwipe?: boolean;
   isDisabled?: boolean;
   children: any;
+  variant?: "default" | "dark";
 };
 
 const Checkbox = ({
@@ -35,6 +36,7 @@ const Checkbox = ({
     const checkboxClassName = classNames(
       "checkbox",
       state.isSelected ?? "checkbox--selected",
+      props.variant === "dark" && "dark",
       isDisabled
         ? "border-neutral-500"
         : isFocusVisible || state.isSelected
