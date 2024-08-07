@@ -3,21 +3,16 @@ import React, {
   useEffect,
   useRef,
   useState,
-  memo,
   useMemo,
 } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { cn } from "@/lib/utils";
-import CheckSVG from "@/components/elements/svg/icons/interface/CheckSVG";
 import { TStickyNoteColor, TTodo } from "@/types/model-types";
 import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
-import EditIconSVG from "@/components/elements/svg/icons/interface/EditIconSVG";
-import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
-import TrashIconSVG from "@/components/elements/svg/icons/interface/TrashIconSVG";
-import Checkbox from "@/components/ui/inputs/Checkbox";
 import TodoInput from "./TodoInput";
 import TodoItem from "./TodoItem";
 import autoAnimate from "@formkit/auto-animate";
+import StickyNoteEditUI from "./StickyNoteEditUI";
 
 type TProps = {
   id: string;
@@ -31,15 +26,6 @@ type TProps = {
   todos?: TTodo[];
 };
 
-const COLORS = [
-  { name: "yellow" },
-  { name: "cyan" },
-  { name: "purple" },
-  { name: "green" },
-  { name: "violet" },
-  { name: "white" },
-];
-
 export function StickyNote({
   id,
   color,
@@ -51,7 +37,7 @@ export function StickyNote({
   isTodos = false,
   todos = [],
 }: TProps) {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const [newTask, setNewTask] = useState<string>("");
   const [tasks, setTasks] = useState<TTodo[]>(todos);
 
@@ -68,8 +54,7 @@ export function StickyNote({
     });
   const textareaRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
 
-  const { updateStickyNote, removeStickyNote, stickyNotes } =
-    useStickyNotesStore();
+  const { updateStickyNote } = useStickyNotesStore();
 
   useEffect(() => {
     const handleResize = () => {
@@ -107,48 +92,9 @@ export function StickyNote({
     }
   };
 
-  const handleColorChange = (newColor: TStickyNoteColor) => {
-    if (isEditing) {
-      updateStickyNote(id, { color: newColor });
-    }
-  };
-
-  const handleTitleCheckbox = (value: boolean) => {
-    if (isEditing) {
-      updateStickyNote(id, { isTitle: value });
-    }
-  };
-
-  const handleContentCheckbox = (value: boolean) => {
-    if (isEditing) {
-      updateStickyNote(id, { isContent: value });
-    }
-  };
-
-  const handleTodoListCheckbox = (value: boolean) => {
-    if (isEditing) {
-      updateStickyNote(id, { isTodos: value });
-    }
-  };
-
   useEffect(() => {
     updateStickyNote(id, { todos: tasks });
   }, [tasks]);
-
-  useEffect(() => {
-    console.log(stickyNotes);
-  }, [stickyNotes]);
-
-  // const handleTasksChange = (value: TTodo[]) => {
-  //   if (isEditing) {
-  //     updateStickyNote(id, { todos: value });
-  //   }
-  // };
-
-  const handleEditToggle = (e: Event) => {
-    e.stopPropagation();
-    setIsEditing(!isEditing);
-  };
 
   const addTask = () => {
     if (newTask.trim()) {
@@ -158,18 +104,6 @@ export function StickyNote({
       ]);
       setNewTask("");
     }
-  };
-
-  const deleteTask = (taskId: string) => {
-    const updatedTasks = tasks.filter((task) => task.id !== taskId);
-    setTasks(updatedTasks);
-  };
-
-  const toggleTask = (taskId: string) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, isCompleted: !task.isCompleted } : task
-    );
-    setTasks(updatedTasks);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -194,38 +128,11 @@ export function StickyNote({
       style={{ ...style, ...styles }}
       className="group pb-14"
     >
-      <div className={cn(`sticky-note gap-2 relative sticky-note--${color}`,
-         {"cursor-grab": !isEditing}
-      )}>
-        {!isEditing && (
-          <div className="absolute top-0 bottom-0 right-0 left-0 cursor-grab pointer-events-none"></div>
-        )}
-        <ButtonIcon
-          className={cn(
-            "group/edit absolute -bottom-12 right-2 bg-background hover:bg-primary hover:opacity-100",
-            !isEditing && "group-hover:opacity-100 opacity-0 "
-          )}
-          onClick={handleEditToggle}
-          icon={
-            !isEditing ? (
-              <EditIconSVG pathClass="group-hover/edit:stroke-foreground-primary stroke-foreground" />
-            ) : (
-              <CheckSVG pathClass="group-hover/edit:stroke-foreground-primary stroke-foreground" />
-            )
-          }
-          tooltip={"Edit"}
-        />
-        <ButtonIcon
-          className={cn(
-            "group/delete absolute -bottom-12 left-2 bg-background hover:bg-red-500 hover:opacity-100 ",
-            !isEditing && "group-hover:opacity-100 opacity-0"
-          )}
-          onClick={() => removeStickyNote(id)}
-          icon={
-            <TrashIconSVG pathClass="group-hover/delete:stroke-foreground-primary stroke-foreground" />
-          }
-          tooltip={"Delete"}
-        />
+      <div
+        className={cn(`sticky-note gap-2 relative sticky-note--${color}`, {
+          "cursor-grab": !isEditing,
+        })}
+      >
         {isTitle && (
           <textarea
             rows={1}
@@ -290,52 +197,17 @@ export function StickyNote({
             ))}
           </ul>
         )}
-        {isEditing && (
-          <div className="absolute -right-2 translate-x-full w-42 top-0">
-            <div className="bg-background p-4 rounded-md flex flex-col gap-2">
-              <Checkbox
-                isDisabled={false}
-                isSelected={isTitle}
-                state={isTitle}
-                onChange={handleTitleCheckbox}
-              >
-                Show title
-              </Checkbox>
-              <Checkbox
-                isDisabled={false}
-                isSelected={isContent}
-                state={isContent}
-                onChange={handleContentCheckbox}
-              >
-                Show content
-              </Checkbox>
-              <Checkbox
-                isDisabled={false}
-                isSelected={isTodos}
-                state={isTodos}
-                onChange={handleTodoListCheckbox}
-              >
-                Todo list
-              </Checkbox>
-            </div>
-          </div>
-        )}
-        {isEditing && (
-          <div className="sticky-note__colors">
-            {COLORS.map((item) => (
-              <div
-                key={item.name}
-                className={cn(
-                  item.name === color && "sticky-note__color--active",
-                  `sticky-note__color sticky-note__color--${item.name}`
-                )}
-                onClick={() => handleColorChange(item.name as TStickyNoteColor)}
-              >
-                {item.name === color && <CheckSVG pathClass="stroke-black" />}
-              </div>
-            ))}
-          </div>
-        )}
+        <StickyNoteEditUI
+          id={id}
+          color={color}
+          tasks={tasks}
+          setTasks={setTasks}
+          isTitle={isTitle}
+          isContent={isContent}
+          isTodos={isTodos}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+        />
       </div>
     </div>
   );

@@ -135,10 +135,11 @@ $color-note-white-900: hsl(0, 0%, 14%);
   }
   &__colors {
     @extend .glass;
-    @apply flex absolute items-center justify-center gap-1.5 rounded-sm px-4 py-2;
-    top: -58px;
+    @apply flex absolute items-center justify-center gap-1.5 rounded-sm p-2;
+    top: -0.5rem;
+    transform: translateY(-100%);
     left: 0;
-    height: 50px;
+    // height: 50px;
     width: 100%;
     background-color: var(--color-background-glass);
   }
