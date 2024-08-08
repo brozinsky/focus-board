@@ -75,21 +75,23 @@ export type TStickyNoteColor =
   | "green"
   | "white";
 
-  export type TTodo = {
-    id: string;
-    content: string;
-    isCompleted: boolean;
-  }
+export type TTodo = {
+  id: string;
+  content: string;
+  isCompleted: boolean;
+};
+
+export type TPosition = {
+  x: number;
+  y: number;
+};
 
 export type TStickyNote = {
   id: string;
   title?: string;
   content?: string;
   todos?: TTodo[];
-  position: {
-    x: number;
-    y: number;
-  };
+  position: TPosition;
   color: TStickyNoteColor;
   isTitle?: boolean;
   isContent?: boolean;

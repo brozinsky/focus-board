@@ -1,3 +1,4 @@
+import { TPosition } from "@/types/model-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
@@ -13,6 +14,10 @@ interface IPomodoroStore {
   isWorkSession: boolean;
   isSoundNotification: boolean;
   isPomodoroOpen: boolean;
+  windowPosition: TPosition;
+  setWindowPosition: (
+    value: TPosition | ((prev: TPosition) => TPosition)
+  ) => void;
   setWorkTimeMin: (value: number) => void;
   setBreakTimeMin: (value: number) => void;
   setLongBreakTimeMin: (value: number) => void;
@@ -32,6 +37,18 @@ const usePomodoroStore = create<IPomodoroStore>((set) => ({
   isWorkSession: true,
   isPomodoroOpen: false,
   isSoundNotification: getFromLocalStorage("isSoundNotification", true),
+  windowPosition: getFromLocalStorage("timerWindowPosition", {
+    x: window.innerWidth / 2 - 50,
+    y: window.innerHeight / 2 - 50,
+  }),
+  setWindowPosition: (value) => {
+    set((state) => {
+      const newPosition =
+        typeof value === "function" ? value(state.windowPosition) : value;
+      setToLocalStorage("timerWindowPosition", newPosition);
+      return { windowPosition: newPosition };
+    });
+  },
   setWorkTimeMin: (value) => {
     setToLocalStorage("workTimeMin", value);
     set({ workTimeMin: value });

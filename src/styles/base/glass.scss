@@ -12,11 +12,14 @@
   border-radius: 10px;
   // box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   @apply bg-input;
-
 }
 .glass-blur,
 %glass-blur {
   backdrop-filter: blur(4px);
+}
+.bg-background-glass {
+  @extend .glass-blur;
+  background-color: var(--color-background-glass);
 }
 .glass-neutral,
 %glass-blur {
