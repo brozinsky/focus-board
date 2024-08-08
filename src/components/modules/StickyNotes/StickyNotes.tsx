@@ -38,7 +38,7 @@ const StickyNotes = () => {
     return null;
   }
   return (
-    <div className="absolute z-20 overflow-hidden top-4 right-4 left-4 bottom-4">
+    <div className="absolute pointer-events-none z-20 overflow-hidden top-4 right-4 left-4 bottom-4">
       <DndContext
         autoScroll={false}
         modifiers={[restrictToParentElement]}

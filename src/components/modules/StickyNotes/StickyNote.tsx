@@ -126,7 +126,7 @@ export function StickyNote({
       {...listeners}
       {...attributes}
       style={{ ...style, ...styles }}
-      className="group pb-14"
+      className="group pb-14 pointer-events-auto"
     >
       <div
         className={cn(`sticky-note gap-2 relative sticky-note--${color}`, {
