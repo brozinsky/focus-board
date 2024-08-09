@@ -33,6 +33,9 @@
   &:hover {
     @apply opacity-100;
   }
+  &--circle {
+    @apply rounded-full;
+  }
   &--ghost {
     &:hover {
       @apply bg-white/20;
@@ -40,6 +43,15 @@
   }
   &--glass {
     @apply bg-white/20;
+    &:hover {
+      @apply bg-primary;
+      & > svg path {
+        @apply stroke-foreground-primary;
+      }
+    }
+  }
+  &--primary {
+    @apply bg-primary;
     &:hover {
       @apply bg-primary;
       & > svg path {

@@ -77,7 +77,7 @@ const PomodoroSm = ({ setIsOpen, styles }: TProps) => {
               min={0}
               value={progress}
               gaugePrimaryColor="var(--color-primary)"
-              gaugeSecondaryColor="var(--color-neutral-200)"
+              gaugeSecondaryColor="var(--color-primary)"
               className="h-80 w-80 glass-blur rounded-full"
               displayValue={formatDuration(timeLeft)}
               sessionName={

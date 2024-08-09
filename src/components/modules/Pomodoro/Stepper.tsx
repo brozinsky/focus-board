@@ -21,22 +21,28 @@ const Stepper = ({
     <div className="flex items-center w-full">
       <div
         className={cn(
-          "border-transparent glass-neutral border-[2px] text-white w-8 h-8 shrink-0 flex items-center justify-center rounded-full",
-          isCurrent && isWorkSession && "glass-dark-solid",
-          isCompleted && "glass-dark",
-          isCurrent && !isWorkSession && "glass-dark"
+          "border-transparent bg-input border-[2px] text-foreground w-8 h-8 shrink-0 flex items-center justify-center rounded-md",
+          isCurrent && isWorkSession && "bg-primary text-foreground-primary",
+          isCompleted && "bg-primary rounded-full text-foreground-primary",
+          isCurrent &&
+            !isWorkSession &&
+            "bg-primary rounded-full text-foreground-primary"
         )}
       >
         <span className="text-base font-medium">
-          {isCompleted || (isCurrent && !isWorkSession) ? <CheckSVG /> : step}
+          {isCompleted || (isCurrent && !isWorkSession) ? (
+            <CheckSVG pathClass={"stroke-foreground-primary"} />
+          ) : (
+            step
+          )}
         </span>
       </div>
       {!isLast && (
         <div
           className={cn(
-            "h-1 w-4 glass-neutral",
-            !isWorkSession && isCurrent && !isLast && "glass-dark-solid",
-            isCompleted && "glass-dark"
+            "h-1 w-4 bg-input",
+            !isWorkSession && isCurrent && !isLast && "bg-primary",
+            isCompleted && "bg-primary"
           )}
         ></div>
       )}

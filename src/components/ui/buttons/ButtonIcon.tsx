@@ -8,8 +8,9 @@ interface IProps {
   tooltip: string;
   size?: "lg" | "md" | "sm";
   className?: string;
-  variant?: "ghost" | "glass";
+  variant?: "primary" | "ghost" | "glass";
   disabled?: boolean;
+  rounded?: "square" | "circle";
 }
 
 const ButtonIcon = ({
@@ -20,6 +21,7 @@ const ButtonIcon = ({
   size = "md",
   className,
   variant,
+  rounded = "square",
 }: IProps) => {
   const { uiStyle } = useThemeStore();
 
@@ -36,8 +38,10 @@ const ButtonIcon = ({
         size === "md" && "p-2 h-10 w-10",
         buttonVariant === "ghost" && "button-icon--ghost",
         buttonVariant === "glass" && "button-icon--glass",
+        buttonVariant === "primary" && "button-icon--primary",
         disabled && "disabled",
         "button-icon",
+        rounded === "circle" && "button-icon--circle",
         className
       )}
     >

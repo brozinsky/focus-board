@@ -72,7 +72,8 @@ export default function GaugeCircle({
               className=" opacity-50"
               style={
                 {
-                  stroke: gaugeSecondaryColor,
+                  // stroke: gaugeSecondaryColor,
+                  stroke: "rgba(255, 255, 255, 0.3)",
                   "--stroke-percent": 90 - currentPercent,
                   "--offset-factor-secondary": "calc(1 - var(--offset-factor))",
                   strokeDasharray:

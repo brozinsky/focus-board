@@ -1,6 +1,10 @@
 import { TSVG } from "@/types/ui-types";
 
-export default function PauseIconSVG({ className, width = "24" }: TSVG) {
+export default function PauseIconSVG({
+  className,
+  width = "24",
+  pathClass = "stroke-foreground",
+}: TSVG) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +15,7 @@ export default function PauseIconSVG({ className, width = "24" }: TSVG) {
       viewBox="0 0 24 24"
     >
       <path
-        className="stroke-foreground"
+        className={pathClass}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={1.5}
