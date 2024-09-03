@@ -1,5 +1,4 @@
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import PlaylistItem from "../Card/PlaylistItem";
 import Volume from "./_partials/Volume";
 import useVolume from "@/hooks/useVolume";
@@ -7,10 +6,11 @@ import Button from "@/components/ui/buttons/Button";
 import { Separator } from "@/components/ui/Separator/Separator";
 import FxItem from "../FxItem/FxItem";
 import { SFX_AUDIO } from "@/lib/constants/const-sfx";
+import useWindowsStore from "@/stores/zustand/useWindowsStore";
 
 const AudioSettings = () => {
   const { currentAudio } = usePlayerStore();
-  const { setIsPlaylistOpen } = usePlaylistStore();
+  const { setIsOpen } = useWindowsStore();
   const { changeVolume, toggleMute, getVolumeIcon, volumeAudio } = useVolume();
 
   return (
@@ -43,7 +43,7 @@ const AudioSettings = () => {
         )}
         <div className="grid grid-cols-2 gap-4">
           <button
-            onClick={() => setIsPlaylistOpen(true)}
+            onClick={() => setIsOpen("playlist", true)}
             className="border border-white/30 bg-transparent glass-blur rounded-lg px-4 py-3 hover:bg-white/20 transition"
           >
             Change station

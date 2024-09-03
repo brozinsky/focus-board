@@ -1,8 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import { motion } from "framer-motion";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
-import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
-import useSceneStore from "@/stores/zustand/useSceneStore";
 import { Separator } from "@/components/ui/Separator/Separator";
 import AnimatedWallpapers from "./AnimatedWallpapers";
 import Wallpapers from "./Wallpapers";
@@ -13,6 +11,7 @@ import ButtonTab from "@/components/ui/buttons/ButtonTab";
 import SceneEditSVG from "@/components/elements/svg/icons/interface/SceneEditSVG";
 import { cn } from "@/lib/utils";
 import useThemeStore from "@/stores/zustand/useThemeStore";
+import useWindowsStore from "@/stores/zustand/useWindowsStore";
 
 type TTab = {
   id: string;
@@ -31,16 +30,20 @@ const tabs: TTab[] = [
 ];
 
 const Scenes = () => {
-  const { isSceneOpen, setIsSceneOpen } = useSceneStore();
+  const { isOpen, setIsOpen } = useWindowsStore();
   const { activeScene } = usePlayerStore();
   const { themeStyle } = useThemeStore();
 
   const [activeTab, setActiveTab] = useState<TActiveScene>(activeScene);
 
-  if (!isSceneOpen) return;
+  if (!isOpen.scene) return;
 
   return (
-    <div id="Scenes" className={"modal"} onClick={() => setIsSceneOpen(false)}>
+    <div
+      id="Scenes"
+      className={"modal"}
+      onClick={() => setIsOpen("scene", false)}
+    >
       <button className={"modal__close"}>
         <CloseIconSVG />
       </button>

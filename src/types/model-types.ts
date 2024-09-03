@@ -97,3 +97,12 @@ export type TStickyNote = {
   isContent?: boolean;
   isTodos?: boolean;
 };
+
+export type TTimerTodoItem = {
+  id: number;
+  title: string;
+  isCompleted: boolean;
+  isRunning: boolean;
+  timeElapsed: number;
+  timeEstimation: number | null;
+};

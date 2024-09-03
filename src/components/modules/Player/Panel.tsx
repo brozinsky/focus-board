@@ -1,19 +1,15 @@
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import React, { useState } from "react";
-import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
 import PauseIconSVG from "@/components/elements/svg/icons/media/PauseIconSVG";
 import MixerIconSVG from "@/components/elements/svg/icons/interface/MixerIconSVG";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import MaximizeSVG from "@/components/elements/svg/icons/interface/MaximizeSVG";
 import { goFullscreen } from "@/utils/functions/fn-common";
-import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
-import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import TimerPlusSVG from "@/components/elements/svg/icons/interface/TimerPlusSVG";
 import NotesSVG from "@/components/elements/svg/icons/interface/NotesSVG";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsIconSVG";
-import useSceneStore from "@/stores/zustand/useSceneStore";
 import SceneEditSVG from "@/components/elements/svg/icons/interface/SceneEditSVG";
 import Settings from "../settings/Settings";
 import DropdownVolume from "@/components/ui/dropdowns/DropdownVolume";
@@ -22,6 +18,11 @@ import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
 import Dropdown from "@/components/ui/dropdowns/Dropdown";
 import Checkbox from "@/components/ui/inputs/Checkbox";
 import ButtonDropdown from "@/components/ui/buttons/ButtonDropdown";
+import MusicNoteSVG from "@/components/elements/svg/icons/media/MusicNoteSVG";
+import TasksSVG from "@/components/elements/svg/icons/interface/TasksSVG";
+import HourglassSVG from "@/components/elements/svg/icons/interface/HourglassSVG";
+import usePomodoro from "@/hooks/usePomodoro";
+import TimerSVG from "@/components/elements/svg/icons/interface/TimerSVG";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -29,12 +30,10 @@ interface IPanelProps {
 
 const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
   const { isAudioPlaying } = usePlayerStore();
-  const { setIsPlaylistOpen } = usePlaylistStore();
-  const { isPomodoroOpen, setIsPomodoroOpen } = usePomodoroStore();
-  const { setIsSoundFXOpen, isSoundFXOpen } = useWindowsStore();
-  const { setIsSceneModalOpen, setIsSceneOpen } = useSceneStore();
+  const { isOpen, setIsOpen } = useWindowsStore();
   const { addStickyNote, areNotesVisible, setAreNotesVisible } =
     useStickyNotesStore();
+  const { isRunning } = usePomodoro();
 
   return (
     <>
@@ -74,6 +73,21 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           </div> */}
         </div>
         <div className="panel__group">
+          <ButtonIcon
+            isOpen={isOpen.timer}
+            className="relative"
+            onClick={() => setIsOpen("timer", !isOpen.timer)}
+            icon={<HourglassSVG />}
+            tooltip={"Timer"}
+          />
+          <ButtonIcon
+            isOpen={isOpen.pomodoro}
+            className="relative"
+            onClick={() => setIsOpen("pomodoro", !isOpen.pomodoro)}
+            icon={!isOpen.pomodoro ? <TimerSVG /> : <TimerPlusSVG />}
+            tooltip={"Pomodoro"}
+          />
+          <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
           <Dropdown
             position={"top"}
             trigger={
@@ -105,31 +119,33 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
               </Checkbox>
             </div>
           </Dropdown>
-
           <ButtonIcon
-            onClick={() => setIsPomodoroOpen(!isPomodoroOpen)}
-            icon={<TimerPlusSVG />}
-            tooltip={"Pomodoro"}
+            className="relative"
+            isOpen={isOpen.todoList}
+            onClick={() => setIsOpen("todoList", !isOpen.todoList)}
+            icon={<TasksSVG />}
+            tooltip={"Todo list"}
           />
+
           <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
           <ButtonIcon
-            onClick={() => setIsPlaylistOpen(true)}
-            icon={<PlaylistSVG />}
+            onClick={() => setIsOpen("playlist", true)}
+            icon={<MusicNoteSVG />}
             tooltip={"Playlist"}
           />
           <ButtonIcon
-            onClick={() => setIsSceneOpen(true)}
+            onClick={() => setIsOpen("scene", true)}
             icon={<SceneEditSVG />}
             tooltip={"Scene Settings"}
           />
           <ButtonIcon
-            onClick={() => setIsSoundFXOpen(!isSoundFXOpen)}
+            onClick={() => setIsOpen("soundFX", !isOpen.soundFX)}
             icon={<MixerIconSVG />}
             tooltip={"Sound effects"}
           />
           <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
           <ButtonIcon
-            onClick={() => setIsSceneModalOpen(true)}
+            onClick={() => setIsOpen("sceneModal", true)}
             icon={<SettingsIconSVG />}
             tooltip={"Settings"}
           />

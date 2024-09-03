@@ -1,13 +1,9 @@
-import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
 import { Switch } from "@/components/ui/buttons/Switch";
 import Select from "@/components/ui/dropdowns/Select";
 import { themeColors } from "@/lib/constants/const-theme";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import useQuoteStore from "@/stores/zustand/useQuoteStore";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import useThemeStore from "@/stores/zustand/useThemeStore";
-import clsx from "clsx";
 import React from "react";
 
 const fontFamilyOptions = [
@@ -95,7 +91,7 @@ const themeColorsOptions = [
 ];
 
 const GeneralSettings = () => {
-  const { setIsSceneOpen, fontFamily, setFontFamily } = useSceneStore();
+  const { fontFamily, setFontFamily } = useSceneStore();
   const {
     colorTheme,
     setColorTheme,
@@ -119,7 +115,6 @@ const GeneralSettings = () => {
   //   isSharedVideoAndAudio,
   //   setIsSharedVideoAndAudio,
   // } = usePlayerStore();
-  // const { setIsPlaylistOpen } = usePlaylistStore();
   const { isQuoteActive, setIsQuoteActive } = useQuoteStore();
 
   return (
@@ -199,7 +194,7 @@ const GeneralSettings = () => {
           <div className="modal__image-wrap">
             {currentVideo?.imgHi ? (
               <img
-                onClick={() => setIsSceneOpen(true)}
+                onClick={() => setIsOpen("scene", true)}
                 className="aspect-video object-cover modal__image"
                 src={currentVideo.imgHi.url}
                 loading={"lazy"}
@@ -223,7 +218,7 @@ const GeneralSettings = () => {
               <img
                 onClick={() => {
                   if (!isSharedVideoAndAudio) {
-                    setIsPlaylistOpen(true);
+                    setIsOpen("playlist", true);
                   }
                 }}
                 className={clsx(

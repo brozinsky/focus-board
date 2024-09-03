@@ -1,20 +1,22 @@
 .buffer {
-    @apply text-base;
-    display: inline-block;
-    letter-spacing: 2px;
-    color: #FFF;
-    box-sizing: border-box;
-    animation: animloader 1s ease-in infinite alternate;
+  @apply text-base;
+  display: inline-block;
+  letter-spacing: 2px;
+  color: #fff;
+  box-sizing: border-box;
+  animation: animloader 1s ease-in infinite alternate;
+  &--lg {
+    @apply text-2xl;
   }
-  
-  @keyframes animloader {
-    0% {
-      filter: blur(0px);
-      transform: skew(0deg);
-    }
-    100% {
-      filter: blur(3px);
-      transform: skew(-4deg);
-    }
+}
+
+@keyframes animloader {
+  0% {
+    filter: blur(0px);
+    transform: skew(0deg);
   }
-  
+  100% {
+    filter: blur(3px);
+    transform: skew(-4deg);
+  }
+}

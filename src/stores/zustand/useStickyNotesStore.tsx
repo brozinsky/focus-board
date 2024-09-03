@@ -1,11 +1,11 @@
-import create from "zustand";
+import { create } from "zustand";
 import { TStickyNote, TStickyNoteColor, TTodo } from "@/types/model-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
 } from "@/utils/functions/fn-common";
 
-type IPlaylistState = {
+type IStore = {
   stickyNotes: TStickyNote[];
   setStickyNotes: (value: TStickyNote[]) => void;
   areNotesVisible: boolean;
@@ -18,7 +18,7 @@ type IPlaylistState = {
 
 const COLORS = ["yellow", "cyan", "purple", "green", "violet", "white"];
 
-const useStickyNotesStore = create<IPlaylistState>((set) => ({
+const useStickyNotesStore = create<IStore>((set) => ({
   stickyNotes: getFromLocalStorage("stickyNotes", []),
   setStickyNotes: (value) => {
     setToLocalStorage("stickyNotes", value);

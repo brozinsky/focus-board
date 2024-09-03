@@ -13,7 +13,6 @@ import YTVideo from "@/components/modules/Player/YTVideo";
 import Scenes from "@/components/modules/Scenes/Scenes";
 import BgVideo from "@/components/modules/Player/BgVideo";
 import BgWallpaper from "@/components/modules/Player/BgWallpaper";
-import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import DevLogger from "@/components/modules/Utility/Logger";
 import useVideoPlayer from "@/hooks/useVideoPlayer";
 import useAudioPlayer from "@/hooks/useAudioPlayer";
@@ -22,15 +21,16 @@ import useFxStore from "@/stores/zustand/useFxStore";
 import { fontFamilyExt } from "@/lib/constants/const-theme";
 import useThemeStore from "@/stores/zustand/useThemeStore";
 import StickyNotes from "@/components/modules/StickyNotes/StickyNotes";
+import Timer from "@/components/modules/Timer/Timer";
+import TodoList from "@/components/modules/TodoList/TodoList";
+import OverlayWelcome from "@/components/modules/Overlay/OverlayWelcome";
 
 const Home = () => {
   const { fontFamily } = useSceneStore();
   const rootRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { isSceneOpen, isBgBlur, isBgShadow, blurValue, shadowValue } =
-    useSceneStore();
-  const { isPlaylistOpen } = usePlaylistStore();
-  const { isSoundFXOpen } = useWindowsStore();
+  const { isBgBlur, isBgShadow, blurValue, shadowValue } = useSceneStore();
+  const { isOpen } = useWindowsStore();
 
   const { initializeAudio } = useFxStore();
 
@@ -49,14 +49,15 @@ const Home = () => {
   } = usePlayerStore();
   const playlistQuery = usePlaylistQuery();
 
-  const { isPomodoroOpen } = usePomodoroStore();
-
   const { onReady: onVideoReady } = useVideoPlayer();
 
-  const { onReady: onAudioReady, handlePlayPause: handleAudioPlayPause } =
-    useAudioPlayer();
+  const {
+    onReady: onAudioReady,
+    isAudioReady,
+    handlePlayPause: handleAudioPlayPause,
+  } = useAudioPlayer();
 
-  const { colorTheme, setColorTheme, updateCSSVariables } = useThemeStore();
+  const { updateCSSVariables } = useThemeStore();
 
   useLayoutEffect(() => {
     updateCSSVariables();
@@ -117,8 +118,10 @@ const Home = () => {
       unselectable="on"
       ref={rootRef}
     >
-      {isPomodoroOpen && <Pomodoro />}
+      {isOpen.pomodoro && <Pomodoro />}
       <StickyNotes />
+      {isOpen.timer && <Timer />}
+      {isOpen.todoList && <TodoList />}
       <div unselectable="on">
         {activeScene === "yt" && currentVideo?.videoId && (
           <YTVideo id={currentVideo.videoId} onReady={onVideoReady} />
@@ -141,11 +144,12 @@ const Home = () => {
         )}
 
         <Panel handlePlayPause={handleAudioPlayPause} />
-        {isPlaylistOpen && <Playlist />}
-        {isSceneOpen && <Scenes />}
-        {isSoundFXOpen && <SoundFX />}
+        {isOpen.playlist && <Playlist />}
+        {isOpen.scene && <Scenes />}
+        {isOpen.soundFX && <SoundFX />}
         <Overlay />
         <DevLogger />
+        <OverlayWelcome isLoading={!isAudioReady} />
       </div>
     </div>
   );

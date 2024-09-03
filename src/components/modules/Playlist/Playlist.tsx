@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
-import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
 import { ICurrentVideo, TSnippet } from "@/types/query-types";
 import PlaylistItem from "../Card/PlaylistItem";
 import DropdownVolume from "@/components/ui/dropdowns/DropdownVolume";
 import useThemeStore from "@/stores/zustand/useThemeStore";
 import { cn } from "@/lib/utils";
+import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import MusicNoteSVG from "@/components/elements/svg/icons/media/MusicNoteSVG";
 
 type TPlaylistItem = {
   snippet: TSnippet;
@@ -17,7 +17,7 @@ type TPlaylistItem = {
 
 const Playlist = () => {
   const playlistQuery = usePlaylistQuery();
-  const { isPlaylistOpen, setIsPlaylistOpen } = usePlaylistStore();
+  const { isOpen, setIsOpen } = useWindowsStore();
   const { themeStyle } = useThemeStore();
   const {
     currentAudio,
@@ -32,7 +32,6 @@ const Playlist = () => {
     // isSharedVideoAndAudio ? setCurrentVideo(value) : setCurrentAudio(value);
 
     setCurrentAudio(value);
-    // setIsPlaylistOpen(false);
   };
 
   useEffect(() => {
@@ -44,20 +43,20 @@ const Playlist = () => {
   //   useEffect(() => {
   //     const body = document.querySelector("body");
 
-  //     if (isPlaylistOpen) {
+  //     if (isOpen.playlist) {
   //       body!.style.overflowY = "hidden";
   //     } else {
   //       body!.style.overflowY = "scroll";
   //     }
-  //   }, [isPlaylistOpen]);
+  //   }, [isOpen.playlist]);
 
-  if (!isPlaylistOpen) return;
+  if (!isOpen.playlist) return;
 
   return (
     <div
       id="Playlist"
       className={"modal"}
-      onClick={() => setIsPlaylistOpen(false)}
+      onClick={() => setIsOpen("playlist", false)}
     >
       <button className={"modal__close"}>
         {/* <MdClose /> */}
@@ -76,7 +75,7 @@ const Playlist = () => {
         <div className={"p-8 gap-6 flex flex-col"}>
           <div className="flex justify-between items-center">
             <h2 className="flex flex-row items-center text-xl gap-4 tracking-wide">
-              <PlaylistSVG /> Media playlist
+              <MusicNoteSVG /> Media playlist
             </h2>
             <DropdownVolume position="bottom" />
           </div>

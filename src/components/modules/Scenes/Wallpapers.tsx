@@ -2,11 +2,11 @@ import useBgWallpapersQuery from "@/stores/queries/useBgWallpapersQuery";
 import { AdvancedImage, lazyload } from "@cloudinary/react";
 import React from "react";
 import { fill } from "@cloudinary/url-gen/actions/resize";
-import useSceneStore from "@/stores/zustand/useSceneStore";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import { Cloudinary } from "@cloudinary/url-gen/index";
 import clsx from "clsx";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
+import useWindowsStore from "@/stores/zustand/useWindowsStore";
 
 const cld = new Cloudinary({
   cloud: { cloudName: import.meta.env.VITE_CLOUD_NAME },
@@ -14,14 +14,14 @@ const cld = new Cloudinary({
 
 const Wallpapers = () => {
   const bgWallpapersQuery = useBgWallpapersQuery();
-  const { setIsSceneOpen } = useSceneStore();
+  const { setIsOpen } = useWindowsStore();
   const { activeScene, setActiveScene, currentBgVideoId, setCurrentBgVideoId } =
     usePlayerStore();
 
   const handleWallpaperClick = (value: string) => {
     activeScene !== "wallpaper" && setActiveScene("wallpaper");
     setCurrentBgVideoId(value);
-    setIsSceneOpen(false);
+    setIsOpen("scene", false);
   };
 
   if (bgWallpapersQuery.isLoading) {

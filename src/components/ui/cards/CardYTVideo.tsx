@@ -1,7 +1,7 @@
 import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
 import { cn } from "@/lib/utils";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import useSceneStore from "@/stores/zustand/useSceneStore";
+import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import { ICurrentVideo } from "@/types/query-types";
 import { AsyncImage } from "loadable-image";
 import React from "react";
@@ -10,13 +10,12 @@ import { Blur } from "transitions-kit";
 const CardYTVideo = ({ item }: { item: ICurrentVideo }) => {
   const { activeScene, setActiveScene, setCurrentVideo, currentVideo } =
     usePlayerStore();
-
-  const { setIsSceneOpen } = useSceneStore();
+  const { setIsOpen } = useWindowsStore();
 
   const handleClick = (value: ICurrentVideo) => {
     activeScene !== "yt" && setActiveScene("yt");
     setCurrentVideo(value);
-    setIsSceneOpen(false);
+    setIsOpen("scene", false);
   };
 
   return (

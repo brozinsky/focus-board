@@ -13,7 +13,6 @@ interface IPomodoroStore {
   currentSession: number;
   isWorkSession: boolean;
   isSoundNotification: boolean;
-  isPomodoroOpen: boolean;
   windowPosition: TPosition;
   setWindowPosition: (
     value: TPosition | ((prev: TPosition) => TPosition)
@@ -25,7 +24,6 @@ interface IPomodoroStore {
   setTimeOption: (value: string) => void;
   setIsWorkSession: (value: boolean) => void;
   setIsSoundNotification: (value: boolean) => void;
-  setIsPomodoroOpen: (value: boolean) => void;
 }
 
 const usePomodoroStore = create<IPomodoroStore>((set) => ({
@@ -35,7 +33,6 @@ const usePomodoroStore = create<IPomodoroStore>((set) => ({
   timeOption: getFromLocalStorage("timeOption", "25/5"),
   currentSession: 1,
   isWorkSession: true,
-  isPomodoroOpen: false,
   isSoundNotification: getFromLocalStorage("isSoundNotification", true),
   windowPosition: getFromLocalStorage("timerWindowPosition", {
     x: window.innerWidth / 2 - 50,
@@ -71,7 +68,6 @@ const usePomodoroStore = create<IPomodoroStore>((set) => ({
     setToLocalStorage("isSoundNotification", value);
     set({ isSoundNotification: value });
   },
-  setIsPomodoroOpen: (value) => set({ isPomodoroOpen: value }),
 }));
 
 export default usePomodoroStore;

@@ -1,14 +1,20 @@
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import usePlaylistStore from "@/stores/zustand/usePlaylistStore";
-import useSceneStore from "@/stores/zustand/useSceneStore";
+import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import React, { useEffect, useState } from "react";
 
-const DevLogger = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const { isSceneOpen } = useSceneStore();
-  const { isPlaylistOpen } = usePlaylistStore();
-  const { currentVideo, currentAudio } = usePlayerStore();
+// Memory usage interface
+interface MemoryUsage {
+  usedJSHeapSize: number;
+  totalJSHeapSize: number;
+  jsHeapSizeLimit: number;
+}
 
+const DevLogger: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const { isOpen } = useWindowsStore();
+  const { currentVideo, currentAudio } = usePlayerStore();
+  const [memoryUsage, setMemoryUsage] = useState<MemoryUsage | null>(null);
+  const [memorySupported, setMemorySupported] = useState<boolean>(true);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -17,10 +23,26 @@ const DevLogger = () => {
       }
     };
 
+    const monitorMemoryUsage = () => {
+      if (window.performance && window.performance.memory) {
+        const memory = window.performance.memory;
+        setMemoryUsage({
+          usedJSHeapSize: memory.usedJSHeapSize,
+          totalJSHeapSize: memory.totalJSHeapSize,
+          jsHeapSizeLimit: memory.jsHeapSizeLimit,
+        });
+      } else {
+        setMemorySupported(false);  // Set to false if the memory API is not supported
+      }
+    };
+
     window.addEventListener("keydown", handleKeyPress);
+
+    const memoryInterval = setInterval(monitorMemoryUsage, 5000); // Update memory usage every 5 seconds
 
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
+      clearInterval(memoryInterval);
     };
   }, []);
 
@@ -33,10 +55,10 @@ const DevLogger = () => {
     >
       <div className="flex flex-col gap-4 justify-between">
         <div className="flex justify-between">
-          isPlaylistOpen: <span>{isPlaylistOpen.toString()}</span>
+          isOpen.playlist: <span>{isOpen.playlist.toString()}</span>
         </div>
         <div className="flex justify-between">
-          isSceneOpen: <span>{isSceneOpen.toString()}</span>
+          isOpen.scene: <span>{isOpen.scene.toString()}</span>
         </div>
         <div className="flex justify-between">
           currentVideo: <span>{currentVideo?.videoId}</span>
@@ -44,6 +66,29 @@ const DevLogger = () => {
         <div className="flex justify-between">
           currentAudio: <span>{currentAudio?.title}</span>
         </div>
+        {memorySupported ? (
+          memoryUsage ? (
+            <>
+              <div className="flex justify-between">
+                Used JS heap size: <span>{memoryUsage.usedJSHeapSize} bytes</span>
+              </div>
+              <div className="flex justify-between">
+                Total JS heap size: <span>{memoryUsage.totalJSHeapSize} bytes</span>
+              </div>
+              <div className="flex justify-between">
+                JS heap size limit: <span>{memoryUsage.jsHeapSizeLimit} bytes</span>
+              </div>
+            </>
+          ) : (
+            <div className="flex justify-between">
+              Memory data is not yet available.
+            </div>
+          )
+        ) : (
+          <div className="flex justify-between">
+            Memory usage monitoring is not supported in this browser.
+          </div>
+        )}
       </div>
     </div>
   );

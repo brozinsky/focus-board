@@ -1,50 +1,53 @@
-import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
-import MinimizeSVG from "@/components/elements/svg/icons/interface/MinimizeSVG";
+import { useDraggable } from "@dnd-kit/core";
+import WindowBar from "../Window/WindowBar";
+import { TWindowName } from "@/stores/zustand/useWindowsStore";
+import { ReactNode } from "react";
 import { ScrollArea } from "@/components/ui/ScrollArea/ScrollArea";
 import { cn } from "@/lib/utils";
-import React, { useState } from "react";
 
-interface IProps {
-  children: React.ReactNode;
-  title?: string;
-  isOpen: boolean;
-  closeWindow?: () => void;
-}
+const Window = (props: {
+  children: ReactNode;
+  styles: any;
+  title: string;
+  name: TWindowName;
+  isClose?: boolean;
+  isMinimize?: boolean;
+  onSettings?: (value: boolean) => void;
+}) => {
+  const id = props.name;
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id,
+  });
 
-const Window = ({ children, title, isOpen, closeWindow }: IProps) => {
-  const [isMinimized, setIsMinimized] = useState<boolean>(false);
+  const style = transform
+    ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+      }
+    : {};
 
-  if (!isOpen) {
-    return null;
-  }
   return (
     <div
-      className={cn(
-        !isMinimized && "pl-6 pt-8 pb-4 pr-2 ",
-        "absolute left-12 bottom-24 window w-[280px] z-30"
-      )}
+      ref={setNodeRef}
+      data-no-dnd="true"
+      {...listeners}
+      {...attributes}
+      {...props}
+      style={{ ...style, ...props.styles }}
+      className="pointer-events-auto cursor-default"
     >
-      {/* <div className="window__drag-bar pt-1 px-3 text-xs flex justify-between">
-        {title}
-        <div className="flex gap-2.5 items-center h-full pb-1.5">
-          <button
-            className="button-drag-bar"
-            onClick={() => setIsMinimized(!isMinimized)}
+      <div className="overflow-hidden group/timer bg-background-glass rounded-lg absolute translate-x-1/2 -translate-y-1/2 right-1/2 top-1/2 text-neutral-100 z-20">
+        <div className="mt-window-bar flex flex-col gap-2 ">
+          <WindowBar {...props} />
+          <ScrollArea
+            className={cn(
+              "rounded-md p-4 ",
+              props.name === "todoList" && "h-[480px]"
+            )}
           >
-            <MinimizeSVG width="16" />
-          </button>
-          {closeWindow && (
-            <button className="button-drag-bar" onClick={closeWindow}>
-              <CloseIconSVG width="16" />
-            </button>
-          )}
+            {props.children}
+          </ScrollArea>
         </div>
-      </div> */}
-      <ScrollArea
-        className={cn(isMinimized && "hidden", "h-[340px] rounded-md")}
-      >
-        {children}
-      </ScrollArea>
+      </div>
     </div>
   );
 };

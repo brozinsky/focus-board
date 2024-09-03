@@ -122,3 +122,37 @@
   @apply absolute top-0 left-0 right-0 bottom-0;
   background-image: url("../assets/img/noise-light.png");
 }
+
+.bg-overlay-welcome {
+  @apply absolute z-50 top-0 left-0 right-0 bottom-0;
+  border-color: transparent;
+  backdrop-filter: blur(9px);
+  background-color: rgba(0, 0, 0, 0.95);
+  animation: fadeOutBg 5s ease forwards;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../assets/img/noise-light.png");
+    background-repeat: repeat;
+    background-size: auto;
+    opacity: 0.3;
+    z-index: -1;
+    pointer-events: none;
+  }
+}
+
+@keyframes fadeOutBg {
+  to {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes fadeOutBlur {
+  to {
+    backdrop-filter: blur(0px);
+  }
+}

@@ -10,11 +10,13 @@ interface IProps {
   className?: string;
   variant?: "primary" | "ghost" | "glass";
   disabled?: boolean;
+  isOpen?: boolean;
   rounded?: "square" | "circle";
 }
 
 const ButtonIcon = ({
   disabled = false,
+  isOpen,
   tooltip,
   onClick,
   icon,
@@ -42,6 +44,7 @@ const ButtonIcon = ({
         disabled && "disabled",
         "button-icon",
         rounded === "circle" && "button-icon--circle",
+        isOpen && "button-icon--active",
         className
       )}
     >

@@ -25,7 +25,6 @@ import CpuSVG from "@/components/elements/svg/icons/fx/CpuSVG";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import { motion } from "framer-motion";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
-import PlaylistSVG from "@/components/elements/svg/icons/media/PlaylistSVG";
 import FxItemLg from "../FxItem/FxItemLg";
 import MixerIconSVG from "@/components/elements/svg/icons/interface/MixerIconSVG";
 import { SFX_AUDIO } from "@/lib/constants/const-sfx";
@@ -33,36 +32,27 @@ import { cn } from "@/lib/utils";
 import useThemeStore from "@/stores/zustand/useThemeStore";
 
 const SoundFX = () => {
-  const {
-    setIsSoundFXOpen,
-    isSoundFXOpen,
-    setIsSoundFXFirstOpen,
-    isSoundFXFirstOpen,
-  } = useWindowsStore();
+  const { setIsOpen, isOpen } = useWindowsStore();
   const [openCount, setOpenCount] = useState(0);
   const { themeStyle } = useThemeStore();
 
   useEffect(() => {
-    console.log(isSoundFXFirstOpen);
-  }, [isSoundFXFirstOpen]);
-
-  useEffect(() => {
-    if (isSoundFXOpen) {
+    if (isOpen) {
       setOpenCount((prevCount) => prevCount + 1);
     }
-  }, [isSoundFXOpen]);
+  }, [isOpen]);
 
   useEffect(() => {
     if (openCount === 2) {
-      setIsSoundFXFirstOpen(true);
+      setIsOpen("soundFXFirstOpen", true);
     }
-  }, [openCount, setIsSoundFXFirstOpen]);
+  }, [openCount, setIsOpen]);
 
   return (
     <div
       id="Playlist"
       className={"modal"}
-      onClick={() => setIsSoundFXOpen(false)}
+      onClick={() => setIsOpen("soundFX", false)}
     >
       <button className={"modal__close"}>
         {/* <MdClose /> */}

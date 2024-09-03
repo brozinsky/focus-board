@@ -6,20 +6,21 @@ import PomodoroSettings from "./PomodoroSettings";
 import PomodoroSm from "./PomodoroSm";
 import {
   DndContext,
-  DragEndEvent,
   PointerSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
-import { TPosition } from "@/types/model-types";
+import useWindowsStore, {
+  createHandleDragEnd,
+} from "@/stores/zustand/useWindowsStore";
 
 const Pomodoro = () => {
   const soundRef = useRef<Howl | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const { timeOption, timeLeft, setTimeOption } = usePomodoro();
-  const { isSoundNotification, windowPosition, setWindowPosition } =
-    usePomodoroStore();
+  const { isSoundNotification } = usePomodoroStore();
+  const { windowPosition } = useWindowsStore();
 
   useEffect(() => {
     soundRef.current = new Howl({
@@ -32,14 +33,6 @@ const Pomodoro = () => {
       soundRef.current?.play();
     }
   }, [timeLeft]);
-
-  function handleDragEnd(e: DragEndEvent) {
-    const { delta } = e;
-    setWindowPosition((prevPosition: TPosition) => ({
-      x: prevPosition.x + delta.x,
-      y: prevPosition.y + delta.y,
-    }));
-  }
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -55,27 +48,26 @@ const Pomodoro = () => {
         <DndContext
           autoScroll={false}
           modifiers={[restrictToParentElement]}
-          onDragEnd={handleDragEnd}
+          onDragEnd={createHandleDragEnd("pomodoro")}
           sensors={sensors}
         >
           <PomodoroSm
             styles={{
               position: "absolute",
-              left: `${windowPosition.x}px`,
-              top: `${windowPosition.y}px`,
+              left: `${windowPosition.pomodoro.x}px`,
+              top: `${windowPosition.pomodoro.y}px`,
             }}
-            setIsOpen={setIsModalOpen}
+            setIsSettingsOpen={setIsSettingsOpen}
           />
         </DndContext>
       </div>
-
       <PomodoroSettings
         handleOptionChange={setTimeOption}
         {...{
           timeOption,
         }}
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
+        isOpen={isSettingsOpen}
+        setIsOpen={setIsSettingsOpen}
       />
     </>
   );

@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsIconSVG";
-import useSceneStore from "@/stores/zustand/useSceneStore";
 import { Separator } from "@/components/ui/Separator/Separator";
 import GeneralSettings from "./GeneralSettings";
 import { useState } from "react";
@@ -11,22 +10,23 @@ import clsx from "clsx";
 import AudioSettings from "./AudioSettings";
 import { cn } from "@/lib/utils";
 import useThemeStore from "@/stores/zustand/useThemeStore";
+import useWindowsStore from "@/stores/zustand/useWindowsStore";
 
 const Settings = () => {
-  const { isSceneModalOpen, setIsSceneModalOpen } = useSceneStore();
+  const { isOpen, setIsOpen } = useWindowsStore();
   const { themeStyle } = useThemeStore();
 
   const [activeSettings, setActiveSettings] = useState<
     "main" | "scene" | "time" | "audio" | "pomodoro"
   >("main");
 
-  if (!isSceneModalOpen) return null;
+  if (!isOpen.sceneModal) return null;
 
   return (
     <div
       id="Settings"
       className={"modal"}
-      onClick={() => setIsSceneModalOpen(false)}
+      onClick={() => setIsOpen("sceneModal", false)}
     >
       <button className={"modal__close"}>
         <CloseIconSVG />

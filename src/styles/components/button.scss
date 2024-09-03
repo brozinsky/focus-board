@@ -16,7 +16,7 @@
 }
 
 .button-settings {
-  @apply px-4 py-2 transition w-full rounded-lg flex items-start justify-start;
+  @apply px-4 py-2 transition w-full rounded-lg flex items-start justify-start text-left;
   &:hover {
     @apply bg-white/10;
   }
@@ -32,6 +32,10 @@
   @apply transition flex items-center justify-center rounded-md;
   &:hover {
     @apply opacity-100;
+  }
+
+  &:active {
+    transform: translateY(2px);
   }
   &--circle {
     @apply rounded-full;
@@ -57,6 +61,17 @@
       & > svg path {
         @apply stroke-foreground-primary;
       }
+    }
+  }
+  &--active {
+    &:after {
+      content: "";
+      @apply absolute top-[2px] left-0 w-0 h-0;
+      border-left: 3px solid var(--color-foreground);
+      border-top: 3px solid var(--color-foreground);
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      opacity: 80%;
     }
   }
   &.disabled {
