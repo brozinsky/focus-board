@@ -221,3 +221,10 @@ $font-path: "@/fonts/";
   font-display: swap;
   src: url("#{$font-path}/WorkSans/WorkSans-Bold.ttf") format("truetype");
 }
+@font-face {
+  font-family: "wwDigital";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("#{$font-path}/Digital/wwDigital.ttf") format("truetype");
+}

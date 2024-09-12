@@ -14,12 +14,14 @@ export type TWindowName =
   | "playlist"
   | "scene"
   | "todoList"
+  | "saper"
   | "sceneModal";
 
 type TWindowPosition = {
   pomodoro: TPosition;
   timer: TPosition;
   todoList: TPosition;
+  saper: TPosition;
 };
 type TWindowPositionKey = keyof TWindowPosition;
 
@@ -36,6 +38,7 @@ interface IWindowsStore {
     pomodoro: boolean;
     timer: boolean;
     todoList: boolean;
+    saper: boolean;
 
     //modals
     soundFX: boolean;
@@ -63,6 +66,7 @@ const useWindowsStore = create<IWindowsStore>((set, get) => ({
     pomodoro: getFromLocalStorage("pomodoroWindowPosition", initWindowPosition),
     timer: getFromLocalStorage("timerWindowPosition", initWindowPosition),
     todoList: getFromLocalStorage("todoListWindowPosition", initWindowPosition),
+    saper: getFromLocalStorage("saperWindowPosition", initWindowPosition),
   },
   setWindowPosition: (key, value) => {
     set((state) => {
@@ -93,6 +97,7 @@ const useWindowsStore = create<IWindowsStore>((set, get) => ({
     pomodoro: false,
     timer: false,
     todoList: false,
+    saper: false,
 
     //modals
     soundFX: false,

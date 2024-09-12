@@ -20,6 +20,9 @@
     &--tonic {
       width: 7rem;
     }
+    &--top {
+      top: calc(-100% - 67px);
+    }
   }
   &__label {
     @apply mb-3 text-foreground;

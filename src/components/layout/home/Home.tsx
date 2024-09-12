@@ -24,6 +24,8 @@ import StickyNotes from "@/components/modules/StickyNotes/StickyNotes";
 import Timer from "@/components/modules/Timer/Timer";
 import TodoList from "@/components/modules/TodoList/TodoList";
 import OverlayWelcome from "@/components/modules/Overlay/OverlayWelcome";
+import Saper from "@/components/modules/Games/Saper/Saper";
+import Games from "@/components/modules/Games/Games.";
 
 const Home = () => {
   const { fontFamily } = useSceneStore();
@@ -111,6 +113,12 @@ const Home = () => {
 
   const combinedFontFamily = [fontFamily, ...fontFamilyExt].join(", ");
 
+  // return (
+  //   <div className="w-screen h-screen flex items-center jusify-center">
+  //     <div>Onboarding</div>
+  //   </div>
+  // );
+
   return (
     <div
       style={{ fontFamily: combinedFontFamily }}
@@ -149,6 +157,7 @@ const Home = () => {
         {isOpen.soundFX && <SoundFX />}
         <Overlay />
         <DevLogger />
+        <Games />
         <OverlayWelcome isLoading={!isAudioReady} />
       </div>
     </div>

@@ -105,7 +105,6 @@ export default function Button({
 
   return (
     <MotionComponent
-      id={`Button-${shortid.generate()}`}
       aria-label={label}
       onClick={onClick}
       className={classes({ variant, shape, size, isLoading })}

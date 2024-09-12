@@ -1,5 +1,5 @@
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import React, { useState } from "react";
+import React from "react";
 import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
 import PauseIconSVG from "@/components/elements/svg/icons/media/PauseIconSVG";
 import MixerIconSVG from "@/components/elements/svg/icons/interface/MixerIconSVG";
@@ -23,6 +23,8 @@ import TasksSVG from "@/components/elements/svg/icons/interface/TasksSVG";
 import HourglassSVG from "@/components/elements/svg/icons/interface/HourglassSVG";
 import usePomodoro from "@/hooks/usePomodoro";
 import TimerSVG from "@/components/elements/svg/icons/interface/TimerSVG";
+import GameControllerSVG from "@/components/elements/svg/icons/interface/GameControllerSVG";
+import FlagSVG from "@/components/elements/svg/icons/games/saper/FlagSVG";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -33,7 +35,6 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
   const { isOpen, setIsOpen } = useWindowsStore();
   const { addStickyNote, areNotesVisible, setAreNotesVisible } =
     useStickyNotesStore();
-  const { isRunning } = usePomodoro();
 
   return (
     <>
@@ -73,6 +74,25 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           </div> */}
         </div>
         <div className="panel__group">
+          <Dropdown
+            position={"top"}
+            trigger={
+              <ButtonIcon icon={<GameControllerSVG />} tooltip={"Games"} />
+            }
+          >
+            <div className="flex flex-col gap-3 p-4">
+              <div className="text-xl">Games</div>
+              <Separator className="bg-white/30" />
+              <ButtonIcon
+                isOpen={isOpen.saper}
+                className="relative"
+                onClick={() => setIsOpen("saper", !isOpen.saper)}
+                icon={<FlagSVG />}
+                tooltip={"Minesweeper"}
+              />
+            </div>
+          </Dropdown>
+          <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
           <ButtonIcon
             isOpen={isOpen.timer}
             className="relative"
@@ -126,7 +146,6 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             icon={<TasksSVG />}
             tooltip={"Todo list"}
           />
-
           <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
           <ButtonIcon
             onClick={() => setIsOpen("playlist", true)}

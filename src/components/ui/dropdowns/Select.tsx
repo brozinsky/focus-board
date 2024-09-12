@@ -15,6 +15,7 @@ type TProps = {
   buttonClassName?: string;
   contentType?: "type" | "tonic" | undefined;
   size?: "sm" | undefined;
+  position?: "top" | "bottom";
 };
 
 export default function Select({
@@ -26,6 +27,7 @@ export default function Select({
   setState,
   displayValue,
   buttonClassName,
+  position,
   size,
 }: TProps) {
   // const [state, setState] = useState(
@@ -77,7 +79,8 @@ export default function Select({
           className={clsx(
             contentType === "type" && "select-input__list--type",
             contentType === "tonic" && "select-input__list--tonic",
-            "select-input__list"
+            "select-input__list",
+            position && `select-input__list--${position}`
           )}
         >
           {options.map(({ id, name, value }: any) => (
