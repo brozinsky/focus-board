@@ -25,13 +25,15 @@ import usePomodoro from "@/hooks/usePomodoro";
 import TimerSVG from "@/components/elements/svg/icons/interface/TimerSVG";
 import GameControllerSVG from "@/components/elements/svg/icons/interface/GameControllerSVG";
 import FlagSVG from "@/components/elements/svg/icons/games/saper/FlagSVG";
+import { useToast } from "@/hooks/useToast";
+import NowPlaying from "@/components/ui/NowPlaying";
 
 interface IPanelProps {
   handlePlayPause: () => void;
 }
 
 const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
-  const { isAudioPlaying } = usePlayerStore();
+  const { isAudioPlaying, currentAudio } = usePlayerStore();
   const { isOpen, setIsOpen } = useWindowsStore();
   const { addStickyNote, areNotesVisible, setAreNotesVisible } =
     useStickyNotesStore();
@@ -47,6 +49,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             tooltip={isAudioPlaying ? "Pause audio" : "Play audio"}
           />
           <DropdownVolume />
+          {currentAudio?.title && <NowPlaying title={currentAudio?.title} />}
         </div>
         <div className="panel__group">
           {/* <Button variant="glass" onClick={handleRewind}>

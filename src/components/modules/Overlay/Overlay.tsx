@@ -1,13 +1,13 @@
-import NowPlaying from "@/components/ui/NowPlaying";
+// import NowPlaying from "@/components/ui/NowPlaying";
+// import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import { cn } from "@/lib/utils";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import clsx from "clsx";
 import Quote from "../Quote/Quote";
 import Clock from "../Clock/Clock";
 
 const Overlay = () => {
-  const { currentAudio } = usePlayerStore();
+  // const { currentAudio } = usePlayerStore();
   const { frameType, noiseValue } = useSceneStore();
 
   return (
@@ -24,7 +24,7 @@ const Overlay = () => {
       >
         <Clock />
         <Quote />
-        {currentAudio?.title && <NowPlaying title={currentAudio?.title} />}
+        {/* {currentAudio?.title && <NowPlaying title={currentAudio?.title} />} */}
       </div>
 
       {frameType == "glass-frame" && (
