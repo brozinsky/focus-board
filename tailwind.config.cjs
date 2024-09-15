@@ -49,7 +49,7 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       spacing: {
-        "window-bar": "var(--window-bar-height)"
+        "window-bar": "var(--window-bar-height)",
       },
       fontSize: {
         none: "0",
@@ -91,5 +91,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };

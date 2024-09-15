@@ -2,7 +2,7 @@ import {
   getFromLocalStorage,
   setToLocalStorage,
 } from "@/utils/functions/fn-common";
-import create from "zustand";
+import { create } from "zustand";
 
 interface IClockStore {
   date: Date;
