@@ -15,6 +15,7 @@ export type TWindowName =
   | "scene"
   | "todoList"
   | "saper"
+  | "loginForm"
   | "sceneModal";
 
 type TWindowPosition = {
@@ -39,6 +40,7 @@ interface IWindowsStore {
     timer: boolean;
     todoList: boolean;
     saper: boolean;
+    loginForm: boolean;
 
     //modals
     soundFX: boolean;
@@ -98,6 +100,7 @@ const useWindowsStore = create<IWindowsStore>((set, get) => ({
     timer: false,
     todoList: false,
     saper: false,
+    loginForm: false,
 
     //modals
     soundFX: false,

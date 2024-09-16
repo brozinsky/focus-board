@@ -39,6 +39,7 @@
       "@/fonts/*": ["./fonts/*"],
       "@/assets/*": ["./assets/*"],
       "@/types/*": ["./types/*"],
+      "@/api/*": ["./api/*"]
     }
   },
   "include": ["src"],

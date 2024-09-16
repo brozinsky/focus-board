@@ -27,6 +27,8 @@ import GameControllerSVG from "@/components/elements/svg/icons/interface/GameCon
 import FlagSVG from "@/components/elements/svg/icons/games/saper/FlagSVG";
 import { useToast } from "@/hooks/useToast";
 import NowPlaying from "@/components/ui/NowPlaying";
+import UserIconSVG from "@/components/elements/svg/icons/interface/UserIconSVG";
+import AuthModal from "../auth/AuthModal";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -37,10 +39,12 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
   const { isOpen, setIsOpen } = useWindowsStore();
   const { addStickyNote, areNotesVisible, setAreNotesVisible } =
     useStickyNotesStore();
+  const { toast } = useToast();
 
   return (
     <>
       <Settings />
+      <AuthModal />
       <div id="Panel" className="panel">
         <div className="panel__group">
           <ButtonIcon
@@ -77,6 +81,17 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           </div> */}
         </div>
         <div className="panel__group">
+          <button
+            onClick={() => {
+              toast({
+                title: "You're waking up in 5 hours",
+                description: "Sleep noification",
+                icon: <FlagSVG />,
+              });
+            }}
+          >
+            Toast test
+          </button>
           <Dropdown
             position={"top"}
             trigger={
@@ -166,6 +181,11 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             tooltip={"Sound effects"}
           />
           <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
+          <ButtonIcon
+            onClick={() => setIsOpen("loginForm", true)}
+            icon={<UserIconSVG />}
+            tooltip={"User"}
+          />
           <ButtonIcon
             onClick={() => setIsOpen("sceneModal", true)}
             icon={<SettingsIconSVG />}

@@ -5,7 +5,6 @@ import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import SoundFX from "@/components/modules/SoundFX/SoundFX";
 import Pomodoro from "@/components/modules/Pomodoro/Pomodoro";
-import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import Overlay from "@/components/modules/Overlay/Overlay";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import YTAudio from "@/components/modules/Player/YTAudio";
@@ -24,13 +23,12 @@ import StickyNotes from "@/components/modules/StickyNotes/StickyNotes";
 import Timer from "@/components/modules/Timer/Timer";
 import TodoList from "@/components/modules/TodoList/TodoList";
 import OverlayWelcome from "@/components/modules/Overlay/OverlayWelcome";
-import Saper from "@/components/modules/Games/Saper/Saper";
 import Games from "@/components/modules/Games/Games.";
+import { Toaster } from "@/components/ui/toast/Toaster";
 
 const Home = () => {
   const { fontFamily } = useSceneStore();
   const rootRef = useRef<HTMLDivElement>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const { isBgBlur, isBgShadow, blurValue, shadowValue } = useSceneStore();
   const { isOpen } = useWindowsStore();
 
@@ -128,6 +126,7 @@ const Home = () => {
     >
       {isOpen.pomodoro && <Pomodoro />}
       <StickyNotes />
+      <Toaster />
       {isOpen.timer && <Timer />}
       {isOpen.todoList && <TodoList />}
       <div unselectable="on">
