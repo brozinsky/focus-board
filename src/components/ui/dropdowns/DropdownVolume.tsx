@@ -9,8 +9,10 @@ import VolumeMuteIconSVG from "@/components/elements/svg/icons/media/VolumeMuteI
 
 const DropdownVolume = ({
   position = "top",
+  disabled = false,
 }: {
   position?: "top" | "bottom";
+  disabled?: boolean;
 }) => {
   const { changeVolume, toggleMute, getVolumeIcon, volumeAudio } = useVolume();
 
@@ -21,6 +23,7 @@ const DropdownVolume = ({
         <ButtonIcon
           icon={volumeAudio > 0 ? <VolumeLoIconSVG /> : <VolumeMuteIconSVG />}
           tooltip={"Volume"}
+          disabled={disabled}
         />
       }
     >

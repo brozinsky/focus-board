@@ -40,6 +40,8 @@ const Home = () => {
     handlePlayPause: handleAudioPlayPause,
   } = useAudioPlayer();
 
+  const isAppLoading = currentAudio ? isAudioReady : false;
+
   const { updateCSSVariables } = useThemeStore();
 
   useLayoutEffect(() => {
@@ -120,7 +122,7 @@ const Home = () => {
 
         <Overlay />
         <DevLogger />
-        <OverlayWelcome isLoading={!isAudioReady} />
+        <OverlayWelcome isLoading={isAppLoading} />
       </div>
     </div>
   );

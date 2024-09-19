@@ -51,9 +51,10 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             onClick={() => handlePlayPause()}
             icon={isAudioPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
             tooltip={isAudioPlaying ? "Pause audio" : "Play audio"}
+            disabled={!currentAudio}
           />
-          <DropdownVolume />
-          {currentAudio?.title && <NowPlaying title={currentAudio?.title} />}
+          <DropdownVolume disabled={!currentAudio}/>
+          <NowPlaying title={currentAudio?.title} />
         </div>
         <div className="panel__group">
           {/* <Button variant="glass" onClick={handleRewind}>
