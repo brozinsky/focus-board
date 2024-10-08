@@ -3,6 +3,7 @@ import CardYTVideo from "@/components/ui/cards/CardYTVideo";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import { ICurrentVideo } from "@/types/query-types";
+import { cn } from "@/lib/utils";
 
 type TSnippet = {
   videoOwnerChannelTitle: string;
@@ -34,7 +35,13 @@ type TPlaylistItem = {
   snippet: TSnippet;
 };
 
-const YoutubeVideos = () => {
+const YoutubeVideos = ({
+  grid = "md",
+  noInfo = false,
+}: {
+  grid?: "sm" | "md";
+  noInfo?: boolean;
+}) => {
   const playlistQuery = usePlaylistQuery();
   const [playlistItems, setPlaylistItems] = useState<TPlaylistItem[] | null>(
     null
@@ -57,9 +64,12 @@ const YoutubeVideos = () => {
   return (
     <div>
       <div
-        className={
-          "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
-        }
+        className={cn(
+          grid === "sm" &&
+            "gap-2 grid xl:grid-cols-4 2xl:grid-cols-6 md:grid-cols-3 grid-cols-1",
+          grid === "md" &&
+            "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
+        )}
       >
         {playlistItems &&
           playlistItems.map(({ snippet }: { snippet: TSnippet }) => {
@@ -75,7 +85,7 @@ const YoutubeVideos = () => {
             if (currVid.title === "Private video") {
               return null;
             }
-            return <CardYTVideo key={currVid.title} item={currVid} />;
+            return <CardYTVideo key={currVid.title} item={currVid} noInfo={noInfo}/>;
           })}
       </div>
     </div>

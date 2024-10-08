@@ -7,12 +7,13 @@ import { Cloudinary } from "@cloudinary/url-gen/index";
 import clsx from "clsx";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import { cn } from "@/lib/utils";
 
 const cld = new Cloudinary({
   cloud: { cloudName: import.meta.env.VITE_CLOUD_NAME },
 });
 
-const Wallpapers = () => {
+const Wallpapers = ({ grid = "md" }: { grid?: "sm" | "md" }) => {
   const bgWallpapersQuery = useBgWallpapersQuery();
   const { setIsOpen } = useWindowsStore();
   const { activeScene, setActiveScene, currentBgVideoId, setCurrentBgVideoId } =
@@ -35,9 +36,12 @@ const Wallpapers = () => {
   return (
     <div>
       <div
-        className={
-          "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
-        }
+        className={cn(
+          grid === "sm" &&
+            "gap-2 grid xl:grid-cols-4 2xl:grid-cols-6 md:grid-cols-3 grid-cols-1",
+          grid === "md" &&
+            "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
+        )}
       >
         {bgWallpapersQuery.data &&
           bgWallpapersQuery.data.length >= 0 &&

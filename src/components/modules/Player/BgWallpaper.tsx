@@ -9,11 +9,12 @@ const cld = new Cloudinary({
   cloud: { cloudName: import.meta.env.VITE_CLOUD_NAME },
 });
 
-const BgWallpaper = ({ id }: { id: string }) => {
+const BgWallpaper = ({ id, mini }: { id: string; mini?: boolean }) => {
   const { isBgBlur, isBgShadow } = useSceneStore();
 
   return (
     <motion.div
+      id="BgWallpaper"
       key={id}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -21,7 +22,8 @@ const BgWallpaper = ({ id }: { id: string }) => {
       className={clsx(
         "bg-video bg-overlay relative",
         isBgBlur && "bg-overlay--blur",
-        isBgShadow && "bg-overlay--shadow"
+        isBgShadow && "bg-overlay--shadow",
+        mini && "bg-video--mini"
       )}
     >
       <AdvancedImage
