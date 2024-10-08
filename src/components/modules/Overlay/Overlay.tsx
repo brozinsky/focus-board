@@ -1,12 +1,14 @@
-// import NowPlaying from "@/components/ui/NowPlaying";
-// import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import { cn } from "@/lib/utils";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import clsx from "clsx";
 import Quote from "../Quote/Quote";
 import Clock from "../Clock/Clock";
 
-const Overlay = () => {
+const Overlay = ({
+  display = "default",
+}: {
+  display?: "settings" | "default";
+}) => {
   // const { currentAudio } = usePlayerStore();
   const { frameType, noiseValue } = useSceneStore();
 
@@ -19,16 +21,24 @@ const Overlay = () => {
       <div
         className={clsx(
           frameType == "glass-frame" && "bg-overlay-frame--glass-frame",
+          frameType == "glass-frame" &&
+            display === "settings" &&
+            "bg-overlay-frame--glass-frame-mini",
           "bg-overlay-frame"
         )}
       >
-        <Clock />
+        <Clock display={display} />
         <Quote />
         {/* {currentAudio?.title && <NowPlaying title={currentAudio?.title} />} */}
       </div>
 
       {frameType == "glass-frame" && (
-        <div className="bg-overlay-frame__blur">
+        <div
+          className={clsx(
+            display === "settings" && "bg-overlay-frame__blur--mini",
+            "bg-overlay-frame__blur"
+          )}
+        >
           <div></div>
           <div></div>
           <div></div>

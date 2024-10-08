@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import Overlay from "@/components/modules/Overlay/Overlay";
@@ -6,20 +6,23 @@ import YTAudio from "@/components/modules/Player/YTAudio";
 import YTVideo from "@/components/modules/Player/YTVideo";
 import BgVideo from "@/components/modules/Player/BgVideo";
 import BgWallpaper from "@/components/modules/Player/BgWallpaper";
-import DevLogger from "@/components/modules/Utility/Logger";
 import useVideoPlayer from "@/hooks/useVideoPlayer";
 import useAudioPlayer from "@/hooks/useAudioPlayer";
 import useFxStore from "@/stores/zustand/useFxStore";
 import useThemeStore from "@/stores/zustand/useThemeStore";
 import OverlayWelcome from "@/components/modules/Overlay/OverlayWelcome";
-import Main from "../main/Main";
 import useFXInitialization from "@/hooks/useFXInitialization";
 import useRootRef from "@/hooks/useRootRef";
+import Onboarding from "../onboarding/Onboarding";
+import useAppStore from "@/stores/zustand/useAppStore";
+import Main from "../main/Main";
 
 const Home = () => {
   const { rootRef, rootFontFamily } = useRootRef();
   const { initializeAudio } = useFxStore();
   useFXInitialization(initializeAudio);
+  const { isOnboarding, setIsOnboarding } = useAppStore();
+  const { updateCSSVariables } = useThemeStore();
 
   const {
     activeScene,
@@ -40,9 +43,7 @@ const Home = () => {
     handlePlayPause: handleAudioPlayPause,
   } = useAudioPlayer();
 
-  const isAppLoading = currentAudio ? isAudioReady : false;
-
-  const { updateCSSVariables } = useThemeStore();
+  const isAppLoading = currentAudio && !isAudioReady ? true : false;
 
   useLayoutEffect(() => {
     updateCSSVariables();
@@ -84,12 +85,6 @@ const Home = () => {
     setCurrentAudio,
   ]);
 
-  // return (
-  //   <div className="w-screen h-screen flex items-center jusify-center">
-  //     <div>Onboarding</div>
-  //   </div>
-  // );
-
   return (
     <div
       style={{ fontFamily: rootFontFamily }}
@@ -97,10 +92,11 @@ const Home = () => {
       unselectable="on"
       ref={rootRef}
     >
-      <Main />
+      {!isOnboarding && <Main />}
+      {isOnboarding && <Onboarding setIsOnboarding={setIsOnboarding} />}
 
       <div unselectable="on">
-        {activeScene === "yt" && currentVideo?.videoId && (
+        {!isOnboarding && activeScene === "yt" && currentVideo?.videoId && (
           <YTVideo id={currentVideo.videoId} onReady={onVideoReady} />
         )}
 
@@ -112,17 +108,20 @@ const Home = () => {
               <YTAudio id={currentAudio.videoId} onReady={onAudioReady} />
             )}
 
-        {activeScene === "bg-video" && currentBgVideoId && (
+        {!isOnboarding && activeScene === "bg-video" && currentBgVideoId && (
           <BgVideo id={currentBgVideoId} />
         )}
 
-        {activeScene === "wallpaper" && currentBgVideoId && (
+        {!isOnboarding && activeScene === "wallpaper" && currentBgVideoId && (
           <BgWallpaper id={currentBgVideoId} />
         )}
-
-        <Overlay />
-        <DevLogger />
-        <OverlayWelcome isLoading={isAppLoading} />
+        {!isOnboarding && (
+          <>
+            <OverlayWelcome isLoading={isAppLoading} />
+            <Overlay />
+          </>
+        )}
+        {/* <DevLogger /> */}
       </div>
     </div>
   );

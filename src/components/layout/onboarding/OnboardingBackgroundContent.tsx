@@ -48,15 +48,6 @@ const OnboardingBackgroundContent = () => {
         <span className="bg-foreground w-8 h-8 rounded-sm"></span>
         <span className="bg-background border-white/40 border w-8 h-8 rounded-sm"></span>
       </div>
-      <p className="text-lg text mb-4">
-        Adjust brightness, add a blur, or try different overlays to make it your
-        own. You can also play around with theme colors to really make it pop!
-      </p>
-      <Separator className="my-4 bg-white/30" />
-      <p className="text-lg text mb-4">
-        For additional vibe you can add some background noises
-      </p>
-      <SceneSettings />
     </div>
   );
 };
