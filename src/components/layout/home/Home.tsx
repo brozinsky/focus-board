@@ -16,6 +16,7 @@ import useRootRef from "@/hooks/useRootRef";
 import Onboarding from "../onboarding/Onboarding";
 import useAppStore from "@/stores/zustand/useAppStore";
 import Main from "../main/Main";
+import SpotifyPlayer from "@/components/modules/Player/SpotifyPlayer";
 
 const Home = () => {
   const { rootRef, rootFontFamily } = useRootRef();
@@ -115,12 +116,14 @@ const Home = () => {
         {!isOnboarding && activeScene === "wallpaper" && currentBgVideoId && (
           <BgWallpaper id={currentBgVideoId} />
         )}
+
         {!isOnboarding && (
           <>
             <OverlayWelcome isLoading={isAppLoading} />
             <Overlay />
           </>
         )}
+        <SpotifyPlayer />
         {/* <DevLogger /> */}
       </div>
     </div>
