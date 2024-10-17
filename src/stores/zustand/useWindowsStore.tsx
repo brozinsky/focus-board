@@ -14,6 +14,7 @@ export type TWindowName =
   | "playlist"
   | "scene"
   | "todoList"
+  | "spotify"
   | "saper"
   | "loginForm"
   | "sceneModal";
@@ -41,6 +42,7 @@ interface IWindowsStore {
     todoList: boolean;
     saper: boolean;
     loginForm: boolean;
+    spotify: boolean;
 
     //modals
     soundFX: boolean;
@@ -101,6 +103,7 @@ const useWindowsStore = create<IWindowsStore>((set, get) => ({
     todoList: false,
     saper: false,
     loginForm: false,
+    spotify: false,
 
     //modals
     soundFX: false,

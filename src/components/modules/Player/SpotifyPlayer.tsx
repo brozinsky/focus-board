@@ -1,41 +1,42 @@
-import React, { useState } from "react";
+import { useSpotifyStore } from "@/stores/zustand/useSpotifyStore";
+import { cn } from "@/lib/utils";
+import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
+import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import SpotifySVG from "@/components/elements/svg/icons/social-media/SpotifySVG";
 
-const SpotifyPlayer: React.FC = () => {
-  const url = "https://open.spotify.com/playlist/2idylB7DB5cDvSl5Ddnl1w".match(/playlist\/([a-zA-Z0-9]+)/);
-  const playlistId = url && url[1];
-
-  const initialPlaylistUrl = `https://open.spotify.com/embed/playlist/${playlistId}?theme=0`;
-  const [playlistUrl, setPlaylistUrl] = useState(initialPlaylistUrl);
-
-  const changePlaylist = () => {
-    const newUrl = prompt("Enter a new Spotify playlist URL:");
-    if (newUrl) {
-      const match = newUrl.match(/playlist\/([a-zA-Z0-9]+)/);
-      if (match) {
-        const playlistId = match[1];
-        setPlaylistUrl(
-          `https://open.spotify.com/embed/playlist/${playlistId}?theme=0`
-        );
-      } else {
-        alert("Invalid Spotify playlist URL");
-      }
-    }
-  };
+const SpotifyPlayer = () => {
+  const { playlistUrl } = useSpotifyStore();
+  const { isOpen, setIsOpen } = useWindowsStore();
 
   const WIDTH = 350;
   const HEIGHT = 500;
 
   return (
-    <div className="absolute bottom-24 left-14 z-100">
-      <iframe
-        src={playlistUrl}
-        width={WIDTH}
-        height={HEIGHT}
-        allow="encrypted-media"
-        title="Spotify Playlist"
+    <>
+      <ButtonIcon
+        isOpen={isOpen.spotify}
+        className="relative"
+        onClick={() => setIsOpen("spotify", !isOpen.spotify)}
+        icon={<SpotifySVG />}
+        tooltip={"Spotify player"}
       />
-      <button onClick={changePlaylist}>Change Playlist</button>
-    </div>
+      <div
+        style={{ width: WIDTH, height: HEIGHT }}
+        className={cn(
+          isOpen.spotify ? "visible opacity-100" : "invisible opacity-0",
+          "absolute bottom-20 left-0 z-100 bg-background rounded-lg overflow-hidden transition duration-200"
+        )}
+      >
+        <iframe
+          className="z-20"
+          src={playlistUrl}
+          width={WIDTH}
+          height={HEIGHT}
+          allow="encrypted-media"
+          title="Spotify Playlist"
+        />
+      </div>
+    </>
   );
 };
 

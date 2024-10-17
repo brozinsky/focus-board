@@ -16,7 +16,6 @@ import useRootRef from "@/hooks/useRootRef";
 import Onboarding from "../onboarding/Onboarding";
 import useAppStore from "@/stores/zustand/useAppStore";
 import Main from "../main/Main";
-import SpotifyPlayer from "@/components/modules/Player/SpotifyPlayer";
 
 const Home = () => {
   const { rootRef, rootFontFamily } = useRootRef();
@@ -26,6 +25,7 @@ const Home = () => {
   const { updateCSSVariables } = useThemeStore();
 
   const {
+    audioSource,
     activeScene,
     currentVideo,
     currentAudio,
@@ -44,7 +44,7 @@ const Home = () => {
     handlePlayPause: handleAudioPlayPause,
   } = useAudioPlayer();
 
-  const isAppLoading = currentAudio && !isAudioReady ? true : false;
+  const isAppLoading = currentAudio && !isAudioReady && audioSource !== "spotify";
 
   useLayoutEffect(() => {
     updateCSSVariables();
@@ -105,7 +105,8 @@ const Home = () => {
           ? currentVideo?.videoId && (
               <YTAudio id={currentVideo.videoId} onReady={onAudioReady} />
             )
-          : currentAudio?.videoId && (
+          : audioSource === "youtube" &&
+            currentAudio?.videoId && (
               <YTAudio id={currentAudio.videoId} onReady={onAudioReady} />
             )}
 
@@ -123,7 +124,6 @@ const Home = () => {
             <Overlay />
           </>
         )}
-        <SpotifyPlayer />
         {/* <DevLogger /> */}
       </div>
     </div>

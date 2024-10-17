@@ -1,6 +1,10 @@
 import { TSVG } from "@/types/ui-types";
 
-export default function SpotifySVG({ className, width = "24" }: TSVG) {
+export default function SpotifySVG({
+  className = "stroke-foreground",
+  width = 24,
+  pathClass = "stroke-foreground",
+}: TSVG) {
   return (
     <svg
       className={className}
@@ -11,7 +15,7 @@ export default function SpotifySVG({ className, width = "24" }: TSVG) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        className="stroke-neutral-100"
+        className={pathClass}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeMiterlimit={10}
@@ -19,7 +23,7 @@ export default function SpotifySVG({ className, width = "24" }: TSVG) {
         d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"
       />
       <path
-        className="stroke-neutral-100"
+        className={pathClass}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeMiterlimit={10}

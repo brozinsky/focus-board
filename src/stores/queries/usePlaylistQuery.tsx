@@ -4,7 +4,6 @@ import axios from "axios";
 
 const YT_BASE_URL = "https://www.googleapis.com/youtube/v3/playlistItems";
 
-// Function to fetch playlist items
 const fetchPlaylistItems = async () => {
   const response = await axios.get(YT_BASE_URL, {
     params: {
