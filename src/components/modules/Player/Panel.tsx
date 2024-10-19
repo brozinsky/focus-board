@@ -73,7 +73,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
               <DropdownVolume disabled={!currentAudio} />
             </>
           )}
-          {audioSource === "youtube" ? (
+          {/* {audioSource === "youtube" ? (
             <ButtonIcon
               onClick={() => setIsOpen("playlist", true)}
               icon={<MusicNoteSVG />}
@@ -81,7 +81,10 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             />
           ) : (
             <DrawerSpotifyPlaylist />
-          )}
+          )} */}
+
+          <DrawerSpotifyPlaylist />
+
           {audioSource === "youtube" && (
             <>
               <NowPlaying title={currentAudio?.title} />
