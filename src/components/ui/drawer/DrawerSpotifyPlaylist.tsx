@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -14,9 +14,20 @@ import { cn } from "@/lib/utils";
 import PlaylistItems from "@/components/modules/Playlist/PlaylistItems";
 import SpotifySVG from "@/components/elements/svg/icons/social-media/SpotifySVG";
 import YouTubeSVG from "@/components/elements/svg/icons/social-media/YouTubeSVG";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs/Tabs";
+import { TAudioSource } from "@/types/query-types";
 
 const DrawerSpotifyPlaylist = () => {
   const { audioSource, setAudioSource } = usePlayerStore();
+
+  useEffect(() => {
+    console.log(audioSource);
+  }, [audioSource]);
 
   return (
     <Drawer direction="right">
@@ -30,30 +41,31 @@ const DrawerSpotifyPlaylist = () => {
       <DrawerContent className="min-w-[370px] my-2">
         <DrawerHeader className="max-h-full flex flex-col gap-4">
           <DrawerTitle>Audio playlists</DrawerTitle>
-          <div className="grid grid-cols-2 gap-2 mx-auto w-full">
-            <button
-              onClick={() => setAudioSource("youtube")}
-              className={cn(
-                "gap-2 w-full p-3 h-auto bg-background-glass text-foreground-primary rounded-lg flex-center",
-                audioSource === "youtube" && "bg-primary"
-              )}
-            >
-              <YouTubeSVG /> Youtube
-            </button>
-            <button
-              onClick={() => setAudioSource("spotify")}
-              className={cn(
-                "gap-2 w-full p-3 h-auto bg-background-glass text-foreground-primary rounded-lg flex-center",
-                audioSource === "spotify" && "bg-primary"
-              )}
-            >
-              <SpotifySVG /> Spotify
-            </button>
-          </div>
-          <div className="overflow-auto max-h-full">
-            {audioSource === "spotify" && <PlaylistSpotify />}
-            {audioSource === "youtube" && <PlaylistItems />}
-          </div>
+          <Tabs
+            defaultValue={audioSource}
+            onValueChange={(value) => setAudioSource(value as TAudioSource)}
+          >
+            <TabsList>
+              <TabsTrigger
+                value="youtube"
+                className={cn("gap-1.5 flex-center w-[150px]")}
+              >
+                <YouTubeSVG width={20} /> Youtube
+              </TabsTrigger>
+              <TabsTrigger
+                value="spotify"
+                className={cn("gap-1.5 flex-center w-[150px]")}
+              >
+                <SpotifySVG width={20} /> Spotify
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="youtube">
+              <PlaylistItems />
+            </TabsContent>
+            <TabsContent value="spotify">
+              <PlaylistSpotify />
+            </TabsContent>
+          </Tabs>
         </DrawerHeader>
       </DrawerContent>
     </Drawer>

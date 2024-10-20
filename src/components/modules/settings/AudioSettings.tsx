@@ -10,6 +10,13 @@ import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import YouTubeSVG from "@/components/elements/svg/icons/social-media/YouTubeSVG";
 import { cn } from "@/lib/utils";
 import SpotifySVG from "@/components/elements/svg/icons/social-media/SpotifySVG";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs/Tabs";
+import { TAudioSource } from "@/types/query-types";
 
 const AudioSettings = () => {
   const { currentAudio, audioSource, setAudioSource } = usePlayerStore();
@@ -19,50 +26,37 @@ const AudioSettings = () => {
   return (
     <>
       <div className="flex flex-col gap-4">
-        <div className="max-w-sm">
-          <div className="mb-2">Audio source</div>
-          <div className="grid grid-cols-2 gap-2 mx-auto w-full mb-6">
-            <button
-              onClick={() => setAudioSource("youtube")}
-              className={cn(
-                "gap-2 w-full p-3 h-auto bg-background-glass text-foreground-primary rounded-lg flex-center",
-                audioSource === "youtube" && "bg-primary"
-              )}
+        <div className="mb-2">Audio source</div>
+        <Tabs
+          defaultValue={audioSource}
+          onValueChange={(value) => setAudioSource(value as TAudioSource)}
+        >
+          <TabsList>
+            <TabsTrigger
+              value="youtube"
+              className={cn("gap-1.5 flex-center w-[150px]")}
             >
-              <YouTubeSVG /> Youtube
-            </button>
-            <button
-              onClick={() => setAudioSource("spotify")}
-              className={cn(
-                "gap-2 w-full p-3 h-auto bg-background-glass text-foreground-primary rounded-lg flex-center",
-                audioSource === "spotify" && "bg-primary"
-              )}
+              <YouTubeSVG width={20} /> Youtube
+            </TabsTrigger>
+            <TabsTrigger
+              value="spotify"
+              className={cn("gap-1.5 flex-center w-[150px]")}
             >
-              <SpotifySVG /> Spotify
-            </button>
-          </div>
-          {audioSource === "youtube" && (
-            <>
-              <div className="mb-2">Audio track volume</div>
-              <div className="flex-center gap-2">
-                <Button
-                  label="Toggle mute"
-                  onClick={toggleMute}
-                  icon={getVolumeIcon(volumeAudio)}
-                  size="sm"
-                  variant="ghost"
-                />
-                <Volume
-                  volume={volumeAudio}
-                  handleVolumeChange={changeVolume}
-                />
-              </div>
-            </>
-          )}
-        </div>
-
-        {audioSource === "youtube" && (
-          <>
+              <SpotifySVG width={20} /> Spotify
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="youtube">
+            <div className="mb-2">Audio track volume</div>
+            <div className="flex-center gap-2 max-w-sm">
+              <Button
+                label="Toggle mute"
+                onClick={toggleMute}
+                icon={getVolumeIcon(volumeAudio)}
+                size="sm"
+                variant="ghost"
+              />
+              <Volume volume={volumeAudio} handleVolumeChange={changeVolume} />
+            </div>
             <div>Current playlist</div>
             {currentAudio ? (
               <PlaylistItem
@@ -88,11 +82,10 @@ const AudioSettings = () => {
                 Add custom audio
               </button>
             </div>
-          </>
-        )}
-
+          </TabsContent>
+          <TabsContent value="spotify"></TabsContent>
+        </Tabs>
         <Separator className="my-4 bg-white/30" />
-
         <div>Active sound effects</div>
         <div>
           <div className="grid grid-cols-3 gap-2">
