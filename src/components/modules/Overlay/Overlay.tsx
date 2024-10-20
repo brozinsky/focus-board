@@ -10,11 +10,11 @@ const Overlay = ({
   display?: "settings" | "default";
 }) => {
   // const { currentAudio } = usePlayerStore();
-  const { frameType, noiseValue } = useSceneStore();
+  const { frameType, noiseValue, isBgNoise } = useSceneStore();
 
   return (
     <div className={cn("bg-overlay-frame__wrap")}>
-      {noiseValue > 0 && (
+      {isBgNoise && noiseValue > 0 && (
         <div className="bg-overlay-noise" style={{ opacity: noiseValue }}></div>
       )}
 
