@@ -38,10 +38,11 @@ const DrawerSpotifyPlaylist = () => {
           tooltip={"Playlist"}
         />
       </DrawerTrigger>
-      <DrawerContent className="min-w-[370px] my-2">
+      <DrawerContent className="min-w-[370px] my-2 max-h-full">
         <DrawerHeader className="max-h-full flex flex-col gap-4">
           <DrawerTitle>Audio playlists</DrawerTitle>
           <Tabs
+            className="max-h-[100%] overflow-hidden"
             defaultValue={audioSource}
             onValueChange={(value) => setAudioSource(value as TAudioSource)}
           >
@@ -59,11 +60,19 @@ const DrawerSpotifyPlaylist = () => {
                 <SpotifySVG width={20} /> Spotify
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="youtube">
+            <TabsContent
+              value="youtube"
+              className="!max-h-full !overflow-auto w-[550px] pb-10"
+            >
               <PlaylistItems />
             </TabsContent>
-            <TabsContent value="spotify">
-              <PlaylistSpotify />
+            <TabsContent
+              value="spotify"
+              className="!max-h-full !overflow-auto w-[550px] pb-10"
+            >
+              <div className="max-h-[90%] overflow-auto">
+                <PlaylistSpotify />
+              </div>
             </TabsContent>
           </Tabs>
         </DrawerHeader>
