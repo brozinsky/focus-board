@@ -8,16 +8,21 @@ import { cn } from "@/lib/utils";
 
 const DrawerContext = React.createContext<{
   direction?: "right" | "top" | "bottom" | "left";
+  isOverlay?: boolean;
 }>({
   direction: "bottom",
+  isOverlay: true,
 });
 
 const Drawer = ({
   shouldScaleBackground = true,
   direction = "right",
+  isOverlay = true,
   ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
-  <DrawerContext.Provider value={{ direction }}>
+}: React.ComponentProps<typeof DrawerPrimitive.Root> & {
+  isOverlay?: boolean;
+}) => (
+  <DrawerContext.Provider value={{ direction, isOverlay }}>
     <DrawerPrimitive.Root
       shouldScaleBackground={shouldScaleBackground}
       direction={direction}
@@ -36,13 +41,19 @@ const DrawerClose = DrawerPrimitive.Close;
 const DrawerOverlay = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Overlay
-    ref={ref}
-    className={cn("fixed inset-0 z-50 bg-modal-overlay", className)}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const { isOverlay } = React.useContext(DrawerContext);
+
+  return (
+    <DrawerPrimitive.Overlay
+      ref={ref}
+      className={cn("fixed inset-0 z-50 bg-modal-overlay", className, {
+        "!opacity-0": !isOverlay,
+      })}
+      {...props}
+    />
+  );
+});
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 
 const drawerContentVariants = cva(
