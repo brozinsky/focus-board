@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const EMBED_URL_PREFIX = "https://open.spotify.com/embed/playlist/";
-const PLAYLIST_ID = "2idylB7DB5cDvSl5Ddnl1w";
+const PLAYLIST_ID = import.meta.env.VITE_SPOTIFY_PLAYLIST_ID;
 const INITIAL_PLAYLIST = `${EMBED_URL_PREFIX}${PLAYLIST_ID}?theme=0`;
 
 export const useSpotifyStore = create<IProps>((set) => ({

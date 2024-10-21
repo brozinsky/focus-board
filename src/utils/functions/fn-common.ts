@@ -32,3 +32,8 @@ export const extractYouTubeVideoId = (url: string) => {
   const match = url.match(regExp);
   return match && match[7].length === 11 ? match[7] : null;
 };
+
+export const extractSpotifyPlaylistId = (url: string): string | null => {
+  const match = url.match(/playlist\/([a-zA-Z0-9]+)(\?|$)/);
+  return match ? match[1] : null;
+};

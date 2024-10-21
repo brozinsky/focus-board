@@ -17,7 +17,7 @@ type TProps = {
   children?: ReactNode;
   variant?:
     | "neutral"
-    | "emerald"
+    | "primary"
     | "ghost"
     | "glass"
     | "glass-ghost"
@@ -53,63 +53,54 @@ export default function Button({
   label,
   isDiv = false,
 }: TProps) {
-  const classes = cva(
-    [
-      className,
-      "relative flex items-center justify-center w-fit  gap-2 rounded-xl cursor-pointer",
-    ],
-    {
-      variants: {
-        variant: {
-          neutral: "bg-neutral-500 hover:bg-neutral-400",
-          emerald: "bg-emerald-500 text-neutral-600 font-bold",
-          ghost:
-            "group bg-transparent-500 hover:bg-neutral-500 text-neutral-500 hover:text-neutral-500 font-bold",
-          glass: "glass-btn",
-          "glass-ghost": "glass-btn-hover"
-        },
-        shape: {
-          rectangle: "rounded-xl",
-          circle: "rounded-full",
-          square: "rounded-xl",
-        },
-        size: {
-          md: "px-6 py-3",
-          sm: "px-2 py-2",
-        },
-        isLoading: {
-          true: "bg-emerald-700 !cursor-default",
-        },
+  const classes = cva([className, "button"], {
+    variants: {
+      variant: {
+        neutral: "bg-input text-foreground",
+        primary: "bg-primary text-foreground-primary",
+        ghost:
+          "group bg-transparent-500 hover:bg-neutral-500 text-neutral-500 hover:text-neutral-500 font-bold",
+        glass: "glass-btn",
+        "glass-ghost": "glass-btn-hover",
       },
-      compoundVariants: [
-        {
-          size: "sm",
-          shape: "square",
-          className: "px-2 py-2",
-        },
-        {
-          size: "sm",
-          shape: "circle",
-          className: "px-2 py-2",
-        },
-      ],
-    }
-  );
+      shape: {
+        rectangle: "rounded-xl",
+        circle: "rounded-full",
+        square: "rounded-xl",
+      },
+      size: {
+        md: "button--md",
+        sm: "button--sm",
+      },
+      isLoading: {
+        true: "bg-emerald-700 !cursor-default",
+      },
+    },
+    compoundVariants: [
+      {
+        size: "sm",
+        shape: "square",
+        className: "px-2 py-2",
+      },
+      {
+        size: "sm",
+        shape: "circle",
+        className: "px-2 py-2",
+      },
+    ],
+  });
 
   const pathClass = clsx({
-    "stroke-neutral-600": variant === "emerald",
     "stroke-neutral-100": variant === "neutral",
   });
 
-  const MotionComponent = !isDiv ? motion.button : motion.div;
+  const Component = !isDiv ? "button" : "div";
 
   return (
-    <MotionComponent
+    <Component
       aria-label={label}
       onClick={onClick}
       className={classes({ variant, shape, size, isLoading })}
-      whileHover={isLoading ? undefined : { scale: 1.05 }}
-      whileTap={isLoading ? undefined : { scale: 0.9 }}
     >
       <LoadingWrapper isLoading={isLoading}>
         {icon === "play" && <PlayIconSVG pathClass={pathClass} />}
@@ -139,6 +130,6 @@ export default function Button({
           />
         </div>
       )}
-    </MotionComponent>
+    </Component>
   );
 }
