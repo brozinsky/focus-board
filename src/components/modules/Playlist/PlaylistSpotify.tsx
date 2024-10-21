@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PlaylistItemSpotify from "../Card/PlaylistItemSpotify";
 import useSpotifyPlaylistQuery from "@/stores/queries/useSpotifyPlaylistQuery";
-import axios from "axios";
 import DialogAddSpotifyPlaylist from "./DialogAddSpotifyPlaylist";
+import { useSpotifyStore } from "@/stores/zustand/useSpotifyStore";
 
 const PlaylistSpotify = () => {
   const query = useSpotifyPlaylistQuery();
-  const [playlists, setPlaylists] = useState<any[]>([]);
+  const { playlists, setPlaylists } = useSpotifyStore();
 
   useEffect(() => {
     if (query.data) {
@@ -26,19 +26,20 @@ const PlaylistSpotify = () => {
 
   return (
     <>
-      <DialogAddSpotifyPlaylist setPlaylists={setPlaylists} />
-      {playlists.map((playlist) => (
-        <PlaylistItemSpotify
-          key={playlist.id}
-          id={playlist.id}
-          isActive={false}
-          title={playlist.name}
-          imageSrc={
-            playlist.images && playlist.images[0] && playlist.images[0].url
-          }
-          handleClick={() => null}
-        />
-      ))}
+      <DialogAddSpotifyPlaylist />
+      {playlists &&
+        playlists.map((playlist) => (
+          <PlaylistItemSpotify
+            key={playlist.id}
+            id={playlist.id}
+            isActive={false}
+            title={playlist.name}
+            imageSrc={
+              playlist.images && playlist.images[0] && playlist.images[0].url
+            }
+            handleClick={() => null}
+          />
+        ))}
     </>
   );
 };

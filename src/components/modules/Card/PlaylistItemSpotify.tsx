@@ -1,6 +1,7 @@
 import { ICurrentVideo } from "@/types/query-types";
 import clsx from "clsx";
 import { useSpotifyStore } from "@/stores/zustand/useSpotifyStore";
+import { extractSpotifyPlaylistId } from "@/utils/functions/fn-common";
 
 type TProps = {
   id: string;
@@ -18,12 +19,12 @@ const PlaylistItemSpotify = ({
   imageSrc,
   title,
 }: TProps) => {
-  const { setPlaylistFromId } = useSpotifyStore();
+  const { setPlaylistFromId, playlistUrl } = useSpotifyStore();
 
   return (
     <div
       className={clsx(
-        isActive && "active",
+        id === extractSpotifyPlaylistId(playlistUrl) && "active",
         "cursor-pointer playlist-item relative playlist-item--spotify",
         !isHoverable && "hover-none !cursor-default"
       )}
