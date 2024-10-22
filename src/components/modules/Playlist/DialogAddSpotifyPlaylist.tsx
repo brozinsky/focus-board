@@ -12,11 +12,13 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { Input } from "@/components/ui/inputs/Input";
 import Button from "@/components/ui/buttons/Button";
 import axios from "axios";
+import { useSpotifyStore } from "@/stores/zustand/useSpotifyStore";
 
-const DialogAddSpotifyPlaylist = ({ setPlaylists }) => {
+const DialogAddSpotifyPlaylist = () => {
   const [error, setError] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [newPlaylistUrl, setNewPlaylistUrl] = useState<string>("");
+  const { setPlaylists } = useSpotifyStore();
 
   const handleAddPlaylist = async () => {
     if (!newPlaylistUrl) {
