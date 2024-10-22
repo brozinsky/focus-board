@@ -25,6 +25,7 @@ const Home = () => {
   const { updateCSSVariables } = useThemeStore();
 
   const {
+    audioSource,
     activeScene,
     currentVideo,
     currentAudio,
@@ -43,7 +44,7 @@ const Home = () => {
     handlePlayPause: handleAudioPlayPause,
   } = useAudioPlayer();
 
-  const isAppLoading = currentAudio && !isAudioReady ? true : false;
+  const isAppLoading = currentAudio && !isAudioReady && audioSource !== "spotify";
 
   useLayoutEffect(() => {
     updateCSSVariables();
@@ -104,7 +105,8 @@ const Home = () => {
           ? currentVideo?.videoId && (
               <YTAudio id={currentVideo.videoId} onReady={onAudioReady} />
             )
-          : currentAudio?.videoId && (
+          : audioSource === "youtube" &&
+            currentAudio?.videoId && (
               <YTAudio id={currentAudio.videoId} onReady={onAudioReady} />
             )}
 
@@ -115,6 +117,7 @@ const Home = () => {
         {!isOnboarding && activeScene === "wallpaper" && currentBgVideoId && (
           <BgWallpaper id={currentBgVideoId} />
         )}
+
         {!isOnboarding && (
           <>
             <OverlayWelcome isLoading={isAppLoading} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 import DropdownVolume from "@/components/ui/dropdowns/DropdownVolume";
@@ -7,6 +7,9 @@ import { cn } from "@/lib/utils";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import MusicNoteSVG from "@/components/elements/svg/icons/media/MusicNoteSVG";
 import PlaylistItems from "./PlaylistItems";
+import { Input } from "@/components/ui/inputs/Input";
+import AddLinkInput from "@/components/ui/inputs/AddLink";
+import PlaylistSpotify from "./PlaylistSpotify";
 
 const Playlist = () => {
   const { isOpen, setIsOpen } = useWindowsStore();
@@ -41,9 +44,10 @@ const Playlist = () => {
             </h2>
             <DropdownVolume position="bottom" />
           </div>
+          <AddLinkInput />
           {/* <Separator className="bg-white/30" /> */}
           <div
-            className={"gap-8 grid xl:grid-cols-2 md:grid-cols-1 grid-cols-1"}
+            className={"gap-2 grid xl:grid-cols-2 md:grid-cols-1 grid-cols-1"}
           >
             <PlaylistItems />
           </div>

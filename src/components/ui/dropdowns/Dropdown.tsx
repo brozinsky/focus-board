@@ -6,7 +6,7 @@ type TProps = {
   children: ReactNode;
   trigger?: ReactNode;
   isCenter?: boolean;
-  position?: "bottom" | "top";
+  position?: "bottom" | "top" | "screen-bottom-left";
 };
 
 export default function Dropdown({
@@ -39,6 +39,7 @@ export default function Dropdown({
           <Menu.Items
             className={clsx(
               position === "top" && "bottom-12 left-1/2 -translate-x-1/2 origin-bottom",
+              position === "screen-bottom-left" && "absolute bottom-24 left-[3%] z-100 bg-background rounded-lg overflow-hidden",
               position === "bottom" && "origin-top-right",
               "z-50 absolute mt-3 w-56 glass-neutral divide-y divide-neutral-800 rounded-md",
               isCenter ? "left-1/2 -translate-x-1/2" : "right-0"

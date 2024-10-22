@@ -12,6 +12,7 @@ import SceneEditSVG from "@/components/elements/svg/icons/interface/SceneEditSVG
 import { cn } from "@/lib/utils";
 import useThemeStore from "@/stores/zustand/useThemeStore";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import DrawerBgSettings from "@/components/ui/drawer/DrawerBgSettings";
 
 type TTab = {
   id: string;
@@ -33,6 +34,7 @@ const Scenes = () => {
   const { isOpen, setIsOpen } = useWindowsStore();
   const { activeScene } = usePlayerStore();
   const { themeStyle } = useThemeStore();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const [activeTab, setActiveTab] = useState<TActiveScene>(activeScene);
 
@@ -41,7 +43,10 @@ const Scenes = () => {
   return (
     <div
       id="Scenes"
-      className={"modal"}
+      className={cn(
+        "modal opacity-100 visible transition",
+        isDrawerOpen && "opacity-0 invisible"
+      )}
       onClick={() => setIsOpen("scene", false)}
     >
       <button className={"modal__close"}>
@@ -76,11 +81,17 @@ const Scenes = () => {
           </div>
           <div className={"p-8 gap-6 flex flex-col"}>
             <div className="flex flex-col gap-1">
-              <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide">
-                {activeTab === "bg-video" && "Animated Wallpapers"}
-                {activeTab === "wallpaper" && "Static Wallpapers"}
-                {activeTab === "yt" && "Youtube videos"}
-              </h3>
+              <div className="flex items-center justify-between">
+                <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide">
+                  {activeTab === "bg-video" && "Animated Wallpapers"}
+                  {activeTab === "wallpaper" && "Static Wallpapers"}
+                  {activeTab === "yt" && "Youtube videos"}
+                </h3>
+                <DrawerBgSettings
+                  isDrawerOpen={isDrawerOpen}
+                  setIsDrawerOpen={setIsDrawerOpen}
+                />
+              </div>
               <Separator className="my-4 bg-white/30" />
             </div>
             {tabs.map(({ id, component }: TTab) => {

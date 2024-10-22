@@ -57,5 +57,6 @@ export interface ICurrentVideo {
   videoOwnerChannelId: string;
 }
 
-export type TActiveScene = "yt" | "bg-video" | "wallpaper"
+export type TActiveScene = "yt" | "bg-video" | "wallpaper";
 
+export type TAudioSource = "spotify" | "youtube";
