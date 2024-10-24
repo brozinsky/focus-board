@@ -1,4 +1,5 @@
 import Games from "@/components/modules/Games/Games.";
+import Photos from "@/components/modules/Photos/Photos";
 import Playlist from "@/components/modules/Playlist/Playlist";
 import Pomodoro from "@/components/modules/Pomodoro/Pomodoro";
 import Scenes from "@/components/modules/Scenes/Scenes";
@@ -35,6 +36,7 @@ const Windows = () => {
         return isOpen[itemKey] ? <Component key={itemKey} /> : null;
       })}
       <StickyNotes />
+      <Photos />
       <Games />
     </>
   );
