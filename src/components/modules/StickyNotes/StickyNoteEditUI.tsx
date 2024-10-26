@@ -2,6 +2,8 @@ import CheckSVG from "@/components/elements/svg/icons/interface/CheckSVG";
 import EditIconSVG from "@/components/elements/svg/icons/interface/EditIconSVG";
 import TrashIconSVG from "@/components/elements/svg/icons/interface/TrashIconSVG";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
+import ButtonDelete from "@/components/ui/buttons/panel-edit/ButtonDelete";
+import ButtonEdit from "@/components/ui/buttons/panel-edit/ButtonEdit";
 import Checkbox from "@/components/ui/inputs/Checkbox";
 import { cn } from "@/lib/utils";
 import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
@@ -52,32 +54,12 @@ const StickyNoteEditUI = ({
 
   return (
     <>
-      <ButtonIcon
-        className={cn(
-          "group/edit absolute -bottom-12 right-2 bg-background hover:bg-primary hover:opacity-100",
-          !isEditing && "group-hover:opacity-100 opacity-0 "
-        )}
-        onClick={handleEditToggle}
-        icon={
-          !isEditing ? (
-            <EditIconSVG pathClass="group-hover/edit:stroke-foreground-primary stroke-foreground" />
-          ) : (
-            <CheckSVG pathClass="group-hover/edit:stroke-foreground-primary stroke-foreground" />
-          )
-        }
-        tooltip={"Edit"}
-      />
-      <ButtonIcon
-        className={cn(
-          "group/delete absolute -bottom-12 left-2 bg-background hover:bg-red-500 hover:opacity-100 ",
-          !isEditing && "group-hover:opacity-100 opacity-0"
-        )}
+      <ButtonEdit onClick={handleEditToggle} isEditing={isEditing} />
+      <ButtonDelete
         onClick={() => removeStickyNote(id)}
-        icon={
-          <TrashIconSVG pathClass="group-hover/delete:stroke-foreground-primary stroke-foreground" />
-        }
-        tooltip={"Delete"}
+        isEditing={isEditing}
       />
+
       {isEditing ? (
         <>
           <div className="absolute -right-2 translate-x-full w-42 top-0">

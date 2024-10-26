@@ -25,7 +25,7 @@ export default function Photos() {
   return (
     <div className="z-50 absolute top-0 left-0 right-0 bottom-10 flex flex-col items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-3xl overflow-x-auto">
-        <div className="flex space-x-4 p-4">
+        <div className="flex space-x-4 p-20">
           {polaroids.map((polaroid) => (
             <Polaroid {...polaroid} />
           ))}
@@ -44,17 +44,6 @@ export default function Photos() {
         className="hidden"
         ref={fileInputRef}
       />
-      <div className="mt-4 flex space-x-2">
-        <Button onClick={() => updatePolaroid(activeId, { sticker: "star" })}>
-          <Star className="h-4 w-4" />
-        </Button>
-        <Button onClick={() => updatePolaroid(activeId, { sticker: "heart" })}>
-          <Heart className="h-4 w-4" />
-        </Button>
-        <Button onClick={() => updatePolaroid(activeId, { sticker: "smile" })}>
-          <Smile className="h-4 w-4" />
-        </Button>
-      </div>
       <link
         href="https://fonts.googleapis.com/css2?family=Caveat&display=swap"
         rel="stylesheet"
