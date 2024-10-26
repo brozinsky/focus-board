@@ -37,13 +37,7 @@ export default function Photos() {
           </Button>
         </div>
       </div>
-      <Input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="hidden"
-        ref={fileInputRef}
-      />
+  
       <link
         href="https://fonts.googleapis.com/css2?family=Caveat&display=swap"
         rel="stylesheet"

@@ -26,8 +26,9 @@ type TPolaroid = {
 };
 
 const Polaroid = (props: TPolaroid) => {
-  const { activeId, setActiveId, updatePolaroid } = usePolaroidStore();
-  const { fileInputRef, handleDrop, handleDragOver } = usePolaroid();
+  const { setActiveId, updatePolaroid } = usePolaroidStore();
+  const { fileInputRef, handleFileChange, handleDrop, handleDragOver } =
+    usePolaroid();
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const getStickerComponent = (sticker: TPolaroid["sticker"]) => {
@@ -182,6 +183,13 @@ const Polaroid = (props: TPolaroid) => {
             Click or drag to add photo
           </p>
         )}
+        <Input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="hidden"
+          ref={fileInputRef}
+        />
         {props.sticker && (
           <div className="absolute top-2 left-2 transform -rotate-12">
             {getStickerComponent(props.sticker)}
