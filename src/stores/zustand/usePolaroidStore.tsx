@@ -1,3 +1,7 @@
+import {
+  getFromLocalStorage,
+  setToLocalStorage,
+} from "@/utils/functions/fn-common";
 import { create } from "zustand";
 
 type TPolaroid = {
@@ -18,29 +22,48 @@ type TPolaroidStore = {
 };
 
 const usePolaroidStore = create<TPolaroidStore>((set) => ({
-  polaroids: [
-    { id: 1, image: null, caption: "", tilt: "right", sticker: null },
-  ],
+  polaroids: getFromLocalStorage("polaroids", [
+    {
+      id: 1,
+      image: null,
+      caption: "",
+      tilt: "right",
+      sticker: null,
+    },
+  ]),
   activeId: 1,
   setActiveId: (id) => set({ activeId: id }),
   updatePolaroid: (id, updates) =>
-    set((state) => ({
-      polaroids: state.polaroids.map((p) =>
+    set((state) => {
+      const updatedPolaroids = state.polaroids.map((p) =>
         p.id === id ? { ...p, ...updates } : p
-      ),
-    })),
+      );
+      setToLocalStorage("polaroids", updatedPolaroids);
+      return { polaroids: updatedPolaroids };
+    }),
+
   addNewPolaroid: () =>
     set((state) => {
-      const newId = Math.max(...state.polaroids.map((p) => p.id)) + 1;
-      return {
-        polaroids: [
-          ...state.polaroids,
-          { id: newId, image: null, caption: "", tilt: "right", sticker: null },
-        ],
-        activeId: newId,
+      const newId =
+        state.polaroids.length > 0
+          ? Math.max(...state.polaroids.map((p) => p.id)) + 1
+          : 1;
+      const newPolaroid: TPolaroid = {
+        id: newId,
+        image: null,
+        caption: "",
+        tilt: "right",
+        sticker: null,
       };
+      const newPolaroids = [...state.polaroids, newPolaroid];
+      setToLocalStorage("polaroids", newPolaroids);
+      return { polaroids: newPolaroids, activeId: newId };
     }),
-  setPolaroids: (newPolaroids) => set({ polaroids: newPolaroids }),
+
+  setPolaroids: (newPolaroids) => {
+    setToLocalStorage("polaroids", newPolaroids);
+    set({ polaroids: newPolaroids });
+  },
 }));
 
 export default usePolaroidStore;
