@@ -51,6 +51,8 @@ import OnboardingDialog from "@/components/ui/dialog/OnboardingDialog";
 import SpotifyPlayer from "./SpotifyPlayer";
 import DrawerSpotifyPlaylist from "@/components/ui/drawer/DrawerSpotifyPlaylist";
 import usePolaroidStore from "@/stores/zustand/usePolaroidStore";
+import CameraOffSVG from "@/components/elements/svg/icons/interface/panel/CameraOffSVG";
+import CameraSVG from "@/components/elements/svg/icons/interface/panel/CameraSVG";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -155,7 +157,12 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           <OnboardingDialog />
           <Dropdown
             position={"top"}
-            trigger={<ButtonIcon icon={<div>P</div>} tooltip={"Photos"} />}
+            trigger={
+              <ButtonIcon
+                icon={arePhotosVisible ? <CameraSVG /> : <CameraOffSVG />}
+                tooltip={"Photos"}
+              />
+            }
           >
             <div className="flex flex-col gap-3 p-4">
               <div className="text-xl">Photos</div>

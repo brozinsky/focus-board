@@ -44,8 +44,8 @@ const Polaroid = (props: TPolaroid) => {
     if (!file) return;
 
     const options = {
-      maxSizeMB: 1, // Max size in MB
-      maxWidthOrHeight: 250, // Max width or height
+      maxSizeMB: 1,
+      maxWidthOrHeight: 250,
       useWebWorker: true,
     };
 
