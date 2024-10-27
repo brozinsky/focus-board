@@ -1,16 +1,9 @@
+import { TPolaroid } from "@/types/model-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
 } from "@/utils/functions/fn-common";
 import { create } from "zustand";
-
-type TPolaroid = {
-  id: number;
-  image: string | null;
-  caption: string;
-  tilt: "left" | "center" | "right";
-  sticker: "star" | "heart" | "smile" | null;
-};
 
 type TPolaroidStore = {
   polaroids: TPolaroid[];
@@ -29,6 +22,10 @@ const usePolaroidStore = create<TPolaroidStore>((set) => ({
       caption: "",
       tilt: "right",
       sticker: null,
+      position: {
+        x: window.innerWidth / 2 - 50,
+        y: window.innerHeight / 2 - 50,
+      },
     },
   ]),
   activeId: 1,

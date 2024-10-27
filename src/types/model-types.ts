@@ -98,6 +98,16 @@ export type TStickyNote = {
   isTodos?: boolean;
 };
 
+export type TPolaroid = {
+  id: number;
+  styles: any;
+  image: string | null;
+  caption: string;
+  tilt: "left" | "center" | "right";
+  sticker: "star" | "heart" | "smile" | null;
+  position: TPosition;
+};
+
 export type TTimerTodoItem = {
   id: number;
   title: string;
