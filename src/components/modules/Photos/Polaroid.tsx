@@ -9,6 +9,9 @@ import ButtonDelete from "@/components/ui/buttons/panel-edit/ButtonDelete";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { TPolaroid } from "@/types/model-types";
 import { useDraggable } from "@dnd-kit/core";
+import HeartSVG from "@/components/elements/svg/scribble/HeartSVG";
+import StarSVG from "@/components/elements/svg/scribble/StarSVG ";
+import SmileSVG from "@/components/elements/svg/scribble/SmileSVG";
 
 const Polaroid = (props: TPolaroid) => {
   const { setActiveId, updatePolaroid } = usePolaroidStore();
@@ -30,11 +33,17 @@ const Polaroid = (props: TPolaroid) => {
   const getStickerComponent = (sticker: TPolaroid["sticker"]) => {
     switch (sticker) {
       case "star":
-        return <Star className="w-8 h-8 text-yellow-400" />;
+        return (
+          <StarSVG className="w-20 h-20 absolute -top-4 -right-2 transform" />
+        );
       case "heart":
-        return <Heart className="w-8 h-8 text-red-500" />;
+        return (
+          <HeartSVG className="w-20 h-20 -rotate-[15deg] absolute -top-2 left-0 transform" />
+        );
       case "smile":
-        return <Smile className="w-8 h-8 text-green-500" />;
+        return (
+          <SmileSVG className="w-20 h-20 -rotate-[35deg] absolute -bottom-6 right-0 transform" />
+        );
       default:
         return null;
     }
@@ -194,11 +203,7 @@ const Polaroid = (props: TPolaroid) => {
             className="hidden"
             ref={fileInputRef}
           />
-          {props.sticker && (
-            <div className="absolute top-2 left-2 transform -rotate-12">
-              {getStickerComponent(props.sticker)}
-            </div>
-          )}
+          {props.sticker && <>{getStickerComponent(props.sticker)}</>}
         </div>
         <Input
           type="text"
