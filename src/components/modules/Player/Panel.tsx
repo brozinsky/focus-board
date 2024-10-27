@@ -29,6 +29,14 @@ import NowPlaying from "@/components/ui/NowPlaying";
 import UserIconSVG from "@/components/elements/svg/icons/interface/UserIconSVG";
 import AuthModal from "../auth/AuthModal";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog/Dialog";
+import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -42,6 +50,9 @@ import {
 import OnboardingDialog from "@/components/ui/dialog/OnboardingDialog";
 import SpotifyPlayer from "./SpotifyPlayer";
 import DrawerSpotifyPlaylist from "@/components/ui/drawer/DrawerSpotifyPlaylist";
+import usePolaroidStore from "@/stores/zustand/usePolaroidStore";
+import CameraOffSVG from "@/components/elements/svg/icons/interface/panel/CameraOffSVG";
+import CameraSVG from "@/components/elements/svg/icons/interface/panel/CameraSVG";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -54,6 +65,8 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
   const { addStickyNote, areNotesVisible, setAreNotesVisible } =
     useStickyNotesStore();
   const { toast } = useToast();
+  const { addNewPolaroid, arePhotosVisible, setArePhotosVisible } =
+    usePolaroidStore();
 
   return (
     <>
@@ -117,7 +130,20 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           </div> */}
         </div>
         <div className="panel__group">
-          <button
+          <div>tester?</div>
+          <Dialog>
+            <DialogTrigger>Open</DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Are you absolutely sure?</DialogTitle>
+                <DialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your account and remove your data from our servers.
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+          {/* <button
             onClick={() => {
               toast({
                 title: "You're waking up in 5 hours",
@@ -127,8 +153,36 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             }}
           >
             Toast test
-          </button>
+          </button> */}
           <OnboardingDialog />
+          <Dropdown
+            position={"top"}
+            trigger={
+              <ButtonIcon
+                icon={arePhotosVisible ? <CameraSVG /> : <CameraOffSVG />}
+                tooltip={"Photos"}
+              />
+            }
+          >
+            <div className="flex flex-col gap-3 p-4">
+              <div className="text-xl">Photos</div>
+              <Separator className="bg-white/30" />
+              <ButtonDropdown
+                onClick={addNewPolaroid}
+                isDsabled={!arePhotosVisible}
+              >
+                + Add new photo
+              </ButtonDropdown>
+              <Checkbox
+                isDisabled={false}
+                isSelected={arePhotosVisible}
+                state={arePhotosVisible}
+                onChange={setArePhotosVisible}
+              >
+                Show photos
+              </Checkbox>
+            </div>
+          </Dropdown>
           <Dropdown
             position={"top"}
             trigger={
