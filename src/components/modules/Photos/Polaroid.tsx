@@ -13,8 +13,9 @@ import { getSticker } from "@/utils/functions/fn-photos";
 import imageCompression from "browser-image-compression";
 
 const Polaroid = (props: TPolaroid) => {
-  const { setActiveId, updatePolaroid, activeId } = usePolaroidStore();
-  const { fileInputRef, handleDrop, handleDragOver } = usePolaroid();
+  const { setActiveId, updatePolaroid, activeId, removePolaroid } =
+    usePolaroidStore();
+  const { fileInputRef, handleDragOver } = usePolaroid();
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
@@ -185,7 +186,10 @@ const Polaroid = (props: TPolaroid) => {
           </>
         )}
         <ButtonEdit onClick={handleEditToggle} isEditing={isEditing} />
-        <ButtonDelete onClick={() => null} isEditing={isEditing} />
+        <ButtonDelete
+          onClick={() => removePolaroid(props.id)}
+          isEditing={isEditing}
+        />
         <div
           className="w-full h-[220px] bg-gray-200 mb-3.5 flex items-center justify-center cursor-pointer relative"
           onClick={() => fileInputRef.current?.click()}

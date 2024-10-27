@@ -11,6 +11,7 @@ type TStore = {
   setActiveId: (id: number) => void;
   updatePolaroid: (id: number, updates: Partial<TPolaroid>) => void;
   addNewPolaroid: () => void;
+  removePolaroid: (id: number) => void;
   setPolaroids: (newPolaroids: TPolaroid[]) => void;
   arePhotosVisible: boolean;
   setArePhotosVisible: (value: boolean) => void;
@@ -62,7 +63,19 @@ const usePolaroidStore = create<TStore>((set) => ({
       setToLocalStorage("polaroids", newPolaroids);
       return { polaroids: newPolaroids, activeId: newId };
     }),
-
+  removePolaroid: (id) =>
+    set((state) => {
+      const updatedPolaroids = state.polaroids.filter((p) => p.id !== id);
+      setToLocalStorage("polaroids", updatedPolaroids);
+      const newActiveId =
+        state.activeId === id && updatedPolaroids.length > 0
+          ? updatedPolaroids[0].id
+          : state.activeId;
+      return {
+        polaroids: updatedPolaroids,
+        activeId: newActiveId,
+      };
+    }),
   setPolaroids: (newPolaroids) => {
     setToLocalStorage("polaroids", newPolaroids);
     set({ polaroids: newPolaroids });
