@@ -5,16 +5,18 @@ import {
 } from "@/utils/functions/fn-common";
 import { create } from "zustand";
 
-type TPolaroidStore = {
+type TStore = {
   polaroids: TPolaroid[];
   activeId: number;
   setActiveId: (id: number) => void;
   updatePolaroid: (id: number, updates: Partial<TPolaroid>) => void;
   addNewPolaroid: () => void;
   setPolaroids: (newPolaroids: TPolaroid[]) => void;
+  arePhotosVisible: boolean;
+  setArePhotosVisible: (value: boolean) => void;
 };
 
-const usePolaroidStore = create<TPolaroidStore>((set) => ({
+const usePolaroidStore = create<TStore>((set) => ({
   polaroids: getFromLocalStorage("polaroids", [
     {
       id: 1,
@@ -51,6 +53,10 @@ const usePolaroidStore = create<TPolaroidStore>((set) => ({
         caption: "",
         tilt: "right",
         sticker: null,
+        position: {
+          x: window.innerWidth / 2 - 50,
+          y: window.innerHeight / 2 - 50,
+        },
       };
       const newPolaroids = [...state.polaroids, newPolaroid];
       setToLocalStorage("polaroids", newPolaroids);
@@ -60,6 +66,11 @@ const usePolaroidStore = create<TPolaroidStore>((set) => ({
   setPolaroids: (newPolaroids) => {
     setToLocalStorage("polaroids", newPolaroids);
     set({ polaroids: newPolaroids });
+  },
+  arePhotosVisible: getFromLocalStorage("arePhotosVisible", true),
+  setArePhotosVisible: (value) => {
+    setToLocalStorage("arePhotosVisible", value);
+    set({ arePhotosVisible: value });
   },
 }));
 

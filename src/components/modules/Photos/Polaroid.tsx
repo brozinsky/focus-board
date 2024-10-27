@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Star, Heart, Smile } from "lucide-react";
 import { Input } from "@/components/ui/inputs/Input";
 import { cn } from "@/lib/utils";
@@ -9,12 +9,10 @@ import ButtonDelete from "@/components/ui/buttons/panel-edit/ButtonDelete";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { TPolaroid } from "@/types/model-types";
 import { useDraggable } from "@dnd-kit/core";
-import HeartSVG from "@/components/elements/svg/scribble/HeartSVG";
-import StarSVG from "@/components/elements/svg/scribble/StarSVG ";
-import SmileSVG from "@/components/elements/svg/scribble/SmileSVG";
+import { getSticker } from "@/utils/functions/fn-photos";
 
 const Polaroid = (props: TPolaroid) => {
-  const { setActiveId, updatePolaroid } = usePolaroidStore();
+  const { setActiveId, updatePolaroid, activeId } = usePolaroidStore();
   const { fileInputRef, handleFileChange, handleDrop, handleDragOver } =
     usePolaroid();
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -30,28 +28,15 @@ const Polaroid = (props: TPolaroid) => {
       }
     : {};
 
-  const getStickerComponent = (sticker: TPolaroid["sticker"]) => {
-    switch (sticker) {
-      case "star":
-        return (
-          <StarSVG className="w-20 h-20 absolute -top-4 -right-2 transform" />
-        );
-      case "heart":
-        return (
-          <HeartSVG className="w-20 h-20 -rotate-[15deg] absolute -top-2 left-0 transform" />
-        );
-      case "smile":
-        return (
-          <SmileSVG className="w-20 h-20 -rotate-[35deg] absolute -bottom-6 right-0 transform" />
-        );
-      default:
-        return null;
-    }
-  };
   const handleEditToggle = (e: Event) => {
     e.stopPropagation();
     setIsEditing(!isEditing);
+    setActiveId(props.id);
   };
+
+  useEffect(() => {
+    console.log(activeId);
+  }, [activeId]);
 
   return (
     <div
@@ -190,6 +175,8 @@ const Polaroid = (props: TPolaroid) => {
               src={props.image}
               alt="Uploaded"
               className="w-full h-full object-cover"
+              width={225}
+              height={227}
             />
           ) : (
             <p className="text-gray-500 p-4 text-sm text-center">
@@ -203,7 +190,7 @@ const Polaroid = (props: TPolaroid) => {
             className="hidden"
             ref={fileInputRef}
           />
-          {props.sticker && <>{getStickerComponent(props.sticker)}</>}
+          {props.sticker && <>{getSticker(props.sticker)}</>}
         </div>
         <Input
           type="text"
@@ -212,8 +199,8 @@ const Polaroid = (props: TPolaroid) => {
           onChange={(e) =>
             updatePolaroid(props.id, { caption: e.target.value })
           }
-          className="w-full bg-transparent border-none text-black text-center focus:outline-none"
-          style={{ fontFamily: "'Caveat', cursive", fontSize: "1.2rem" }}
+          className="w-full bg-transparent text-2xl tracking-wide font-thin border-none text-black/95 text-center focus:outline-none"
+          style={{ fontFamily: "'Delicious Handrawn', cursive" }}
         />
       </div>
     </div>

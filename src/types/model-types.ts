@@ -100,7 +100,7 @@ export type TStickyNote = {
 
 export type TPolaroid = {
   id: number;
-  styles: any;
+  styles?: any;
   image: string | null;
   caption: string;
   tilt: "left" | "center" | "right";
