@@ -8,6 +8,7 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
+import { useEffect } from "react";
 
 export default function Photos() {
   const { polaroids, setPolaroids, arePhotosVisible } = usePolaroidStore();
@@ -24,6 +25,9 @@ export default function Photos() {
       setPolaroids(_items);
     }
   }
+  useEffect(() => {
+    console.log(polaroids);
+  }, [polaroids]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -32,6 +36,10 @@ export default function Photos() {
       },
     })
   );
+
+  useEffect(() => {
+    console.log(polaroids);
+  }, [polaroids]);
 
   if (!arePhotosVisible) {
     return null;
@@ -46,6 +54,7 @@ export default function Photos() {
       >
         {polaroids.map((polaroid) => (
           <Polaroid
+            key={polaroid.id}
             {...polaroid}
             styles={{
               position: "absolute",

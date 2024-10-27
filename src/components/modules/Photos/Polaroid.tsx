@@ -10,11 +10,11 @@ import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { TPolaroid } from "@/types/model-types";
 import { useDraggable } from "@dnd-kit/core";
 import { getSticker } from "@/utils/functions/fn-photos";
+import imageCompression from "browser-image-compression";
 
 const Polaroid = (props: TPolaroid) => {
   const { setActiveId, updatePolaroid, activeId } = usePolaroidStore();
-  const { fileInputRef, handleFileChange, handleDrop, handleDragOver } =
-    usePolaroid();
+  const { fileInputRef, handleDrop, handleDragOver } = usePolaroid();
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
@@ -37,6 +37,28 @@ const Polaroid = (props: TPolaroid) => {
   useEffect(() => {
     console.log(activeId);
   }, [activeId]);
+
+  const onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const options = {
+      maxSizeMB: 1, // Max size in MB
+      maxWidthOrHeight: 250, // Max width or height
+      useWebWorker: true,
+    };
+
+    try {
+      const compressedFile = await imageCompression(file, options);
+      const compressedBase64 = await imageCompression.getDataUrlFromFile(
+        compressedFile
+      );
+
+      updatePolaroid(activeId, { image: compressedBase64 });
+    } catch (error) {
+      console.error("Error compressing the image:", error);
+    }
+  };
 
   return (
     <div
@@ -167,7 +189,7 @@ const Polaroid = (props: TPolaroid) => {
         <div
           className="w-full h-[220px] bg-gray-200 mb-3.5 flex items-center justify-center cursor-pointer relative"
           onClick={() => fileInputRef.current?.click()}
-          onDrop={handleDrop}
+          // onDrop={() => handleDrop(props.id)}
           onDragOver={handleDragOver}
         >
           {props.image ? (
@@ -180,13 +202,15 @@ const Polaroid = (props: TPolaroid) => {
             />
           ) : (
             <p className="text-gray-500 p-4 text-sm text-center">
-              Click or drag to add photo
+              Click to add photo
+              {/* Click or drag to add photo */}
             </p>
           )}
+          {/* TODO photo drag n drop functionality */}
           <Input
             type="file"
             accept="image/*"
-            onChange={handleFileChange}
+            onChange={(e) => onChange(e)}
             className="hidden"
             ref={fileInputRef}
           />
