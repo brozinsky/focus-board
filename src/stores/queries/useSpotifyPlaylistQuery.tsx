@@ -40,7 +40,7 @@ import axios from "axios";
 const fetchSpotifyPlaylists = async () => {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_API_URL}/spotify-playlist`
+      `${import.meta.env.VITE_API_URL}/spotify/playlists`
     );
     return response.data;
   } catch (error) {
