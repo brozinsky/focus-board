@@ -13,6 +13,7 @@ const YTVideo = ({ onReady, id }: TProps) => {
 
   return (
     <motion.div
+      id="YTVideo"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}

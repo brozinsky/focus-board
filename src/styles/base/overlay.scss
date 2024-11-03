@@ -7,6 +7,7 @@
   &:after {
     @apply absolute top-0 left-0 right-0 bottom-0;
     content: "";
+    max-height: 100dvh;
     background-color: rgba(0, 0, 0, 0.25);
     // backdrop-filter: blur(2px);
     transition: all 0.15s ease;
@@ -51,6 +52,12 @@
     border: 2px solid;
     border-color: rgba(255, 255, 255, 0.1);
     transition: 0.4s ease border-color;
+  }
+  &--glass-frame-mini {
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
   }
   &__wrap {
     @apply absolute top-0 left-0 right-0 bottom-0;
@@ -98,6 +105,12 @@
         @apply top-0 bottom-0 -right-[6rem] h-full w-[6rem];
       }
     }
+    &--mini {
+      margin-left: 3%;
+      margin-right: 3%;
+      margin-bottom: 2rem;
+      margin-top: 1rem;
+    }
   }
 }
 
@@ -143,6 +156,12 @@
     z-index: -1;
     pointer-events: none;
   }
+}
+
+.bg-modal-overlay {
+  background: rgba(#000, 0.3);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
 }
 
 @keyframes fadeOutBg {

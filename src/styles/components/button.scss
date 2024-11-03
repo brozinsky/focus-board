@@ -15,6 +15,20 @@
   }
 }
 
+.button {
+  @apply relative flex items-center justify-center w-fit gap-2 rounded-lg cursor-pointer font-medium;
+  transition: all 0.15s ease;
+  &:active {
+    transform: translateY(2px);
+  }
+  &--sm {
+    @apply px-4 py-2 h-8 text-sm;
+  }
+  &--md {
+    @apply px-6 py-3 h-10;
+  }
+}
+
 .button-settings {
   @apply px-4 py-2 transition w-full rounded-lg flex items-start justify-start text-left;
   &:hover {

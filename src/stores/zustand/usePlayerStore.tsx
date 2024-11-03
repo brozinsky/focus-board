@@ -1,4 +1,4 @@
-import { ICurrentVideo, TActiveScene } from "@/types/query-types";
+import { ICurrentVideo, TActiveScene, TAudioSource } from "@/types/query-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
@@ -6,6 +6,7 @@ import {
 import { create } from "zustand";
 
 interface PlayerState {
+  audioSource: TAudioSource;
   activeScene: TActiveScene;
   currentVideo: ICurrentVideo | null;
   currentBgVideoId: string | null;
@@ -19,6 +20,7 @@ interface PlayerState {
   isVideoPlaying: boolean;
   isAudioPlaying: boolean;
   isSharedVideoAndAudio: boolean;
+  setAudioSource: (audioSource: TAudioSource) => void;
   setActiveScene: (activeScene: TActiveScene) => void;
   setCurrentVideo: (currentVideo: ICurrentVideo | null) => void;
   setCurrentBgVideoId: (currentBgVideoId: string | null) => void;
@@ -35,10 +37,14 @@ interface PlayerState {
 }
 
 const usePlayerStore = create<PlayerState>((set) => ({
+  audioSource: getFromLocalStorage("audioSource", "spotify"),
   activeScene: getFromLocalStorage("activeScene", "yt"),
   currentVideo: getFromLocalStorage("currentVideo", null),
+  // currentVideo: null,
   currentBgVideoId: getFromLocalStorage("currentBgVideoId", null),
+  // currentBgVideoId: null,
   currentAudio: getFromLocalStorage("currentAudio", null),
+  // currentAudio: null,
   volumeVideo: getFromLocalStorage("volumeVideo", 50),
   volumeAudio: getFromLocalStorage("volumeAudio", 50),
   durationVideo: 0,
@@ -48,6 +54,10 @@ const usePlayerStore = create<PlayerState>((set) => ({
   isVideoPlaying: false,
   isAudioPlaying: false,
   isSharedVideoAndAudio: getFromLocalStorage("isSharedVideoAndAudio", false),
+  setAudioSource: (value) => {
+    setToLocalStorage("audioSource", value);
+    set({ audioSource: value });
+  },
   setIsSharedVideoAndAudio: (value) => {
     setToLocalStorage("isSharedVideoAndAudio", value);
     set({ isSharedVideoAndAudio: value });

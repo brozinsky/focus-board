@@ -21,7 +21,6 @@ import ButtonDropdown from "@/components/ui/buttons/ButtonDropdown";
 import MusicNoteSVG from "@/components/elements/svg/icons/media/MusicNoteSVG";
 import TasksSVG from "@/components/elements/svg/icons/interface/TasksSVG";
 import HourglassSVG from "@/components/elements/svg/icons/interface/HourglassSVG";
-import usePomodoro from "@/hooks/usePomodoro";
 import TimerSVG from "@/components/elements/svg/icons/interface/TimerSVG";
 import GameControllerSVG from "@/components/elements/svg/icons/interface/GameControllerSVG";
 import FlagSVG from "@/components/elements/svg/icons/games/saper/FlagSVG";
@@ -29,17 +28,45 @@ import { useToast } from "@/hooks/useToast";
 import NowPlaying from "@/components/ui/NowPlaying";
 import UserIconSVG from "@/components/elements/svg/icons/interface/UserIconSVG";
 import AuthModal from "../auth/AuthModal";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog/Dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/dialog/AlertDialog";
+import OnboardingDialog from "@/components/ui/dialog/OnboardingDialog";
+import SpotifyPlayer from "./SpotifyPlayer";
+import DrawerSpotifyPlaylist from "@/components/ui/drawer/DrawerSpotifyPlaylist";
+import usePolaroidStore from "@/stores/zustand/usePolaroidStore";
+import CameraOffSVG from "@/components/elements/svg/icons/interface/panel/CameraOffSVG";
+import CameraSVG from "@/components/elements/svg/icons/interface/panel/CameraSVG";
 
 interface IPanelProps {
   handlePlayPause: () => void;
 }
 
 const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
-  const { isAudioPlaying, currentAudio } = usePlayerStore();
+  const { isAudioPlaying, currentAudio, audioSource, setAudioSource } =
+    usePlayerStore();
   const { isOpen, setIsOpen } = useWindowsStore();
   const { addStickyNote, areNotesVisible, setAreNotesVisible } =
     useStickyNotesStore();
   const { toast } = useToast();
+  const { addNewPolaroid, arePhotosVisible, setArePhotosVisible } =
+    usePolaroidStore();
 
   return (
     <>
@@ -47,13 +74,35 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
       <AuthModal />
       <div id="Panel" className="panel">
         <div className="panel__group">
-          <ButtonIcon
-            onClick={() => handlePlayPause()}
-            icon={isAudioPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
-            tooltip={isAudioPlaying ? "Pause audio" : "Play audio"}
-          />
-          <DropdownVolume />
-          {currentAudio?.title && <NowPlaying title={currentAudio?.title} />}
+          {audioSource === "spotify" && <SpotifyPlayer />}
+          {audioSource === "youtube" && (
+            <>
+              <ButtonIcon
+                onClick={() => handlePlayPause()}
+                icon={isAudioPlaying ? <PauseIconSVG /> : <PlayIconSVG />}
+                tooltip={isAudioPlaying ? "Pause audio" : "Play audio"}
+                disabled={!currentAudio}
+              />
+              <DropdownVolume disabled={!currentAudio} />
+            </>
+          )}
+          {/* {audioSource === "youtube" ? (
+            <ButtonIcon
+              onClick={() => setIsOpen("playlist", true)}
+              icon={<MusicNoteSVG />}
+              tooltip={"Playlist"}
+            />
+          ) : (
+            <DrawerSpotifyPlaylist />
+          )} */}
+
+          <DrawerSpotifyPlaylist />
+
+          {audioSource === "youtube" && (
+            <>
+              <NowPlaying title={currentAudio?.title} />
+            </>
+          )}
         </div>
         <div className="panel__group">
           {/* <Button variant="glass" onClick={handleRewind}>
@@ -81,7 +130,20 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           </div> */}
         </div>
         <div className="panel__group">
-          <button
+          <div>tester?</div>
+          <Dialog>
+            <DialogTrigger>Open</DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Are you absolutely sure?</DialogTitle>
+                <DialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your account and remove your data from our servers.
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+          {/* <button
             onClick={() => {
               toast({
                 title: "You're waking up in 5 hours",
@@ -91,7 +153,36 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             }}
           >
             Toast test
-          </button>
+          </button> */}
+          <OnboardingDialog />
+          <Dropdown
+            position={"top"}
+            trigger={
+              <ButtonIcon
+                icon={arePhotosVisible ? <CameraSVG /> : <CameraOffSVG />}
+                tooltip={"Photos"}
+              />
+            }
+          >
+            <div className="flex flex-col gap-3 p-4">
+              <div className="text-xl">Photos</div>
+              <Separator className="bg-white/30" />
+              <ButtonDropdown
+                onClick={addNewPolaroid}
+                isDsabled={!arePhotosVisible}
+              >
+                + Add new photo
+              </ButtonDropdown>
+              <Checkbox
+                isDisabled={false}
+                isSelected={arePhotosVisible}
+                state={arePhotosVisible}
+                onChange={setArePhotosVisible}
+              >
+                Show photos
+              </Checkbox>
+            </div>
+          </Dropdown>
           <Dropdown
             position={"top"}
             trigger={
@@ -165,16 +256,14 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             tooltip={"Todo list"}
           />
           <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
-          <ButtonIcon
-            onClick={() => setIsOpen("playlist", true)}
-            icon={<MusicNoteSVG />}
-            tooltip={"Playlist"}
-          />
-          <ButtonIcon
-            onClick={() => setIsOpen("scene", true)}
-            icon={<SceneEditSVG />}
-            tooltip={"Scene Settings"}
-          />
+
+          <div className="relative z-100">
+            <ButtonIcon
+              onClick={() => setIsOpen("scene", true)}
+              icon={<SceneEditSVG />}
+              tooltip={"Scene Settings"}
+            />
+          </div>
           <ButtonIcon
             onClick={() => setIsOpen("soundFX", !isOpen.soundFX)}
             icon={<MixerIconSVG />}

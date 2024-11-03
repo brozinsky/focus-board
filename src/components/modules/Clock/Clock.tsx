@@ -1,5 +1,3 @@
-import ArrowSmSVG from "@/components/elements/svg/icons/interface/ArrowSmSVG";
-import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { MONTHS } from "@/lib/constants/const-clock";
 import { cn } from "@/lib/utils";
 import { useClockStore } from "@/stores/zustand/useClockStore";
@@ -7,7 +5,11 @@ import { getFormattedDate } from "@/utils/functions/fn-clock";
 import React, { useEffect } from "react";
 import FlipNumbers from "react-flip-numbers";
 
-const Clock: React.FC = () => {
+const Clock = ({
+  display = "default",
+}: {
+  display: "settings" | "default";
+}) => {
   const { date, setDate, clockPosition, isSecondsVisible } = useClockStore();
   // const { isBgBlur } = useSceneStore();
 
@@ -43,7 +45,8 @@ const Clock: React.FC = () => {
           // isBgBlur && "glass-blur",
           clockPosition === "top-right" &&
             "p-4 right-0 top-0 text-4xl font-light",
-          "absolute flex items-end  text-white z-20"
+          "absolute flex items-end  text-white z-20",
+          display === "settings" && "!scale-[33%]"
         )}
       >
         <div className="flex flex-col gap-1 cursor-default rounded-lg opacity-80">
