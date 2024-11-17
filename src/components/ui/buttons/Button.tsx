@@ -53,7 +53,7 @@ export default function Button({
   label,
   isDiv = false,
 }: TProps) {
-  const classes = cva([className, "button"], {
+  const classes = cva([className, "button hover:opacity-80"], {
     variants: {
       variant: {
         neutral: "bg-input text-foreground",
