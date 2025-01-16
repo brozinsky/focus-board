@@ -86,16 +86,24 @@ export type TPosition = {
   y: number;
 };
 
+export type TStickyNotePosition = {
+  id: string;
+  x: number;
+  y: number;
+};
+
 export type TStickyNote = {
   id: string;
   title?: string;
   content?: string;
   todos?: TTodo[];
-  position: TPosition;
+  // position: TPosition;
   color: TStickyNoteColor;
   isTitle?: boolean;
   isContent?: boolean;
   isTodos?: boolean;
+  created_at?: Date;
+  updated_at?: Date;
 };
 
 export type TPolaroid = {
@@ -116,3 +124,5 @@ export type TTimerTodoItem = {
   timeElapsed: number;
   timeEstimation: number | null;
 };
+
+export type TUserStatus = "online" | "offline";
