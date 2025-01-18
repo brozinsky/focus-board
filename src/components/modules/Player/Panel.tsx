@@ -53,6 +53,7 @@ import DrawerSpotifyPlaylist from "@/components/ui/drawer/DrawerSpotifyPlaylist"
 import usePolaroidStore from "@/stores/zustand/usePolaroidStore";
 import CameraOffSVG from "@/components/elements/svg/icons/interface/panel/CameraOffSVG";
 import CameraSVG from "@/components/elements/svg/icons/interface/panel/CameraSVG";
+import useStickyNotesDb from "@/stores/supabase/useStickyNotesDb";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -62,8 +63,10 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
   const { isAudioPlaying, currentAudio, audioSource, setAudioSource } =
     usePlayerStore();
   const { isOpen, setIsOpen } = useWindowsStore();
-  const { addStickyNote, areNotesVisible, setAreNotesVisible } =
-    useStickyNotesStore();
+  // const { addStickyNote, areNotesVisible, setAreNotesVisible } =
+  //   useStickyNotesStore();
+    const { addStickyNote, areNotesVisible, setAreNotesVisible } =
+    useStickyNotesDb();
   const { toast } = useToast();
   const { addNewPolaroid, arePhotosVisible, setArePhotosVisible } =
     usePolaroidStore();
@@ -230,21 +233,21 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
                 onClick={() => addStickyNote("note")}
                 isDsabled={!areNotesVisible}
               >
-                + Add sticky note
+                + Add new note
               </ButtonDropdown>
-              <ButtonDropdown
+              {/* <ButtonDropdown
                 onClick={() => addStickyNote("todo")}
                 isDsabled={!areNotesVisible}
               >
                 + Add todo list
-              </ButtonDropdown>
+              </ButtonDropdown> */}
               <Checkbox
                 isDisabled={false}
                 isSelected={areNotesVisible}
                 state={areNotesVisible}
                 onChange={setAreNotesVisible}
               >
-                Show notes
+                Toggle display
               </Checkbox>
             </div>
           </Dropdown>

@@ -96,14 +96,14 @@ const StickyNoteEditUI = ({
               >
                 Show content
               </Checkbox>
-              <Checkbox
+              {/* <Checkbox
                 isDisabled={false}
                 isSelected={form.values.isTodos}
                 state={form.values.isTodos}
                 onChange={(value) => handleChange("isTodos", value)}
               >
                 Todo list
-              </Checkbox>
+              </Checkbox> */}
             </div>
           </div>
           <div className="sticky-note__colors">
