@@ -79,8 +79,16 @@ const SoundFX = () => {
               "gap-8 grid xl:grid-cols-5 md:grid-cols-3 lg:grid-cols-4 grid-cols-1"
             }
           >
-            {SFX_AUDIO.map(({ name, id }) => {
-              return <FxItem key={id} id={id} name={name} variant="lg" />;
+            {SFX_AUDIO.map(({ name, id, isPremium }) => {
+              return (
+                <FxItem
+                  key={id}
+                  id={id}
+                  name={name}
+                  variant="lg"
+                  isPremium={isPremium}
+                />
+              );
             })}
           </div>
         </div>

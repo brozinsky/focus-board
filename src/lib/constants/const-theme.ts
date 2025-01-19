@@ -91,3 +91,7 @@ export const themeColors: TThemeColors = {
     },
   },
 };
+
+export const ROOT_COLORS = {
+  premium: "#efbf04"
+}

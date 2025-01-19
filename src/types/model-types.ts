@@ -44,6 +44,7 @@ export type TSoundFX = {
   volume: number;
   audio: string;
   isActive: boolean;
+  isPremium: boolean;
 };
 
 export type TThemeStyle = "glass" | "solid";

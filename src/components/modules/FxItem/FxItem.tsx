@@ -14,11 +14,14 @@ import StormSVG from "@/components/elements/svg/icons/fx/StormSVG";
 import CoffeeSVG from "@/components/elements/svg/icons/fx/CoffeeSVG";
 import FireSVG from "@/components/elements/svg/icons/fx/FireSVG";
 import CitySVG from "@/components/elements/svg/icons/fx/CitySVG";
+import BadgePremium from "@/components/ui/badge/BadgePremium";
+import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
 
 interface IProps {
   id: string;
   name: string;
   variant: "md" | "lg";
+  isPremium: boolean;
 }
 
 const ICON_SIZE_MD = 30;
@@ -47,9 +50,12 @@ const generateIcons = (size: number) => {
 const icons = generateIcons(ICON_SIZE_MD);
 const iconsLg = generateIcons(ICON_SIZE_LG);
 
-const FxItem = ({ id, name, variant = "md" }: IProps) => {
+const FxItem = ({ id, name, variant = "md", isPremium = false }: IProps) => {
   const { activeSoundFX, toggleSound, setVolume } = useFxStore();
   const [volume, setVolumeState] = useState<number>(0.5);
+  const { isLoggedIn } = useAuthStore();
+
+  const isDisabled = isPremium && !isLoggedIn;
 
   const isActive = activeSoundFX.some((fx) => fx.id === id && fx.isActive);
 
@@ -80,12 +86,13 @@ const FxItem = ({ id, name, variant = "md" }: IProps) => {
   return (
     <div
       className={cn(
-        "flex",
+        "flex relative",
         variant === "md"
           ? "flex-row items-center gap-4"
           : "flex-col items-center gap-4"
       )}
     >
+      {isDisabled && <BadgePremium className="absolute top-0 right-0" />}
       {variant === "md" ? (
         <>
           <ButtonFX
@@ -94,6 +101,7 @@ const FxItem = ({ id, name, variant = "md" }: IProps) => {
             isLoading={false}
             icon={icon}
             onClick={handleClick}
+            isDisabled={isDisabled}
           />
           <div className={cn(isActive ? "opacity-100" : "opacity-30", "w-40")}>
             <Slider
@@ -113,6 +121,7 @@ const FxItem = ({ id, name, variant = "md" }: IProps) => {
             isActive={isActive}
             icon={icon}
             onClick={handleClick}
+            isDisabled={isDisabled}
           />
           <div className="relative z-0 w-full">
             <div className="w-full group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md px-6 font-medium text-neutral-200 duration-500">
@@ -122,28 +131,31 @@ const FxItem = ({ id, name, variant = "md" }: IProps) => {
                   isActive && "-translate-y-[150%] opacity-0"
                 )}
               ></div>
-              <div
-                className={cn(
-                  "absolute translate-y-[150%] opacity-0 transition w-full",
-                  isActive && "translate-y-0 opacity-100"
-                )}
-              >
-                <div className="mx-4">
-                  <Slider
-                    value={[volume * 100]}
-                    onValueChange={handleVolumeChange}
-                    min={0}
-                    max={100}
-                    step={1}
-                    disabled={!isActive}
-                  />
+              {!isDisabled && (
+                <div
+                  className={cn(
+                    "absolute translate-y-[150%] opacity-0 transition w-full",
+                    isActive && "translate-y-0 opacity-100"
+                  )}
+                >
+                  <div className="mx-4">
+                    <Slider
+                      value={[volume * 100]}
+                      onValueChange={handleVolumeChange}
+                      min={0}
+                      max={100}
+                      step={1}
+                      disabled={!isActive}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             <div
               className={cn(
                 "absolute text-lg duration-300 transform top-3 -z-10 origin-[0] scale-100 translate-y-0 text-center w-full ",
-                isActive && " text-white -translate-y-6 text-base"
+                isActive && " text-white -translate-y-6 text-base",
+                isDisabled && "opacity-50"
               )}
             >
               {name}
