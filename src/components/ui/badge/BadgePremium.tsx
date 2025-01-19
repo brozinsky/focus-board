@@ -3,15 +3,23 @@ import { cn } from "@/lib/utils";
 import { Crown } from "lucide-react";
 import React from "react";
 
-const BadgePremium = ({ className }: { className?: string }) => {
+const BadgePremium = ({
+  className,
+  size = "default",
+}: {
+  className?: string;
+  size?: "sm" | "default";
+}) => {
   return (
     <div
       className={cn(
         className,
-        "flex flex-row gap-2 items-center bg-black px-2 py-0.5 rounded-lg"
+        "flex flex-row items-center bg-black/70 rounded-lg",
+        size === "default" && "px-2 py-0.5 gap-2",
+        size === "sm" && "p-1.5"
       )}
     >
-      <span>Pro</span>
+      {size === "default" && <span>Pro</span>}
       <Crown size={16} color={ROOT_COLORS.premium} />
     </div>
   );
