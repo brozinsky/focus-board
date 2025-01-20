@@ -1,13 +1,14 @@
 import React from "react";
 import ButtonIcon from "../ButtonIcon";
 import { Crown } from "lucide-react";
+import { ROOT_COLORS } from "@/lib/constants/const-theme";
 
 const ButtonPremium = ({ onClick }: { onClick: () => void }) => {
   return (
     <ButtonIcon
       size={"sm"}
       onClick={onClick}
-      icon={<Crown color="#efbf04" />}
+      icon={<Crown color={ROOT_COLORS.premium} />}
       tooltip={"Premium"}
     />
   );
