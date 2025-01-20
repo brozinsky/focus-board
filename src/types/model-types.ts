@@ -53,6 +53,7 @@ export type TUIStyle = "glass" | "ghost";
 
 export type TThemeColor = {
   name: string;
+  isPremium?: boolean;
   colors: {
     primary: string;
     secondary: string;

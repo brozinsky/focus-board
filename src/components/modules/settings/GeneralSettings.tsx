@@ -61,6 +61,7 @@ const transformThemeColors = (colors: typeof themeColors) => {
     id: key,
     name: colors[key].name,
     value: key,
+    isPremium: colors[key].isPremium,
   }));
 };
 
@@ -119,27 +120,37 @@ const GeneralSettings = () => {
 
   return (
     <>
+      <div className="flex flex-col gap-1">
+        <div className="flex justify-between items-center max-w-sm">
+          <div>Show quotes</div>
+          <Switch checked={isQuoteActive} onCheckedChange={setIsQuoteActive} />
+        </div>
+      </div>
       <div className="flex flex-row justify-between max-w-sm">
         <label htmlFor="time-option">Theme color</label>
-        <Select
-          buttonClassName="w-[160px]"
-          size={"sm"}
-          variant={"glass"}
-          options={themeColorOptions}
-          state={colorTheme.name}
-          setState={handleThemeChange}
-          displayValue={currentThemeName}
-        />
+        <div className="relative">
+          <Select
+            buttonClassName="w-[160px]"
+            size={"sm"}
+            variant={"glass"}
+            options={themeColorOptions}
+            state={colorTheme.name}
+            setState={handleThemeChange}
+            displayValue={currentThemeName}
+          />
+          <span className="absolute bottom-1/2 translate-y-1/2 -right-12 bg-primary w-8 h-8 rounded-sm"></span>
+        </div>
       </div>
-      <div className="flex justify-end max-w-sm items-center gap-2">
+      {/* <div className="flex justify-end max-w-sm items-center gap-2">
         <span className="bg-primary w-8 h-8 rounded-sm"></span>
         <span className="bg-secondary w-8 h-8 rounded-sm"></span>
         <span className="bg-foreground w-8 h-8 rounded-sm"></span>
         <span className="bg-background border-white/40 border w-8 h-8 rounded-sm"></span>
-      </div>
+      </div> */}
       <div className="flex flex-row justify-between max-w-sm">
         <label htmlFor="time-option">Theme style</label>
         <Select
+          isPremium={true}
           buttonClassName="w-[160px]"
           size={"sm"}
           variant={"glass"}
@@ -154,6 +165,7 @@ const GeneralSettings = () => {
       <div className="flex flex-row justify-between max-w-sm">
         <label htmlFor="time-option">Button interface style</label>
         <Select
+          isPremium={true}
           buttonClassName="w-[160px]"
           size={"sm"}
           variant={"glass"}
@@ -168,6 +180,7 @@ const GeneralSettings = () => {
       <div className="flex flex-row justify-between max-w-sm">
         <label htmlFor="time-option">Font</label>
         <Select
+          isPremium={true}
           buttonClassName="w-[160px]"
           size={"sm"}
           variant={"glass"}
@@ -247,12 +260,6 @@ const GeneralSettings = () => {
           </div>
         </div>
       </div> */}
-      <div className="flex flex-col gap-1">
-        <div className="flex justify-between items-center max-w-sm">
-          <div>Show quotes</div>
-          <Switch checked={isQuoteActive} onCheckedChange={setIsQuoteActive} />
-        </div>
-      </div>
     </>
   );
 };

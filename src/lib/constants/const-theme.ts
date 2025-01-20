@@ -20,6 +20,7 @@ export const fontFamilyExt = [
 export const themeColors: TThemeColors = {
   neutral: {
     name: "Neutral",
+    isPremium: false,
     colors: {
       primary: "#e1e7ef",
       secondary: "#e1e7ef4d",
@@ -32,6 +33,7 @@ export const themeColors: TThemeColors = {
   },
   blue: {
     name: "Blue",
+    isPremium: false,
     colors: {
       primary: "#2196F3",
       secondary: "#2196f34d",
@@ -44,6 +46,7 @@ export const themeColors: TThemeColors = {
   },
   violet: {
     name: "Violet",
+    isPremium: false,
     colors: {
       primary: "#484DDF",
       secondary: "#9a3df233",
@@ -56,6 +59,7 @@ export const themeColors: TThemeColors = {
   },
   purple: {
     name: "Purple",
+    isPremium: true,
     colors: {
       primary: "#9a3df2",
       secondary: "#9a3df233",
@@ -68,6 +72,7 @@ export const themeColors: TThemeColors = {
   },
   emerald: {
     name: "Emerald",
+    isPremium: true,
     colors: {
       primary: "#22c55e",
       secondary: "#ccc2d633",
@@ -80,6 +85,7 @@ export const themeColors: TThemeColors = {
   },
   orange: {
     name: "Orange",
+    isPremium: true,
     colors: {
       primary: "#FB8E31",
       secondary: "#FB8E31",
@@ -93,5 +99,5 @@ export const themeColors: TThemeColors = {
 };
 
 export const ROOT_COLORS = {
-  premium: "#efbf04"
-}
+  premium: "#efbf04",
+};

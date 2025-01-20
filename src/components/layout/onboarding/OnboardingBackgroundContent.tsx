@@ -3,12 +3,14 @@ import SceneSettings from "@/components/modules/settings/SceneSettings";
 import Select from "@/components/ui/dropdowns/Select";
 import { themeColors } from "@/lib/constants/const-theme";
 import useThemeStore from "@/stores/zustand/useThemeStore";
+import { useEffect } from "react";
 
 const transformThemeColors = (colors: typeof themeColors) => {
   return Object.keys(colors).map((key) => ({
     id: key,
     name: colors[key].name,
     value: key,
+    isPremium: colors[key].isPremium,
   }));
 };
 

@@ -65,6 +65,7 @@ const PomodoroSettings = () => {
       <div className="flex flex-row justify-between max-w-sm">
         <label htmlFor="time-option">Focus / break durations (mins)</label>
         <Select
+          isPremium={true}
           buttonClassName="w-[160px]"
           size={"sm"}
           variant={"glass"}
