@@ -13,7 +13,7 @@ const useAppLoading = () => {
     useState<boolean>(true);
 
   useEffect(() => {
-    if (!isCheckingUserLogged && currentAudio && !isAudioReady) {
+    if (!isCheckingUserLogged && !isAudioReady) {
       setIsAppLoading(false);
     }
   }, [isCheckingUserLogged, isAudioReady, audioSource]);
