@@ -37,7 +37,7 @@ interface PlayerState {
 }
 
 const usePlayerStore = create<PlayerState>((set) => ({
-  audioSource: getFromLocalStorage("audioSource", "spotify"),
+  audioSource: getFromLocalStorage("audioSource", "yt"),
   activeScene: getFromLocalStorage("activeScene", "yt"),
   currentVideo: getFromLocalStorage("currentVideo", null),
   // currentVideo: null,

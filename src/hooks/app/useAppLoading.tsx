@@ -13,12 +13,7 @@ const useAppLoading = () => {
     useState<boolean>(true);
 
   useEffect(() => {
-    if (
-      !isCheckingUserLogged &&
-      currentAudio &&
-      !isAudioReady &&
-      audioSource !== "spotify"
-    ) {
+    if (!isCheckingUserLogged && currentAudio && !isAudioReady) {
       setIsAppLoading(false);
     }
   }, [isCheckingUserLogged, isAudioReady, audioSource]);
@@ -33,7 +28,7 @@ const useAppLoading = () => {
           console.log("User Logged!", session?.user);
           login(session?.user);
         } else {
-          console.log("No user logged in");
+          console.log("💁No user logged in");
           logout();
         }
         setIsCheckingUserLogged(false);
