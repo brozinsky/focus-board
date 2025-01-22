@@ -90,7 +90,7 @@ const AudioSettings = () => {
         <div>
           <div className="grid grid-cols-3 gap-2">
             {SFX_AUDIO.map(({ name, id }) => {
-              return <FxItem key={id} id={id} name={name} variant="md" />;
+              return <FxItem key={id} id={id} name={name} variant="md" isPremium={true}/>;
             })}
           </div>
         </div>

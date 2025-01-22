@@ -11,6 +11,11 @@ import ForgotPassword from "./ResetPassword";
 import ResetPassword from "./ResetPassword";
 import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
 import Button from "@/components/ui/buttons/Button";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avaar/Avatar";
 
 const AuthModal = () => {
   const { setIsOpen, isOpen } = useWindowsStore();
@@ -27,55 +32,6 @@ const AuthModal = () => {
       console.error("Error logging out:", error.message);
     } else {
       console.log("Logged out successfully");
-    }
-  };
-
-  const testFN = async () => {
-    const {
-      data: { user },
-    } = await supabaseClient.auth.getUser();
-
-    if (!user) {
-      console.error("No user is currently logged in.");
-      return;
-    }
-
-    const { data, error } = await supabaseClient.from("profiles").select("*");
-
-    if (error) {
-      console.error("Error fetching profile data:", error.message);
-    } else if (data.length === 0) {
-      console.log("No profile found for this user.");
-    } else {
-      console.log("User profile data:", data);
-    }
-  };
-
-  const testUPDATE = async () => {
-    try {
-      // Retrieve the user
-      const { data: userData, error: userError } =
-        await supabaseClient.auth.getUser();
-
-      if (userError || !userData?.user) {
-        console.error("Error retrieving user:", userError?.message);
-        return;
-      }
-
-      const userId = userData.user.id;
-
-      const { data, error } = await supabaseClient
-        .from("profiles")
-        .update({ audioSource: "spotify" })
-        .eq("id", userId);
-
-      if (error) {
-        console.error("Error updating audio source:", error.message);
-      } else {
-        console.log("Audio source updated to Spotify:", data);
-      }
-    } catch (error) {
-      console.error("Unexpected error updating audio source:", error);
     }
   };
 
@@ -109,14 +65,28 @@ const AuthModal = () => {
         )}
         {isLoggedIn && (
           <div className="flex flex-col gap-4 p-8 items-center justify-center">
-            <div>
-              <span className="mr-2 w-8 h-8 bg-primary text-foreground-primary rounded-full p-1 inline-flex items-center justify-center">
+            <Avatar
+              className={
+                "w-20 h-20 bg-primary text-foreground-primary font-medium text-4xl"
+              }
+            >
+              <AvatarImage src={""} alt={user?.email || "User"} />
+              <AvatarFallback>
                 {user?.email?.slice(0, 1).toUpperCase()}
-              </span>
-              {user?.email}
+              </AvatarFallback>
+            </Avatar>
+            <div className="gap-1 flex flex-col">
+              <p className="text-sm text-center">{user?.email}</p>
+              {user?.confirmed_at && (
+                <p className="text-sm text-center">
+                  Member since{" "}
+                  {new Intl.DateTimeFormat("en-GB").format(
+                    new Date(user.confirmed_at)
+                  )}
+                </p>
+              )}
             </div>
             <Button onClick={handleLogout}>Log out</Button>
-            <button onClick={() => testUPDATE()}>Tester</button>
           </div>
         )}
       </motion.div>

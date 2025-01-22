@@ -92,7 +92,7 @@ const FxItem = ({ id, name, variant = "md", isPremium = false }: IProps) => {
           : "flex-col items-center gap-4"
       )}
     >
-      {isDisabled && <BadgePremium className="absolute top-0 right-0" />}
+      {isDisabled && <BadgePremium className="absolute top-1/2 -translate-y-1/2 right-0" size="sm"/>}
       {variant === "md" ? (
         <>
           <ButtonFX
