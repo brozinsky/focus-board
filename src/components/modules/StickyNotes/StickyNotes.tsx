@@ -49,6 +49,7 @@ const StickyNotes = () => {
           <StickyNote
             key={note.id}
             color={note.color}
+            userStatus="offline"
             styles={{
               position: "absolute",
               left: `${note.position.x}px`,

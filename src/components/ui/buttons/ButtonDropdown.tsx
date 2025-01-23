@@ -5,20 +5,20 @@ interface IProps {
   onClick?: (e: any) => void;
   className?: string;
   children: ReactNode;
-  isDsabled: boolean;
+  isDisabled: boolean;
 }
 
 const ButtonDropdown = ({
   onClick,
   className,
   children,
-  isDsabled,
+  isDisabled,
 }: IProps) => {
   return (
     <button
       onClick={onClick}
-      className={cn("button-dropdown", isDsabled && "disabled", className)}
-      disabled={isDsabled}
+      className={cn("button-dropdown", isDisabled && "disabled", className)}
+      disabled={isDisabled}
     >
       <span>{children}</span>
     </button>

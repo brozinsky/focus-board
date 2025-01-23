@@ -1,13 +1,12 @@
 import CheckSVG from "@/components/elements/svg/icons/interface/CheckSVG";
-import EditIconSVG from "@/components/elements/svg/icons/interface/EditIconSVG";
-import TrashIconSVG from "@/components/elements/svg/icons/interface/TrashIconSVG";
-import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import ButtonDelete from "@/components/ui/buttons/panel-edit/ButtonDelete";
 import ButtonEdit from "@/components/ui/buttons/panel-edit/ButtonEdit";
 import Checkbox from "@/components/ui/inputs/Checkbox";
 import { cn } from "@/lib/utils";
+import useStickyNotesDb from "@/stores/supabase/useStickyNotesDb";
 import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
-import { TStickyNoteColor, TTodo } from "@/types/model-types";
+import { TStickyNoteColor, TTodo, TUserStatus } from "@/types/model-types";
+import { FormikProps } from "formik";
 
 const COLORS = [
   { name: "yellow" },
@@ -23,40 +22,44 @@ type TProps = {
   tasks: TTodo[];
   setTasks: (tasks: TTodo[]) => void;
   id: string;
-  isTitle: boolean;
-  isContent: boolean;
-  isTodos: boolean;
   isEditing: boolean;
   setIsEditing: (tasks: boolean) => void;
+  form: FormikProps<any>;
+  userStatus: TUserStatus;
 };
 
 const StickyNoteEditUI = ({
   isEditing,
   setIsEditing,
   id,
-  isTitle,
-  isContent,
-  isTodos,
-  color,
+  form,
+  userStatus,
 }: TProps) => {
-  const { updateStickyNote, removeStickyNote } = useStickyNotesStore();
+  const { removeStickyNote: removeStickyNoteLocal } = useStickyNotesStore();
+  const { removeStickyNote: removeStickyNoteDb } = useStickyNotesDb();
 
   const handleChange = (field: string, value: boolean | TStickyNoteColor) => {
-    if (isEditing) {
-      updateStickyNote(id, { [field]: value });
+    if (form && typeof form.setFieldValue === "function") {
+      form.setFieldValue(field, value);
     }
   };
 
-  const handleEditToggle = (e: Event) => {
+  const handleEditSubmit = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (isEditing) {
+      form.submitForm();
+    }
     setIsEditing(!isEditing);
   };
 
   return (
     <>
-      <ButtonEdit onClick={handleEditToggle} isEditing={isEditing} />
+      <ButtonEdit onClick={handleEditSubmit} isEditing={isEditing} />
       <ButtonDelete
-        onClick={() => removeStickyNote(id)}
+        onClick={() => {
+          userStatus === "offline" && removeStickyNoteLocal(id);
+          userStatus === "online" && removeStickyNoteDb(id);
+        }}
         isEditing={isEditing}
       />
 
@@ -66,28 +69,30 @@ const StickyNoteEditUI = ({
             <div className="bg-background p-4 rounded-md flex flex-col gap-2">
               <Checkbox
                 isDisabled={false}
-                isSelected={isTitle}
-                state={isTitle}
-                onChange={(value) => handleChange("isTitle", value)}
+                isSelected={form.values.isTitle}
+                state={form.values.isTitle}
+                onChange={(value) => {
+                  handleChange("isTitle", value);
+                }}
               >
                 Show title
               </Checkbox>
               <Checkbox
                 isDisabled={false}
-                isSelected={isContent}
-                state={isContent}
+                isSelected={form.values.isContent}
+                state={form.values.isContent}
                 onChange={(value) => handleChange("isContent", value)}
               >
                 Show content
               </Checkbox>
-              <Checkbox
+              {/* <Checkbox
                 isDisabled={false}
-                isSelected={isTodos}
-                state={isTodos}
+                isSelected={form.values.isTodos}
+                state={form.values.isTodos}
                 onChange={(value) => handleChange("isTodos", value)}
               >
                 Todo list
-              </Checkbox>
+              </Checkbox> */}
             </div>
           </div>
           <div className="sticky-note__colors">
@@ -95,14 +100,17 @@ const StickyNoteEditUI = ({
               <div
                 key={item.name}
                 className={cn(
-                  item.name === color && "sticky-note__color--active",
+                  item.name === form.values.color &&
+                    "sticky-note__color--active",
                   `sticky-note__color sticky-note__color--${item.name}`
                 )}
                 onClick={() =>
                   handleChange("color", item.name as TStickyNoteColor)
                 }
               >
-                {item.name === color && <CheckSVG pathClass="stroke-black" />}
+                {item.name === form.values.color && (
+                  <CheckSVG pathClass="stroke-black" />
+                )}
               </div>
             ))}
           </div>

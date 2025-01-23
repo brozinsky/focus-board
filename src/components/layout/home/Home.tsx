@@ -16,6 +16,7 @@ import useRootRef from "@/hooks/useRootRef";
 import Onboarding from "../onboarding/Onboarding";
 import useAppStore from "@/stores/zustand/useAppStore";
 import Main from "../main/Main";
+import useAppLoading from "@/hooks/app/useAppLoading";
 
 const Home = () => {
   const { rootRef, rootFontFamily } = useRootRef();
@@ -40,11 +41,11 @@ const Home = () => {
 
   const {
     onReady: onAudioReady,
-    isAudioReady,
     handlePlayPause: handleAudioPlayPause,
   } = useAudioPlayer();
 
-  const isAppLoading = currentAudio && !isAudioReady && audioSource !== "spotify";
+  const {isAppLoading} = useAppLoading()
+
 
   useLayoutEffect(() => {
     updateCSSVariables();

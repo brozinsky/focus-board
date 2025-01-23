@@ -8,6 +8,8 @@ import clsx from "clsx";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import { cn } from "@/lib/utils";
+import BadgePremium from "@/components/ui/badge/BadgePremium";
+import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
 
 const cld = new Cloudinary({
   cloud: { cloudName: import.meta.env.VITE_CLOUD_NAME },
@@ -18,6 +20,9 @@ const AnimatedWallpapers = ({ grid = "md" }: { grid?: "sm" | "md" }) => {
   const { setIsOpen } = useWindowsStore();
   const { activeScene, setActiveScene, currentBgVideoId, setCurrentBgVideoId } =
     usePlayerStore();
+  const { isLoggedIn } = useAuthStore();
+
+  const isDisabled = !isLoggedIn;
 
   const handleBgVideoClick = (value: string) => {
     activeScene !== "bg-video" && setActiveScene("bg-video");
@@ -49,7 +54,9 @@ const AnimatedWallpapers = ({ grid = "md" }: { grid?: "sm" | "md" }) => {
             return (
               <div
                 key={item.public_id}
-                onClick={() => handleBgVideoClick(item.public_id)}
+                onClick={() =>
+                  !isDisabled && handleBgVideoClick(item.public_id)
+                }
                 className={clsx(
                   activeScene === "bg-video" &&
                     currentBgVideoId === item.public_id &&
@@ -57,8 +64,17 @@ const AnimatedWallpapers = ({ grid = "md" }: { grid?: "sm" | "md" }) => {
                   "modal__image-wrap"
                 )}
               >
+                {isDisabled && (
+                  <BadgePremium
+                    size="sm"
+                    className="absolute top-1 right-1 z-20"
+                  />
+                )}
                 <AdvancedImage
-                  className="aspect-video object-cover modal__image"
+                  className={cn(
+                    "aspect-video object-cover modal__image",
+                    !isDisabled && "modal__image--available"
+                  )}
                   width="305"
                   height="171"
                   plugins={[

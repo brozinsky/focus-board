@@ -9,18 +9,35 @@ interface IProps {
   onClick: () => void;
   icon: ReactNode;
   tooltip: string;
+  isDisabled: boolean;
 }
 
-const ButtonFXLg = ({ tooltip, isActive, isLoading, onClick, icon }: IProps) => {
+const ButtonFXLg = ({
+  tooltip,
+  isActive,
+  isLoading,
+  onClick,
+  icon,
+  isDisabled = false,
+}: IProps) => {
   const { isOpen } = useWindowsStore();
 
-return (
+  return (
     <button
+      disabled={isDisabled}
       title={tooltip}
       onClick={onClick}
-      className={cn(!isActive && "opacity-60", "hover:bg-white/20 transition hover:opacity-100 h-28 w-28 flex items-center justify-center p-2 rounded-md")}
+      className={cn(
+        !isActive && "opacity-60",
+        isDisabled ? "!opacity-20" : "hover:opacity-100 hover:bg-white/20",
+        "transition h-28 w-28 flex items-center justify-center p-2 rounded-md"
+      )}
     >
-      {(isLoading && !isOpen.soundFXFirstOpen) ? <LoadingSpinner className="opacity-60" /> : icon}
+      {isLoading && !isOpen.soundFXFirstOpen ? (
+        <LoadingSpinner className="opacity-60" />
+      ) : (
+        icon
+      )}
       <span className="sr-only">{tooltip}</span>
     </button>
   );

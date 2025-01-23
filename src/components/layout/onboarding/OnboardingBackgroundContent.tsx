@@ -1,5 +1,3 @@
-import { Separator } from "@/components/ui/Separator/Separator";
-import SceneSettings from "@/components/modules/settings/SceneSettings";
 import Select from "@/components/ui/dropdowns/Select";
 import { themeColors } from "@/lib/constants/const-theme";
 import useThemeStore from "@/stores/zustand/useThemeStore";
@@ -9,6 +7,7 @@ const transformThemeColors = (colors: typeof themeColors) => {
     id: key,
     name: colors[key].name,
     value: key,
+    isPremium: colors[key].isPremium,
   }));
 };
 

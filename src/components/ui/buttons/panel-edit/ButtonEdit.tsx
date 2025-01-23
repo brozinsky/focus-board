@@ -13,6 +13,7 @@ const ButtonEdit = ({
 }) => {
   return (
     <ButtonIcon
+      type="button"
       className={cn(
         "group/edit absolute -bottom-12 right-2 bg-background hover:bg-primary hover:opacity-100",
         !isEditing && "group-hover/panel:opacity-100 opacity-0 "

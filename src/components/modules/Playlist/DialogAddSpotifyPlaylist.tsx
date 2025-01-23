@@ -13,12 +13,14 @@ import { Input } from "@/components/ui/inputs/Input";
 import Button from "@/components/ui/buttons/Button";
 import axios from "axios";
 import { useSpotifyStore } from "@/stores/zustand/useSpotifyStore";
+import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
 
 const DialogAddSpotifyPlaylist = () => {
   const [error, setError] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [newPlaylistUrl, setNewPlaylistUrl] = useState<string>("");
   const { setPlaylists } = useSpotifyStore();
+  const { isLoggedIn } = useAuthStore();
 
   const handleAddPlaylist = async () => {
     if (!newPlaylistUrl) {
@@ -76,11 +78,17 @@ const DialogAddSpotifyPlaylist = () => {
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-      <DialogTrigger>
-        <Button className="!w-fit" size="sm">
+      {isLoggedIn ? (
+        <DialogTrigger>
+          <Button className="!w-fit" size="sm">
+            + Add playlist
+          </Button>
+        </DialogTrigger>
+      ) : (
+        <Button className="!w-fit" size="sm" isPremium>
           + Add playlist
         </Button>
-      </DialogTrigger>
+      )}
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="mb-2">

@@ -44,6 +44,7 @@ export type TSoundFX = {
   volume: number;
   audio: string;
   isActive: boolean;
+  isPremium: boolean;
 };
 
 export type TThemeStyle = "glass" | "solid";
@@ -52,6 +53,7 @@ export type TUIStyle = "glass" | "ghost";
 
 export type TThemeColor = {
   name: string;
+  isPremium?: boolean;
   colors: {
     primary: string;
     secondary: string;
@@ -86,16 +88,34 @@ export type TPosition = {
   y: number;
 };
 
+export type TStickyNotePosition = {
+  id: string;
+  x: number;
+  y: number;
+};
+
 export type TStickyNote = {
   id: string;
   title?: string;
   content?: string;
   todos?: TTodo[];
-  position: TPosition;
+  // position: TPosition;
   color: TStickyNoteColor;
   isTitle?: boolean;
   isContent?: boolean;
   isTodos?: boolean;
+  created_at?: Date;
+  updated_at?: Date;
+};
+
+export type TPolaroid = {
+  id: number;
+  styles?: any;
+  image: string | null;
+  caption: string;
+  tilt: "left" | "center" | "right";
+  sticker: "star" | "heart" | "smile" | null;
+  position: TPosition;
 };
 
 export type TPolaroid = {
@@ -116,3 +136,5 @@ export type TTimerTodoItem = {
   timeElapsed: number;
   timeEstimation: number | null;
 };
+
+export type TUserStatus = "online" | "offline";
