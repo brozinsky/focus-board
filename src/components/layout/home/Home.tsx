@@ -94,7 +94,7 @@ const Home = () => {
       unselectable="on"
       ref={rootRef}
     >
-      {!isOnboarding && <Main />}
+      {!isOnboarding && <Main handlePlayPause={handleAudioPlayPause}/>}
       {isOnboarding && <Onboarding setIsOnboarding={setIsOnboarding} />}
 
       <div unselectable="on">
