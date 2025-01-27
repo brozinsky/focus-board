@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
 import { TStickyNoteColor, TTodo } from "@/types/model-types";
+import useStickyNotesDb from "@/stores/supabase/useStickyNotesDb";
+import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
 
 const useStickyNoteForm = (
   id: string,
@@ -14,7 +16,9 @@ const useStickyNoteForm = (
   isTodos: boolean
 ) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const { updateStickyNote } = useStickyNotesStore();
+  const { updateStickyNote: updateStickyNoteDemo } = useStickyNotesStore();
+  const { updateStickyNote } = useStickyNotesDb();
+  const { isLoggedIn } = useAuthStore();
 
   const stickyNotesForm = useFormik({
     initialValues: {
@@ -28,22 +32,21 @@ const useStickyNoteForm = (
     },
 
     onSubmit: (values) => {
-      console.log("submit");
-      console.log("values.title", values.title);
-      console.log("values.content", values.content);
-      console.log("values.color", values.color);
-      console.log("values.isTitle", values.isTitle);
-      console.log("values.isContent", values.isContent);
-      console.log("values.isTodos", values.isTodos);
 
-      updateStickyNote(id, {
+      const newStickyNote = {
         title: values.title,
         content: values.content,
         color: values.color as TStickyNoteColor,
         isTitle: values.isTitle,
         isContent: values.isContent,
         isTodos: values.isTodos,
-      });
+      };
+
+      if (isLoggedIn) {
+        updateStickyNote(id, newStickyNote);
+      } else {
+        updateStickyNoteDemo(id, newStickyNote);
+      }
 
       setIsEditing(false);
     },
