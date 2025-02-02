@@ -5,7 +5,7 @@ import {
 } from "@/utils/functions/fn-common";
 import { create } from "zustand";
 
-interface PlayerState {
+interface IState {
   audioSource: TAudioSource;
   activeScene: TActiveScene;
   currentVideo: ICurrentVideo | null;
@@ -36,7 +36,7 @@ interface PlayerState {
   setIsSharedVideoAndAudio: (isSharedVideoAndAudio: boolean) => void;
 }
 
-const usePlayerStore = create<PlayerState>((set) => ({
+const usePlayerStore = create<IState>((set) => ({
   audioSource: getFromLocalStorage("audioSource", "yt"),
   activeScene: getFromLocalStorage("activeScene", "yt"),
   currentVideo: getFromLocalStorage("currentVideo", null),
