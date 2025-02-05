@@ -11,29 +11,17 @@ import EditIconSVG from "@/components/elements/svg/icons/interface/EditIconSVG";
 import CheckSVG from "@/components/elements/svg/icons/interface/CheckSVG";
 import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 import { debounce } from "@/utils/functions/fn-common";
-
-function debounceAsync(func: any, waitMs: number) {
-  let timeout: ReturnType<typeof setTimeout> | null = null;
-
-  return (...args: any) => {
-    if (timeout) clearTimeout(timeout);
-    return new Promise((resolve) => {
-      timeout = setTimeout(() => resolve(func(...args)), waitMs);
-    });
-  };
-}
+import { getWeekDays } from "@/utils/functions/fn-date";
 
 const HabitRow = ({
   name,
   dates,
-  weekDays,
   id,
   refetch,
 }: {
   id: string;
   name: string;
   dates: Record<string, boolean>;
-  weekDays: Date[];
   refetch: (
     options?: RefetchOptions
   ) => Promise<QueryObserverResult<any[] | null | undefined, Error>>;
@@ -43,6 +31,8 @@ const HabitRow = ({
 
   const { mutate: updateHabits, isPending: isPendingUpdate } =
     useUpdateHabitMutation();
+
+  const weekDays = getWeekDays();
 
   useEffect(() => {
     if (!isPendingRemove) return;
@@ -93,36 +83,38 @@ const HabitRow = ({
         )}
       >
         {name}
-        <ButtonIcon
-          type="button"
-          className={cn(
-            "absolute right-11 top-1/2 -translate-y-1/2 bg-background hover:bg-primary text-primary-foreground hover:opacity-100 ",
-            true && "group-hover/habit:opacity-100 opacity-0"
-          )}
-          onClick={() => setIsEditing(!isEditing)}
-          icon={
-            !isEditing ? (
-              <EditIconSVG pathClass="group-hover/edit:stroke-foreground-primary stroke-foreground" />
-            ) : (
-              <CheckSVG pathClass="group-hover/edit:stroke-foreground-primary stroke-foreground" />
-            )
-          }
-          tooltip={"Delete"}
-        />
-        <ButtonIcon
-          type="button"
-          className={cn(
-            "absolute right-0 top-1/2 -translate-y-1/2 bg-background hover:bg-red-500 hover:opacity-100 ",
-            true && "group-hover/habit:opacity-100 opacity-0"
-          )}
-          onClick={() => {
-            removeHabit(id);
-          }}
-          icon={
-            <TrashIconSVG pathClass="group-hover/delete:stroke-foreground-primary stroke-foreground" />
-          }
-          tooltip={"Delete"}
-        />
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 flex-center gap-1">
+          <ButtonIcon
+            type="button"
+            className={cn(
+              "bg-background hover:bg-primary text-primary-foreground hover:opacity-100 ",
+              true && "group-hover/habit:opacity-100 opacity-0"
+            )}
+            onClick={() => setIsEditing(!isEditing)}
+            icon={
+              !isEditing ? (
+                <EditIconSVG pathClass="group-hover/edit:stroke-foreground-primary stroke-foreground" />
+              ) : (
+                <CheckSVG pathClass="group-hover/edit:stroke-foreground-primary stroke-foreground" />
+              )
+            }
+            tooltip={"Delete"}
+          />
+          <ButtonIcon
+            type="button"
+            className={cn(
+              "bg-background hover:bg-red-500 hover:opacity-100 ",
+              true && "group-hover/habit:opacity-100 opacity-0"
+            )}
+            onClick={() => {
+              removeHabit(id);
+            }}
+            icon={
+              <TrashIconSVG pathClass="group-hover/delete:stroke-foreground-primary stroke-foreground" />
+            }
+            tooltip={"Delete"}
+          />
+        </div>
       </div>
       <div
         className={cn(

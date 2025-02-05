@@ -3,7 +3,7 @@ import Button from "@/components/ui/buttons/Button";
 import useAddHabitMutation from "@/stores/supabase/useAddHabitMutation";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/inputs/Input";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import useHabitsQuery from "@/stores/supabase/useHabitsQuery";
 
 type TFormValues = {

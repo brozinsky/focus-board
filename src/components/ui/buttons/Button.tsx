@@ -32,6 +32,7 @@ type TProps = {
   label?: string;
   isDiv?: boolean;
   isPremium?: boolean;
+  type?: "submit" | "button";
 };
 
 type TLoadingWrapper = {
@@ -55,6 +56,7 @@ export default function Button({
   size = "md",
   label,
   isDiv = false,
+  type = "submit",
 }: TProps) {
   const { isLoggedIn } = useAuthStore();
 
@@ -106,6 +108,7 @@ export default function Button({
 
   return (
     <Component
+      type={type}
       aria-label={label}
       onClick={onClick}
       className={classes({
