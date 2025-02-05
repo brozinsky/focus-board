@@ -1,4 +1,5 @@
 import Games from "@/components/modules/Games/Games.";
+import HabitTracker from "@/components/modules/HabitTracker/HabitTracker";
 import Photos from "@/components/modules/Photos/Photos";
 import Playlist from "@/components/modules/Playlist/Playlist";
 import Pomodoro from "@/components/modules/Pomodoro/Pomodoro";
@@ -15,6 +16,7 @@ type TWindows =
   | "pomodoro"
   | "timer"
   | "todoList"
+  | "habitTracker"
   | "playlist"
   | "scene"
   | "soundFX";
@@ -26,6 +28,7 @@ const windowComponents: Record<TWindows, React.ComponentType> = {
   playlist: Playlist,
   scene: Scenes,
   soundFX: SoundFX,
+  habitTracker: HabitTracker
 };
 
 const Windows = () => {

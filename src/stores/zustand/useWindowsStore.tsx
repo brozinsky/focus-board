@@ -14,6 +14,7 @@ export type TWindowName =
   | "playlist"
   | "scene"
   | "todoList"
+  | "habitTracker"
   | "spotify"
   | "saper"
   | "loginForm"
@@ -24,6 +25,7 @@ type TWindowPosition = {
   timer: TPosition;
   todoList: TPosition;
   saper: TPosition;
+  habitTracker: TPosition;
 };
 type TWindowPositionKey = keyof TWindowPosition;
 
@@ -43,6 +45,7 @@ interface IWindowsStore {
     saper: boolean;
     loginForm: boolean;
     spotify: boolean;
+    habitTracker: boolean;
 
     //modals
     soundFX: boolean;
@@ -71,6 +74,7 @@ const useWindowsStore = create<IWindowsStore>((set, get) => ({
     timer: getFromLocalStorage("timerWindowPosition", initWindowPosition),
     todoList: getFromLocalStorage("todoListWindowPosition", initWindowPosition),
     saper: getFromLocalStorage("saperWindowPosition", initWindowPosition),
+    habitTracker: getFromLocalStorage("habitTracker", initWindowPosition),
   },
   setWindowPosition: (key, value) => {
     set((state) => {
@@ -104,6 +108,7 @@ const useWindowsStore = create<IWindowsStore>((set, get) => ({
     saper: false,
     loginForm: false,
     spotify: false,
+    habitTracker: true,
 
     //modals
     soundFX: false,
