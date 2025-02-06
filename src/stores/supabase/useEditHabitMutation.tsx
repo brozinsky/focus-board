@@ -44,7 +44,7 @@ const useEditHabitMutation = () => {
   return useMutation({
     mutationFn: mutationFn,
     onSuccess: (data) => {
-      queryClient.refetchQueries(["habits"]);
+      queryClient.refetchQueries({ queryKey: ["habits"] });
       console.log("Habit updated successfully:", data);
     },
     onError: (error) => {
