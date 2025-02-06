@@ -1,8 +1,8 @@
 import { getWeekDays } from "@/utils/functions/fn-date";
-import React from "react";
+import React, { useMemo } from "react";
 
 const HabitHead = () => {
-  const weekDays = getWeekDays();
+  const weekDays = useMemo(() => getWeekDays(), []);
 
   return (
     <div className="flex flex-row gap-4 items-center">

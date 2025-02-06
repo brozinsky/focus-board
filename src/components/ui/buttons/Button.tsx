@@ -10,8 +10,9 @@ import VolumeMuteIconSVG from "@/components/elements/svg/icons/media/VolumeMuteI
 import SpinnerSVG from "@/components/elements/svg/icons/interface/SpinnerSVG";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
-import { Crown } from "lucide-react";
+import { Crown, MoveRight } from "lucide-react";
 import { ROOT_COLORS } from "@/lib/constants/const-theme";
+import TrashIconSVG from "@/components/elements/svg/icons/interface/TrashIconSVG";
 
 type TProps = {
   onClick?: any;
@@ -22,6 +23,7 @@ type TProps = {
     | "ghost"
     | "glass"
     | "glass-ghost"
+    | "danger"
     | null
     | undefined;
   icon?: string;
@@ -69,6 +71,7 @@ export default function Button({
           "group bg-transparent-500 hover:bg-neutral-500 text-neutral-500 hover:text-neutral-500 font-bold",
         glass: "glass-btn",
         "glass-ghost": "glass-btn-hover",
+        danger: "text-black bg-red-500 hover:bg-red-600 hover:opacity-100",
       },
       shape: {
         rectangle: "rounded-xl",
@@ -102,6 +105,7 @@ export default function Button({
 
   const pathClass = cn({
     "stroke-neutral-100": variant === "neutral",
+    "stroke-black": variant === "danger",
   });
 
   const Component = !isDiv ? "button" : "div";
@@ -124,6 +128,7 @@ export default function Button({
         {icon === "volume-hi" && <VolumeHiIconSVG />}
         {(icon === "volume" || icon === "volume-lo") && <VolumeLoIconSVG />}
         {icon === "volume-mute" && <VolumeMuteIconSVG />}
+        {icon === "trash" && <TrashIconSVG pathClass={pathClass} />}
         {icon === "close" && <CloseIconSVG pathClass={pathClass} />}
         {icon === "expand" && (
           <ExpandSVG
@@ -141,6 +146,9 @@ export default function Button({
 
       <LoadingWrapper isLoading={isLoading}>
         {children}{" "}
+        {icon === "longarrow-right" && (
+          <MoveRight strokeWidth={1.5} size={20} />
+        )}
         {!isLoggedIn && isPremium && (
           <Crown size={16} color={ROOT_COLORS.premium} />
         )}

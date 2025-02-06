@@ -12,6 +12,7 @@ import CheckSVG from "@/components/elements/svg/icons/interface/CheckSVG";
 import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 import { debounce } from "@/utils/functions/fn-common";
 import { getWeekDays } from "@/utils/functions/fn-date";
+import EditHabit from "./EditHabit";
 
 const HabitRow = ({
   name,
@@ -26,18 +27,15 @@ const HabitRow = ({
     options?: RefetchOptions
   ) => Promise<QueryObserverResult<any[] | null | undefined, Error>>;
 }) => {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+
   const { mutate: removeHabit, isPending: isPendingRemove } =
     useRemoveHabitMutation();
 
   const { mutate: updateHabits, isPending: isPendingUpdate } =
     useUpdateHabitMutation();
 
-  const weekDays = getWeekDays();
-
-  useEffect(() => {
-    if (!isPendingRemove) return;
-    refetch();
-  }, [isPendingRemove]);
+  const weekDays = useMemo(() => getWeekDays(), []);
 
   const formik = useFormik({
     initialValues: weekDays.reduce((acc, day) => {
@@ -63,81 +61,110 @@ const HabitRow = ({
   );
 
   useEffect(() => {
+    if (!isPendingRemove) return;
+    refetch();
+  }, [isPendingRemove]);
+
+  useEffect(() => {
     if (!formik.dirty) return;
     debouncedSubmit();
   }, [formik.values, debouncedSubmit]);
 
-  const [isEditing, setIsEditing] = useState(false);
-
   return (
-    <form className="flex flex-row gap-4 items-center relative">
-      {isPendingRemove && (
-        <div className="z-50 absolute left-0 right-0 top-0 bottom-0 py-2 flex-center">
-          <LoadingSpinner />
-        </div>
-      )}
-      <div
-        className={cn(
-          isPendingRemove && "opacity-15",
-          "min-w-[33%] relative group/habit"
+    <React.Fragment>
+      <EditHabit
+        habitId={id}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        habitName={name}
+        onDelete={() => {
+          removeHabit(id);
+        }}
+      />
+      <div className="flex flex-row gap-4 items-center relative">
+        {isPendingRemove && (
+          <div className="z-50 absolute left-0 right-0 top-0 bottom-0 py-2 flex-center">
+            <LoadingSpinner />
+          </div>
         )}
-      >
-        {name}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 flex-center gap-1">
-          <ButtonIcon
-            type="button"
+        <div
+          className={cn(
+            isPendingRemove && "opacity-15",
+            "min-w-[33%] relative group/habit"
+          )}
+        >
+          <textarea
+            name="title"
+            onChange={() => null}
+            value={name}
+            rows={1}
             className={cn(
-              "bg-background hover:bg-primary text-primary-foreground hover:opacity-100 ",
-              true && "group-hover/habit:opacity-100 opacity-0"
+              isEditing
+                ? "active bg-input"
+                : "pointer-events-none bg-transparent",
+              `overflow-hidden resize-none`
             )}
-            onClick={() => setIsEditing(!isEditing)}
-            icon={
-              !isEditing ? (
-                <EditIconSVG pathClass="group-hover/edit:stroke-foreground-primary stroke-foreground" />
-              ) : (
-                <CheckSVG pathClass="group-hover/edit:stroke-foreground-primary stroke-foreground" />
-              )
-            }
-            tooltip={"Delete"}
+            placeholder={isEditing ? "Title" : ""}
+            onKeyDown={(e) => e.stopPropagation()}
+            disabled={!isEditing}
+            unselectable="on"
+            spellCheck={false}
           />
-          <ButtonIcon
-            type="button"
-            className={cn(
-              "bg-background hover:bg-red-500 hover:opacity-100 ",
-              true && "group-hover/habit:opacity-100 opacity-0"
-            )}
-            onClick={() => {
-              removeHabit(id);
-            }}
-            icon={
-              <TrashIconSVG pathClass="group-hover/delete:stroke-foreground-primary stroke-foreground" />
-            }
-            tooltip={"Delete"}
-          />
-        </div>
-      </div>
-      <div
-        className={cn(
-          isPendingRemove && "opacity-15",
-          "grid grid-cols-7 gap-4 w-full justify-items-center"
-        )}
-      >
-        {weekDays.map((day) => {
-          const formattedDate = day.toISOString().split("T")[0];
-
-          return (
-            <HabitCheckbox
-              key={formattedDate}
-              name={formattedDate}
-              isChecked={formik.values[formattedDate]}
-              onChange={(checked) => {
-                formik.setFieldValue(formattedDate, checked);
-              }}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 flex-center gap-1">
+            <ButtonIcon
+              type="button"
+              className={cn(
+                "bg-background hover:bg-primary text-primary-foreground hover:opacity-100 ",
+                true && "group-hover/habit:opacity-100 opacity-0"
+              )}
+              onClick={() => setIsEditing(!isEditing)}
+              icon={
+                !isEditing ? (
+                  <EditIconSVG pathClass="group-hover/edit:stroke-foreground-primary stroke-foreground" />
+                ) : (
+                  <CheckSVG pathClass="group-hover/edit:stroke-foreground-primary stroke-foreground" />
+                )
+              }
+              tooltip={"Edit"}
             />
-          );
-        })}
+            <ButtonIcon
+              type="button"
+              className={cn(
+                "bg-background hover:bg-red-500 hover:opacity-100 ",
+                true && "group-hover/habit:opacity-100 opacity-0"
+              )}
+              onClick={() => {
+                removeHabit(id);
+              }}
+              icon={
+                <TrashIconSVG pathClass="group-hover/delete:stroke-foreground-primary stroke-foreground" />
+              }
+              tooltip={"Delete"}
+            />
+          </div>
+        </div>
+        <div
+          className={cn(
+            isPendingRemove && "opacity-15",
+            "grid grid-cols-7 gap-4 w-full justify-items-center"
+          )}
+        >
+          {weekDays.map((day) => {
+            const formattedDate = day.toISOString().split("T")[0];
+            return (
+              <HabitCheckbox
+                key={formattedDate}
+                name={formattedDate}
+                isChecked={formik.values[formattedDate]}
+                onChange={(checked) => {
+                  formik.setFieldValue(formattedDate, checked);
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
-    </form>
+    </React.Fragment>
   );
 };
 

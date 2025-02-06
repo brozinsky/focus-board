@@ -117,7 +117,6 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           </div> */}
         </div>
         <div className="panel__group">
-          <div>tester?</div>
           <Dialog>
             <DialogTrigger>Open</DialogTrigger>
             <DialogContent>
