@@ -127,20 +127,6 @@ const HabitRow = ({
               }
               tooltip={"Edit"}
             />
-            <ButtonIcon
-              type="button"
-              className={cn(
-                "bg-background hover:bg-red-500 hover:opacity-100 ",
-                true && "group-hover/habit:opacity-100 opacity-0"
-              )}
-              onClick={() => {
-                removeHabit(id);
-              }}
-              icon={
-                <TrashIconSVG pathClass="group-hover/delete:stroke-foreground-primary stroke-foreground" />
-              }
-              tooltip={"Delete"}
-            />
           </div>
         </div>
         <div

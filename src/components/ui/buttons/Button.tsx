@@ -10,7 +10,7 @@ import VolumeMuteIconSVG from "@/components/elements/svg/icons/media/VolumeMuteI
 import SpinnerSVG from "@/components/elements/svg/icons/interface/SpinnerSVG";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
-import { Crown, MoveRight } from "lucide-react";
+import { Crown, MoveRight, Plus } from "lucide-react";
 import { ROOT_COLORS } from "@/lib/constants/const-theme";
 import TrashIconSVG from "@/components/elements/svg/icons/interface/TrashIconSVG";
 
@@ -128,6 +128,7 @@ export default function Button({
         {icon === "volume-hi" && <VolumeHiIconSVG />}
         {(icon === "volume" || icon === "volume-lo") && <VolumeLoIconSVG />}
         {icon === "volume-mute" && <VolumeMuteIconSVG />}
+        {icon === "plus" && <Plus size={20} />}
         {icon === "trash" && <TrashIconSVG pathClass={pathClass} />}
         {icon === "close" && <CloseIconSVG pathClass={pathClass} />}
         {icon === "expand" && (

@@ -1,8 +1,8 @@
 import React from "react";
 import { supabaseClient } from "@/api/client";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const addHabit = async (title: string) => {
+const mutationFn = async (title: string) => {
   const { data, error } = await supabaseClient
     .from("habits")
     .insert([{ title, dates: {} }])
@@ -14,9 +14,17 @@ const addHabit = async (title: string) => {
 };
 
 const useAddHabitMutation = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
-    mutationKey: ["habits", "add"],
-    mutationFn: (title: string) => addHabit(title),
+    mutationFn: mutationFn,
+    onSuccess: (data) => {
+      queryClient.refetchQueries(["habits"]);
+      console.log("Habit added successfully:", data);
+    },
+    onError: (error) => {
+      console.error("Error adding new habit:", error);
+    },
   });
 };
 

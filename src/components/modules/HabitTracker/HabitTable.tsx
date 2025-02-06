@@ -4,7 +4,7 @@ import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import useHabitsQuery from "@/stores/supabase/useHabitsQuery";
 import useAddHabitMutation from "@/stores/supabase/useAddHabitMutation";
 import { useFormik } from "formik";
-import NewHabitForm from "./NewHabitForm";
+import AddHabit from "./AddHabit";
 import HabitHead from "./HabitHead";
 import { Ghost } from "lucide-react";
 import { useMemo } from "react";
@@ -127,7 +127,7 @@ const HabitTable = () => {
             <LoadingSpinner />
           </div>
         )}
-        <NewHabitForm />
+        <AddHabit />
       </div>
     </div>
   );

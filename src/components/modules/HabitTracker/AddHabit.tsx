@@ -5,22 +5,14 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/inputs/Input";
 import { useForm } from "react-hook-form";
 import useHabitsQuery from "@/stores/supabase/useHabitsQuery";
+import { Plus } from "lucide-react";
 
 type TFormValues = {
   name: string;
 };
 
-const NewHabitForm = () => {
-  const {
-    mutate: addHabit,
-    isPending: isPendingAdd,
-    isSuccess: isSuccessAdd,
-  } = useAddHabitMutation();
-  const { refetch } = useHabitsQuery();
-
-  useEffect(() => {
-    isSuccessAdd && refetch();
-  }, [isSuccessAdd]);
+const AddHabit = () => {
+  const { mutate: addHabit, isPending: isPendingAdd } = useAddHabitMutation();
 
   const {
     register,
@@ -56,8 +48,8 @@ const NewHabitForm = () => {
           placeholder={"Add a new habit"}
           required
         />
-        <Button className={"mx-auto"} type="submit">
-          Add+
+        <Button className={"mx-auto"} type="submit" icon="plus">
+          Add
         </Button>
       </form>
       {errors.root && (
@@ -68,4 +60,4 @@ const NewHabitForm = () => {
   );
 };
 
-export default NewHabitForm;
+export default AddHabit;
