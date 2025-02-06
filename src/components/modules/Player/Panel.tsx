@@ -40,6 +40,7 @@ import CameraOffSVG from "@/components/elements/svg/icons/interface/panel/Camera
 import CameraSVG from "@/components/elements/svg/icons/interface/panel/CameraSVG";
 import DropdownStickyNote from "@/components/ui/dropdowns/composites/DropdownStickyNote";
 import Dropdown from "@/components/ui/dropdowns/Dropdown";
+import { ClipboardCheck } from "lucide-react";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -116,7 +117,6 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           </div> */}
         </div>
         <div className="panel__group">
-          <div>tester?</div>
           <Dialog>
             <DialogTrigger>Open</DialogTrigger>
             <DialogContent>
@@ -205,6 +205,11 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
           <DropdownStickyNote />
           <ButtonIcon
+            onClick={() => setIsOpen("habitTracker", !isOpen.habitTracker)}
+            icon={<ClipboardCheck />}
+            tooltip={"Habit tracker"}
+          />
+          <ButtonIcon
             className="relative"
             isOpen={isOpen.todoList}
             onClick={() => setIsOpen("todoList", !isOpen.todoList)}
@@ -220,6 +225,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
               tooltip={"Scene Settings"}
             />
           </div>
+
           <ButtonIcon
             onClick={() => setIsOpen("soundFX", !isOpen.soundFX)}
             icon={<MixerIconSVG />}

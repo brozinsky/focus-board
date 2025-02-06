@@ -10,6 +10,17 @@ export const goFullscreen = () => {
   }
 };
 
+export const debounce = (func: Function, delay: number) => {
+  let timer: ReturnType<typeof setTimeout>;
+
+  return (...args: any[]) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};
+
 export const getFromLocalStorage = (key: string, defaultValue: any) => {
   if (typeof window !== "undefined") {
     const storedValue = localStorage.getItem(key);
@@ -37,5 +48,3 @@ export const extractSpotifyPlaylistId = (url: string): string | null => {
   const match = url.match(/playlist\/([a-zA-Z0-9]+)(\?|$)/);
   return match ? match[1] : null;
 };
-
-
