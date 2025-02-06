@@ -1,8 +1,8 @@
 import React from "react";
 import { supabaseClient } from "@/api/client";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const removeHabit = async (id: string) => {
+const mutationFn = async (id: string) => {
   const { data, error } = await supabaseClient
     .from("habits")
     .delete()
@@ -17,9 +17,17 @@ const removeHabit = async (id: string) => {
 };
 
 const useRemoveHabitMutation = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
-    mutationKey: ["habits", "remove"],
-    mutationFn: (id: string) => removeHabit(id),
+    mutationFn: mutationFn,
+    onSuccess: (data) => {
+      queryClient.refetchQueries({ queryKey: ["habits"] });
+      console.log("Habit added successfully:", data);
+    },
+    onError: (error) => {
+      console.error("Error adding new habit:", error);
+    },
   });
 };
 

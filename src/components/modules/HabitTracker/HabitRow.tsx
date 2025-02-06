@@ -1,74 +1,32 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useFormik } from "formik";
 import { HabitCheckbox } from "./HabitCheckbox";
 import useRemoveHabitMutation from "@/stores/supabase/useRemoveHabitMutation";
-import useUpdateHabitMutation from "@/stores/supabase/useUpdateHabitMutation";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
-import TrashIconSVG from "@/components/elements/svg/icons/interface/TrashIconSVG";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { cn } from "@/lib/utils";
 import EditIconSVG from "@/components/elements/svg/icons/interface/EditIconSVG";
 import CheckSVG from "@/components/elements/svg/icons/interface/CheckSVG";
-import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
-import { debounce } from "@/utils/functions/fn-common";
 import { getWeekDays } from "@/utils/functions/fn-date";
 import EditHabit from "./EditHabit";
+import useUpdateHabitBox from "@/stores/supabase/useUpdateHabitBox";
 
 const HabitRow = ({
   name,
-  dates,
   id,
-  refetch,
+  dates,
 }: {
   id: string;
   name: string;
-  dates: Record<string, boolean>;
-  refetch: (
-    options?: RefetchOptions
-  ) => Promise<QueryObserverResult<any[] | null | undefined, Error>>;
+  dates: any;
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  const { mutate: updateHabit } = useUpdateHabitBox();
 
   const { mutate: removeHabit, isPending: isPendingRemove } =
     useRemoveHabitMutation();
 
-  const { mutate: updateHabits, isPending: isPendingUpdate } =
-    useUpdateHabitMutation();
-
   const weekDays = useMemo(() => getWeekDays(), []);
-
-  const formik = useFormik({
-    initialValues: weekDays.reduce((acc, day) => {
-      const formattedDate = day.toISOString().split("T")[0];
-      acc[formattedDate] = dates?.[formattedDate] ?? false;
-      return acc;
-    }, {} as Record<string, boolean>),
-
-    onSubmit: (values) => {
-      const updates = Object.keys(values).map((date) => ({
-        habitId: id,
-        date,
-        isCompleted: values[date],
-      }));
-
-      updateHabits(updates);
-    },
-  });
-
-  const debouncedSubmit = useMemo(
-    () => debounce(formik.submitForm, 4000),
-    [formik.submitForm]
-  );
-
-  useEffect(() => {
-    if (!isPendingRemove) return;
-    refetch();
-  }, [isPendingRemove]);
-
-  useEffect(() => {
-    if (!formik.dirty) return;
-    debouncedSubmit();
-  }, [formik.values, debouncedSubmit]);
 
   return (
     <React.Fragment>
@@ -93,23 +51,7 @@ const HabitRow = ({
             "min-w-[33%] relative group/habit"
           )}
         >
-          <textarea
-            name="title"
-            onChange={() => null}
-            value={name}
-            rows={1}
-            className={cn(
-              isEditing
-                ? "active bg-input"
-                : "pointer-events-none bg-transparent",
-              `overflow-hidden resize-none`
-            )}
-            placeholder={isEditing ? "Title" : ""}
-            onKeyDown={(e) => e.stopPropagation()}
-            disabled={!isEditing}
-            unselectable="on"
-            spellCheck={false}
-          />
+          <div>{name}</div>
           <div className="absolute right-0 top-1/2 -translate-y-1/2 flex-center gap-1">
             <ButtonIcon
               type="button"
@@ -141,10 +83,14 @@ const HabitRow = ({
               <HabitCheckbox
                 key={formattedDate}
                 name={formattedDate}
-                isChecked={formik.values[formattedDate]}
-                onChange={(checked) => {
-                  formik.setFieldValue(formattedDate, checked);
-                }}
+                isChecked={dates[formattedDate]}
+                onChange={(checked) =>
+                  updateHabit({
+                    habitId: id,
+                    date: formattedDate,
+                    isCompleted: Boolean(checked),
+                  })
+                }
               />
             );
           })}

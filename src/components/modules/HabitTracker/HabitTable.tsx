@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import HabitRow from "./HabitRow";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import useHabitsQuery from "@/stores/supabase/useHabitsQuery";
 import useAddHabitMutation from "@/stores/supabase/useAddHabitMutation";
-import { useFormik } from "formik";
 import AddHabit from "./AddHabit";
 import HabitHead from "./HabitHead";
 import { Ghost } from "lucide-react";
 import { useMemo } from "react";
+import useUpdateHabitBox from "@/stores/supabase/useUpdateHabitBox";
 
 const emptyMessages = [
   {
@@ -64,26 +64,9 @@ const emptyMessages = [
 
 const HabitTable = () => {
   const { data, isPending, refetch, isRefetching } = useHabitsQuery();
-  const { mutate: addHabit, isPending: isPendingAdd } = useAddHabitMutation();
+  const { isPending: isPendingAdd } = useAddHabitMutation();
 
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-    },
-
-    onSubmit: (values) => {
-      console.log("submit");
-    },
-  });
-
-  useEffect(() => {
-    console.log(formik.values);
-  }, [formik.values]);
-
-  useEffect(() => {
-    if (!isPendingAdd) return;
-    refetch();
-  }, [isPendingAdd]);
+  const { mutate: updateHabit } = useUpdateHabitBox();
 
   const randomMessage = useMemo(() => {
     return emptyMessages[Math.floor(Math.random() * emptyMessages.length)];
@@ -110,11 +93,10 @@ const HabitTable = () => {
 
       {!isPending &&
         data &&
-        data.map((item, i) => {
+        data.map((item) => {
           return (
             <HabitRow
-              key={i}
-              refetch={refetch}
+              key={item.id}
               id={item.id}
               name={item.title}
               dates={item.dates}

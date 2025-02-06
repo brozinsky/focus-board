@@ -3,7 +3,10 @@ import { supabaseClient } from "@/api/client";
 
 const getHabits = async () => {
   try {
-    const response = await supabaseClient.from("habits").select("*");
+    const response = await supabaseClient
+      .from("habits")
+      .select("*")
+      .order("created_at", { ascending: true });
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
