@@ -82,13 +82,17 @@ const HabitTable = () => {
       {data && data?.length > 0 ? (
         <HabitHead />
       ) : (
-        <div className="flex items-center justify-start gap-4 opacity-60 mx-auto mt-3">
-          <Ghost strokeWidth={2} size={40} />
-          <div>
-            <p className="text-muted text-xl">{randomMessage.heading}</p>
-            <p className="text-muted text-base">{randomMessage.description}</p>
+        !isPending && (
+          <div className="flex items-center justify-start gap-4 opacity-60 mx-auto mt-3">
+            <Ghost strokeWidth={2} size={40} />
+            <div>
+              <p className="text-muted text-xl">{randomMessage.heading}</p>
+              <p className="text-muted text-base">
+                {randomMessage.description}
+              </p>
+            </div>
           </div>
-        </div>
+        )
       )}
 
       {!isPending &&

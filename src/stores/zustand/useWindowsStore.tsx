@@ -108,7 +108,7 @@ const useWindowsStore = create<IWindowsStore>((set, get) => ({
     saper: false,
     loginForm: false,
     spotify: false,
-    habitTracker: true,
+    habitTracker: false,
 
     //modals
     soundFX: false,
