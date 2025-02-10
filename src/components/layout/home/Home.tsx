@@ -17,6 +17,7 @@ import Onboarding from "../onboarding/Onboarding";
 import useAppStore from "@/stores/zustand/useAppStore";
 import Main from "../main/Main";
 import useAppLoading from "@/hooks/app/useAppLoading";
+import TipTap from "../../modules/Journal/RichTextEditor";
 
 const Home = () => {
   const { rootRef, rootFontFamily } = useRootRef();
@@ -39,13 +40,10 @@ const Home = () => {
 
   const { onReady: onVideoReady } = useVideoPlayer();
 
-  const {
-    onReady: onAudioReady,
-    handlePlayPause: handleAudioPlayPause,
-  } = useAudioPlayer();
+  const { onReady: onAudioReady, handlePlayPause: handleAudioPlayPause } =
+    useAudioPlayer();
 
-  const {isAppLoading} = useAppLoading()
-
+  const { isAppLoading } = useAppLoading();
 
   useLayoutEffect(() => {
     updateCSSVariables();
@@ -94,7 +92,7 @@ const Home = () => {
       unselectable="on"
       ref={rootRef}
     >
-      {!isOnboarding && <Main handlePlayPause={handleAudioPlayPause}/>}
+      {!isOnboarding && <Main handlePlayPause={handleAudioPlayPause} />}
       {isOnboarding && <Onboarding setIsOnboarding={setIsOnboarding} />}
 
       <div unselectable="on">

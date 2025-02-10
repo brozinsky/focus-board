@@ -90,17 +90,6 @@ const RichTextControls = () => {
             onClick={() => editor.chain().focus().setHardBreak().run()}
             icon={<Undo />}
           /> */}
-          <ButtonIcon
-            size={"sm"}
-            tooltip="Color"
-            onClick={() => editor.chain().focus().setColor("#958DF1").run()}
-            className={
-              editor.isActive("textStyle", { color: "#958DF1" })
-                ? "bg-input"
-                : ""
-            }
-            icon={<PaintBucket />}
-          />
         </div>
         <div className="flex gap-1">
           <div className="flex items-center self-stretch justify-center">
@@ -109,7 +98,13 @@ const RichTextControls = () => {
           <ButtonIcon
             size={"sm"}
             tooltip="Color"
-            onClick={() => editor.chain().focus().setColor("#00bcff").run()}
+            onClick={() => {
+              if (editor.isActive("textStyle", { color: "#00bcff" })) {
+                editor.chain().focus().unsetColor().run();
+              } else {
+                editor.chain().focus().setColor("#00bcff").run();
+              }
+            }}
             className={
               editor.isActive("textStyle", { color: "#00bcff" })
                 ? "bg-input"
@@ -120,7 +115,13 @@ const RichTextControls = () => {
           <ButtonIcon
             size={"sm"}
             tooltip="Color"
-            onClick={() => editor.chain().focus().setColor("#ec003f").run()}
+            onClick={() => {
+              if (editor.isActive("textStyle", { color: "#ec003f" })) {
+                editor.chain().focus().unsetColor().run();
+              } else {
+                editor.chain().focus().setColor("#ec003f").run();
+              }
+            }}
             className={
               editor.isActive("textStyle", { color: "#ec003f" })
                 ? "bg-input"
@@ -131,7 +132,13 @@ const RichTextControls = () => {
           <ButtonIcon
             size={"sm"}
             tooltip="Color"
-            onClick={() => editor.chain().focus().setColor("#00bc7d").run()}
+            onClick={() => {
+              if (editor.isActive("textStyle", { color: "#00bc7d" })) {
+                editor.chain().focus().unsetColor().run();
+              } else {
+                editor.chain().focus().setColor("#00bc7d").run();
+              }
+            }}
             className={
               editor.isActive("textStyle", { color: "#00bc7d" })
                 ? "bg-input"
@@ -142,7 +149,13 @@ const RichTextControls = () => {
           <ButtonIcon
             size={"sm"}
             tooltip="Color"
-            onClick={() => editor.chain().focus().setColor("#958DF1").run()}
+            onClick={() => {
+              if (editor.isActive("textStyle", { color: "#958DF1" })) {
+                editor.chain().focus().unsetColor().run();
+              } else {
+                editor.chain().focus().setColor("#958DF1").run();
+              }
+            }}
             className={
               editor.isActive("textStyle", { color: "#958DF1" })
                 ? "bg-input"
