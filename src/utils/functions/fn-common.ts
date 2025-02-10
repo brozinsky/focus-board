@@ -48,3 +48,6 @@ export const extractSpotifyPlaylistId = (url: string): string | null => {
   const match = url.match(/playlist\/([a-zA-Z0-9]+)(\?|$)/);
   return match ? match[1] : null;
 };
+
+export const dateToString = (date: string) =>
+  new Date(date).toISOString().split("T")[0];
