@@ -22,7 +22,7 @@ const AnimatedWallpapers = ({ grid = "md" }: { grid?: "sm" | "md" }) => {
     usePlayerStore();
   const { isLoggedIn } = useAuthStore();
 
-  const isDisabled = !isLoggedIn;
+  const isDisabled = false;
 
   const handleBgVideoClick = (value: string) => {
     activeScene !== "bg-video" && setActiveScene("bg-video");

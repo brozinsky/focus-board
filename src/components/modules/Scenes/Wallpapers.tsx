@@ -22,7 +22,7 @@ const Wallpapers = ({ grid = "md" }: { grid?: "sm" | "md" }) => {
     usePlayerStore();
   const { isLoggedIn } = useAuthStore();
 
-  const isDisabled = !isLoggedIn;
+  const isDisabled = false;
 
   const handleWallpaperClick = (value: string) => {
     activeScene !== "wallpaper" && setActiveScene("wallpaper");

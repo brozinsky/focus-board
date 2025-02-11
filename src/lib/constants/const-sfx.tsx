@@ -59,7 +59,7 @@ export const SFX_AUDIO: TSoundFX[] = [
     audio: futureCityMP3,
     name: "Future city",
     isActive: false,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: "storm",
@@ -67,7 +67,7 @@ export const SFX_AUDIO: TSoundFX[] = [
     audio: rainMP3,
     name: "Storm",
     isActive: false,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: "coffee-shop",
@@ -75,7 +75,7 @@ export const SFX_AUDIO: TSoundFX[] = [
     audio: cafeMP3,
     name: "Coffee shop",
     isActive: false,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: "campfire",
@@ -83,7 +83,7 @@ export const SFX_AUDIO: TSoundFX[] = [
     audio: campfireMP3,
     name: "Campfire",
     isActive: false,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: "city",
@@ -91,6 +91,6 @@ export const SFX_AUDIO: TSoundFX[] = [
     audio: cityMP3,
     name: "City",
     isActive: false,
-    isPremium: true,
+    isPremium: false,
   },
 ];

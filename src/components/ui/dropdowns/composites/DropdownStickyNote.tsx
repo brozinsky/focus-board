@@ -28,7 +28,13 @@ const DropdownStickyNote = () => {
   return (
     <Dropdown
       position={"top"}
-      trigger={<ButtonIcon icon={<NotesSVG />} tooltip={"Sticky notes"} />}
+      trigger={
+        <ButtonIcon
+          component="div"
+          icon={<NotesSVG />}
+          tooltip={"Sticky notes"}
+        />
+      }
     >
       <div className="flex flex-col gap-3 p-4">
         <div className="text-xl">Sticky notes</div>

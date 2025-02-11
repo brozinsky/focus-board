@@ -1,3 +1,4 @@
+import { initCurrentAudio, initWallpaper } from "@/lib/constants/cons-init";
 import { ICurrentVideo, TActiveScene, TAudioSource } from "@/types/query-types";
 import {
   getFromLocalStorage,
@@ -37,13 +38,13 @@ interface IState {
 }
 
 const usePlayerStore = create<IState>((set) => ({
-  audioSource: getFromLocalStorage("audioSource", "yt"),
-  activeScene: getFromLocalStorage("activeScene", "yt"),
+  audioSource: getFromLocalStorage("audioSource", "youtube"),
+  activeScene: getFromLocalStorage("activeScene", "wallpaper"),
   currentVideo: getFromLocalStorage("currentVideo", null),
   // currentVideo: null,
-  currentBgVideoId: getFromLocalStorage("currentBgVideoId", null),
+  currentBgVideoId: getFromLocalStorage("currentBgVideoId", initWallpaper),
   // currentBgVideoId: null,
-  currentAudio: getFromLocalStorage("currentAudio", null),
+  currentAudio: getFromLocalStorage("currentAudio", initCurrentAudio),
   // currentAudio: null,
   volumeVideo: getFromLocalStorage("volumeVideo", 50),
   volumeAudio: getFromLocalStorage("volumeAudio", 50),

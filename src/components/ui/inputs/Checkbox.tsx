@@ -70,7 +70,7 @@ const Checkbox = ({
           ref={ref}
         />
       </VisuallyHidden>
-      <div className={cn(checkboxClassName, "mt-1.5")} aria-hidden="true">
+      <div className={cn(checkboxClassName, "mt-0")} aria-hidden="true">
         {hasRendered && (
           <svg className={svgClassName} viewBox="0 0 18 18">
             <polyline

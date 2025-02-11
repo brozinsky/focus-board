@@ -25,9 +25,6 @@ export default function Photos() {
       setPolaroids(_items);
     }
   }
-  useEffect(() => {
-    console.log(polaroids);
-  }, [polaroids]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -36,10 +33,6 @@ export default function Photos() {
       },
     })
   );
-
-  useEffect(() => {
-    console.log(polaroids);
-  }, [polaroids]);
 
   if (!arePhotosVisible) {
     return null;

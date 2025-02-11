@@ -117,18 +117,6 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           </div> */}
         </div>
         <div className="panel__group">
-          <Dialog>
-            <DialogTrigger>Open</DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Are you absolutely sure?</DialogTitle>
-                <DialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
-                </DialogDescription>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
           {/* <button
             onClick={() => {
               toast({
@@ -140,11 +128,14 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           >
             Toast test
           </button> */}
-          <OnboardingDialog />
+
+          {/* <OnboardingDialog /> */}
+
           <Dropdown
             position={"top"}
             trigger={
               <ButtonIcon
+                component={"div"}
                 icon={arePhotosVisible ? <CameraSVG /> : <CameraOffSVG />}
                 tooltip={"Photos"}
               />
@@ -172,7 +163,11 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           <Dropdown
             position={"top"}
             trigger={
-              <ButtonIcon icon={<GameControllerSVG />} tooltip={"Games"} />
+              <ButtonIcon
+                component={"div"}
+                icon={<GameControllerSVG />}
+                tooltip={"Games"}
+              />
             }
           >
             <div className="flex flex-col gap-3 p-4">
@@ -205,6 +200,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
           <DropdownStickyNote />
           <ButtonIcon
+            disabled
             onClick={() => setIsOpen("habitTracker", !isOpen.habitTracker)}
             icon={<ClipboardCheck />}
             tooltip={"Habit tracker"}
