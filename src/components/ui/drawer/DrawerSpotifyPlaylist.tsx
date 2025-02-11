@@ -25,14 +25,11 @@ import { TAudioSource } from "@/types/query-types";
 const DrawerSpotifyPlaylist = () => {
   const { audioSource, setAudioSource } = usePlayerStore();
 
-  useEffect(() => {
-    console.log(audioSource);
-  }, [audioSource]);
-
   return (
     <Drawer direction="right">
       <DrawerTrigger>
         <ButtonIcon
+          component="div"
           onClick={() => null}
           icon={<MusicNoteSVG />}
           tooltip={"Playlist"}

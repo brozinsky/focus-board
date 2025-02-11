@@ -10,7 +10,7 @@ interface IProps {
 
 const TimeInput: React.FC<IProps> = ({ id, label, value, onChange }) => {
   return (
-    <div className="flex flex-row justify-between">
+    <div className="flex flex-row justify-between items-center">
       <label className="block mb-2 items-end" htmlFor={id}>
         {label}
       </label>

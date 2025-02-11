@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/inputs/Input";
 import ButtonLoginSocial from "@/components/ui/buttons/ButtonLoginSocial";
 import { supabaseClient } from "@/api/client";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
+import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
 
 const LoginForm = ({ setPage }: { setPage: any }) => {
   const [email, setEmail] = useState("");
@@ -10,19 +11,23 @@ const LoginForm = ({ setPage }: { setPage: any }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const { login } = useAuthStore();
+
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      const { error } = await supabaseClient.auth.signInWithPassword({
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
         email,
         password,
       });
+
       if (error) {
         setError(error.message);
-      } else {
+      } else if (data.user) {
+        login(data.user);
         console.log("Login successful");
       }
     } catch (error: any) {
@@ -97,7 +102,7 @@ const LoginForm = ({ setPage }: { setPage: any }) => {
         </div>
         <button
           type="submit"
-          className="w-full border border-primary bg-primary text-foreground-primary font-medium glass-blur rounded-lg px-4 py-3 transition"
+          className="w-full border border-primary bg-primary hover:opacity-80 text-foreground-primary font-medium glass-blur rounded-lg px-4 py-3 transition"
           disabled={loading}
         >
           {loading ? <LoadingSpinner /> : "Log in"}

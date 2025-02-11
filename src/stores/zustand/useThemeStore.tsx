@@ -18,7 +18,7 @@ interface ISceneStore {
 }
 
 const useThemeStore = create<ISceneStore>((set, get) => ({
-  colorTheme: getFromLocalStorage("colorTheme", themeColors.emerald),
+  colorTheme: getFromLocalStorage("colorTheme", themeColors.neutral),
   themeStyle: getFromLocalStorage("themeStyle", "glass"),
   uiStyle: getFromLocalStorage("uiStyle", "ghost"),
   setColorTheme: (value) => {

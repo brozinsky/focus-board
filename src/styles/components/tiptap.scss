@@ -1,0 +1,60 @@
+.tiptap {
+  height: 100%;
+  &:focus {
+    outline: none;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      @apply py-1 pl-6;
+      position: relative;
+
+      &::before {
+        @apply w-1.5 h-1.5 bg-foreground-muted absolute left-0 inline-block;
+        content: "";
+        top: 0.75rem;
+        display: inline-block;
+        border-radius: 9999px;
+        --tw-bg-opacity: 1;
+      }
+    }
+  }
+
+  ol {
+    list-style: none;
+    counter-reset: list-counter;
+
+    li {
+      @apply py-1 pl-6;
+      position: relative;
+      counter-increment: list-counter;
+
+      &::before {
+        @apply w-3 h-2 absolute left-0 inline-block font-semibold;
+        content: counter(list-counter) ".";
+        top: 0.25rem;
+        display: inline-block;
+        border-radius: 9999px;
+        --tw-bg-opacity: 1;
+      }
+    }
+  }
+
+  blockquote {
+    @apply relative p-6 my-4 border-l-4 border-foreground rounded-lg;
+    quotes: "\201C""\201D""\2018""\2019";
+    &:before {
+      @apply text-foreground-muted absolute left-2 top-11 opacity-30;
+      content: open-quote;
+      font-size: 6rem;
+      line-height: 0.1em;
+      margin-right: 0.25em;
+      vertical-align: -0.4em;
+    }
+    p {
+      @apply text-xl italic;
+    }
+  }
+}

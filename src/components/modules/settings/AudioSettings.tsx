@@ -89,8 +89,8 @@ const AudioSettings = () => {
         <div>Active sound effects</div>
         <div>
           <div className="grid grid-cols-3 gap-2">
-            {SFX_AUDIO.map(({ name, id }) => {
-              return <FxItem key={id} id={id} name={name} variant="md" />;
+            {SFX_AUDIO.map(({ name, id, isPremium }) => {
+              return <FxItem key={id} id={id} name={name} variant="md" isPremium={isPremium}/>;
             })}
           </div>
         </div>

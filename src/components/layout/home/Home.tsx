@@ -16,6 +16,8 @@ import useRootRef from "@/hooks/useRootRef";
 import Onboarding from "../onboarding/Onboarding";
 import useAppStore from "@/stores/zustand/useAppStore";
 import Main from "../main/Main";
+import useAppLoading from "@/hooks/app/useAppLoading";
+import TipTap from "../../modules/Journal/RichTextEditor";
 
 const Home = () => {
   const { rootRef, rootFontFamily } = useRootRef();
@@ -38,13 +40,10 @@ const Home = () => {
 
   const { onReady: onVideoReady } = useVideoPlayer();
 
-  const {
-    onReady: onAudioReady,
-    isAudioReady,
-    handlePlayPause: handleAudioPlayPause,
-  } = useAudioPlayer();
+  const { onReady: onAudioReady, handlePlayPause: handleAudioPlayPause } =
+    useAudioPlayer();
 
-  const isAppLoading = currentAudio && !isAudioReady && audioSource !== "spotify";
+  const { isAppLoading } = useAppLoading();
 
   useLayoutEffect(() => {
     updateCSSVariables();
@@ -93,8 +92,8 @@ const Home = () => {
       unselectable="on"
       ref={rootRef}
     >
-      {!isOnboarding && <Main />}
-      {isOnboarding && <Onboarding setIsOnboarding={setIsOnboarding} />}
+      {<Main handlePlayPause={handleAudioPlayPause} />}
+      {/* {isOnboarding && <Onboarding setIsOnboarding={setIsOnboarding} />} */}
 
       <div unselectable="on">
         {!isOnboarding && activeScene === "yt" && currentVideo?.videoId && (
@@ -118,12 +117,12 @@ const Home = () => {
           <BgWallpaper id={currentBgVideoId} />
         )}
 
-        {!isOnboarding && (
+        {
           <>
             <OverlayWelcome isLoading={isAppLoading} />
             <Overlay />
           </>
-        )}
+        }
         {/* <DevLogger /> */}
       </div>
     </div>

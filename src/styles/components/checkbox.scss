@@ -24,6 +24,7 @@
   }
   &__label {
     @apply text-foreground select-none cursor-pointer;
+    line-height: 1.25rem;
     &--disabled {
       @apply select-none opacity-50;
     }

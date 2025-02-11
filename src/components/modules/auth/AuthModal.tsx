@@ -9,25 +9,25 @@ import RegisterForm from "./RegisterForm";
 import { supabaseClient } from "@/api/client";
 import ForgotPassword from "./ResetPassword";
 import ResetPassword from "./ResetPassword";
+import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import Button from "@/components/ui/buttons/Button";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avaar/Avatar";
 
 const AuthModal = () => {
   const { setIsOpen, isOpen } = useWindowsStore();
   const { themeStyle } = useThemeStore();
-  const [page, setPage] = useState<"login" | "register" | "forgotPassword">("login");
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
-  useEffect(() => {
-    supabaseClient.auth.onAuthStateChange((_, session) => {
-      if (session?.user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    });
-  }, []);
+  const [page, setPage] = useState<"login" | "register" | "forgotPassword">(
+    "login"
+  );
+  const { isLoggedIn, logout, user } = useAuthStore();
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
+    logout();
     if (error) {
       console.error("Error logging out:", error.message);
     } else {
@@ -60,13 +60,33 @@ const AuthModal = () => {
         {!isLoggedIn && page === "register" && (
           <RegisterForm setPage={setPage} />
         )}
-         {!isLoggedIn && page === "forgotPassword" && (
+        {!isLoggedIn && page === "forgotPassword" && (
           <ResetPassword setPage={setPage} />
         )}
         {isLoggedIn && (
           <div className="flex flex-col gap-4 p-8 items-center justify-center">
-            <div>logged in! </div>
-            <button onClick={handleLogout}>Log out</button>
+            <Avatar
+              className={
+                "w-20 h-20 bg-primary text-foreground-primary font-medium text-4xl"
+              }
+            >
+              <AvatarImage src={""} alt={user?.email || "User"} />
+              <AvatarFallback>
+                {user?.email?.slice(0, 1).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <div className="gap-1 flex flex-col">
+              <p className="text-sm text-center">{user?.email}</p>
+              {user?.confirmed_at && (
+                <p className="text-sm text-center">
+                  Member since{" "}
+                  {new Intl.DateTimeFormat("en-GB").format(
+                    new Date(user.confirmed_at)
+                  )}
+                </p>
+              )}
+            </div>
+            <Button onClick={handleLogout}>Log out</Button>
           </div>
         )}
       </motion.div>

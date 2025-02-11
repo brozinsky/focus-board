@@ -12,6 +12,7 @@ const ButtonDelete = ({
 }) => {
   return (
     <ButtonIcon
+      type="button"
       className={cn(
         "group/delete absolute -bottom-12 left-2 bg-background hover:bg-red-500 hover:opacity-100 ",
         !isEditing && "group-hover/panel:opacity-100 opacity-0"

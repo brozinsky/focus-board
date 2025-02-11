@@ -6,21 +6,31 @@ import useWindowsStore from "@/stores/zustand/useWindowsStore";
 interface IProps {
   isLoading: boolean;
   isActive: boolean;
+  isDisabled: boolean;
   onClick: () => void;
   icon: ReactNode;
   tooltip: string;
 }
 
-const ButtonFX = ({ tooltip, isActive, isLoading, onClick, icon }: IProps) => {
+const ButtonFX = ({
+  tooltip,
+  isActive,
+  isLoading,
+  onClick,
+  icon,
+  isDisabled = false,
+}: IProps) => {
   const { isOpen } = useWindowsStore();
 
   return (
     <button
+      disabled={isDisabled}
       title={tooltip}
       onClick={onClick}
       className={cn(
         !isActive && "opacity-60",
-        "hover:bg-white/20 transition hover:opacity-100 h-10 w-10 flex items-center justify-center p-2 rounded-md"
+        isDisabled ? "!opacity-20" : "hover:opacity-100 hover:bg-white/20",
+        "transition h-10 w-10 flex items-center justify-center p-2 rounded-md"
       )}
     >
       {isLoading && !isOpen.soundFXFirstOpen ? (

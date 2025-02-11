@@ -89,7 +89,7 @@
     }
   }
   &.disabled {
-    @apply pointer-events-none cursor-default opacity-80;
+    @apply pointer-events-none cursor-default opacity-40;
   }
 }
 .button-dropdown {

@@ -1,13 +1,10 @@
 import Panel from "@/components/modules/Player/Panel";
-import useAudioPlayer from "@/hooks/useAudioPlayer";
 import Windows from "./Windows";
 
-const Main = () => {
-  const { handlePlayPause: handleAudioPlayPause } = useAudioPlayer();
-
+const Main = ({ handlePlayPause }: { handlePlayPause: () => void }) => {
   return (
     <>
-      <Panel handlePlayPause={handleAudioPlayPause} />
+      <Panel handlePlayPause={handlePlayPause} />
       <Windows />
     </>
   );

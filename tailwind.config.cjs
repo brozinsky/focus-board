@@ -42,6 +42,7 @@ module.exports = {
           900: "var(--color-text-900)",
         },
         "dark-blue": "var(--color-dark-blue)",
+        "premium": "var(--color-premium)"
       },
       borderRadius: {
         lg: `var(--radius)`,

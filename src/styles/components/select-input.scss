@@ -27,6 +27,9 @@
   &__label {
     @apply mb-3 text-foreground;
   }
+  &--disabled {
+    opacity: 50%;
+  }
   &--ghost,
   &--outlined {
     .select-input {

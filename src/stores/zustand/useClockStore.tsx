@@ -18,7 +18,7 @@ interface IClockStore {
 export const useClockStore = create<IClockStore>((set) => ({
   date: new Date(),
   timeFormat: getFromLocalStorage("timeFormat", "24"),
-  clockPosition: getFromLocalStorage("clockPosition", "top-right"),
+  clockPosition: getFromLocalStorage("clockPosition", "center"),
   isSecondsVisible: getFromLocalStorage("isSecondsVisible", false),
   setIsSecondsVisible: (value) => {
     setToLocalStorage("isSecondsVisible", value);

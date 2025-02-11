@@ -21,6 +21,7 @@ const DropdownVolume = ({
       position={position}
       trigger={
         <ButtonIcon
+          component="div"
           icon={volumeAudio > 0 ? <VolumeLoIconSVG /> : <VolumeMuteIconSVG />}
           tooltip={"Volume"}
           disabled={disabled}

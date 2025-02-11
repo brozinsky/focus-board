@@ -20,6 +20,7 @@ export const fontFamilyExt = [
 export const themeColors: TThemeColors = {
   neutral: {
     name: "Neutral",
+    isPremium: false,
     colors: {
       primary: "#e1e7ef",
       secondary: "#e1e7ef4d",
@@ -30,44 +31,9 @@ export const themeColors: TThemeColors = {
       input: "#4D545C",
     },
   },
-  blue: {
-    name: "Blue",
-    colors: {
-      primary: "#2196F3",
-      secondary: "#2196f34d",
-      foreground: "#ccc",
-      foregroundPrimary: "#ccc",
-      foregroundMuted: "#e1e7ef93",
-      background: "#252526",
-      input: "#4D4D4D",
-    },
-  },
-  violet: {
-    name: "Violet",
-    colors: {
-      primary: "#484DDF",
-      secondary: "#9a3df233",
-      foreground: "#EEEEEE",
-      foregroundPrimary: "#EEEEEE",
-      foregroundMuted: "#EEEEEE",
-      background: "#1F1F21",
-      input: "#363638",
-    },
-  },
-  purple: {
-    name: "Purple",
-    colors: {
-      primary: "#9a3df2",
-      secondary: "#9a3df233",
-      foreground: "#ccc2d6",
-      foregroundPrimary: "#ccc2d6",
-      foregroundMuted: "#e1e7ef93",
-      background: "#210f2e",
-      input: "#59576B",
-    },
-  },
   emerald: {
     name: "Emerald",
+    isPremium: false,
     colors: {
       primary: "#22c55e",
       secondary: "#ccc2d633",
@@ -80,6 +46,7 @@ export const themeColors: TThemeColors = {
   },
   orange: {
     name: "Orange",
+    isPremium: false,
     colors: {
       primary: "#FB8E31",
       secondary: "#FB8E31",
@@ -90,4 +57,47 @@ export const themeColors: TThemeColors = {
       input: "#5C5C5C",
     },
   },
+  violet: {
+    name: "Purple",
+    isPremium: true,
+    colors: {
+      primary: "#484DDF",
+      secondary: "#9a3df233",
+      foreground: "#EEEEEE",
+      foregroundPrimary: "#EEEEEE",
+      foregroundMuted: "#EEEEEE",
+      background: "#1F1F21",
+      input: "#363638",
+    },
+  },
+  purple: {
+    name: "Violet",
+    isPremium: true,
+    colors: {
+      primary: "#9a3df2",
+      secondary: "#9a3df233",
+      foreground: "#ccc2d6",
+      foregroundPrimary: "#ccc2d6",
+      foregroundMuted: "#e1e7ef93",
+      background: "#210f2e",
+      input: "#59576B",
+    },
+  },
+  blue: {
+    name: "Blue",
+    isPremium: true,
+    colors: {
+      primary: "#2196F3",
+      secondary: "#2196f34d",
+      foreground: "#ccc",
+      foregroundPrimary: "#ccc",
+      foregroundMuted: "#e1e7ef93",
+      background: "#252526",
+      input: "#4D4D4D",
+    },
+  },
+};
+
+export const ROOT_COLORS = {
+  premium: "#efbf04",
 };

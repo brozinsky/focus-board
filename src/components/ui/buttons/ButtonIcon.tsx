@@ -12,6 +12,8 @@ interface IProps {
   disabled?: boolean;
   isOpen?: boolean;
   rounded?: "square" | "circle";
+  type?: "button" | "submit" | "reset" | undefined;
+  component?: "button" | "a" | "div";
 }
 
 const ButtonIcon = ({
@@ -24,16 +26,21 @@ const ButtonIcon = ({
   className,
   variant,
   rounded = "square",
+  type = "button",
+  component = "button",
 }: IProps) => {
   const { uiStyle } = useThemeStore();
 
   const buttonVariant = variant || uiStyle;
 
+  const Component = component;
+
   return (
-    <button
+    <Component
       title={tooltip}
       onClick={onClick}
       disabled={disabled}
+      type={type}
       className={cn(
         size === "sm" && "p-1.5 h-8 w-8",
         size === "lg" && "p-4 h-18 w-18",
@@ -50,7 +57,7 @@ const ButtonIcon = ({
     >
       {icon}
       <span className="sr-only">{tooltip}</span>
-    </button>
+    </Component>
   );
 };
 
