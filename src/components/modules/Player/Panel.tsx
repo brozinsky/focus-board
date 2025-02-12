@@ -41,6 +41,7 @@ import CameraSVG from "@/components/elements/svg/icons/interface/panel/CameraSVG
 import DropdownStickyNote from "@/components/ui/dropdowns/composites/DropdownStickyNote";
 import Dropdown from "@/components/ui/dropdowns/Dropdown";
 import { ClipboardCheck } from "lucide-react";
+import DropdownPhotos from "@/components/ui/dropdowns/composites/DropdownPhotos";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -52,7 +53,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
   const { isOpen, setIsOpen } = useWindowsStore();
 
   const { toast } = useToast();
-  const { addNewPolaroid, arePhotosVisible, setArePhotosVisible } =
+  const { polaroids, addNewPolaroid, arePhotosVisible, setArePhotosVisible } =
     usePolaroidStore();
 
   return (
@@ -131,35 +132,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
 
           {/* <OnboardingDialog /> */}
 
-          <Dropdown
-            position={"top"}
-            trigger={
-              <ButtonIcon
-                component={"div"}
-                icon={arePhotosVisible ? <CameraSVG /> : <CameraOffSVG />}
-                tooltip={"Photos"}
-              />
-            }
-          >
-            <div className="flex flex-col gap-3 p-4">
-              <div className="text-xl">Photos</div>
-              <Separator className="bg-white/30" />
-              <ButtonDropdown
-                onClick={addNewPolaroid}
-                isDisabled={!arePhotosVisible}
-              >
-                + Add new photo
-              </ButtonDropdown>
-              <Checkbox
-                isDisabled={false}
-                isSelected={arePhotosVisible}
-                state={arePhotosVisible}
-                onChange={setArePhotosVisible}
-              >
-                Show photos
-              </Checkbox>
-            </div>
-          </Dropdown>
+          <DropdownPhotos />
           <Dropdown
             position={"top"}
             trigger={
