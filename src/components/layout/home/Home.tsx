@@ -96,7 +96,7 @@ const Home = () => {
       {/* {isOnboarding && <Onboarding setIsOnboarding={setIsOnboarding} />} */}
 
       <div unselectable="on">
-        {!isOnboarding && activeScene === "yt" && currentVideo?.videoId && (
+        {activeScene === "yt" && currentVideo?.videoId && (
           <YTVideo id={currentVideo.videoId} onReady={onVideoReady} />
         )}
 
@@ -109,11 +109,11 @@ const Home = () => {
               <YTAudio id={currentAudio.videoId} onReady={onAudioReady} />
             )}
 
-        {!isOnboarding && activeScene === "bg-video" && currentBgVideoId && (
+        {activeScene === "bg-video" && currentBgVideoId && (
           <BgVideo id={currentBgVideoId} />
         )}
 
-        {!isOnboarding && activeScene === "wallpaper" && currentBgVideoId && (
+        {activeScene === "wallpaper" && currentBgVideoId && (
           <BgWallpaper id={currentBgVideoId} />
         )}
 
