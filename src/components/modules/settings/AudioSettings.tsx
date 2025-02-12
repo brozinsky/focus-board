@@ -25,8 +25,8 @@ const AudioSettings = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-4">
-        <div className="mb-2">Audio source</div>
+      <div className="flex flex-col gap-2">
+        <div>Audio source</div>
         <Tabs
           defaultValue={audioSource}
           onValueChange={(value) => setAudioSource(value as TAudioSource)}
@@ -46,7 +46,7 @@ const AudioSettings = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="youtube">
-            <div className="mb-2">Audio track volume</div>
+            <div className="mt-4 mb-2">Audio track volume</div>
             <div className="flex-center gap-2 max-w-sm">
               <Button
                 label="Toggle mute"
@@ -57,7 +57,7 @@ const AudioSettings = () => {
               />
               <Volume volume={volumeAudio} handleVolumeChange={changeVolume} />
             </div>
-            <div>Current playlist</div>
+            <div className="mt-4">Current playlist</div>
             {currentAudio ? (
               <PlaylistItem
                 isHoverable={false}
@@ -90,7 +90,15 @@ const AudioSettings = () => {
         <div>
           <div className="grid grid-cols-3 gap-2">
             {SFX_AUDIO.map(({ name, id, isPremium }) => {
-              return <FxItem key={id} id={id} name={name} variant="md" isPremium={isPremium}/>;
+              return (
+                <FxItem
+                  key={id}
+                  id={id}
+                  name={name}
+                  variant="md"
+                  isPremium={isPremium}
+                />
+              );
             })}
           </div>
         </div>
