@@ -19,17 +19,17 @@ type TStore = {
 
 const usePolaroidStore = create<TStore>((set) => ({
   polaroids: getFromLocalStorage("polaroids", [
-    {
-      id: 1,
-      image: null,
-      caption: "",
-      tilt: "right",
-      sticker: null,
-      position: {
-        x: window.innerWidth / 2 - 50,
-        y: window.innerHeight / 2 - 50,
-      },
-    },
+    // {
+    //   id: 1,
+    //   image: null,
+    //   caption: "",
+    //   tilt: "right",
+    //   sticker: null,
+    //   position: {
+    //     x: window.innerWidth / 2 - 50,
+    //     y: window.innerHeight / 2 - 50,
+    //   },
+    // },
   ]),
   activeId: 1,
   setActiveId: (id) => set({ activeId: id }),
@@ -80,7 +80,7 @@ const usePolaroidStore = create<TStore>((set) => ({
     setToLocalStorage("polaroids", newPolaroids);
     set({ polaroids: newPolaroids });
   },
-  arePhotosVisible: getFromLocalStorage("arePhotosVisible", false),
+  arePhotosVisible: getFromLocalStorage("arePhotosVisible", true),
   setArePhotosVisible: (value) => {
     setToLocalStorage("arePhotosVisible", value);
     set({ arePhotosVisible: value });
