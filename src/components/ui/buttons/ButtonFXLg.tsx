@@ -30,7 +30,7 @@ const ButtonFXLg = ({
       className={cn(
         !isActive && "opacity-60",
         isDisabled ? "!opacity-20" : "hover:opacity-100 hover:bg-white/20",
-        "transition h-28 w-28 flex items-center justify-center p-2 rounded-md"
+        "transition h-16 w-16 sm:h-28 sm:w-28 flex items-center justify-center p-2 rounded-md"
       )}
     >
       {isLoading && !isOpen.soundFXFirstOpen ? (

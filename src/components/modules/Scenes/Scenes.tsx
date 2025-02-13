@@ -62,8 +62,8 @@ const Scenes = () => {
           themeStyle == "glass" && "modal__card--glass"
         )}
       >
-        <div className="grid grid-cols-[20%_80%]">
-          <div className="p-8 pr-0">
+        <div className="flex flex-col md:grid md:grid-cols-[20%_80%]">
+          <div className="p-8 md:pr-0">
             <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide">
               <SceneEditSVG /> Scene selection
             </h3>
@@ -81,16 +81,18 @@ const Scenes = () => {
           </div>
           <div className={"p-8 gap-6 flex flex-col"}>
             <div className="flex flex-col gap-1">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between">
                 <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide">
                   {activeTab === "bg-video" && "Animated Wallpapers"}
                   {activeTab === "wallpaper" && "Static Wallpapers"}
                   {activeTab === "yt" && "Youtube videos"}
                 </h3>
-                <DrawerBgSettings
-                  isDrawerOpen={isDrawerOpen}
-                  setIsDrawerOpen={setIsDrawerOpen}
-                />
+                <div className="w-fit">
+                  <DrawerBgSettings
+                    isDrawerOpen={isDrawerOpen}
+                    setIsDrawerOpen={setIsDrawerOpen}
+                  />
+                </div>
               </div>
               <Separator className="my-4 bg-white/30" />
             </div>

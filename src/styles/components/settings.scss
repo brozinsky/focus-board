@@ -1,0 +1,5 @@
+.settings {
+  &__label {
+    @apply flex flex-col sm:flex-row gap-2 justify-between max-w-[75%] sm:max-w-sm;
+  }
+}

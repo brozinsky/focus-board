@@ -126,7 +126,7 @@ const GeneralSettings = () => {
           <Switch checked={isQuoteActive} onCheckedChange={setIsQuoteActive} />
         </div>
       </div>
-      <div className="flex flex-row justify-between max-w-sm">
+      <div className="settings__label">
         <label htmlFor="time-option">Theme color</label>
         <div className="relative">
           <Select
@@ -147,7 +147,7 @@ const GeneralSettings = () => {
         <span className="bg-foreground w-8 h-8 rounded-sm"></span>
         <span className="bg-background border-white/40 border w-8 h-8 rounded-sm"></span>
       </div> */}
-      <div className="flex flex-row justify-between max-w-sm">
+      <div className="settings__label">
         <label htmlFor="time-option">Theme style</label>
         <Select
           isPremium={true}
@@ -162,7 +162,7 @@ const GeneralSettings = () => {
           }
         />
       </div>
-      <div className="flex flex-row justify-between max-w-sm">
+      <div className="settings__label">
         <label htmlFor="time-option">Button interface style</label>
         <Select
           isPremium={true}
@@ -177,7 +177,7 @@ const GeneralSettings = () => {
           }
         />
       </div>
-      <div className="flex flex-row justify-between max-w-sm">
+      <div className="settings__label">
         <label htmlFor="time-option">Font</label>
         <Select
           isPremium={true}

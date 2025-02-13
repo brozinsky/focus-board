@@ -52,16 +52,12 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
     usePlayerStore();
   const { isOpen, setIsOpen } = useWindowsStore();
 
-  const { toast } = useToast();
-  const { polaroids, addNewPolaroid, arePhotosVisible, setArePhotosVisible } =
-    usePolaroidStore();
-
   return (
     <>
       <Settings />
       <AuthModal />
       <div id="Panel" className="panel">
-        <div className="panel__group">
+        <div className="panel__group panel__group--left">
           {audioSource === "spotify" && <SpotifyPlayer />}
           {audioSource === "youtube" && (
             <>
@@ -117,7 +113,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             />
           </div> */}
         </div>
-        <div className="panel__group">
+        <div className="panel__group panel__group--right">
           {/* <button
             onClick={() => {
               toast({
@@ -155,7 +151,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
               />
             </div>
           </Dropdown>
-          <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
+          <Separator orientation="vertical-panel" className="mx-1 md:h-10 w-6 md:w-unset bg-white/20" />
           <ButtonIcon
             isOpen={isOpen.timer}
             className="relative"
@@ -170,7 +166,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             icon={!isOpen.pomodoro ? <TimerSVG /> : <TimerPlusSVG />}
             tooltip={"Pomodoro"}
           />
-          <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
+          <Separator orientation="vertical-panel" className="mx-1 md:h-10 w-6 md:w-unset bg-white/20" />
           <DropdownStickyNote />
           <ButtonIcon
             disabled
@@ -185,7 +181,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             icon={<TasksSVG />}
             tooltip={"Todo list"}
           />
-          <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
+          <Separator orientation="vertical-panel" className="mx-1 md:h-10 w-6 md:w-unset bg-white/20" />
 
           <div className="relative z-100">
             <ButtonIcon
@@ -200,7 +196,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             icon={<MixerIconSVG />}
             tooltip={"Sound effects"}
           />
-          <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
+          <Separator orientation="vertical-panel" className="mx-1 md:h-10 w-6 md:w-unset bg-white/20" />
           <ButtonIcon
             onClick={() => setIsOpen("loginForm", true)}
             icon={<UserIconSVG />}

@@ -62,7 +62,7 @@ const PomodoroSettings = () => {
     <>
       <Separator className="my-4 bg-white/30" />
       <p className="text-xl mb-2">Pomodoro</p>
-      <div className="flex flex-row justify-between max-w-sm">
+      <div className="settings__label">
         <label htmlFor="time-option">Focus / break durations (mins)</label>
         <Select
           isPremium={true}

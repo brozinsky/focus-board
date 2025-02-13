@@ -38,7 +38,7 @@ const OverlayWelcome = ({ isLoading }: { isLoading: boolean }) => {
           </motion.div>
         ) : (
           <motion.div
-            className="text-2xl text-white select-none"
+            className="text-md sm:text-2xl text-white select-none"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 2 }}

@@ -45,7 +45,7 @@ const Wallpapers = ({ grid = "md" }: { grid?: "sm" | "md" }) => {
           grid === "sm" &&
             "gap-2 grid xl:grid-cols-4 2xl:grid-cols-6 md:grid-cols-3 grid-cols-1",
           grid === "md" &&
-            "gap-8 grid xl:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
+            "gap-8 grid lg:grid-cols-3 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1"
         )}
       >
         {bgWallpapersQuery.data &&

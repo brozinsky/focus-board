@@ -29,7 +29,7 @@ const OnboardingBackgroundContent = () => {
         Next up, personalize your workspace with a background that fits your
         style.
       </p>
-      <div className="flex flex-row justify-between max-w-sm">
+      <div className="settings__label">
         <label htmlFor="time-option">Theme color</label>
         <Select
           buttonClassName="w-[160px]"

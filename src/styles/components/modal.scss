@@ -61,6 +61,9 @@
     @apply w-full max-w-[85%] h-fit rounded-xl overflow-hidden cursor-auto;
     background: var(--color-background);
     // box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    @include xl-max {
+      @apply max-w-[100%];
+    }
     &--overflow-visible {
       @apply overflow-visible;
     }

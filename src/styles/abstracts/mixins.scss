@@ -20,8 +20,18 @@ $xxxl-width: 1660px;
     @content;
   }
 }
+@mixin sm-max {
+  @media (max-width: #{$sm-width - 1}) {
+    @content;
+  }
+}
 @mixin md {
   @media (min-width: #{$md-width}) {
+    @content;
+  }
+}
+@mixin md-max {
+  @media (max-width: #{$md-width - 1}) {
     @content;
   }
 }
@@ -30,8 +40,18 @@ $xxxl-width: 1660px;
     @content;
   }
 }
+@mixin lg-max {
+  @media (max-width: #{$lg-width - 1}) {
+    @content;
+  }
+}
 @mixin xl {
   @media (min-width: #{$xl-width}) {
+    @content;
+  }
+}
+@mixin xl-max {
+  @media (max-width: #{$xl-width - 1}) {
     @content;
   }
 }
