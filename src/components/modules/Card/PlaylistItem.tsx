@@ -74,10 +74,10 @@ const PlaylistItem = ({
             Now playing
           </div>
         )}
-        <div className="text-xl tracking-wide line-clamp-2 mb-2">
+        <div className="text-md sm:text-xl text-left tracking-wide line-clamp-2 mb-2">
           {item.title}
         </div>
-        <div className="text-md tracking-wide">
+        <div className="text-base sm:text-md text-left tracking-wide">
           <div className="pr-4 group relative inline-flex items-center justify-center overflow-hidden ">
             <span>{item.videoOwnerChannelTitle}</span>
             {/* <div className="w-0 translate-x-[100%] pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-1 group-hover:opacity-100">

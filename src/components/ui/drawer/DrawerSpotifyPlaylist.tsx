@@ -21,6 +21,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs/Tabs";
 import { TAudioSource } from "@/types/query-types";
+import { ArrowLeftFromLine } from "lucide-react";
 
 const DrawerSpotifyPlaylist = () => {
   const { audioSource, setAudioSource } = usePlayerStore();
@@ -35,11 +36,21 @@ const DrawerSpotifyPlaylist = () => {
           tooltip={"Playlist"}
         />
       </DrawerTrigger>
-      <DrawerContent className="min-w-[370px] my-2 max-h-full">
+      <DrawerContent className="min-w-[300px] sm:min-w-[370px] my-2 max-h-full">
         <DrawerHeader className="max-h-full flex flex-col gap-4">
-          <DrawerTitle>Audio playlists</DrawerTitle>
+          <div className="flex gap-2 items-center">
+            <DrawerTrigger>
+              <ButtonIcon
+                size={"sm"}
+                onClick={() => null}
+                icon={<ArrowLeftFromLine />}
+                tooltip={"Fullscreen"}
+              />
+            </DrawerTrigger>
+            <DrawerTitle>Audio playlists</DrawerTitle>
+          </div>
           <Tabs
-            className="max-h-[100%] overflow-hidden"
+            className="max-h-[100%] max-w-[300px] sm:max-w-full overflow-hidden"
             defaultValue={audioSource}
             onValueChange={(value) => setAudioSource(value as TAudioSource)}
           >
