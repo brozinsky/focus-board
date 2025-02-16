@@ -14,6 +14,8 @@ import { restrictToParentElement } from "@dnd-kit/modifiers";
 import useWindowsStore, {
   createHandleDragEnd,
 } from "@/stores/zustand/useWindowsStore";
+import PomodoroMobile from "./PomodoroMobile";
+import PomodoroWindow from "./PomodoroWindow";
 
 const Pomodoro = () => {
   const soundRef = useRef<Howl | null>(null);
@@ -44,22 +46,26 @@ const Pomodoro = () => {
 
   return (
     <>
-      <div className="absolute pointer-events-none z-40 overflow-hidden top-4 right-4 left-4 bottom-4">
-        <DndContext
-          autoScroll={false}
-          modifiers={[restrictToParentElement]}
-          onDragEnd={createHandleDragEnd("pomodoro")}
-          sensors={sensors}
-        >
-          <PomodoroSm
-            styles={{
-              position: "absolute",
-              left: `${windowPosition.pomodoro.x}px`,
-              top: `${windowPosition.pomodoro.y}px`,
-            }}
-            setIsSettingsOpen={setIsSettingsOpen}
-          />
-        </DndContext>
+      <div className="absolute md:pointer-events-none z-40 overflow-hidden top-4 right-4 left-4 bottom-4">
+        {window.innerWidth >= 768 ? (
+          <DndContext
+            autoScroll={false}
+            modifiers={[restrictToParentElement]}
+            onDragEnd={createHandleDragEnd("pomodoro")}
+            sensors={sensors}
+          >
+            <PomodoroWindow
+              styles={{
+                position: "absolute",
+                left: `${windowPosition.pomodoro.x}px`,
+                top: `${windowPosition.pomodoro.y}px`,
+              }}
+              setIsSettingsOpen={setIsSettingsOpen}
+            />
+          </DndContext>
+        ) : (
+          <PomodoroMobile />
+        )}
       </div>
       <PomodoroSettings
         handleOptionChange={setTimeOption}

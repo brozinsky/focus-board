@@ -42,6 +42,7 @@ import DropdownStickyNote from "@/components/ui/dropdowns/composites/DropdownSti
 import Dropdown from "@/components/ui/dropdowns/Dropdown";
 import { ClipboardCheck } from "lucide-react";
 import DropdownPhotos from "@/components/ui/dropdowns/composites/DropdownPhotos";
+import DropdownGames from "@/components/ui/dropdowns/composites/DropdownGames";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -128,30 +129,16 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
 
           {/* <OnboardingDialog /> */}
 
-          <DropdownPhotos />
-          <Dropdown
-            position={"top"}
-            trigger={
-              <ButtonIcon
-                component={"div"}
-                icon={<GameControllerSVG />}
-                tooltip={"Games"}
-              />
-            }
-          >
-            <div className="flex flex-col gap-3 p-4">
-              <div className="text-xl">Games</div>
-              <Separator className="bg-white/30" />
-              <ButtonIcon
-                isOpen={isOpen.saper}
-                className="relative"
-                onClick={() => setIsOpen("saper", !isOpen.saper)}
-                icon={<FlagSVG />}
-                tooltip={"Minesweeper"}
-              />
-            </div>
-          </Dropdown>
-          <Separator orientation="vertical-panel" className="mx-1 md:h-10 w-6 md:w-unset bg-white/20" />
+          <div className="hidden md:block">
+            <DropdownPhotos />
+          </div>
+          <div className="hidden md:block">
+            <DropdownGames />
+          </div>
+          <Separator
+            orientation="vertical-panel"
+            className="hidden md:block mx-1 md:h-10 w-6 md:w-unset bg-white/20"
+          />
           <ButtonIcon
             isOpen={isOpen.timer}
             className="relative"
@@ -166,8 +153,13 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             icon={!isOpen.pomodoro ? <TimerSVG /> : <TimerPlusSVG />}
             tooltip={"Pomodoro"}
           />
-          <Separator orientation="vertical-panel" className="mx-1 md:h-10 w-6 md:w-unset bg-white/20" />
-          <DropdownStickyNote />
+          <Separator
+            orientation="vertical-panel"
+            className="mx-1 md:h-10 w-6 md:w-unset bg-white/20"
+          />
+          <div className="hidden md:block">
+            <DropdownStickyNote />
+          </div>
           <ButtonIcon
             disabled
             onClick={() => setIsOpen("habitTracker", !isOpen.habitTracker)}
@@ -181,7 +173,10 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             icon={<TasksSVG />}
             tooltip={"Todo list"}
           />
-          <Separator orientation="vertical-panel" className="mx-1 md:h-10 w-6 md:w-unset bg-white/20" />
+          <Separator
+            orientation="vertical-panel"
+            className="mx-1 md:h-10 w-6 md:w-unset bg-white/20"
+          />
 
           <div className="relative z-100">
             <ButtonIcon
@@ -196,7 +191,10 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             icon={<MixerIconSVG />}
             tooltip={"Sound effects"}
           />
-          <Separator orientation="vertical-panel" className="mx-1 md:h-10 w-6 md:w-unset bg-white/20" />
+          <Separator
+            orientation="vertical-panel"
+            className="mx-1 md:h-10 w-6 md:w-unset bg-white/20"
+          />
           <ButtonIcon
             onClick={() => setIsOpen("loginForm", true)}
             icon={<UserIconSVG />}
