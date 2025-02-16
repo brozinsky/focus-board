@@ -1,61 +1,71 @@
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/inputs/Input";
-import ButtonLoginSocial from "@/components/ui/buttons/ButtonLoginSocial";
 import { supabaseClient } from "@/api/client";
-import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import { cn } from "@/lib/utils";
+import Button from "@/components/ui/buttons/Button";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z.string().min(1, "Required").email("Invalid format"),
+  password: z.string().min(1, "Required"),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
 
 const LoginForm = ({ setPage }: { setPage: any }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
   const { login } = useAuthStore();
 
-  const handleEmailLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+  });
 
+  const handleEmailLogin = async (data: LoginFormValues) => {
     try {
-      const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password,
-      });
+      const { data: response, error } =
+        await supabaseClient.auth.signInWithPassword({
+          email: data.email,
+          password: data.password,
+        });
 
       if (error) {
-        setError(error.message);
-      } else if (data.user) {
-        login(data.user);
+        throw new Error(error.message);
+      }
+
+      if (response.user) {
+        login(response.user);
         console.log("Login successful");
       }
     } catch (error: any) {
-      setError(error.message || "An error occurred during login");
-    } finally {
-      setLoading(false);
+      console.error(error.message || "An error occurred during login");
     }
   };
 
-  const handleOAuthLogin = async (provider: "google" | "facebook") => {
-    setLoading(true);
-    setError(null);
+  // const handleOAuthLogin = async (provider: "google" | "facebook") => {
+  //   setLoading(true);
+  //   setError(null);
 
-    try {
-      const { data, error } = await supabaseClient.auth.signInWithOAuth({
-        provider,
-      });
-      if (error) {
-        setError(error.message);
-      } else {
-        console.log(`${provider} login successful:`, data);
-      }
-    } catch (error: any) {
-      setError(error.message || `An error occurred during ${provider} login`);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //   try {
+  //     const { data, error } = await supabaseClient.auth.signInWithOAuth({
+  //       provider,
+  //     });
+  //     if (error) {
+  //       setError(error.message);
+  //     } else {
+  //       console.log(`${provider} login successful:`, data);
+  //     }
+  //   } catch (error: any) {
+  //     setError(error.message || `An error occurred during ${provider} login`);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className={"p-8 gap-6 flex flex-col "}>
@@ -64,7 +74,7 @@ const LoginForm = ({ setPage }: { setPage: any }) => {
           Log in to your account
         </h2>
       </div>
-      <form className="space-y-6" onSubmit={handleEmailLogin}>
+      <form className="space-y-6" onSubmit={handleSubmit(handleEmailLogin)}>
         <div>
           <label className="block mb-2 items-end" htmlFor="email">
             Email
@@ -73,10 +83,16 @@ const LoginForm = ({ setPage }: { setPage: any }) => {
             id="email"
             className="w-full"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            autoComplete="off"
+            disabled={isSubmitting}
+            onInvalid={(e) => e.preventDefault()}
+            {...register("email")}
           />
+          {errors.email && (
+            <p className="text-red-500 text-sm mt-2 ml-1">
+              {errors.email.message}
+            </p>
+          )}
         </div>
         <div>
           <label className="block mb-2 items-end" htmlFor="password">
@@ -86,32 +102,50 @@ const LoginForm = ({ setPage }: { setPage: any }) => {
             id="password"
             className="w-full"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
+            autoComplete="off"
+            disabled={isSubmitting}
+            onInvalid={(e) => e.preventDefault()}
+            {...register("password")}
           />
+          {errors.password && (
+            <p className="text-red-500 text-sm mt-2 ml-1">
+              {errors.password.message}
+            </p>
+          )}
         </div>
-        {error && <div className="text-red-500">{error}</div>}
         <div className="flex items-center justify-between">
           <button
+            type="button"
+            disabled={isSubmitting}
             onClick={() => setPage("forgotPassword")}
-            className="ml-auto text-sm text-foreground hover:underline"
+            className={cn(
+              "ml-auto text-sm text-foreground",
+              isSubmitting ? "opacity-50" : "hover:underline"
+            )}
           >
             Forgot password?
           </button>
         </div>
-        <button
+        <Button
           type="submit"
-          className="w-full border border-primary bg-primary hover:opacity-80 text-foreground-primary font-medium glass-blur rounded-lg px-4 py-3 transition"
-          disabled={loading}
+          variant="primary"
+          size="md"
+          width="full"
+          isLoading={isSubmitting}
+          className="mx-auto w-full"
         >
-          {loading ? <LoadingSpinner /> : "Log in"}
-        </button>
+          Log in
+        </Button>
         <p className="text-sm font-light text-foreground">
           Don’t have an account yet?{" "}
           <button
+            type="button"
             onClick={() => setPage("register")}
-            className="font-medium text-primary-600 hover:underline"
+            disabled={isSubmitting}
+            className={cn(
+              "font-medium text-primary-600",
+              isSubmitting ? "opacity-50" : "hover:underline"
+            )}
           >
             Sign up
           </button>

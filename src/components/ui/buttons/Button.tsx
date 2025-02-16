@@ -35,6 +35,7 @@ type TProps = {
   isDiv?: boolean;
   isPremium?: boolean;
   type?: "submit" | "button";
+  width?: "full" | null | undefined;
 };
 
 type TLoadingWrapper = {
@@ -59,6 +60,7 @@ export default function Button({
   label,
   isDiv = false,
   type = "submit",
+  width,
 }: TProps) {
   const { isLoggedIn } = useAuthStore();
 
@@ -81,6 +83,9 @@ export default function Button({
       size: {
         md: "button--md",
         sm: "button--sm",
+      },
+      width: {
+        full: "button--full",
       },
       isLoading: {
         true: "bg-emerald-700 !cursor-default",
@@ -120,6 +125,7 @@ export default function Button({
         shape,
         size,
         isLoading,
+        width,
         isDisabled: !isLoggedIn && isPremium,
       })}
     >

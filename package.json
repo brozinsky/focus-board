@@ -20,6 +20,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@headlessui/react": "^2.0.4",
     "@hookform/devtools": "^4.3.3",
+    "@hookform/resolvers": "^4.1.0",
     "@mantine/core": "^7.1.7",
     "@mantine/hooks": "^7.1.7",
     "@million/lint": "^0.0.73",
@@ -92,6 +93,7 @@
     "transitions-kit": "^1.2.3",
     "vaul": "^1.1.0",
     "vercel": "^32.3.0",
+    "zod": "^3.24.2",
     "zustand": "^4.4.1"
   },
   "devDependencies": {

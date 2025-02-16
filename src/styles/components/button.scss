@@ -27,6 +27,9 @@
   &--md {
     @apply px-6 py-3 h-10;
   }
+  &--full {
+    @apply w-full;
+  }
 }
 
 .button-settings {
