@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import LogoSVG from "@/components/elements/svg/icons/LogoSVG";
+import { goFullscreen } from "@/utils/functions/fn-common";
 
 const OverlayWelcome = ({ isLoading }: { isLoading: boolean }) => {
   const [isFadingOut, setIsFadingOut] = useState(false);
@@ -8,6 +9,9 @@ const OverlayWelcome = ({ isLoading }: { isLoading: boolean }) => {
 
   const handleFadeOut = () => {
     !isLoading && setIsFadingOut(true);
+    if (window.innerWidth < 768) {
+      goFullscreen();
+    }
   };
 
   const handleAnimationComplete = () => {
