@@ -43,7 +43,7 @@ const Timer = () => {
         <DndContext
           autoScroll={false}
           modifiers={[restrictToParentElement]}
-          onDragEnd={createHandleDragEnd("pomodoro")}
+          onDragEnd={createHandleDragEnd("timer")}
           sensors={sensors}
         >
           <WindowTimer
