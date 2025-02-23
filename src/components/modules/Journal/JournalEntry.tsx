@@ -18,8 +18,8 @@ const JournalEntry = ({
     <div
       onClick={() => setEntry(id)}
       className={cn(
-        "px-4 py-2 bg-input rounded-sm cursor-pointer opacity-60 transition duration-200 hover:opacity-100",
-        active && "opacity-100"
+        "px-4 py-2 bg-input rounded-sm cursor-pointer opacity-40 transition duration-200 hover:opacity-90",
+        active && "opacity-90"
       )}
     >
       <div className="text-lg mb-2 truncate">{title}</div>
