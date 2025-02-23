@@ -13,6 +13,7 @@ export type TWindowName =
   | "soundFXFirstOpen"
   | "playlist"
   | "scene"
+  | "journal"
   | "todoList"
   | "habitTracker"
   | "spotify"
@@ -46,6 +47,7 @@ interface IWindowsStore {
     loginForm: boolean;
     spotify: boolean;
     habitTracker: boolean;
+    journal: boolean;
 
     //modals
     soundFX: boolean;
@@ -109,6 +111,7 @@ const useWindowsStore = create<IWindowsStore>((set, get) => ({
     loginForm: false,
     spotify: false,
     habitTracker: false,
+    journal: false,
 
     //modals
     soundFX: false,
