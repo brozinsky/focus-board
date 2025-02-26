@@ -8,33 +8,9 @@ import { useJournalStore } from "@/stores/zustand/useJournalStore";
 import { useEffect } from "react";
 
 const JournalLeftPanel = ({ data }) => {
-  const {
-    content,
-    editedContent,
-    journalPrompt,
-    setContent,
-    setEditedContent,
-    setJournalPrompt,
-    activeEntry,
-    setActiveEntry,
-  } = useJournalStore();
-  //   const [content, setContent] = useState("");
-  //   const [editedContent, setEditedContent] = useState<string | null>(null);
-
-  //   const { data, isPending, refetch, isRefetching } = useJournalQuery();
+  const { content, activeEntry, setActiveEntry } = useJournalStore();
   const { mutate: addJournalEntry, isPending: isPendingAdd } =
     useAddJournalEntryMutation();
-
-  //   const [activeEntry, setActiveEntry] = useState<number>(4);
-
-  //   useEffect(() => {
-  //     if (data && data.length > 0) {
-  //       const currentContent = data?.find(
-  //         (item) => item.id === activeEntry
-  //       )?.content;
-  //       setEditedContent(currentContent);
-  //     }
-  //   }, [data]);
 
   return (
     <div className="p-8 pr-0 flex flex-col pointer-events-auto w-[280px]">
@@ -42,21 +18,23 @@ const JournalLeftPanel = ({ data }) => {
         <NotebookPen />
         Journal
       </h3>
-      <div
+      <button
+        disabled={isPendingAdd}
         onClick={() => {
           addJournalEntry({
             title: "New entry",
-            content: content,
+            content: "",
           });
           //   refetch();
         }}
         className={cn(
-          "flex items-center gap-2 justify-center px-4 py-2 rounded-sm cursor-pointer transition duration-200 hover:border-primary hover:bg-primary hover:text-foreground-primary border-ransparent border active:translate-y-2"
+          "flex items-center gap-2 justify-center px-4 py-2 rounded-sm cursor-pointer transition duration-200 hover:border-primary hover:bg-primary hover:text-foreground-primary border-ransparent border active:translate-y-2",
+          isPendingAdd && "opacity-50 cursor-default"
         )}
       >
         <Plus />
         <span className="text-lg truncate pr-4">Add new</span>
-      </div>
+      </button>
       <ScrollArea className="flex-grow min-h-0 overflow-y-auto mt-4">
         <div className="flex flex-col gap-2 pointer-events-auto">
           {data &&
