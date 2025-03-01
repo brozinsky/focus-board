@@ -29,7 +29,7 @@ export const useJournalStore = create<TState>((set) => ({
   content: "",
   editedContent: null,
   journalPrompt: "",
-  activeEntry: 4,
+  activeEntry: -1,
   sheetBgColor: getFromLocalStorage("journalSheetBgColor", "light"),
   sheetBg: getFromLocalStorage("journalSheetBg", "lines"),
   fontFamily: getFromLocalStorage("journalFontFamily", "font-patrick-hand"),

@@ -1,3 +1,4 @@
+import { useEffect } from "react"; // Import useEffect
 import { NotebookPen, Plus } from "lucide-react";
 import JournalEntry from "./JournalEntry";
 import useAddJournalEntryMutation from "@/stores/supabase/journal/useAddJournalEntryMutation";
@@ -12,6 +13,13 @@ const JournalLeftPanel = ({ data }: { data: TJournalData[] }) => {
   const { mutate: addJournalEntry, isPending: isPendingAdd } =
     useAddJournalEntryMutation();
 
+  useEffect(() => {
+    if (data && data.length > 0 && activeEntry === -1) {
+      const lastEntry = data[data.length - 1];
+      setActiveEntry(lastEntry.id);
+    }
+  }, [data, activeEntry, setActiveEntry]);
+
   return (
     <div className="p-8 pr-0 flex flex-col pointer-events-auto w-[280px]">
       <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide mb-8">
@@ -25,7 +33,6 @@ const JournalLeftPanel = ({ data }: { data: TJournalData[] }) => {
             title: "New entry",
             content: "",
           });
-          //   refetch();
         }}
         className={cn(
           "flex items-center gap-2 justify-center px-4 py-2 rounded-sm cursor-pointer transition duration-200 hover:border-primary hover:bg-primary hover:text-foreground-primary border-ransparent border active:translate-y-2",
@@ -38,16 +45,18 @@ const JournalLeftPanel = ({ data }: { data: TJournalData[] }) => {
       <ScrollArea className="flex-grow min-h-0 overflow-y-auto mt-4">
         <div className="flex flex-col gap-2 pointer-events-auto">
           {data &&
-            data.map(({ id, title, created_at }) => (
-              <JournalEntry
-                key={id}
-                id={id}
-                active={id === activeEntry}
-                title={title}
-                setEntry={setActiveEntry}
-                date={dateToString(created_at)}
-              />
-            ))}
+            [...data]
+              .reverse()
+              .map(({ id, title, created_at }) => (
+                <JournalEntry
+                  key={id}
+                  id={id}
+                  active={id === activeEntry}
+                  title={title}
+                  setEntry={setActiveEntry}
+                  date={dateToString(created_at)}
+                />
+              ))}
         </div>
       </ScrollArea>
     </div>

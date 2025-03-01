@@ -23,10 +23,6 @@ const Journal = () => {
     setEditedContent(currentContent);
   }, [data, activeEntry]);
 
-  useEffect(() => {
-    data && console.log("data", data);
-  }, [data]);
-
   if (!isOpen.journal) return;
 
   return (
@@ -51,6 +47,7 @@ const Journal = () => {
         >
           {data && !isPending && <JournalLeftPanel data={data} />}
           {data && !isPending && <JournalRightEditor data={data} />}
+          {isPending && <LoadingSpinner />}
         </motion.div>
       </Suspense>
     </div>
