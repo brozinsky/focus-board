@@ -15,8 +15,7 @@ const Journal = () => {
   const { themeStyle } = useThemeStore();
   const { setEditedContent, activeEntry } = useJournalStore();
 
-  const { data, isPending, refetch, isRefetching, isLoading } =
-    useJournalQuery();
+  const { data, isPending } = useJournalQuery();
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -31,8 +30,8 @@ const Journal = () => {
 
   return (
     <div
-      id="Scenes"
-      className={cn("modal opacity-100 visible transition")}
+      id="Journal"
+      className={cn("modal modal--high opacity-100 visible transition")}
       onClick={() => setIsOpen("journal", false)}
     >
       <button className={"modal__close"}>
@@ -45,7 +44,7 @@ const Journal = () => {
           animate={{ y: 0, opacity: 1 }}
           onClick={(e) => e.stopPropagation()}
           className={cn(
-            "rounded-xl modal__card flex justify-between modal__card--min-h max-h-[70vh] !max-w-[1000px]",
+            "rounded-xl modal__card flex justify-between modal__card--min-h max-h-[90vh] !max-w-[1000px]",
             themeStyle == "glass" && "modal__card--glass"
           )}
         >

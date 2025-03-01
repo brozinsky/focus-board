@@ -10,6 +10,9 @@
   &--centered {
     @apply items-center;
   }
+  &--high {
+    padding: 2rem;
+  }
 
   &__image-wrap {
     @apply bg-transparent rounded-xl w-full relative;
