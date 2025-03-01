@@ -8,6 +8,9 @@ import clsx from "clsx";
 import JournalSheetSettings from "./JournalSheetSettings";
 import JournalEditSettings from "./JournalEditSettings";
 import { TJournalData } from "@/types/query-types";
+import { Settings } from "lucide-react";
+import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 
 const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
   const {
@@ -26,6 +29,7 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
   }, [editedContent]);
 
   const currentData = data?.find((item) => item.id === activeEntry);
+  const { isOpen, setIsOpen } = useWindowsStore();
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(currentData?.title || "");
@@ -99,26 +103,33 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
         >
           Delete
         </Button>
-        <Button
-          isLoading={isPendingEdit}
-          onClick={() => {
-            if (isEditing) {
-              editJournalEntry({
-                id: activeEntry,
-                title: title,
-                content: content,
-              });
-              setIsEditing(false);
-            } else {
-              setIsEditing(true);
-            }
-          }}
-          type={"submit"}
-          variant={"primary"}
-          //   isDisabled={true}
-        >
-          {isEditing ? "Save" : "Edit"}
-        </Button>
+        <div className="flex flex-row gap-2">
+          <ButtonIcon
+            onClick={() => setIsOpen("journalSettings", !isOpen.journalSettings)}
+            icon={<Settings />}
+            tooltip={"Journal settings"}
+          />
+          <Button
+            isLoading={isPendingEdit}
+            onClick={() => {
+              if (isEditing) {
+                editJournalEntry({
+                  id: activeEntry,
+                  title: title,
+                  content: content,
+                });
+                setIsEditing(false);
+              } else {
+                setIsEditing(true);
+              }
+            }}
+            type={"submit"}
+            variant={"primary"}
+            //   isDisabled={true}
+          >
+            {isEditing ? "Save" : "Edit"}
+          </Button>
+        </div>
       </div>
     </div>
   );
