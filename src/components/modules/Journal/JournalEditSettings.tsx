@@ -1,10 +1,16 @@
 import Select from "@/components/ui/dropdowns/Select";
 import { JOURNALING_PROMPTS } from "@/lib/constants/const-journal";
 import { Input } from "@/components/ui/inputs/Input";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useJournalStore } from "@/stores/zustand/useJournalStore";
 
-const JournalEditSettings = ({ title, setTitle, data }) => {
+const JournalEditSettings = ({
+  title,
+  setTitle,
+}: {
+  title: string;
+  setTitle: (title: string) => void;
+}) => {
   const { journalPrompt, setJournalPrompt, activeEntry } = useJournalStore();
 
   useEffect(() => {
@@ -21,15 +27,17 @@ const JournalEditSettings = ({ title, setTitle, data }) => {
   return (
     <>
       <div className="relative z-20">
-          <Select
-            buttonClassName="w-full"
-            size={"sm"}
-            variant={"glass"}
-            options={JOURNALING_PROMPTS}
-            state={journalPrompt}
-            setState={(selectedValue: number) => handlePromptChange(selectedValue)}
-            displayValue={journalPrompt}
-          />
+        <Select
+          buttonClassName="w-full"
+          size={"sm"}
+          variant={"glass"}
+          options={JOURNALING_PROMPTS}
+          state={journalPrompt}
+          setState={(selectedValue: number) =>
+            handlePromptChange(selectedValue)
+          }
+          displayValue={journalPrompt}
+        />
       </div>
       <Input
         key={`${activeEntry}`}

@@ -18,13 +18,14 @@ const Journal = () => {
   const { data, isPending } = useJournalQuery();
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      const currentContent = data?.find(
-        (item) => item.id === activeEntry
-      )?.content;
-      setEditedContent(currentContent);
-    }
+    const currentContent =
+      data?.find((item) => item.id === activeEntry)?.content ?? null;
+    setEditedContent(currentContent);
   }, [data, activeEntry]);
+
+  useEffect(() => {
+    data && console.log("data", data);
+  }, [data]);
 
   if (!isOpen.journal) return;
 
@@ -48,8 +49,8 @@ const Journal = () => {
             themeStyle == "glass" && "modal__card--glass"
           )}
         >
-          {!isPending && <JournalLeftPanel data={data} />}
-          {!isPending && <JournalRightEditor data={data} />}
+          {data && !isPending && <JournalLeftPanel data={data} />}
+          {data && !isPending && <JournalRightEditor data={data} />}
         </motion.div>
       </Suspense>
     </div>

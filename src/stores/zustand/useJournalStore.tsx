@@ -19,7 +19,7 @@ interface TState {
   setContent: (content: string) => void;
   setEditedContent: (editedContent: string | null) => void;
   setJournalPrompt: (journalPrompt: string) => void;
-  setActiveEntry: (activeEntry: number) => void;
+  setActiveEntry: (value: number | ((prev: number) => number)) => void;
   setSheetBgColor: (sheetBgColor: TJournalBgColors) => void;
   setSheetBg: (sheetBg: TJournalSheets) => void;
   setFontFamily: (fontFamily: TJournalFonts) => void;
@@ -36,7 +36,13 @@ export const useJournalStore = create<TState>((set) => ({
   setContent: (content) => set({ content }),
   setEditedContent: (editedContent) => set({ editedContent }),
   setJournalPrompt: (journalPrompt) => set({ journalPrompt }),
-  setActiveEntry: (activeEntry) => set({ activeEntry }),
+  setActiveEntry: (activeEntry) => {
+    if (typeof activeEntry === "function") {
+      set((state) => ({ activeEntry: activeEntry(state.activeEntry) }));
+    } else {
+      set({ activeEntry });
+    }
+  },
   setSheetBgColor: (value) => {
     setToLocalStorage("journalSheetBgColor", value);
     set({ sheetBgColor: value });

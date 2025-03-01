@@ -60,3 +60,12 @@ export interface ICurrentVideo {
 export type TActiveScene = "yt" | "bg-video" | "wallpaper";
 
 export type TAudioSource = "spotify" | "youtube";
+
+export type TJournalData = {
+  id: number;
+  title: string;
+  created_at: string;
+  content: string;
+  question_prompt: "string" | null;
+  user_id: string;
+};

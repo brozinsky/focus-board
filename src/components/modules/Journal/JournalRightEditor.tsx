@@ -7,8 +7,9 @@ import { useJournalStore } from "@/stores/zustand/useJournalStore";
 import clsx from "clsx";
 import JournalSheetSettings from "./JournalSheetSettings";
 import JournalEditSettings from "./JournalEditSettings";
+import { TJournalData } from "@/types/query-types";
 
-const JournalRightEditor = ({ data }) => {
+const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
   const {
     content,
     editedContent,
@@ -27,12 +28,12 @@ const JournalRightEditor = ({ data }) => {
   const currentData = data?.find((item) => item.id === activeEntry);
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [title, setTitle] = useState<string>(currentData?.title);
+  const [title, setTitle] = useState<string>(currentData?.title || "");
 
   useEffect(() => {
     const currentData = data?.find((item) => item.id === activeEntry);
-    setTitle(currentData?.title);
-  }, [activeEntry]);
+    setTitle(currentData?.title || "");
+  }, [activeEntry, data]);
 
   const { mutate: editJournalEntry, isPending: isPendingEdit } =
     useEditJournalEntryMutation();
@@ -42,7 +43,7 @@ const JournalRightEditor = ({ data }) => {
   return (
     <div className="max-h-[90%] flex-grow p-8 rounded-l-sm gap-4 flex flex-col justify-between pointer-events-auto">
       {isEditing ? (
-        <JournalEditSettings data={data} title={title} setTitle={setTitle} />
+        <JournalEditSettings title={title} setTitle={setTitle} />
       ) : (
         <JournalSheetSettings />
       )}
@@ -82,12 +83,11 @@ const JournalRightEditor = ({ data }) => {
               { id: activeEntry },
               {
                 onSuccess: () => {
-                  //   refetch();
-                  setActiveEntry((prev) => {
+                  setActiveEntry((prev: number) => {
                     const updatedData = data?.filter(
                       (item) => item.id !== prev
                     );
-                    return updatedData?.length ? updatedData[0].id : null;
+                    return updatedData?.length ? updatedData[0].id : -1;
                   });
                 },
               }

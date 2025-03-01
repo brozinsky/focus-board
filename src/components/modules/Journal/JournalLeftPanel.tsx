@@ -5,10 +5,10 @@ import { dateToString } from "@/utils/functions/fn-common";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/ScrollArea/ScrollArea";
 import { useJournalStore } from "@/stores/zustand/useJournalStore";
-import { useEffect } from "react";
+import { TJournalData } from "@/types/query-types";
 
-const JournalLeftPanel = ({ data }) => {
-  const { content, activeEntry, setActiveEntry } = useJournalStore();
+const JournalLeftPanel = ({ data }: { data: TJournalData[] }) => {
+  const { activeEntry, setActiveEntry } = useJournalStore();
   const { mutate: addJournalEntry, isPending: isPendingAdd } =
     useAddJournalEntryMutation();
 
