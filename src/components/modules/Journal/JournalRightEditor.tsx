@@ -24,10 +24,6 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
     fontFamily,
   } = useJournalStore();
 
-  useEffect(() => {
-    console.log(editedContent);
-  }, [editedContent]);
-
   const currentData = data?.find((item) => item.id === activeEntry);
   const { isOpen, setIsOpen } = useWindowsStore();
 
@@ -37,6 +33,7 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
   useEffect(() => {
     const currentData = data?.find((item) => item.id === activeEntry);
     setTitle(currentData?.title || "");
+    setContent(currentData?.content || "");
   }, [activeEntry, data]);
 
   const { mutate: editJournalEntry, isPending: isPendingEdit } =
@@ -105,7 +102,9 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
         </Button>
         <div className="flex flex-row gap-2">
           <ButtonIcon
-            onClick={() => setIsOpen("journalSettings", !isOpen.journalSettings)}
+            onClick={() =>
+              setIsOpen("journalSettings", !isOpen.journalSettings)
+            }
             icon={<Settings />}
             tooltip={"Journal settings"}
           />

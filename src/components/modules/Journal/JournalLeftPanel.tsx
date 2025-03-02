@@ -21,7 +21,7 @@ const JournalLeftPanel = ({ data }: { data: TJournalData[] }) => {
   }, [data, activeEntry, setActiveEntry]);
 
   return (
-    <div className="p-8 pr-0 flex flex-col pointer-events-auto w-[280px]">
+    <div className="p-8 pr-0 flex flex-col pointer-events-auto min-w-[280px] w-[280px]">
       <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide mb-8">
         <NotebookPen />
         Journal
