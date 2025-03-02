@@ -69,7 +69,7 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
                   sheetBgColor
                 )}
                 dangerouslySetInnerHTML={{
-                  __html: `<p class="text-right absolute top-1 text-xs right-4">2025-02-20</p><p class="text-center pt-0.5 pb-1"><strong>${title}</strong></p>${editedContent}`,
+                  __html: `<p class="text-right absolute top-1 text-xs right-4">2025-02-20</p><p class="text-center"><strong>${title}</strong></p>${editedContent}`,
                 }}
               ></div>
             </div>
