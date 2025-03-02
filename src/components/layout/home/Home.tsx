@@ -15,6 +15,7 @@ import useFXInitialization from "@/hooks/useFXInitialization";
 import useRootRef from "@/hooks/useRootRef";
 import Main from "../main/Main";
 import useAppLoading from "@/hooks/app/useAppLoading";
+import TipTap from "../../modules/Journal/RichTextEditor";
 
 const Home = () => {
   const { rootRef, rootFontFamily } = useRootRef();
@@ -90,7 +91,6 @@ const Home = () => {
       ref={rootRef}
     >
       {<Main handlePlayPause={handleAudioPlayPause} />}
-      {/* {isOnboarding && <Onboarding setIsOnboarding={setIsOnboarding} />} */}
 
       <div unselectable="on">
         {activeScene === "yt" && currentVideo?.videoId && (

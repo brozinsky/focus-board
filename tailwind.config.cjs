@@ -42,7 +42,7 @@ module.exports = {
           900: "var(--color-text-900)",
         },
         "dark-blue": "var(--color-dark-blue)",
-        "premium": "var(--color-premium)"
+        premium: "var(--color-premium)",
       },
       borderRadius: {
         lg: `var(--radius)`,
@@ -92,5 +92,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/line-clamp")],
 };

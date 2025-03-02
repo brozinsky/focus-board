@@ -40,9 +40,10 @@ import CameraOffSVG from "@/components/elements/svg/icons/interface/panel/Camera
 import CameraSVG from "@/components/elements/svg/icons/interface/panel/CameraSVG";
 import DropdownStickyNote from "@/components/ui/dropdowns/composites/DropdownStickyNote";
 import Dropdown from "@/components/ui/dropdowns/Dropdown";
-import { ClipboardCheck } from "lucide-react";
+import { ClipboardCheck, NotebookPen } from "lucide-react";
 import DropdownPhotos from "@/components/ui/dropdowns/composites/DropdownPhotos";
 import DropdownGames from "@/components/ui/dropdowns/composites/DropdownGames";
+import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -52,6 +53,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
   const { isAudioPlaying, currentAudio, audioSource, setAudioSource } =
     usePlayerStore();
   const { isOpen, setIsOpen } = useWindowsStore();
+  const { isLoggedIn } = useAuthStore();
 
   return (
     <>
@@ -161,10 +163,16 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             <DropdownStickyNote />
           </div>
           <ButtonIcon
-            disabled
+            onClick={() => setIsOpen("journal", !isOpen.journal)}
+            icon={<NotebookPen />}
+            tooltip={"Journal"}
+            disabled={!isLoggedIn}
+          />
+          <ButtonIcon
             onClick={() => setIsOpen("habitTracker", !isOpen.habitTracker)}
             icon={<ClipboardCheck />}
             tooltip={"Habit tracker"}
+            disabled={!isLoggedIn}
           />
           <ButtonIcon
             className="relative"

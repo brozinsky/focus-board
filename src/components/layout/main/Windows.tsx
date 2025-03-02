@@ -45,8 +45,7 @@ const Windows = () => {
       {isLoggedIn ? <StickyNotesDb /> : <StickyNotes />}
       <Photos />
       <Games />
-      {/* TODO - handle submit, windows */}
-      {/* <Journal /> */}
+      <Journal />
     </>
   );
 };
