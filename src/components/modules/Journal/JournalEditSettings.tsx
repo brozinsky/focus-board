@@ -4,24 +4,19 @@ import { Input } from "@/components/ui/inputs/Input";
 import { useEffect } from "react";
 import { useJournalStore } from "@/stores/zustand/useJournalStore";
 
-const JournalEditSettings = ({
-  title,
-  setTitle,
-}: {
-  title: string;
-  setTitle: (title: string) => void;
-}) => {
-  const { journalPrompt, setJournalPrompt, activeEntry } = useJournalStore();
+const JournalEditSettings = () => {
+  const { journalPrompt, setJournalPrompt, activeEntry, title, setTitle } =
+    useJournalStore();
 
-  useEffect(() => {
-    setJournalPrompt(JOURNALING_PROMPTS[0]?.name || "");
-  }, [setJournalPrompt]);
+  // useEffect(() => {
+  //   setJournalPrompt(JOURNALING_PROMPTS[1]);
+  // }, [setJournalPrompt]);
 
   const handlePromptChange = (selectedValue: number) => {
     const selectedPrompt = JOURNALING_PROMPTS.find(
       (prompt) => prompt.value === selectedValue
     );
-    setJournalPrompt(selectedPrompt?.name || "");
+    setJournalPrompt(selectedPrompt || JOURNALING_PROMPTS[1]);
   };
 
   return (
@@ -36,7 +31,7 @@ const JournalEditSettings = ({
           setState={(selectedValue: number) =>
             handlePromptChange(selectedValue)
           }
-          displayValue={journalPrompt}
+          displayValue={journalPrompt.name}
         />
       </div>
       <Input

@@ -1,5 +1,5 @@
 import RichTextEditor from "./RichTextEditor";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Button from "@/components/ui/buttons/Button";
 import useEditJournalEntryMutation from "@/stores/supabase/journal/useEditJournalEntryMutation";
 import useRemoveJournalEntryMutation from "@/stores/supabase/journal/useRemoveJournalEntryMutation";
@@ -11,7 +11,7 @@ import { TJournalData } from "@/types/query-types";
 import { Settings } from "lucide-react";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
-import { ScrollArea } from "@/components/ui/ScrollArea/ScrollArea";
+import { JOURNALING_PROMPTS } from "@/lib/constants/const-journal";
 
 const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
   const {
@@ -19,7 +19,6 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
     editedContent,
     setContent,
     activeEntry,
-    setActiveEntry,
     sheetBgColor,
     sheetBg,
     fontFamily,
@@ -27,6 +26,8 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
     setIsEditing,
     title,
     setTitle,
+    journalPrompt,
+    setJournalPrompt,
   } = useJournalStore();
 
   const { isOpen, setIsOpen } = useWindowsStore();
@@ -34,6 +35,11 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
   useEffect(() => {
     const currentData = data?.find((item) => item.id === activeEntry);
     setTitle(currentData?.title || "");
+    setJournalPrompt(
+      JOURNALING_PROMPTS.find(
+        (item) => item.id === currentData?.question_prompt
+      ) || JOURNALING_PROMPTS[1]
+    );
     setContent(currentData?.content || "");
   }, [activeEntry, data]);
 
@@ -44,11 +50,7 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
 
   return (
     <div className="max-h-[90%] flex-grow p-8 rounded-l-sm gap-4 flex flex-col justify-between pointer-events-auto">
-      {isEditing ? (
-        <JournalEditSettings title={title} setTitle={setTitle} />
-      ) : (
-        <JournalSheetSettings />
-      )}
+      {isEditing ? <JournalEditSettings /> : <JournalSheetSettings />}
       {
         <div
           className={
@@ -108,6 +110,7 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
                   id: activeEntry,
                   title: title,
                   content: content,
+                  questionPrompt: journalPrompt.id,
                 });
                 setIsEditing(false);
               } else {

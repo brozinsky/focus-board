@@ -10,11 +10,11 @@ import useThemeStore from "@/stores/zustand/useThemeStore";
 const JournalEditDialog = () => {
   const { themeStyle } = useThemeStore();
   const { isOpen, setIsOpen } = useWindowsStore();
-  const { setIsEditing, title } = useJournalStore();
 
   const { mutate: editJournalEntry, isPending: isPendingEdit } =
     useEditJournalEntryMutation();
-  const { content, activeEntry } = useJournalStore();
+  const { content, activeEntry, journalPrompt, setIsEditing, title } =
+    useJournalStore();
 
   if (!isOpen.journalIsEditing) return;
 
@@ -73,6 +73,7 @@ const JournalEditDialog = () => {
                     id: activeEntry,
                     title: title,
                     content: content,
+                    questionPrompt: journalPrompt.id,
                   });
                   setIsEditing(false);
                   setIsOpen("journalIsEditing", false);

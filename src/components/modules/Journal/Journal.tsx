@@ -24,10 +24,6 @@ const Journal = () => {
     setEditedContent(currentContent);
   }, [data, activeEntry]);
 
-  useEffect(() => {
-    console.log(isOpen);
-  }, [isOpen]);
-
   if (!isOpen.journal) return;
 
   return (

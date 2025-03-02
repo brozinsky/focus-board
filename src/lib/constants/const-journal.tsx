@@ -17,6 +17,7 @@ export const JOURNAL_BG_COLORS = [
 ];
 
 export const JOURNALING_PROMPTS = [
+  { id: 0, name: "None", value: 0 },
   { id: 1, name: "What am I grateful for today?", value: 1 },
   {
     id: 2,

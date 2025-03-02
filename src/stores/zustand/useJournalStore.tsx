@@ -3,16 +3,18 @@ import {
   TJournalFonts,
   TJournalSheets,
 } from "@/types/model-types";
+import { TJournalPrompt } from "@/types/query-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
 } from "@/utils/functions/fn-common";
 import { create } from "zustand";
+
 interface TState {
   title: string;
   content: string;
   editedContent: string | null;
-  journalPrompt: string;
+  journalPrompt: TJournalPrompt;
   activeEntry: number;
   sheetBgColor: TJournalBgColors;
   sheetBg: TJournalSheets;
@@ -21,7 +23,7 @@ interface TState {
   setTitle: (title: string) => void;
   setContent: (content: string) => void;
   setEditedContent: (editedContent: string | null) => void;
-  setJournalPrompt: (journalPrompt: string) => void;
+  setJournalPrompt: (journalPrompt: TJournalPrompt) => void;
   setActiveEntry: (value: number | ((prev: number) => number)) => void;
   setSheetBgColor: (sheetBgColor: TJournalBgColors) => void;
   setSheetBg: (sheetBg: TJournalSheets) => void;
@@ -33,7 +35,7 @@ export const useJournalStore = create<TState>((set) => ({
   title: "",
   content: "",
   editedContent: null,
-  journalPrompt: "",
+  journalPrompt: { id: 0, name: "None", value: 1 },
   activeEntry: -1,
   sheetBgColor: getFromLocalStorage("journalSheetBgColor", "light"),
   sheetBg: getFromLocalStorage("journalSheetBg", "lines"),
