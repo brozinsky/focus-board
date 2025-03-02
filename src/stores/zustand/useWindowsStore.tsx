@@ -15,6 +15,7 @@ export type TWindowName =
   | "scene"
   | "journal"
   | "journalSettings"
+  | "journalIsEditing"
   | "todoList"
   | "habitTracker"
   | "spotify"
@@ -50,6 +51,7 @@ interface IWindowsStore {
     habitTracker: boolean;
     journal: boolean;
     journalSettings: boolean;
+    journalIsEditing: boolean;
 
     //modals
     soundFX: boolean;
@@ -115,6 +117,7 @@ const useWindowsStore = create<IWindowsStore>((set, get) => ({
     habitTracker: false,
     journal: false,
     journalSettings: false,
+    journalIsEditing: false,
 
     //modals
     soundFX: false,
