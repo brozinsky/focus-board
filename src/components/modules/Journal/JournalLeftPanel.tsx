@@ -22,7 +22,7 @@ const JournalLeftPanel = ({ data }: { data: TJournalData[] }) => {
     if (data && data.length > 0) {
       const currentDataLength = data.length;
 
-      if (currentDataLength !== prevDataLengthRef.current) {
+      if (currentDataLength !== prevDataLengthRef.current || activeEntry === -1) {
         const lastEntry = data[data.length - 1];
         setActiveEntry(lastEntry.id);
       }

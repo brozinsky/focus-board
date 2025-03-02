@@ -28,7 +28,9 @@ const Journal = () => {
   return (
     <div
       id="Journal"
-      className={cn("modal modal--high opacity-100 visible transition")}
+      className={cn(
+        "modal modal--high modal--no-scroll opacity-100 visible transition"
+      )}
       onClick={() => setIsOpen("journal", false)}
     >
       <button className={"modal__close"}>

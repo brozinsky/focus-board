@@ -35,7 +35,7 @@ const JournalSheetSettings = () => {
   return (
     <div
       id="JournalSheetSettings"
-      className={"modal modal--centered"}
+      className={"modal modal--centered modal--no-scroll"}
       onClick={() => setIsOpen("journalSettings", !isOpen.journalSettings)}
     >
       <button className={"modal__close"}>

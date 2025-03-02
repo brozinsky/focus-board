@@ -11,6 +11,7 @@ import { TJournalData } from "@/types/query-types";
 import { Settings } from "lucide-react";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
+import { ScrollArea } from "@/components/ui/ScrollArea/ScrollArea";
 
 const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
   const {
@@ -51,7 +52,7 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
       {
         <div
           className={
-            "h-full max-h-[100%] flex flex-col overflow-y-auto max-w-[800px] bg-neutral-900 pt-0 px-0 rounded-sm pointer-events-auto flex"
+            "h-full max-h-[100%] px-0 flex flex-col overflow-y-auto max-w-[800px] bg-neutral-900 pt-0 rounded-sm pointer-events-auto"
           }
         >
           {isEditing ? (
@@ -80,19 +81,7 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
       <div className="flex flex-row justify-between gap-4">
         <Button
           onClick={() => {
-            removeJournalEntry(
-              { id: activeEntry },
-              {
-                onSuccess: () => {
-                  setActiveEntry((prev: number) => {
-                    const updatedData = data?.filter(
-                      (item) => item.id !== prev
-                    );
-                    return updatedData?.length ? updatedData[0].id : -1;
-                  });
-                },
-              }
-            );
+            removeJournalEntry({ id: activeEntry });
           }}
           type={"button"}
           variant={null}
