@@ -23,13 +23,13 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
     sheetBgColor,
     sheetBg,
     fontFamily,
+    isEditing,
+    setIsEditing,
+    title,
+    setTitle,
   } = useJournalStore();
 
-  const currentData = data?.find((item) => item.id === activeEntry);
   const { isOpen, setIsOpen } = useWindowsStore();
-
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [title, setTitle] = useState<string>(currentData?.title || "");
 
   useEffect(() => {
     const currentData = data?.find((item) => item.id === activeEntry);
@@ -81,6 +81,7 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
       <div className="flex flex-row justify-between gap-4">
         <Button
           onClick={() => {
+            setIsEditing(false);
             removeJournalEntry({ id: activeEntry });
           }}
           type={"button"}
@@ -90,13 +91,15 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
           Delete
         </Button>
         <div className="flex flex-row gap-2">
-          <ButtonIcon
-            onClick={() =>
-              setIsOpen("journalSettings", !isOpen.journalSettings)
-            }
-            icon={<Settings />}
-            tooltip={"Journal settings"}
-          />
+          {!isEditing && (
+            <ButtonIcon
+              onClick={() =>
+                setIsOpen("journalSettings", !isOpen.journalSettings)
+              }
+              icon={<Settings />}
+              tooltip={"Journal settings"}
+            />
+          )}
           <Button
             isLoading={isPendingEdit}
             onClick={() => {
@@ -113,7 +116,6 @@ const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
             }}
             type={"submit"}
             variant={"primary"}
-            //   isDisabled={true}
           >
             {isEditing ? "Save" : "Edit"}
           </Button>

@@ -12,7 +12,7 @@ import SpinnerSVG from "@/components/elements/svg/icons/interface/SpinnerSVG";
 import clsx from "clsx";
 
 const JournalLeftPanel = ({ data }: { data: TJournalData[] }) => {
-  const { activeEntry, setActiveEntry } = useJournalStore();
+  const { activeEntry, setActiveEntry, isEditing } = useJournalStore();
   const { mutate: addJournalEntry, isPending: isPendingAdd } =
     useAddJournalEntryMutation();
 
@@ -22,7 +22,10 @@ const JournalLeftPanel = ({ data }: { data: TJournalData[] }) => {
     if (data && data.length > 0) {
       const currentDataLength = data.length;
 
-      if (currentDataLength !== prevDataLengthRef.current || activeEntry === -1) {
+      if (
+        currentDataLength !== prevDataLengthRef.current ||
+        activeEntry === -1
+      ) {
         const lastEntry = data[data.length - 1];
         setActiveEntry(lastEntry.id);
       }
@@ -47,33 +50,42 @@ const JournalLeftPanel = ({ data }: { data: TJournalData[] }) => {
         <NotebookPen />
         Journal
       </h3>
-      <button
-        disabled={isPendingAdd}
-        onClick={handleAddNew}
-        className={cn(
-          "relative flex items-center gap-2 justify-center px-4 py-2 rounded-sm cursor-pointer transition duration-200 hover:border-primary hover:bg-primary hover:text-foreground-primary border-ransparent border active:translate-y-2",
-          isPendingAdd && "opacity-50 cursor-default"
-        )}
-      >
-        {isPendingAdd && (
-          <div className=" absolute left-1/2 -rotate-90 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <SpinnerSVG
-              className="origin-center"
-              pathClass="stroke-primary fill-primary"
-            />
-          </div>
-        )}
-        <div
-          className={clsx(
-            "flex flex-row gap-1 items-center",
-            isPendingAdd && "opacity-0"
+      <div className={cn(isEditing && "opacity-80 w-full")}>
+        <button
+          disabled={isPendingAdd || isEditing}
+          onClick={handleAddNew}
+          className={cn(
+            "mx-auto relative flex items-center gap-2 justify-center px-4 py-2 rounded-sm cursor-pointer transition duration-200 hover:border-primary border-ransparent border",
+            isPendingAdd || isEditing
+              ? "opacity-50 cursor-default"
+              : "hover:bg-primary hover:text-foreground-primary active:translate-y-2"
           )}
         >
-          <Plus />
-          <span className="text-lg truncate pr-4">Add new</span>
-        </div>
-      </button>
-      <ScrollArea className="flex-grow min-h-0 overflow-y-auto mt-4">
+          {isPendingAdd && (
+            <div className=" absolute left-1/2 -rotate-90 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <SpinnerSVG
+                className="origin-center"
+                pathClass="stroke-primary fill-primary"
+              />
+            </div>
+          )}
+          <div
+            className={clsx(
+              "flex flex-row gap-1 items-center",
+              isPendingAdd && "opacity-0"
+            )}
+          >
+            <Plus />
+            <span className="text-lg truncate pr-4">Add new</span>
+          </div>
+        </button>
+      </div>
+      <ScrollArea
+        className={cn(
+          isEditing && "opacity-80",
+          "flex-grow min-h-0 overflow-y-auto mt-4"
+        )}
+      >
         <div className="flex flex-col gap-2 pointer-events-auto">
           {data &&
             [...data]
@@ -86,6 +98,7 @@ const JournalLeftPanel = ({ data }: { data: TJournalData[] }) => {
                   title={title}
                   setEntry={setActiveEntry}
                   date={dateToString(created_at)}
+                  disabled={isEditing}
                 />
               ))}
         </div>

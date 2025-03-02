@@ -7,19 +7,22 @@ const JournalEntry = ({
   id,
   setEntry,
   active,
+  disabled,
 }: {
   title: string;
   date: string;
   id: number;
   setEntry: (id: number) => void;
   active: boolean;
+  disabled: boolean;
 }) => {
   return (
     <div
-      onClick={() => setEntry(id)}
+      onClick={() => !disabled && setEntry(id)}
       className={cn(
-        "px-4 py-2 bg-input rounded-lg cursor-pointer opacity-40 transition duration-200 hover:opacity-90",
-        active && "opacity-90"
+        "px-4 py-2 bg-input rounded-lg opacity-40 transition duration-200",
+        active && "opacity-90",
+        disabled ? "cursor-default" : "hover:opacity-90 cursor-pointer"
       )}
     >
       <div className="text-lg mb-2 line-clamp-2">{title}</div>

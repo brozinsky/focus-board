@@ -9,6 +9,7 @@ import {
 } from "@/utils/functions/fn-common";
 import { create } from "zustand";
 interface TState {
+  title: string;
   content: string;
   editedContent: string | null;
   journalPrompt: string;
@@ -16,6 +17,8 @@ interface TState {
   sheetBgColor: TJournalBgColors;
   sheetBg: TJournalSheets;
   fontFamily: TJournalFonts;
+  isEditing: boolean;
+  setTitle: (title: string) => void;
   setContent: (content: string) => void;
   setEditedContent: (editedContent: string | null) => void;
   setJournalPrompt: (journalPrompt: string) => void;
@@ -23,9 +26,11 @@ interface TState {
   setSheetBgColor: (sheetBgColor: TJournalBgColors) => void;
   setSheetBg: (sheetBg: TJournalSheets) => void;
   setFontFamily: (fontFamily: TJournalFonts) => void;
+  setIsEditing: (isEditing: boolean) => void;
 }
 
 export const useJournalStore = create<TState>((set) => ({
+  title: "",
   content: "",
   editedContent: null,
   journalPrompt: "",
@@ -33,6 +38,8 @@ export const useJournalStore = create<TState>((set) => ({
   sheetBgColor: getFromLocalStorage("journalSheetBgColor", "light"),
   sheetBg: getFromLocalStorage("journalSheetBg", "lines"),
   fontFamily: getFromLocalStorage("journalFontFamily", "font-patrick-hand"),
+  isEditing: false,
+  setTitle: (title) => set({ title }),
   setContent: (content) => set({ content }),
   setEditedContent: (editedContent) => set({ editedContent }),
   setJournalPrompt: (journalPrompt) => set({ journalPrompt }),
@@ -55,4 +62,5 @@ export const useJournalStore = create<TState>((set) => ({
     setToLocalStorage("journalFontFamily", value);
     set({ fontFamily: value });
   },
+  setIsEditing: (isEditing) => set({ isEditing: isEditing }),
 }));
