@@ -15,8 +15,13 @@ import CameraOffSVG from "@/components/elements/svg/icons/interface/panel/Camera
 
 const DropdownPhotos = () => {
   const { isLoggedIn } = useAuthStore();
-  const { polaroids, addNewPolaroid, arePhotosVisible, setArePhotosVisible } =
-    usePolaroidStore();
+  const {
+    polaroids,
+    addNewPolaroid,
+    addNewPicture,
+    arePhotosVisible,
+    setArePhotosVisible,
+  } = usePolaroidStore();
 
   const isDemoLimit = !isLoggedIn && polaroids.length === 2;
 
@@ -36,6 +41,9 @@ const DropdownPhotos = () => {
         <Separator className="bg-white/30" />
         <ButtonDropdown onClick={addNewPolaroid} isDisabled={!arePhotosVisible}>
           + Add new photo
+        </ButtonDropdown>
+        <ButtonDropdown onClick={addNewPicture} isDisabled={!arePhotosVisible}>
+          + Add new picture
         </ButtonDropdown>
         <Checkbox
           isDisabled={polaroids.length === 0}

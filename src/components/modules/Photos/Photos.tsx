@@ -9,6 +9,7 @@ import {
 } from "@dnd-kit/core";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { useEffect } from "react";
+import Picture from "./Picture";
 
 export default function Photos() {
   const { polaroids, setPolaroids, arePhotosVisible } = usePolaroidStore();
@@ -45,17 +46,33 @@ export default function Photos() {
         onDragEnd={handleDragEnd}
         sensors={sensors}
       >
-        {polaroids.map((polaroid) => (
-          <Polaroid
-            key={polaroid.id}
-            {...polaroid}
-            styles={{
-              position: "absolute",
-              left: `${polaroid.position.x}px`,
-              top: `${polaroid.position.y}px`,
-            }}
-          />
-        ))}
+        {polaroids.map((polaroid) => {
+          if (polaroid.variant === "picture") {
+            return (
+              <Picture
+                key={polaroid.id}
+                {...polaroid}
+                styles={{
+                  position: "absolute",
+                  left: `${polaroid.position.x}px`,
+                  top: `${polaroid.position.y}px`,
+                }}
+              />
+            );
+          } else {
+            return (
+              <Polaroid
+                key={polaroid.id}
+                {...polaroid}
+                styles={{
+                  position: "absolute",
+                  left: `${polaroid.position.x}px`,
+                  top: `${polaroid.position.y}px`,
+                }}
+              />
+            );
+          }
+        })}
       </DndContext>
       <link
         href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap"

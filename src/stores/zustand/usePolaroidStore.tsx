@@ -11,26 +11,40 @@ type TStore = {
   setActiveId: (id: number) => void;
   updatePolaroid: (id: number, updates: Partial<TPolaroid>) => void;
   addNewPolaroid: () => void;
+  addNewPicture: () => void;
   removePolaroid: (id: number) => void;
   setPolaroids: (newPolaroids: TPolaroid[]) => void;
   arePhotosVisible: boolean;
   setArePhotosVisible: (value: boolean) => void;
 };
 
+const createNewPolaroid = (
+  state: TStore,
+  overrides: Partial<TPolaroid>
+): TPolaroid => {
+  const newId =
+    state.polaroids.length > 0
+      ? Math.max(...state.polaroids.map((p) => p.id)) + 1
+      : 1;
+
+  return {
+    id: newId,
+    image: null,
+    caption: "",
+    tilt: "center",
+    sticker: null,
+    orientation: "portrait",
+    variant: "polaroid",
+    position: {
+      x: window.innerWidth / 2 - 50,
+      y: window.innerHeight / 2 - 50,
+    },
+    ...overrides,
+  };
+};
+
 const usePolaroidStore = create<TStore>((set) => ({
-  polaroids: getFromLocalStorage("polaroids", [
-    // {
-    //   id: 1,
-    //   image: null,
-    //   caption: "",
-    //   tilt: "right",
-    //   sticker: null,
-    //   position: {
-    //     x: window.innerWidth / 2 - 50,
-    //     y: window.innerHeight / 2 - 50,
-    //   },
-    // },
-  ]),
+  polaroids: getFromLocalStorage("polaroids", []),
   activeId: 1,
   setActiveId: (id) => set({ activeId: id }),
   updatePolaroid: (id, updates) =>
@@ -44,25 +58,35 @@ const usePolaroidStore = create<TStore>((set) => ({
 
   addNewPolaroid: () =>
     set((state) => {
-      const newId =
-        state.polaroids.length > 0
-          ? Math.max(...state.polaroids.map((p) => p.id)) + 1
-          : 1;
-      const newPolaroid: TPolaroid = {
-        id: newId,
-        image: null,
-        caption: "",
+      const newPolaroid = createNewPolaroid(state, {
         tilt: "right",
-        sticker: null,
-        position: {
-          x: window.innerWidth / 2 - 50,
-          y: window.innerHeight / 2 - 50,
-        },
-      };
+        orientation: "portrait",
+        variant: "polaroid",
+      });
       const newPolaroids = [...state.polaroids, newPolaroid];
       setToLocalStorage("polaroids", newPolaroids);
-      return { polaroids: newPolaroids, activeId: newId };
+      return { polaroids: newPolaroids, activeId: newPolaroid.id };
     }),
+
+  addNewPicture: () =>
+    set((state) => {
+      const newPicture = createNewPolaroid(state, {
+        caption: "",
+        tilt: "center",
+        orientation: "landscape",
+        variant: "picture",
+        frame: "light",
+        padding: "padding",
+        position: {
+          x: window.innerWidth / 2 - 100,
+          y: window.innerHeight / 2 - 100,
+        },
+      });
+      const newPolaroids = [...state.polaroids, newPicture];
+      setToLocalStorage("polaroids", newPolaroids);
+      return { polaroids: newPolaroids, activeId: newPicture.id };
+    }),
+
   removePolaroid: (id) =>
     set((state) => {
       const updatedPolaroids = state.polaroids.filter((p) => p.id !== id);
@@ -76,6 +100,7 @@ const usePolaroidStore = create<TStore>((set) => ({
         activeId: newActiveId,
       };
     }),
+
   setPolaroids: (newPolaroids) => {
     setToLocalStorage("polaroids", newPolaroids);
     set({ polaroids: newPolaroids });

@@ -110,6 +110,10 @@ export type TStickyNote = {
 
 export type TPolaroid = {
   id: number;
+  variant: "polaroid" | "picture";
+  orientation: "portrait" | "landscape";
+  padding?: "none" | "padding";
+  frame?: "light" | "dark"| "none";
   styles?: any;
   image: string | null;
   caption: string;

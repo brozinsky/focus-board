@@ -1,6 +1,11 @@
-import { useEffect, useState } from "react";
-import { Star, Heart, Smile } from "lucide-react";
-import { Input } from "@/components/ui/inputs/Input";
+import { useState } from "react";
+import {
+  RectangleHorizontal,
+  RectangleVertical,
+  Sun,
+  Moon,
+  X,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import usePolaroidStore from "@/stores/zustand/usePolaroidStore";
 import usePolaroid from "@/hooks/usePolaroid";
@@ -9,10 +14,10 @@ import ButtonDelete from "@/components/ui/buttons/panel-edit/ButtonDelete";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { TPolaroid } from "@/types/model-types";
 import { useDraggable } from "@dnd-kit/core";
-import { getSticker } from "@/utils/functions/fn-photos";
 import imageCompression from "browser-image-compression";
+import { Input } from "@/components/ui/inputs/Input";
 
-const Polaroid = (props: TPolaroid) => {
+const Picture = (props: TPolaroid) => {
   const { setActiveId, updatePolaroid, activeId, removePolaroid } =
     usePolaroidStore();
   const { fileInputRef, handleDragOver } = usePolaroid();
@@ -35,16 +40,12 @@ const Polaroid = (props: TPolaroid) => {
     setActiveId(props.id);
   };
 
-  useEffect(() => {
-    console.log(activeId);
-  }, [activeId]);
-
   const onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     const options = {
-      maxWidthOrHeight: 250,
+      maxWidthOrHeight: 450,
       useWebWorker: true,
     };
 
@@ -71,12 +72,17 @@ const Polaroid = (props: TPolaroid) => {
     >
       <div
         key={props.id}
+        // className={cn(
+        //   `pointer-events-auto relative bg-white p-4 shadow-md transition-transform hover:rotate-0 flex-shrink-0`
         className={cn(
-          `pointer-events-auto relative bg-white p-4 shadow-md transition-transform hover:rotate-0 flex-shrink-0`,
-          props.tilt === "left" && !isEditing && "-rotate-2",
-          props.tilt === "right" && !isEditing && "rotate-2"
+          "pointer-events-auto relative w-full mb-3.5 flex items-center justify-center cursor-pointer relative",
+          props.frame === "light" && "bg-white",
+          props.frame === "dark" && "bg-gray-800"
         )}
-        style={{ width: "250px", height: "305px" }}
+        style={{
+          width: props.orientation === "landscape" ? "450px" : "300px",
+          height: props.orientation === "landscape" ? "300px" : "450px",
+        }}
         onMouseEnter={() => setActiveId(props.id)}
       >
         <div
@@ -95,37 +101,31 @@ const Polaroid = (props: TPolaroid) => {
               }}
               className="-top-14 left-0 right-0 h-14 w-full absolute"
             ></div>
-            {/* TODO change to button toggle group */}
             <div className="absolute -top-12 left-0 right-0 flex-center gap-2">
               <ButtonIcon
                 className={cn(
                   "bg-background hover:bg-primary hover:opacity-100",
-                  props.tilt === "left" && "border-2 border-primary",
+                  props.orientation === "landscape" &&
+                    "border-2 border-primary",
                   !isEditing && "group-hover/panel:opacity-100 opacity-0 "
                 )}
-                onClick={() => updatePolaroid(props.id, { tilt: "left" })}
-                icon={<div>\</div>}
-                tooltip={"Rotate left"}
+                onClick={() =>
+                  updatePolaroid(props.id, { orientation: "landscape" })
+                }
+                icon={<RectangleHorizontal className="h-4 w-4" />}
+                tooltip={"Landscape orientation"}
               />
               <ButtonIcon
                 className={cn(
                   "bg-background hover:bg-primary hover:opacity-100",
-                  props.tilt === "center" && "border-2 border-primary",
+                  props.orientation === "portrait" && "border-2 border-primary",
                   !isEditing && "group-hover/panel:opacity-100 opacity-0 "
                 )}
-                onClick={() => updatePolaroid(props.id, { tilt: "center" })}
-                icon={<div>|</div>}
-                tooltip={"Center"}
-              />
-              <ButtonIcon
-                className={cn(
-                  "bg-background hover:bg-primary hover:opacity-100",
-                  props.tilt === "right" && "border-2 border-primary",
-                  !isEditing && "group-hover/panel:opacity-100 opacity-0 "
-                )}
-                onClick={() => updatePolaroid(props.id, { tilt: "right" })}
-                icon={<div>/</div>}
-                tooltip={"Rotate right"}
+                onClick={() =>
+                  updatePolaroid(props.id, { orientation: "portrait" })
+                }
+                icon={<RectangleVertical className="h-4 w-4" />}
+                tooltip={"Portrait orientation"}
               />
             </div>
           </>
@@ -139,47 +139,60 @@ const Polaroid = (props: TPolaroid) => {
               }}
               className="transition top-0 -left-14 w-14 h-full absolute"
             ></div>
-            {/* TODO change to button toggle group */}
             <div className="absolute top-0 -left-12 flex-center flex-col gap-2">
               <ButtonIcon
                 className={cn(
                   "bg-background hover:bg-primary hover:opacity-100",
-                  props.sticker === "star" && "border-2 border-primary",
+                  props.frame === "light" && "border-2 border-primary",
                   !isEditing && "group-hover/panel:opacity-100 opacity-0 "
                 )}
-                onClick={() => updatePolaroid(props.id, { sticker: "star" })}
-                icon={<Star className="h-4 w-4" />}
-                tooltip={"Sticker"}
+                onClick={() => updatePolaroid(props.id, { frame: "light" })}
+                icon={<Sun className="h-4 w-4" />}
+                tooltip={"Light frame"}
               />
               <ButtonIcon
                 className={cn(
                   "bg-background hover:bg-primary hover:opacity-100",
-                  props.sticker === "heart" && "border-2 border-primary",
+                  props.frame === "dark" && "border-2 border-primary",
                   !isEditing && "group-hover/panel:opacity-100 opacity-0 "
                 )}
-                onClick={() => updatePolaroid(props.id, { sticker: "heart" })}
-                icon={<Heart className="h-4 w-4" />}
-                tooltip={"Sticker"}
+                onClick={() => updatePolaroid(props.id, { frame: "dark" })}
+                icon={<Moon className="h-4 w-4" />}
+                tooltip={"Dark frame"}
               />
               <ButtonIcon
                 className={cn(
                   "bg-background hover:bg-primary hover:opacity-100",
-                  props.sticker === "smile" && "border-2 border-primary",
+                  props.frame === "none" && "border-2 border-primary",
                   !isEditing && "group-hover/panel:opacity-100 opacity-0 "
                 )}
-                onClick={() => updatePolaroid(props.id, { sticker: "smile" })}
-                icon={<Smile className="h-4 w-4" />}
-                tooltip={"Sticker"}
+                onClick={() => updatePolaroid(props.id, { frame: "none" })}
+                icon={<X className="h-4 w-4" />}
+                tooltip={"No frame"}
               />
+              <div className="h-4"></div>
               <ButtonIcon
                 className={cn(
                   "bg-background hover:bg-primary hover:opacity-100",
-                  !props.sticker && "border-2 border-primary",
+                  props.padding === "none" && "border-2 border-primary",
                   !isEditing && "group-hover/panel:opacity-100 opacity-0 "
                 )}
-                onClick={() => updatePolaroid(props.id, { sticker: null })}
-                icon={<div>x</div>}
-                tooltip={"No sticker"}
+                onClick={() => updatePolaroid(props.id, { padding: "none" })}
+                icon={<div className="border border-inherit size-4"></div>}
+                tooltip={"Full frame"}
+              />
+
+              <ButtonIcon
+                className={cn(
+                  "bg-background hover:bg-primary hover:opacity-100",
+                  props.padding === "padding" && "border-2 border-primary",
+                  !isEditing && "group-hover/panel:opacity-100 opacity-0 "
+                )}
+                onClick={() => updatePolaroid(props.id, { padding: "padding" })}
+                icon={
+                  <div className="border-inherit border-[3px] size-4"></div>
+                }
+                tooltip={"Frame with space"}
               />
             </div>
           </>
@@ -190,48 +203,48 @@ const Polaroid = (props: TPolaroid) => {
           isEditing={isEditing}
         />
         <div
-          className="w-full h-[220px] bg-gray-200 mb-3.5 flex items-center justify-center cursor-pointer relative"
           onClick={() => fileInputRef.current?.click()}
           // onDrop={() => handleDrop(props.id)}
           onDragOver={handleDragOver}
         >
-          {props.image ? (
-            <img
-              src={props.image}
-              alt="Uploaded"
-              className="w-full h-full object-cover"
-              width={225}
-              height={227}
+          <div
+            className={cn(
+              "relative bg-white border-[0.75rem] flex items-center justify-center cursor-pointer",
+              props.orientation === "landscape" && "w-[450px] h-[300px]",
+              props.orientation === "portrait" && "w-[300px] h-[450px]",
+              props.frame === "light" && "border-gray-200",
+              props.frame === "dark" && "border-gray-950",
+              props.frame === "none" && "border-none"
+            )}
+          >
+            {props.image ? (
+              <img
+                src={props.image}
+                alt="Uploaded"
+                className={cn(
+                  props.padding === "padding" && "p-5",
+                  "w-full h-full object-cover"
+                )}
+                width={225}
+                height={227}
+              />
+            ) : (
+              <p className="text-gray-500 p-4 text-sm text-center">
+                Click to add picture
+              </p>
+            )}
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={onChange}
+              className="hidden"
+              ref={fileInputRef}
             />
-          ) : (
-            <p className="text-gray-500 p-4 text-sm text-center">
-              Click to add photo
-              {/* Click or drag to add photo */}
-            </p>
-          )}
-          {/* TODO photo drag n drop functionality */}
-          <Input
-            type="file"
-            accept="image/*"
-            onChange={(e) => onChange(e)}
-            className="hidden"
-            ref={fileInputRef}
-          />
-          {props.sticker && <>{getSticker(props.sticker)}</>}
+          </div>
         </div>
-        <Input
-          type="text"
-          placeholder={isEditing ? "Add a caption..." : ""}
-          value={props.caption}
-          onChange={(e) =>
-            updatePolaroid(props.id, { caption: e.target.value })
-          }
-          className="w-full bg-transparent text-2xl tracking-wide font-thin border-none text-black/95 text-center focus:outline-none"
-          style={{ fontFamily: "'Delicious Handrawn', cursive" }}
-        />
       </div>
     </div>
   );
 };
 
-export default Polaroid;
+export default Picture;
