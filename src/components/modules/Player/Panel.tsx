@@ -52,8 +52,12 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
   const { isOpen, setIsOpen } = useWindowsStore();
 
   const { toast } = useToast();
-  const { addNewPolaroid, arePhotosVisible, setArePhotosVisible } =
-    usePolaroidStore();
+  const {
+    addNewPolaroid,
+    arePhotosVisible,
+    setArePhotosVisible,
+    addNewPicture,
+  } = usePolaroidStore();
 
   return (
     <>
@@ -149,6 +153,12 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
                 isDisabled={!arePhotosVisible}
               >
                 + Add new photo
+              </ButtonDropdown>
+              <ButtonDropdown
+                onClick={addNewPicture}
+                isDisabled={!arePhotosVisible}
+              >
+                + Add new Picture
               </ButtonDropdown>
               <Checkbox
                 isDisabled={false}
