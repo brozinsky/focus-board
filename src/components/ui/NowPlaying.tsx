@@ -1,3 +1,4 @@
+import useVideoPlayer from "@/hooks/useVideoPlayer";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import Marquee from "react-fast-marquee";
@@ -7,16 +8,12 @@ interface IProps {
 }
 
 const NowPlaying = ({ title }: IProps) => {
-  const { isAudioPlaying, currentAudio } = usePlayerStore();
+  const { isAudioPlaying, currentAudio, isBuffering } = usePlayerStore();
+  const {} = useVideoPlayer();
   const { setIsOpen } = useWindowsStore();
 
   return (
     <div className="max-w-[320px]  bottom-2 right-2 z-10 flex justify-center p-0 flex-col h-10">
-      {/* {isLoading && (
-        <div className="absolute top-1/2 right-0 w-full flex items-center justify-center">
-          <div className="buffer">Buffering...</div>
-        </div>
-      )} */}
       {!currentAudio && (
         <div className="flex flex-col">
           <span>It's quiet in here...</span>
@@ -30,12 +27,7 @@ const NowPlaying = ({ title }: IProps) => {
       )}
       {isAudioPlaying ? (
         <>
-          <div className="flex flex-row gap-1 items-center">
-            Now playing:
-            {/* <a href="" className="">
-            <YouTubeSVG />
-          </a> */}
-          </div>
+          <div className="flex flex-row gap-1 items-center">Now playing:</div>
           <div>
             <Marquee direction="left" speed={10} pauseOnHover>
               {title}
@@ -44,9 +36,8 @@ const NowPlaying = ({ title }: IProps) => {
         </>
       ) : (
         currentAudio && (
-          // <div>Audio paused</div>
           <div className="top-1/2 right-0 w-full flex items-center justify-center">
-            <div className="buffer">Buffering...</div>
+            {isBuffering && <div className="buffer">Buffering...</div>}
           </div>
         )
       )}

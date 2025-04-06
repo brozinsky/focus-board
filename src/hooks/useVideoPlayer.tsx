@@ -10,6 +10,8 @@ const useVideoPlayer = () => {
     setDurationVideo,
     setIsVideoPlaying,
     volumeVideo,
+    setIsBuffering,
+    isBuffering,
   } = usePlayerStore();
 
   const onReady: YouTubeProps["onReady"] = (event) => {
@@ -23,6 +25,7 @@ const useVideoPlayer = () => {
 
       if (state === PlayerState.PLAYING) {
         setIsVideoPlaying(true);
+        setIsBuffering(false);
         return;
       }
 
@@ -40,6 +43,24 @@ const useVideoPlayer = () => {
         setCurrentTimeVideo(playerRef.current.getCurrentTime());
       }
     }, 1000);
+  };
+
+  const onStateChange: YouTubeProps["onStateChange"] = (event) => {
+    const state = event.data;
+
+    if (state === PlayerState.BUFFERING) {
+      setIsBuffering(true);
+    } else {
+      setIsBuffering(false);
+    }
+
+    if (state === PlayerState.PLAYING) {
+      setIsVideoPlaying(true);
+    }
+
+    if (state === PlayerState.PAUSED || state === PlayerState.ENDED) {
+      setIsVideoPlaying(false);
+    }
   };
 
   useEffect(() => {
@@ -68,7 +89,9 @@ const useVideoPlayer = () => {
   return {
     playerRef,
     onReady,
+    onStateChange,
     handlePlayPause,
+    isBuffering,
   };
 };
 

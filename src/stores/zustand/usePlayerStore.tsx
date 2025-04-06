@@ -22,6 +22,7 @@ interface IState {
   isVideoPlaying: boolean;
   isAudioPlaying: boolean;
   isSharedVideoAndAudio: boolean;
+  isBuffering: boolean;
   setAudioSource: (audioSource: TAudioSource) => void;
   setActiveScene: (activeScene: TActiveScene) => void;
   setActiveYtScene: (activeYtScene: TActiveYtScene) => void;
@@ -37,6 +38,7 @@ interface IState {
   setIsVideoPlaying: (isPlaying: boolean) => void;
   setIsAudioPlaying: (isPlaying: boolean) => void;
   setIsSharedVideoAndAudio: (isSharedVideoAndAudio: boolean) => void;
+  setIsBuffering: (isBuffering: boolean) => void;
 }
 
 const usePlayerStore = create<IState>((set) => ({
@@ -58,6 +60,7 @@ const usePlayerStore = create<IState>((set) => ({
   isVideoPlaying: false,
   isAudioPlaying: false,
   isSharedVideoAndAudio: getFromLocalStorage("isSharedVideoAndAudio", false),
+  isBuffering: true,
   setAudioSource: (value) => {
     setToLocalStorage("audioSource", value);
     set({ audioSource: value });
@@ -100,6 +103,7 @@ const usePlayerStore = create<IState>((set) => ({
   setCurrentTimeAudio: (currentTime) => set({ currentTimeAudio: currentTime }),
   setIsVideoPlaying: (isPlaying) => set({ isVideoPlaying: isPlaying }),
   setIsAudioPlaying: (isPlaying) => set({ isAudioPlaying: isPlaying }),
+  setIsBuffering: (isBuffering) => set({ isBuffering }),
 }));
 
 export default usePlayerStore;
