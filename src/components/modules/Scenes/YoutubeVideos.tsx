@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import CardYTVideo from "@/components/ui/cards/CardYTVideo";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
-import { ICurrentVideo } from "@/types/query-types";
+import { ICurrentVideo, TActiveYtScene } from "@/types/query-types";
 import { cn } from "@/lib/utils";
+import useYoutubeBgQuery from "@/stores/queries/useYoutubeBgQuery";
 
 type TSnippet = {
   videoOwnerChannelTitle: string;
@@ -38,20 +39,29 @@ type TPlaylistItem = {
 const YoutubeVideos = ({
   grid = "md",
   noInfo = false,
+  category,
 }: {
   grid?: "sm" | "md";
   noInfo?: boolean;
+  category: TActiveYtScene;
 }) => {
   const playlistQuery = usePlaylistQuery();
+  const yBgQuery = useYoutubeBgQuery(category);
   const [playlistItems, setPlaylistItems] = useState<TPlaylistItem[] | null>(
     null
   );
 
   useEffect(() => {
-    if (!playlistQuery.isLoading && playlistQuery.data) {
-      setPlaylistItems(playlistQuery.data.items);
+    if (!yBgQuery.isLoading && yBgQuery.data) {
+      setPlaylistItems(yBgQuery.data.items);
     }
-  }, [playlistQuery.isLoading, playlistQuery.data]);
+  }, [yBgQuery.isLoading, yBgQuery.data]);
+
+  // useEffect(() => {
+  //   if (!playlistQuery.isLoading && playlistQuery.data) {
+  //     setPlaylistItems(playlistQuery.data.items);
+  //   }
+  // }, [playlistQuery.isLoading, playlistQuery.data]);
 
   if (playlistQuery.isLoading) {
     return (
@@ -85,7 +95,9 @@ const YoutubeVideos = ({
             if (currVid.title === "Private video") {
               return null;
             }
-            return <CardYTVideo key={currVid.title} item={currVid} noInfo={noInfo}/>;
+            return (
+              <CardYTVideo key={currVid.title} item={currVid} noInfo={noInfo} category={category}/>
+            );
           })}
       </div>
     </div>

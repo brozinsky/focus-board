@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import axios from "axios";
-
-// const YT_BASE_URL = "https://www.googleapis.com/youtube/v3/playlistItems";
+import { TActiveYtScene } from "@/types/query-types";
 
 const fetchPlaylistItems = async (category: string) => {
   if (!category) {
@@ -20,12 +19,12 @@ const fetchPlaylistItems = async (category: string) => {
   }
 };
 
-const usePlaylistQuery = () => {
+const useYoutubeBgQuery = (category: TActiveYtScene) => {
   return useQuery({
-    queryKey: ["yt", "playlist", "music"],
-    queryFn: () => fetchPlaylistItems("music"),
-    // queryFn: () => Promise.reject("Treść błędu")
+    queryKey: ["yt", "playlist", category],
+    queryFn: () => fetchPlaylistItems(category),
+    enabled: !!category,
   });
 };
 
-export default usePlaylistQuery;
+export default useYoutubeBgQuery;

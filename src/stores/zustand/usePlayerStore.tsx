@@ -1,5 +1,5 @@
 import { initCurrentAudio, initWallpaper } from "@/lib/constants/cons-init";
-import { ICurrentVideo, TActiveScene, TAudioSource } from "@/types/query-types";
+import { ICurrentVideo, TActiveScene, TActiveYtScene, TAudioSource } from "@/types/query-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
@@ -9,6 +9,7 @@ import { create } from "zustand";
 interface IState {
   audioSource: TAudioSource;
   activeScene: TActiveScene;
+  activeYtScene: TActiveYtScene;
   currentVideo: ICurrentVideo | null;
   currentBgVideoId: string | null;
   currentAudio: ICurrentVideo | null;
@@ -23,6 +24,7 @@ interface IState {
   isSharedVideoAndAudio: boolean;
   setAudioSource: (audioSource: TAudioSource) => void;
   setActiveScene: (activeScene: TActiveScene) => void;
+  setActiveYtScene: (activeYtScene: TActiveYtScene) => void;
   setCurrentVideo: (currentVideo: ICurrentVideo | null) => void;
   setCurrentBgVideoId: (currentBgVideoId: string | null) => void;
   setCurrentAudio: (currentAudio: ICurrentVideo | null) => void;
@@ -40,6 +42,7 @@ interface IState {
 const usePlayerStore = create<IState>((set) => ({
   audioSource: getFromLocalStorage("audioSource", "youtube"),
   activeScene: getFromLocalStorage("activeScene", "wallpaper"),
+  activeYtScene: getFromLocalStorage("activeYtScene", "yt-lofi"),
   currentVideo: getFromLocalStorage("currentVideo", null),
   // currentVideo: null,
   currentBgVideoId: getFromLocalStorage("currentBgVideoId", initWallpaper),
@@ -66,6 +69,10 @@ const usePlayerStore = create<IState>((set) => ({
   setActiveScene: (value) => {
     setToLocalStorage("activeScene", value);
     set({ activeScene: value });
+  },
+  setActiveYtScene: (value) => {
+    setToLocalStorage("activeYtScene", value);
+    set({ activeYtScene: value });
   },
   setCurrentVideo: (value) => {
     setToLocalStorage("currentVideo", value);

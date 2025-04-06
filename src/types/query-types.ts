@@ -59,6 +59,14 @@ export interface ICurrentVideo {
 
 export type TActiveScene = "yt" | "bg-video" | "wallpaper";
 
+export type TActiveYtScene =
+  | "yt-lofi"
+  | "yt-city-walk"
+  | "yt-nature"
+  | "yt-retro"
+  | "yt-movies-games"
+  | "yt-scifi";
+
 export type TAudioSource = "spotify" | "youtube";
 
 export type TJournalPrompt = {

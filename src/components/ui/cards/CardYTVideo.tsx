@@ -3,23 +3,31 @@ import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
 import { cn } from "@/lib/utils";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
-import { ICurrentVideo } from "@/types/query-types";
+import { ICurrentVideo, TActiveYtScene } from "@/types/query-types";
 import { AsyncImage } from "loadable-image";
 import { Blur } from "transitions-kit";
 
 const CardYTVideo = ({
   item,
   noInfo = false,
+  category,
 }: {
   item: ICurrentVideo;
   noInfo?: boolean;
+  category: TActiveYtScene;
 }) => {
-  const { activeScene, setActiveScene, setCurrentVideo, currentVideo } =
-    usePlayerStore();
+  const {
+    activeScene,
+    setActiveScene,
+    setCurrentVideo,
+    currentVideo,
+    setActiveYtScene,
+  } = usePlayerStore();
   const { setIsOpen } = useWindowsStore();
 
   const handleClick = (value: ICurrentVideo) => {
     activeScene !== "yt" && setActiveScene("yt");
+    setActiveYtScene(category);
     setCurrentVideo(value);
     setIsOpen("scene", false);
   };
