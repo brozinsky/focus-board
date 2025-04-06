@@ -24,21 +24,6 @@ const Timer = () => {
 
   return (
     <div className="absolute md:pointer-events-none z-40 overflow-hidden top-4 right-4 left-4 bottom-4">
-      <DndContext
-        autoScroll={false}
-        modifiers={[restrictToParentElement]}
-        onDragEnd={createHandleDragEnd("timer")}
-        sensors={sensors}
-      >
-        <WindowTimer
-          styles={{
-            position: "absolute",
-            left: `${windowPosition.timer.x}px`,
-            top: `${windowPosition.timer.y}px`,
-          }}
-        />
-      </DndContext>
-
       {window.innerWidth >= 768 ? (
         <DndContext
           autoScroll={false}
