@@ -62,12 +62,12 @@ const DropdownStickyNote = () => {
                 + Add todo list
               </ButtonDropdown> */}
         <Checkbox
-          isDisabled={false}
+          isDisabled={stickyNoteDemo.length === 0}
           isSelected={isLoggedIn ? areNotesVisible : areNotesVisibleDemo}
           state={isLoggedIn ? areNotesVisible : areNotesVisibleDemo}
           onChange={isLoggedIn ? setAreNotesVisible : setAreNotesVisibleDemo}
         >
-          Toggle display
+          Show notes
         </Checkbox>
       </div>
     </Dropdown>

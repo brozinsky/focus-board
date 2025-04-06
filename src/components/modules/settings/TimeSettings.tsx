@@ -45,7 +45,7 @@ const TimeSettings = () => {
   return (
     <>
       <p className="text-xl mb-2">Clock</p>
-      <div className="flex flex-row justify-between max-w-sm">
+      <div className="settings__label">
         <label htmlFor="time-option">Clock position</label>
         {/* <div className="grid grid-cols-3 gap-4">
           <div className="flex flex-col">
@@ -77,7 +77,7 @@ const TimeSettings = () => {
           setState={setClockPosition}
         />
       </div>
-      <div className="flex flex-row justify-between max-w-sm">
+      <div className="settings__label">
         <label htmlFor="time-option">Time format</label>
         <Select
           buttonClassName="w-[160px]"
@@ -89,7 +89,7 @@ const TimeSettings = () => {
           setState={setTimeFormat}
         />
       </div>
-      <div className="flex flex-row justify-between max-w-sm">
+      <div className="settings__label">
         <label htmlFor="time-option">Show seconds</label>
         <Switch
           checked={isSecondsVisible}

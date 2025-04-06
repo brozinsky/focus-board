@@ -20,6 +20,8 @@ const LogoSVG = () => {
       width={553}
       height={207}
       fill="none"
+      viewBox="0 0 553 207"
+      className={"w-[320px] sm:w-[553px] h-[120px] sm:h-[207px]"}
     >
       <motion.path
         fill="#fff"

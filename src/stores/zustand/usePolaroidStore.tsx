@@ -105,7 +105,6 @@ const usePolaroidStore = create<TStore>((set) => ({
     setToLocalStorage("polaroids", newPolaroids);
     set({ polaroids: newPolaroids });
   },
-
   arePhotosVisible: getFromLocalStorage("arePhotosVisible", true),
   setArePhotosVisible: (value) => {
     setToLocalStorage("arePhotosVisible", value);

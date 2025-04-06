@@ -40,7 +40,10 @@ import CameraOffSVG from "@/components/elements/svg/icons/interface/panel/Camera
 import CameraSVG from "@/components/elements/svg/icons/interface/panel/CameraSVG";
 import DropdownStickyNote from "@/components/ui/dropdowns/composites/DropdownStickyNote";
 import Dropdown from "@/components/ui/dropdowns/Dropdown";
-import { ClipboardCheck } from "lucide-react";
+import { ClipboardCheck, NotebookPen } from "lucide-react";
+import DropdownPhotos from "@/components/ui/dropdowns/composites/DropdownPhotos";
+import DropdownGames from "@/components/ui/dropdowns/composites/DropdownGames";
+import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
 
 interface IPanelProps {
   handlePlayPause: () => void;
@@ -50,21 +53,14 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
   const { isAudioPlaying, currentAudio, audioSource, setAudioSource } =
     usePlayerStore();
   const { isOpen, setIsOpen } = useWindowsStore();
-
-  const { toast } = useToast();
-  const {
-    addNewPolaroid,
-    arePhotosVisible,
-    setArePhotosVisible,
-    addNewPicture,
-  } = usePolaroidStore();
+  const { isLoggedIn } = useAuthStore();
 
   return (
     <>
       <Settings />
       <AuthModal />
       <div id="Panel" className="panel">
-        <div className="panel__group">
+        <div className="panel__group panel__group--left">
           {audioSource === "spotify" && <SpotifyPlayer />}
           {audioSource === "youtube" && (
             <>
@@ -120,7 +116,7 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             />
           </div> */}
         </div>
-        <div className="panel__group">
+        <div className="panel__group panel__group--right">
           {/* <button
             onClick={() => {
               toast({
@@ -135,64 +131,16 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
 
           {/* <OnboardingDialog /> */}
 
-          <Dropdown
-            position={"top"}
-            trigger={
-              <ButtonIcon
-                component={"div"}
-                icon={arePhotosVisible ? <CameraSVG /> : <CameraOffSVG />}
-                tooltip={"Photos"}
-              />
-            }
-          >
-            <div className="flex flex-col gap-3 p-4">
-              <div className="text-xl">Photos</div>
-              <Separator className="bg-white/30" />
-              <ButtonDropdown
-                onClick={addNewPolaroid}
-                isDisabled={!arePhotosVisible}
-              >
-                + Add new photo
-              </ButtonDropdown>
-              <ButtonDropdown
-                onClick={addNewPicture}
-                isDisabled={!arePhotosVisible}
-              >
-                + Add new Picture
-              </ButtonDropdown>
-              <Checkbox
-                isDisabled={false}
-                isSelected={arePhotosVisible}
-                state={arePhotosVisible}
-                onChange={setArePhotosVisible}
-              >
-                Show photos
-              </Checkbox>
-            </div>
-          </Dropdown>
-          <Dropdown
-            position={"top"}
-            trigger={
-              <ButtonIcon
-                component={"div"}
-                icon={<GameControllerSVG />}
-                tooltip={"Games"}
-              />
-            }
-          >
-            <div className="flex flex-col gap-3 p-4">
-              <div className="text-xl">Games</div>
-              <Separator className="bg-white/30" />
-              <ButtonIcon
-                isOpen={isOpen.saper}
-                className="relative"
-                onClick={() => setIsOpen("saper", !isOpen.saper)}
-                icon={<FlagSVG />}
-                tooltip={"Minesweeper"}
-              />
-            </div>
-          </Dropdown>
-          <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
+          <div className="hidden md:block">
+            <DropdownPhotos />
+          </div>
+          <div className="hidden md:block">
+            <DropdownGames />
+          </div>
+          <Separator
+            orientation="vertical-panel"
+            className="hidden md:block mx-1 md:h-10 w-6 md:w-unset bg-white/20"
+          />
           <ButtonIcon
             isOpen={isOpen.timer}
             className="relative"
@@ -207,13 +155,24 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             icon={!isOpen.pomodoro ? <TimerSVG /> : <TimerPlusSVG />}
             tooltip={"Pomodoro"}
           />
-          <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
-          <DropdownStickyNote />
+          <Separator
+            orientation="vertical-panel"
+            className="mx-1 md:h-10 w-6 md:w-unset bg-white/20"
+          />
+          <div className="hidden md:block">
+            <DropdownStickyNote />
+          </div>
           <ButtonIcon
-            disabled
+            onClick={() => setIsOpen("journal", !isOpen.journal)}
+            icon={<NotebookPen />}
+            tooltip={"Journal"}
+            disabled={!isLoggedIn}
+          />
+          <ButtonIcon
             onClick={() => setIsOpen("habitTracker", !isOpen.habitTracker)}
             icon={<ClipboardCheck />}
             tooltip={"Habit tracker"}
+            disabled={!isLoggedIn}
           />
           <ButtonIcon
             className="relative"
@@ -222,7 +181,10 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             icon={<TasksSVG />}
             tooltip={"Todo list"}
           />
-          <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
+          <Separator
+            orientation="vertical-panel"
+            className="mx-1 md:h-10 w-6 md:w-unset bg-white/20"
+          />
 
           <div className="relative z-100">
             <ButtonIcon
@@ -237,7 +199,10 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
             icon={<MixerIconSVG />}
             tooltip={"Sound effects"}
           />
-          <Separator orientation="vertical" className="mx-1 h-10 bg-white/20" />
+          <Separator
+            orientation="vertical-panel"
+            className="mx-1 md:h-10 w-6 md:w-unset bg-white/20"
+          />
           <ButtonIcon
             onClick={() => setIsOpen("loginForm", true)}
             icon={<UserIconSVG />}

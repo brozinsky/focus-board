@@ -55,14 +55,20 @@ const Checkbox = ({
     if (!hasRendered) {
       setHasRendered(true);
     }
-  }, [state.isSelected, isFocusVisible, animationSwipe, isDisabled, hasRendered]);
+  }, [
+    state.isSelected,
+    isFocusVisible,
+    animationSwipe,
+    isDisabled,
+    hasRendered,
+  ]);
 
   const labelClassName = classNames(
-    isDisabled ? "checkbox__label--disabled" : "checkbox__label"
+    isDisabled ? "checkbox__label--disabled checkbox__label" : "checkbox__label"
   );
 
   return (
-    <label className="flex items-start group h-fit w-fit">
+    <label className={"flex items-start group h-fit w-fit"}>
       <VisuallyHidden>
         <input
           {...mergeProps(inputProps, focusProps)}
@@ -70,7 +76,14 @@ const Checkbox = ({
           ref={ref}
         />
       </VisuallyHidden>
-      <div className={cn(checkboxClassName, "mt-0")} aria-hidden="true">
+      <div
+        className={cn(
+          checkboxClassName,
+          "mt-0",
+          isDisabled && "checkbox--disabled"
+        )}
+        aria-hidden="true"
+      >
         {hasRendered && (
           <svg className={svgClassName} viewBox="0 0 18 18">
             <polyline

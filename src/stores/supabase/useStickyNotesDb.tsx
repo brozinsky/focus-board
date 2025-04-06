@@ -87,15 +87,29 @@ const useStickyNotesDb = create<IDb>((set, get) => ({
 
       if (error) {
         console.error("Error fetching sticky notes:", error.message);
+        return;
+      }
+
+      set({ stickyNotes: data || [] });
+
+      const storedPositions = getFromLocalStorage(
+        "stickyNotesPositions",
+        undefined
+      );
+
+      if (!storedPositions) {
+        const defaultPositions: TStickyNotePosition[] = (data || []).map(
+          (note) => ({
+            id: note.id,
+            x: window.innerWidth / 2 - 50,
+            y: window.innerHeight / 2 - 50,
+          })
+        );
+
+        setToLocalStorage("stickyNotesPositions", defaultPositions);
+        set({ stickyNotesPositions: defaultPositions });
       } else {
-        const stickyNotes = (data || []).map((note) => {
-          //   const position = getFromLocalStorage(`position_${note.id}`, {
-          //     x: window.innerWidth / 2 - 50,
-          //     y: window.innerHeight / 2 - 50,
-          //   });
-          return { ...note };
-        });
-        set({ stickyNotes });
+        set({ stickyNotesPositions: storedPositions });
       }
     } catch (error) {
       console.error("Unexpected error fetching sticky notes:", error);

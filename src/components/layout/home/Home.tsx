@@ -13,8 +13,6 @@ import useThemeStore from "@/stores/zustand/useThemeStore";
 import OverlayWelcome from "@/components/modules/Overlay/OverlayWelcome";
 import useFXInitialization from "@/hooks/useFXInitialization";
 import useRootRef from "@/hooks/useRootRef";
-import Onboarding from "../onboarding/Onboarding";
-import useAppStore from "@/stores/zustand/useAppStore";
 import Main from "../main/Main";
 import useAppLoading from "@/hooks/app/useAppLoading";
 import TipTap from "../../modules/Journal/RichTextEditor";
@@ -23,7 +21,7 @@ const Home = () => {
   const { rootRef, rootFontFamily } = useRootRef();
   const { initializeAudio } = useFxStore();
   useFXInitialization(initializeAudio);
-  const { isOnboarding, setIsOnboarding } = useAppStore();
+  // const { isOnboarding, setIsOnboarding } = useAppStore();
   const { updateCSSVariables } = useThemeStore();
 
   const {
@@ -93,7 +91,6 @@ const Home = () => {
       ref={rootRef}
     >
       {<Main handlePlayPause={handleAudioPlayPause} />}
-      {/* {isOnboarding && <Onboarding setIsOnboarding={setIsOnboarding} />} */}
 
       <div unselectable="on">
         {activeScene === "yt" && currentVideo?.videoId && (

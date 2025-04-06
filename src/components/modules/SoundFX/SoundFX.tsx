@@ -76,7 +76,7 @@ const SoundFX = () => {
           </div>
           <div
             className={
-              "gap-8 grid xl:grid-cols-5 md:grid-cols-3 lg:grid-cols-4 grid-cols-1"
+              "gap-8 grid xl:grid-cols-5 sm:grid-cols-3 lg:grid-cols-4 grid-cols-2"
             }
           >
             {SFX_AUDIO.map(({ name, id, isPremium }) => {

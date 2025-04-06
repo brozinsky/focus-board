@@ -13,11 +13,15 @@ export type TWindowName =
   | "soundFXFirstOpen"
   | "playlist"
   | "scene"
+  | "journal"
+  | "journalSettings"
+  | "journalIsEditing"
   | "todoList"
   | "habitTracker"
   | "spotify"
   | "saper"
   | "loginForm"
+  | "quote"
   | "sceneModal";
 
 type TWindowPosition = {
@@ -46,6 +50,9 @@ interface IWindowsStore {
     loginForm: boolean;
     spotify: boolean;
     habitTracker: boolean;
+    journal: boolean;
+    journalSettings: boolean;
+    journalIsEditing: boolean;
 
     //modals
     soundFX: boolean;
@@ -53,14 +60,18 @@ interface IWindowsStore {
     playlist: boolean;
     scene: boolean;
     sceneModal: boolean;
+
+    //other
+    quote: boolean,
   };
   setIsOpen: (windowName: TWindowName, isOpen: boolean) => void;
 
   isMinimized: {
     pomodoro: boolean;
     timer: boolean;
+    quote: boolean;
   };
-  setIsMinimized: (windowName: TWindowName, isMinimized: boolean) => void;
+  setIsMinimized: (windowName: TWindowName, isMinimized: boolean, quote: boolean) => void;
 }
 
 const initWindowPosition = {
@@ -109,6 +120,9 @@ const useWindowsStore = create<IWindowsStore>((set, get) => ({
     loginForm: false,
     spotify: false,
     habitTracker: false,
+    journal: false,
+    journalSettings: false,
+    journalIsEditing: false,
 
     //modals
     soundFX: false,
@@ -116,6 +130,10 @@ const useWindowsStore = create<IWindowsStore>((set, get) => ({
     playlist: false,
     scene: false,
     sceneModal: false,
+
+    //other
+    quote: false,
+
   },
   setIsOpen: (windowName, isOpen) =>
     set((state) => ({

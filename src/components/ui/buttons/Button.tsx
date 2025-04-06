@@ -31,10 +31,12 @@ type TProps = {
   shape?: "rectangle" | "circle" | "square" | null | undefined;
   size?: "md" | "sm" | null | undefined;
   isLoading?: boolean;
+  isDisabled?: boolean;
   label?: string;
   isDiv?: boolean;
   isPremium?: boolean;
   type?: "submit" | "button";
+  width?: "full" | null | undefined;
 };
 
 type TLoadingWrapper = {
@@ -50,6 +52,7 @@ export default function Button({
   isPremium = false,
   children,
   isLoading = false,
+  isDisabled = false,
   onClick,
   variant = "neutral",
   icon,
@@ -59,6 +62,7 @@ export default function Button({
   label,
   isDiv = false,
   type = "submit",
+  width,
 }: TProps) {
   const { isLoggedIn } = useAuthStore();
 
@@ -82,11 +86,14 @@ export default function Button({
         md: "button--md",
         sm: "button--sm",
       },
+      width: {
+        full: "button--full",
+      },
       isLoading: {
         true: "bg-emerald-700 !cursor-default",
       },
       isDisabled: {
-        true: "opacity-50 !cursor-default",
+        true: "button--disabled",
       },
     },
     compoundVariants: [
@@ -115,12 +122,13 @@ export default function Button({
       type={type}
       aria-label={label}
       onClick={onClick}
+      disabled={isDisabled}
       className={classes({
         variant,
         shape,
         size,
         isLoading,
-        isDisabled: !isLoggedIn && isPremium,
+        isDisabled: (!isLoggedIn && isPremium) || isDisabled,
       })}
     >
       <LoadingWrapper isLoading={isLoading}>

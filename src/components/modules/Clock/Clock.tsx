@@ -50,7 +50,7 @@ const Clock = ({
         )}
       >
         <div className="flex flex-col gap-1 cursor-default rounded-lg opacity-80">
-          <div className="flex font-normal">
+          <div className="scale-[65%] transform sm:scale-100 flex font-normal">
             <FlipNumbers
               height={numberHeight}
               width={numberWidth}
@@ -95,7 +95,7 @@ const Clock = ({
               </div>
             )}
           </div>
-          <p className="text-2xl text-center tracking-widest">
+          <p className="text-base sm:text-2xl text-center tracking-widest">
             {getFormattedDate(date, MONTHS)}
           </p>
         </div>

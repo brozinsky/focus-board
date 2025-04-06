@@ -86,7 +86,7 @@ const SceneSettings = () => {
         )}
       </div>
 
-      <div className="flex flex-row justify-between max-w-sm">
+      <div className="settings__label">
         <label htmlFor="time-option">Frame type</label>
         <Select
           buttonClassName="w-[160px]"

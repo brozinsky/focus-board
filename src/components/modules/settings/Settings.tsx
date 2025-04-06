@@ -41,8 +41,8 @@ const Settings = () => {
           themeStyle == "glass" && "modal__card--glass"
         )}
       >
-        <div className="grid grid-cols-[20%_80%]">
-          <div className="p-8 pr-0">
+        <div className="flex flex-col md:grid md:grid-cols-[20%_80%]">
+          <div className="p-8 md:pr-0">
             <h3 className="flex flex-row items-center text-xl gap-3 tracking-wide">
               <SettingsIconSVG /> Settings
             </h3>
