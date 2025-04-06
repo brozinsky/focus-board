@@ -134,9 +134,9 @@ const Panel: React.FC<IPanelProps> = ({ handlePlayPause }) => {
           <div className="hidden md:block">
             <DropdownPhotos />
           </div>
-          <div className="hidden md:block">
+          {/* <div className="hidden md:block">
             <DropdownGames />
-          </div>
+          </div> */}
           <Separator
             orientation="vertical-panel"
             className="hidden md:block mx-1 md:h-10 w-6 md:w-unset bg-white/20"
