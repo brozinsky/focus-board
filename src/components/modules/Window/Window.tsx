@@ -34,6 +34,7 @@ const Window = (props: {
       {...props}
       style={{ ...style, ...props.styles }}
       className="pointer-events-auto cursor-default"
+      title={undefined}
     >
       <div className="overflow-hidden group/timer bg-background-glass rounded-lg absolute translate-x-1/2 -translate-y-1/2 right-1/2 top-1/2 text-neutral-100 z-20">
         <div className="mt-window-bar flex flex-col gap-2 ">
