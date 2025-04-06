@@ -1,6 +1,7 @@
 import NextTrackSVG from "@/components/elements/svg/icons/media/NextTrackSVG";
 import PauseIconSVG from "@/components/elements/svg/icons/media/PauseIconSVG";
 import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
+import PrevTrackSVG from "@/components/elements/svg/icons/media/PrevTrackSVG";
 import RefreshSVG from "@/components/elements/svg/icons/media/RefreshSVG";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 
@@ -10,7 +11,10 @@ interface IProps {
   handleStart: () => void;
   handlePause: () => void;
   handleNext: () => void;
+  handlePrev: () => void;
   handleAdd10Minutes: () => void;
+  currentSession: number;
+  isWorkSession: boolean;
 }
 
 const PomodoroControls = ({
@@ -19,15 +23,26 @@ const PomodoroControls = ({
   handleStart,
   handlePause,
   handleNext,
-}: // handleAdd10Minutes,
+  handlePrev,
+  currentSession,
+  isWorkSession
+}:
 IProps) => {
   return (
     <div className="mt-4 flex gap-4 items-center">
       <ButtonIcon
+        className="absolute bottom-32 left-6"
         onClick={handleRestart}
         icon={<RefreshSVG />}
         variant="ghost"
         tooltip={"Restart timer"}
+      />
+      <ButtonIcon
+        disabled={currentSession === 1 && isWorkSession}
+        onClick={handlePrev}
+        icon={<PrevTrackSVG />}
+        variant="ghost"
+        tooltip={"Previous step"}
       />
       {!isRunning ? (
         <ButtonIcon

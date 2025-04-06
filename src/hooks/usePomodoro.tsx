@@ -77,6 +77,31 @@ const usePomodoro = () => {
     setIsRunning(true);
   };
 
+  const handlePrev = () => {
+    if (currentSession === 1 && isWorkSession) return;
+
+    setIsRunning(false);
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+
+    if (!isWorkSession) {
+      setIsWorkSession(true);
+      setTimeLeft(workTimeMin * 60);
+    } else {
+      const prevSession = currentSession - 1;
+      setIsWorkSession(false);
+      setCurrentSession(prevSession);
+      if (prevSession === TOTAL_SESSIONS) {
+        setTimeLeft(longBreakTimeMin * 60);
+      } else {
+        setTimeLeft(breakTimeMin * 60);
+      }
+    }
+
+    setProgress(100);
+  };
+
   useEffect(() => {
     if (timeOption === "25/5") {
       setWorkTimeMin(25);
@@ -151,6 +176,7 @@ const usePomodoro = () => {
     handlePause,
     handleRestart,
     handleNext,
+    handlePrev,
     handleAdd10Minutes,
     setTimeOption,
     progress,

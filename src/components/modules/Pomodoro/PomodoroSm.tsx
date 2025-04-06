@@ -15,6 +15,7 @@ const PomodoroSm = () => {
     handlePause,
     handleRestart,
     handleNext,
+    handlePrev,
     handleAdd10Minutes,
     progress,
     timeLeft,
@@ -52,8 +53,11 @@ const PomodoroSm = () => {
           handlePause,
           handleRestart,
           handleNext,
+          handlePrev,
           handleAdd10Minutes,
           isRunning,
+          currentSession,
+          isWorkSession
         }}
       />
       <PomodoroSessions
