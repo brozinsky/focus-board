@@ -57,6 +57,12 @@
   &--circle {
     @apply rounded-full;
   }
+  &--toggle {
+    @apply text-foreground font-medium;
+    &.active {
+      @apply text-foreground-primary bg-primary;
+    }
+  }
   &--ghost {
     &:hover {
       @apply bg-white/20;

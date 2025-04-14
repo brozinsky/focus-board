@@ -5,10 +5,10 @@ import useThemeStore from "@/stores/zustand/useThemeStore";
 interface IProps {
   onClick?: (e: any) => void;
   icon: ReactNode;
-  tooltip: string;
+  tooltip?: string;
   size?: "lg" | "md" | "sm";
   className?: string;
-  variant?: "primary" | "ghost" | "glass";
+  variant?: "primary" | "ghost" | "glass" | "toggle";
   disabled?: boolean;
   isOpen?: boolean;
   rounded?: "square" | "circle";
@@ -48,6 +48,7 @@ const ButtonIcon = ({
         buttonVariant === "ghost" && "button-icon--ghost",
         buttonVariant === "glass" && "button-icon--glass",
         buttonVariant === "primary" && "button-icon--primary",
+        buttonVariant === "toggle" && "button-icon--toggle",
         disabled && "disabled",
         "button-icon",
         rounded === "circle" && "button-icon--circle",

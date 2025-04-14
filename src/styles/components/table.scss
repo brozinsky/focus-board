@@ -1,4 +1,4 @@
-table {
+.table {
   @apply w-full text-sm text-left text-foreground rounded-xl overflow-hidden;
   thead {
     @apply text-foreground-muted border-b border-neutral-400;

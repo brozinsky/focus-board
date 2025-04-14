@@ -1,16 +1,14 @@
-export const getWeekDays = () => {
+export const getWeekDays = (weekOffset: number = 0): Date[] => {
   const today = new Date();
-  const weekDays = [];
-  const dayOfWeek = today.getDay();
-  const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
-
-  for (let i = 0; i < 7; i++) {
-    const day = new Date();
-    day.setDate(today.getDate() + mondayOffset + i);
-    weekDays.push(day);
+  const days: Date[] = [];
+  
+  for (let i = -6; i <= 0; i++) {
+    const date = new Date();
+    date.setDate(today.getDate() + i + (weekOffset * 7));
+    days.push(date);
   }
-
-  return weekDays;
+  
+  return days;
 };
 
 export const formatJournalDate = (date: Date) => {

@@ -14,7 +14,7 @@ type TProps = {
   animationDraw?: boolean;
   animationSwipe?: boolean;
   isDisabled?: boolean;
-  children: any;
+  children?: any;
   variant?: "default" | "dark";
 };
 
