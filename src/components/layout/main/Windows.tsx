@@ -1,5 +1,5 @@
 import Games from "@/components/modules/Games/Games.";
-import HabitTracker from "@/components/modules/HabitTracker/HabitTracker";
+import Habits from "@/components/modules/HabitTracker/Habits";
 import Journal from "@/components/modules/Journal/Journal";
 import Photos from "@/components/modules/Photos/Photos";
 import Playlist from "@/components/modules/Playlist/Playlist";
@@ -17,7 +17,6 @@ type TWindows =
   | "pomodoro"
   | "timer"
   | "todoList"
-  | "habitTracker"
   | "playlist"
   | "scene"
   | "soundFX";
@@ -29,7 +28,6 @@ const windowComponents: Record<TWindows, React.ComponentType> = {
   playlist: Playlist,
   scene: Scenes,
   soundFX: SoundFX,
-  habitTracker: HabitTracker,
 };
 
 const Windows = () => {
@@ -38,6 +36,8 @@ const Windows = () => {
 
   return (
     <>
+    <div className="absolute z-20 left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] bg-black text-white p-10">
+    </div>
       {Object.entries(windowComponents).map(([key, Component]) => {
         const itemKey = key as TWindows;
         return isOpen[itemKey] ? <Component key={itemKey} /> : null;
@@ -46,6 +46,7 @@ const Windows = () => {
       <Photos />
       <Games />
       <Journal />
+      <Habits />
     </>
   );
 };

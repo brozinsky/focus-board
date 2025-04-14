@@ -9,6 +9,7 @@ import CheckSVG from "@/components/elements/svg/icons/interface/CheckSVG";
 import { getWeekDays } from "@/utils/functions/fn-date";
 import EditHabit from "./EditHabit";
 import useUpdateHabitBox from "@/stores/supabase/useUpdateHabitBox";
+import useHabitWeekStore from "@/stores/zustand/useHabitWeekStore";
 
 const HabitRow = ({
   name,
@@ -20,13 +21,22 @@ const HabitRow = ({
   dates: any;
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-
   const { mutate: updateHabit } = useUpdateHabitBox();
-
   const { mutate: removeHabit, isPending: isPendingRemove } =
     useRemoveHabitMutation();
 
-  const weekDays = useMemo(() => getWeekDays(), []);
+  const { weekOffset } = useHabitWeekStore();
+
+  const weekDays = useMemo(() => getWeekDays(weekOffset), [weekOffset]);
+
+  useEffect(() => {
+    console.log({
+      weekOffset,
+      weekDaysLength: weekDays.length,
+      dates: Object.keys(dates).length,
+      weekDays: weekDays.map(d => d.toISOString().split('T')[0])
+    });
+  }, [weekDays, dates, weekOffset]);
 
   return (
     <React.Fragment>
@@ -77,7 +87,7 @@ const HabitRow = ({
             "grid grid-cols-7 gap-4 w-full justify-items-center"
           )}
         >
-          {weekDays.map((day) => {
+          {weekDays.slice(0, 7).map((day) => {
             const formattedDate = day.toISOString().split("T")[0];
             return (
               <HabitCheckbox
