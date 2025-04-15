@@ -4,10 +4,15 @@ import { supabaseClient } from "@/api/client";
 
 const mutationFn = async ({
   habitId,
-  newTitle,
+  values,
 }: {
   habitId: string;
-  newTitle: string;
+  values: {
+    title: string;
+    startDate: Date;
+    endDate: Date | null;
+    selectedDays: { [key: number]: boolean };
+  };
 }) => {
   try {
     const { data: habit, error: fetchError } = await supabaseClient
@@ -24,7 +29,12 @@ const mutationFn = async ({
     if (habit) {
       const { error: updateError } = await supabaseClient
         .from("habits")
-        .update({ title: newTitle })
+        .update({
+          title: values.title,
+          start_date: values.startDate.toISOString(),
+          end_date: values.endDate ? values.endDate.toISOString() : null,
+          selected_days: values.selectedDays,
+        })
         .eq("id", habitId);
 
       if (updateError) {

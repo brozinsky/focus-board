@@ -69,6 +69,8 @@ export type TActiveYtScene =
 
 export type TAudioSource = "spotify" | "youtube";
 
+// Journal types
+
 export type TJournalPrompt = {
   name: string;
   id: number;
@@ -82,4 +84,12 @@ export type TJournalData = {
   content: string;
   question_prompt: number;
   user_id: string;
+};
+
+// Habit tracker types
+export type THabitsForm = {
+  title: string;
+  startDate: Date;
+  endDate: Date | null;
+  selectedDays: { [key: number]: boolean };
 };
