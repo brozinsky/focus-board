@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
+import usePomodoroStore from "@/stores/zustand/timer/pomodoro.store";
 
 const TOTAL_SESSIONS = 4;
 

@@ -1,6 +1,6 @@
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { QuoteIcon } from "lucide-react";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import QuoteWindow from "./QuoteWindow";
 
 const Quote = () => {

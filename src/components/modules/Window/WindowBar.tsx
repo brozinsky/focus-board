@@ -2,7 +2,7 @@ import ArrowSmSVG from "@/components/elements/svg/icons/interface/ArrowSmSVG";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsIconSVG";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
-import useWindowsStore, { TWindowName } from "@/stores/zustand/useWindowsStore";
+import useWindowsStore, { TWindowName } from "@/stores/zustand/global/windows.store";
 import React from "react";
 
 const WindowBar = ({

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/inputs/Input";
 import { supabaseClient } from "@/api/client";
-import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import { useAuthStore } from "@/stores/zustand/auth/auth.store";
 import { cn } from "@/lib/utils";
 import Button from "@/components/ui/buttons/Button";
 import { useForm } from "react-hook-form";

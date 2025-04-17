@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useAudioPlayer from "../useAudioPlayer";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
+import { useAuthStore } from "@/stores/zustand/auth/auth.store";
 import { supabaseClient } from "@/api/client";
 
 const useAppLoading = () => {

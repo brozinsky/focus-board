@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog/AlertDialog";
 import MusicNoteSVG from "@/components/elements/svg/icons/media/MusicNoteSVG";
 import ButtonIcon from "../buttons/ButtonIcon";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 
 const StepAudio = () => {
   const { setIsOpen } = useWindowsStore();

@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Listbox, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import BadgePremium from "../badge/BadgePremium";
-import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import { useAuthStore } from "@/stores/zustand/auth/auth.store";
 
 type TProps = {
   label?: string;

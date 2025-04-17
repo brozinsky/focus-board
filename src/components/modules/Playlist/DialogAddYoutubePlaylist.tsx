@@ -12,7 +12,7 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { Input } from "@/components/ui/inputs/Input";
 import Button from "@/components/ui/buttons/Button";
 import axios from "axios";
-import { useSpotifyStore } from "@/stores/zustand/useSpotifyStore";
+import { useSpotifyStore } from "@/stores/zustand/player/spotify.store";
 
 const DialogAddYoutubePlaylist = () => {
   const [error, setError] = useState<string | null>(null);

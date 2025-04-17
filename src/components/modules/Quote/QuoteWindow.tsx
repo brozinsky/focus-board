@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import RefreshSVG from "@/components/elements/svg/icons/media/RefreshSVG";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import useQuoteQuery from "@/stores/queries/useQuoteQuery";
-import useQuoteStore from "@/stores/zustand/useQuoteStore";
+import useQuoteStore from "@/stores/zustand/quotes/quote.store";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { ArrowUpLeft } from "lucide-react";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import { ScrollArea } from "@/components/ui/ScrollArea/ScrollArea";
 
 const QuoteWindow = () => {

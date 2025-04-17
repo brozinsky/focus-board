@@ -1,4 +1,4 @@
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
 import { useCallback, useState } from "react";
 
 const useVolume = () => {

@@ -1,6 +1,6 @@
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 import PlusSVG from "@/components/elements/svg/icons/interface/PlusSVG";
-import useTodoTimerStore from "@/stores/zustand/useTodoTimerStore";
+import useTodoTimerStore from "@/stores/zustand/timer/todo-timer-store";
 import React, { useState } from "react";
 
 const AddTodo = () => {

@@ -1,5 +1,5 @@
 import Polaroid from "./Polaroid";
-import usePolaroidStore from "@/stores/zustand/usePolaroidStore";
+import usePolaroidStore from "@/stores/zustand/photos/polaroid.store";
 import {
   DndContext,
   DragEndEvent,

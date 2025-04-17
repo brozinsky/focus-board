@@ -1,11 +1,11 @@
 import useEditJournalEntryMutation from "@/stores/supabase/journal/useEditJournalEntryMutation";
-import { useJournalStore } from "@/stores/zustand/useJournalStore";
+import { useJournalStore } from "@/stores/zustand/journal/journal.store";
 import Button from "@/components/ui/buttons/Button";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import { motion } from "framer-motion";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 import { cn } from "@/lib/utils";
-import useThemeStore from "@/stores/zustand/useThemeStore";
+import useThemeStore from "@/stores/zustand/global/theme.store";
 
 const JournalEditDialog = () => {
   const { themeStyle } = useThemeStore();

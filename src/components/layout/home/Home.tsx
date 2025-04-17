@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
 import Overlay from "@/components/modules/Overlay/Overlay";
 import YTAudio from "@/components/modules/Player/YTAudio";
@@ -8,8 +8,8 @@ import BgVideo from "@/components/modules/Player/BgVideo";
 import BgWallpaper from "@/components/modules/Player/BgWallpaper";
 import useVideoPlayer from "@/hooks/useVideoPlayer";
 import useAudioPlayer from "@/hooks/useAudioPlayer";
-import useFxStore from "@/stores/zustand/useFxStore";
-import useThemeStore from "@/stores/zustand/useThemeStore";
+import useFxStore from "@/stores/zustand/sfx/useFxStore";
+import useThemeStore from "@/stores/zustand/global/theme.store";
 import OverlayWelcome from "@/components/modules/Overlay/OverlayWelcome";
 import useFXInitialization from "@/hooks/useFXInitialization";
 import useRootRef from "@/hooks/useRootRef";

@@ -1,7 +1,7 @@
 import PomodoroSessions from "./PomodoroSessions";
 import PomodoroControls from "./PomodoroControls";
 import GaugeCircle from "@/components/ui/GaugeCircle/GaugeCircle";
-import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
+import usePomodoroStore from "@/stores/zustand/timer/pomodoro.store";
 import usePomodoro from "@/hooks/usePomodoro";
 import { formatDuration } from "@/utils/clock.utils";
 

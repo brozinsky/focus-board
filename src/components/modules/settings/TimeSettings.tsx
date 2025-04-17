@@ -1,6 +1,6 @@
 import Select from "@/components/ui/dropdowns/Select";
-import { useClockStore } from "@/stores/zustand/useClockStore";
-import useSceneStore from "@/stores/zustand/useSceneStore";
+import { useClockStore } from "@/stores/zustand/global/clock.store";
+import useSceneStore from "@/stores/zustand/scenes/scene.store";
 import React from "react";
 import PomodoroSettings from "./PomodoroSettings";
 import { Switch } from "@/components/ui/buttons/Switch";

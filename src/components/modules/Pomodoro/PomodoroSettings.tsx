@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsIconSVG";
 import { Switch } from "@/components/ui/buttons/Switch";
-import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
+import usePomodoroStore from "@/stores/zustand/timer/pomodoro.store";
 import Select from "@/components/ui/dropdowns/Select";
 import TimeInput from "./TimeInput";
 import { cn } from "@/lib/utils";
-import useThemeStore from "@/stores/zustand/useThemeStore";
+import useThemeStore from "@/stores/zustand/global/theme.store";
 
 type TProps = {
   isOpen: boolean;

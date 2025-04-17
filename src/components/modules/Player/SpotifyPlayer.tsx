@@ -1,7 +1,7 @@
-import { useSpotifyStore } from "@/stores/zustand/useSpotifyStore";
+import { useSpotifyStore } from "@/stores/zustand/player/spotify.store";
 import { cn } from "@/lib/utils";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import SpotifySVG from "@/components/elements/svg/icons/social-media/SpotifySVG";
 
 const SpotifyPlayer = () => {

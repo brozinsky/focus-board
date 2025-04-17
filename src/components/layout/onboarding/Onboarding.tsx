@@ -12,7 +12,7 @@ import ButtonTab from "@/components/ui/buttons/ButtonTab";
 import { SFX_AUDIO } from "@/lib/constants/sfx.constants";
 import FxItem from "@/components/modules/FxItem/FxItem";
 import SceneSettings from "@/components/modules/settings/SceneSettings";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
 import BgVideo from "@/components/modules/Player/BgVideo";
 import Overlay from "@/components/modules/Overlay/Overlay";
 import BgWallpaper from "@/components/modules/Player/BgWallpaper";

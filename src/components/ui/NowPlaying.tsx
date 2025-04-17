@@ -1,6 +1,6 @@
 import useVideoPlayer from "@/hooks/useVideoPlayer";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import Marquee from "react-fast-marquee";
 
 interface IProps {

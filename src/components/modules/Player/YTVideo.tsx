@@ -1,4 +1,4 @@
-import useSceneStore from "@/stores/zustand/useSceneStore";
+import useSceneStore from "@/stores/zustand/scenes/scene.store";
 import clsx from "clsx";
 import YouTube, { YouTubeEvent } from "react-youtube";
 import { motion } from "framer-motion";

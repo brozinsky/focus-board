@@ -1,8 +1,8 @@
 import React from "react";
 import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
 import { cn } from "@/lib/utils";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import { AsyncImage } from "loadable-image";
 import { Blur } from "transitions-kit";
 import { ICurrentVideo, TActiveYtScene } from "@/types/query/playlist.types";

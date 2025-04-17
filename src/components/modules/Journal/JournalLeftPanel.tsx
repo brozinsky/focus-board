@@ -5,7 +5,7 @@ import useAddJournalEntryMutation from "@/stores/supabase/journal/useAddJournalE
 import { dateToString } from "@/utils/common.utils";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/ScrollArea/ScrollArea";
-import { useJournalStore } from "@/stores/zustand/useJournalStore";
+import { useJournalStore } from "@/stores/zustand/journal/journal.store";
 import { formatJournalDate } from "@/utils/date.utils";
 import SpinnerSVG from "@/components/elements/svg/icons/interface/SpinnerSVG";
 import clsx from "clsx";

@@ -5,13 +5,13 @@ import {
   JOURNAL_SHEETS,
 } from "@/lib/constants/journal.constants";
 import { Contrast, FileText, Type } from "lucide-react";
-import { useJournalStore } from "@/stores/zustand/useJournalStore";
+import { useJournalStore } from "@/stores/zustand/journal/journal.store";
 import { motion } from "framer-motion";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsIconSVG";
 import { cn } from "@/lib/utils";
-import useThemeStore from "@/stores/zustand/useThemeStore";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useThemeStore from "@/stores/zustand/global/theme.store";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import { TJournalBgColors, TJournalFonts, TJournalSheets } from "@/types/model/journal.model";
 
 const JournalSheetSettings = () => {

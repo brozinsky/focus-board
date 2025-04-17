@@ -3,11 +3,11 @@ import useJournalQuery from "@/stores/supabase/journal/useJournalQuery";
 import { cn } from "@/lib/utils";
 import JournalLeftPanel from "./JournalLeftPanel";
 import JournalRightEditor from "./JournalRightEditor";
-import useThemeStore from "@/stores/zustand/useThemeStore";
+import useThemeStore from "@/stores/zustand/global/theme.store";
 import { motion } from "framer-motion";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
-import { useJournalStore } from "@/stores/zustand/useJournalStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
+import { useJournalStore } from "@/stores/zustand/journal/journal.store";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import JournalEditDialog from "./JournalEditDialog";
 

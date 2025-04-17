@@ -22,14 +22,14 @@ import FireSVG from "@/components/elements/svg/icons/fx/FireSVG";
 import CitySVG from "@/components/elements/svg/icons/fx/CitySVG";
 import ForestSVG from "@/components/elements/svg/icons/fx/ForestSVG";
 import CpuSVG from "@/components/elements/svg/icons/fx/CpuSVG";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import { motion } from "framer-motion";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 import FxItemLg from "../FxItem/FxItemLg";
 import MixerIconSVG from "@/components/elements/svg/icons/interface/MixerIconSVG";
 import { SFX_AUDIO } from "@/lib/constants/sfx.constants";
 import { cn } from "@/lib/utils";
-import useThemeStore from "@/stores/zustand/useThemeStore";
+import useThemeStore from "@/stores/zustand/global/theme.store";
 
 const SoundFX = () => {
   const { setIsOpen, isOpen } = useWindowsStore();

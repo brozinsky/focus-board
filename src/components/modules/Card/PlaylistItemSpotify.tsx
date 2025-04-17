@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useSpotifyStore } from "@/stores/zustand/useSpotifyStore";
+import { useSpotifyStore } from "@/stores/zustand/player/spotify.store";
 import { extractSpotifyPlaylistId } from "@/utils/common.utils";
 import { ICurrentVideo } from "@/types/query/playlist.types";
 

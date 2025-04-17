@@ -1,5 +1,5 @@
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import React, { useEffect, useState } from "react";
 
 // Memory usage interface

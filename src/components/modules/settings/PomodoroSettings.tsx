@@ -3,7 +3,7 @@ import TimeInput from "../Pomodoro/TimeInput";
 import Select from "@/components/ui/dropdowns/Select";
 import { Switch } from "@/components/ui/buttons/Switch";
 import usePomodoro from "@/hooks/usePomodoro";
-import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
+import usePomodoroStore from "@/stores/zustand/timer/pomodoro.store";
 import { Separator } from "@/components/ui/Separator/Separator";
 import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";

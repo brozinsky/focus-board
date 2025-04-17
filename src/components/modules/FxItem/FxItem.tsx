@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Slider from "@/components/ui/inputs/Slider";
 import { cn } from "@/lib/utils";
-import useFxStore from "@/stores/zustand/useFxStore";
+import useFxStore from "@/stores/zustand/sfx/useFxStore";
 import ButtonFX from "@/components/ui/buttons/ButtonFX";
 import ButtonFXLg from "@/components/ui/buttons/ButtonFXLg";
 import RainSVG from "@/components/elements/svg/icons/fx/RainSVG";
@@ -15,7 +15,7 @@ import CoffeeSVG from "@/components/elements/svg/icons/fx/CoffeeSVG";
 import FireSVG from "@/components/elements/svg/icons/fx/FireSVG";
 import CitySVG from "@/components/elements/svg/icons/fx/CitySVG";
 import BadgePremium from "@/components/ui/badge/BadgePremium";
-import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import { useAuthStore } from "@/stores/zustand/auth/auth.store";
 
 interface IProps {
   id: string;

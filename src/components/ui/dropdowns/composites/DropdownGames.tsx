@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/Separator/Separator";
 import Dropdown from "@/components/ui/dropdowns/Dropdown";
 import GameControllerSVG from "@/components/elements/svg/icons/interface/GameControllerSVG";
 import FlagSVG from "@/components/elements/svg/icons/games/saper/FlagSVG";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 
 const DropdownGames = () => {
   const { isOpen, setIsOpen } = useWindowsStore();

@@ -1,6 +1,6 @@
 import Select from "@/components/ui/dropdowns/Select";
 import { themeColors } from "@/lib/constants/theme.constants";
-import useThemeStore from "@/stores/zustand/useThemeStore";
+import useThemeStore from "@/stores/zustand/global/theme.store";
 
 const transformThemeColors = (colors: typeof themeColors) => {
   return Object.keys(colors).map((key) => ({

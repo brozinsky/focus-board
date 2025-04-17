@@ -1,9 +1,9 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import useFxStore from "@/stores/zustand/useFxStore";
+import useFxStore from "@/stores/zustand/sfx/useFxStore";
 import ButtonFXLg from "@/components/ui/buttons/ButtonFXLg";
 import BadgePremium from "@/components/ui/badge/BadgePremium";
-import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import { useAuthStore } from "@/stores/zustand/auth/auth.store";
 import { Music, Cpu, Footprints, Joystick, Film, Leaf } from "lucide-react";
 
 const ICON_SIZE_XL = 100;

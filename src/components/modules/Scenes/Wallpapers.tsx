@@ -2,14 +2,14 @@ import useBgWallpapersQuery from "@/stores/queries/useBgWallpapersQuery";
 import { AdvancedImage, lazyload } from "@cloudinary/react";
 import React from "react";
 import { fill } from "@cloudinary/url-gen/actions/resize";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
 import { Cloudinary } from "@cloudinary/url-gen/index";
 import clsx from "clsx";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import { cn } from "@/lib/utils";
 import BadgePremium from "@/components/ui/badge/BadgePremium";
-import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import { useAuthStore } from "@/stores/zustand/auth/auth.store";
 
 const cld = new Cloudinary({
   cloud: { cloudName: import.meta.env.VITE_CLOUD_NAME },

@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import useThemeStore from "@/stores/zustand/useThemeStore";
+import useThemeStore from "@/stores/zustand/global/theme.store";
 
 interface IProps {
   onClick?: (e: any) => void;

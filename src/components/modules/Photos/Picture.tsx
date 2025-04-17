@@ -7,7 +7,7 @@ import {
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import usePolaroidStore from "@/stores/zustand/usePolaroidStore";
+import usePolaroidStore from "@/stores/zustand/photos/polaroid.store";
 import usePolaroid from "@/hooks/usePolaroid";
 import ButtonEdit from "@/components/ui/buttons/panel-edit/ButtonEdit";
 import ButtonDelete from "@/components/ui/buttons/panel-edit/ButtonDelete";

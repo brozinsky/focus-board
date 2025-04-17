@@ -1,9 +1,9 @@
 import { Switch } from "@/components/ui/buttons/Switch";
 import Select from "@/components/ui/dropdowns/Select";
 import { themeColors } from "@/lib/constants/theme.constants";
-import useQuoteStore from "@/stores/zustand/useQuoteStore";
-import useSceneStore from "@/stores/zustand/useSceneStore";
-import useThemeStore from "@/stores/zustand/useThemeStore";
+import useQuoteStore from "@/stores/zustand/quotes/quote.store";
+import useSceneStore from "@/stores/zustand/scenes/scene.store";
+import useThemeStore from "@/stores/zustand/global/theme.store";
 import React from "react";
 
 const fontFamilyOptions = [

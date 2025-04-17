@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 import { YouTubeProps } from "react-youtube";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
 import { Player, PlayerState } from "@/types/enum/player.enum";
 
 const useAudioPlayer = () => {

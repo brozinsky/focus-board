@@ -1,5 +1,5 @@
 import usePomodoro from "@/hooks/usePomodoro";
-import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
+import usePomodoroStore from "@/stores/zustand/timer/pomodoro.store";
 import { useEffect, useRef, useState } from "react";
 import bellRingMP3 from "@/assets/audio/one-shots/bell-ring.mp3";
 import PomodoroSettings from "./PomodoroSettings";
@@ -13,7 +13,7 @@ import {
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import useWindowsStore, {
   createHandleDragEnd,
-} from "@/stores/zustand/useWindowsStore";
+} from "@/stores/zustand/global/windows.store";
 import PomodoroMobile from "./PomodoroMobile";
 import PomodoroWindow from "./PomodoroWindow";
 

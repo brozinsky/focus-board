@@ -1,6 +1,6 @@
 import { useDraggable } from "@dnd-kit/core";
 import WindowBar from "../Window/WindowBar";
-import { TWindowName } from "@/stores/zustand/useWindowsStore";
+import { TWindowName } from "@/stores/zustand/global/windows.store";
 import { ReactNode } from "react";
 import { ScrollArea } from "@/components/ui/ScrollArea/ScrollArea";
 import { cn } from "@/lib/utils";

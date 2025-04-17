@@ -1,6 +1,6 @@
-import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import { useAuthStore } from "@/stores/zustand/auth/auth.store";
 import { supabaseClient } from "@/api/client";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
 
 const useSupabaseSync = () => {
   const { login, logout } = useAuthStore();

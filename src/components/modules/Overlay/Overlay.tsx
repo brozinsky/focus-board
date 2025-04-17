@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import useSceneStore from "@/stores/zustand/useSceneStore";
+import useSceneStore from "@/stores/zustand/scenes/scene.store";
 import clsx from "clsx";
 import Quote from "../Quote/Quote";
 import Clock from "../Clock/Clock";

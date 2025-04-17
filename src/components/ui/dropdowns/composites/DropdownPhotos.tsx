@@ -4,12 +4,12 @@ import { Separator } from "@/components/ui/Separator/Separator";
 import Dropdown from "@/components/ui/dropdowns/Dropdown";
 import Checkbox from "@/components/ui/inputs/Checkbox";
 import ButtonDropdown from "@/components/ui/buttons/ButtonDropdown";
-import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
+import useStickyNotesStore from "@/stores/zustand/sticky-notes/sticky-notes.store";
 import useStickyNotesDb from "@/stores/supabase/useStickyNotesDb";
-import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import { useAuthStore } from "@/stores/zustand/auth/auth.store";
 import { Crown } from "lucide-react";
 import ButtonPremium from "../../buttons/button-icon/ButtonPremium";
-import usePolaroidStore from "@/stores/zustand/usePolaroidStore";
+import usePolaroidStore from "@/stores/zustand/photos/polaroid.store";
 import CameraSVG from "@/components/elements/svg/icons/interface/panel/CameraSVG";
 import CameraOffSVG from "@/components/elements/svg/icons/interface/panel/CameraOffSVG";
 

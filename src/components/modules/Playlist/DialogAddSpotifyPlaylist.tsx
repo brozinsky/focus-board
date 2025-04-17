@@ -12,8 +12,8 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { Input } from "@/components/ui/inputs/Input";
 import Button from "@/components/ui/buttons/Button";
 import axios from "axios";
-import { useSpotifyStore } from "@/stores/zustand/useSpotifyStore";
-import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import { useSpotifyStore } from "@/stores/zustand/player/spotify.store";
+import { useAuthStore } from "@/stores/zustand/auth/auth.store";
 
 const DialogAddSpotifyPlaylist = () => {
   const [error, setError] = useState<string | null>(null);

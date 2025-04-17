@@ -1,9 +1,9 @@
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
 import React from "react";
 import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
 import PauseIconSVG from "@/components/elements/svg/icons/media/PauseIconSVG";
 import MixerIconSVG from "@/components/elements/svg/icons/interface/MixerIconSVG";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import MaximizeSVG from "@/components/elements/svg/icons/interface/MaximizeSVG";
 import { goFullscreen } from "@/utils/common.utils";
 import TimerPlusSVG from "@/components/elements/svg/icons/interface/TimerPlusSVG";
@@ -35,7 +35,7 @@ import {
 import OnboardingDialog from "@/components/ui/dialog/OnboardingDialog";
 import SpotifyPlayer from "./SpotifyPlayer";
 import DrawerSpotifyPlaylist from "@/components/ui/drawer/DrawerSpotifyPlaylist";
-import usePolaroidStore from "@/stores/zustand/usePolaroidStore";
+import usePolaroidStore from "@/stores/zustand/photos/polaroid.store";
 import CameraOffSVG from "@/components/elements/svg/icons/interface/panel/CameraOffSVG";
 import CameraSVG from "@/components/elements/svg/icons/interface/panel/CameraSVG";
 import DropdownStickyNote from "@/components/ui/dropdowns/composites/DropdownStickyNote";
@@ -43,7 +43,7 @@ import Dropdown from "@/components/ui/dropdowns/Dropdown";
 import { ClipboardCheck, NotebookPen } from "lucide-react";
 import DropdownPhotos from "@/components/ui/dropdowns/composites/DropdownPhotos";
 import DropdownGames from "@/components/ui/dropdowns/composites/DropdownGames";
-import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import { useAuthStore } from "@/stores/zustand/auth/auth.store";
 
 interface IPanelProps {
   handlePlayPause: () => void;

@@ -1,7 +1,7 @@
 import { Switch } from "@/components/ui/buttons/Switch";
 import Select from "@/components/ui/dropdowns/Select";
 import Slider from "@/components/ui/inputs/Slider";
-import useSceneStore from "@/stores/zustand/useSceneStore";
+import useSceneStore from "@/stores/zustand/scenes/scene.store";
 
 const options = [
   {

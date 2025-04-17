@@ -1,4 +1,4 @@
-import useSceneStore from "@/stores/zustand/useSceneStore";
+import useSceneStore from "@/stores/zustand/scenes/scene.store";
 import React, { useEffect, useRef } from "react";
 import { fontFamilyExt } from "@/lib/constants/theme.constants";
 

@@ -7,7 +7,7 @@ import {
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import useWindowsStore, {
   createHandleDragEnd,
-} from "@/stores/zustand/useWindowsStore";
+} from "@/stores/zustand/global/windows.store";
 import Saper from "./Saper/Saper";
 
 const Games = () => {

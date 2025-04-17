@@ -2,7 +2,7 @@ import Select from "@/components/ui/dropdowns/Select";
 import { JOURNALING_PROMPTS } from "@/lib/constants/journal.constants";
 import { Input } from "@/components/ui/inputs/Input";
 import { useEffect } from "react";
-import { useJournalStore } from "@/stores/zustand/useJournalStore";
+import { useJournalStore } from "@/stores/zustand/journal/journal.store";
 
 const JournalEditSettings = () => {
   const { journalPrompt, setJournalPrompt, activeEntry, title, setTitle } =

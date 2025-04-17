@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import LoadingSpinner from "../loaders/LoadingSpinner";
 import { cn } from "@/lib/utils";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 
 interface IProps {
   isLoading: boolean;

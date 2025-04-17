@@ -1,4 +1,4 @@
-import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
+import usePomodoroStore from "@/stores/zustand/timer/pomodoro.store";
 
 interface IProps {
   timeOption: string;

@@ -9,7 +9,7 @@ import {
 import PlaylistSpotify from "@/components/modules/Playlist/PlaylistSpotify";
 import ButtonIcon from "../buttons/ButtonIcon";
 import MusicNoteSVG from "@/components/elements/svg/icons/media/MusicNoteSVG";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
 import { cn } from "@/lib/utils";
 import PlaylistItems from "@/components/modules/Playlist/PlaylistItems";
 import SpotifySVG from "@/components/elements/svg/icons/social-media/SpotifySVG";

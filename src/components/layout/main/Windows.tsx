@@ -10,8 +10,8 @@ import StickyNotes from "@/components/modules/StickyNotes/StickyNotes";
 import StickyNotesDb from "@/components/modules/StickyNotes/StickyNotesDb";
 import Timer from "@/components/modules/Timer/Timer";
 import TodoList from "@/components/modules/TodoList/TodoList";
-import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import { useAuthStore } from "@/stores/zustand/auth/auth.store";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 
 type TWindows =
   | "pomodoro"

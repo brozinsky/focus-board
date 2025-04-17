@@ -1,4 +1,4 @@
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
 import PlaylistItem from "../Card/PlaylistItem";
 import Volume from "./_partials/Volume";
 import useVolume from "@/hooks/useVolume";
@@ -6,7 +6,7 @@ import Button from "@/components/ui/buttons/Button";
 import { Separator } from "@/components/ui/Separator/Separator";
 import FxItem from "../FxItem/FxItem";
 import { SFX_AUDIO } from "@/lib/constants/sfx.constants";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import YouTubeSVG from "@/components/elements/svg/icons/social-media/YouTubeSVG";
 import { cn } from "@/lib/utils";
 import SpotifySVG from "@/components/elements/svg/icons/social-media/SpotifySVG";

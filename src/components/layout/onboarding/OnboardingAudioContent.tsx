@@ -3,7 +3,7 @@ import Volume from "@/components/modules/settings/_partials/Volume";
 import Button from "@/components/ui/buttons/Button";
 import { Separator } from "@/components/ui/Separator/Separator";
 import useVolume from "@/hooks/useVolume";
-import usePlayerStore from "@/stores/zustand/usePlayerStore";
+import usePlayerStore from "@/stores/zustand/player/player.store";
 import Marquee from "react-fast-marquee";
 
 const OnboardingAudioContent = ({ step }: { step: number }) => {

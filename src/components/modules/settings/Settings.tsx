@@ -9,8 +9,8 @@ import SceneSettings from "./SceneSettings";
 import clsx from "clsx";
 import AudioSettings from "./AudioSettings";
 import { cn } from "@/lib/utils";
-import useThemeStore from "@/stores/zustand/useThemeStore";
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useThemeStore from "@/stores/zustand/global/theme.store";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 
 const Settings = () => {
   const { isOpen, setIsOpen } = useWindowsStore();

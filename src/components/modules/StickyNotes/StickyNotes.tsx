@@ -6,7 +6,7 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { StickyNote } from "./StickyNote";
-import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
+import useStickyNotesStore from "@/stores/zustand/sticky-notes/sticky-notes.store";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 
 const StickyNotes = () => {

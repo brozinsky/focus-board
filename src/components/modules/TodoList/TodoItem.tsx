@@ -7,7 +7,7 @@ import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import Checkbox from "@/components/ui/inputs/Checkbox";
 import { cn } from "@/lib/utils";
-import useTodoTimerStore from "@/stores/zustand/useTodoTimerStore";
+import useTodoTimerStore from "@/stores/zustand/timer/todo-timer-store";
 import { TTimerTodoItem } from "@/types/model/todo-list.model";
 
 type TProps = {

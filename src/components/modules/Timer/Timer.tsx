@@ -6,7 +6,7 @@ import {
 } from "@dnd-kit/core";
 import useWindowsStore, {
   createHandleDragEnd,
-} from "@/stores/zustand/useWindowsStore";
+} from "@/stores/zustand/global/windows.store";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import WindowTimer from "./WindowTimer";
 import TimerMobile from "./TimerMobile";

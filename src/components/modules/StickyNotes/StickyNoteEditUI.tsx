@@ -4,7 +4,7 @@ import ButtonEdit from "@/components/ui/buttons/panel-edit/ButtonEdit";
 import Checkbox from "@/components/ui/inputs/Checkbox";
 import { cn } from "@/lib/utils";
 import useStickyNotesDb from "@/stores/supabase/useStickyNotesDb";
-import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
+import useStickyNotesStore from "@/stores/zustand/sticky-notes/sticky-notes.store";
 import { TUserStatus } from "@/types/model/global.model";
 import { TStickyNoteColor } from "@/types/model/sticky-note.model";
 import { TTodo } from "@/types/model/todo-list.model";

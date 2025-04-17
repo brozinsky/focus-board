@@ -1,15 +1,15 @@
-import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import useWindowsStore from "@/stores/zustand/global/windows.store";
 import { motion } from "framer-motion";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 import { cn } from "@/lib/utils";
-import useThemeStore from "@/stores/zustand/useThemeStore";
+import useThemeStore from "@/stores/zustand/global/theme.store";
 import LoginForm from "./LoginForm";
 import { useEffect, useState } from "react";
 import RegisterForm from "./RegisterForm";
 import { supabaseClient } from "@/api/client";
 import ForgotPassword from "./ResetPassword";
 import ResetPassword from "./ResetPassword";
-import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import { useAuthStore } from "@/stores/zustand/auth/auth.store";
 import Button from "@/components/ui/buttons/Button";
 import {
   Avatar,
