@@ -8,7 +8,7 @@ import {
 import {
   getFromLocalStorage,
   setToLocalStorage,
-} from "@/utils/functions/fn-common";
+} from "@/utils/common.utils";
 import { supabaseClient } from "@/api/client";
 import { DragEndEvent } from "@dnd-kit/core";
 

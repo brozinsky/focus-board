@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import LogoSVG from "@/components/elements/svg/icons/LogoSVG";
-import { goFullscreen } from "@/utils/functions/fn-common";
+import { goFullscreen } from "@/utils/common.utils";
 
 const OverlayWelcome = ({ isLoading }: { isLoading: boolean }) => {
   const [isFadingOut, setIsFadingOut] = useState(false);

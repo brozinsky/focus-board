@@ -3,7 +3,7 @@ import { ICurrentVideo, TActiveScene, TActiveYtScene, TAudioSource } from "@/typ
 import {
   getFromLocalStorage,
   setToLocalStorage,
-} from "@/utils/functions/fn-common";
+} from "@/utils/common.utils";
 import { create } from "zustand";
 
 interface IState {

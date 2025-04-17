@@ -3,7 +3,7 @@ import PomodoroControls from "./PomodoroControls";
 import GaugeCircle from "@/components/ui/GaugeCircle/GaugeCircle";
 import usePomodoroStore from "@/stores/zustand/usePomodoroStore";
 import usePomodoro from "@/hooks/usePomodoro";
-import { formatDuration } from "@/utils/functions/fn-clock";
+import { formatDuration } from "@/utils/clock.utils";
 
 const TOTAL_SESSIONS = 4;
 

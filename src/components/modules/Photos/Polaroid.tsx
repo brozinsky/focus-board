@@ -9,7 +9,7 @@ import ButtonDelete from "@/components/ui/buttons/panel-edit/ButtonDelete";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { TPolaroid } from "@/types/model-types";
 import { useDraggable } from "@dnd-kit/core";
-import { getSticker } from "@/utils/functions/fn-photos";
+import { getSticker } from "@/utils/photos.utils";
 import imageCompression from "browser-image-compression";
 
 const Polaroid = (props: TPolaroid) => {

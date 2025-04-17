@@ -2,7 +2,7 @@ import { TPosition } from "@/types/model-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
-} from "@/utils/functions/fn-common";
+} from "@/utils/common.utils";
 import { DragEndEvent } from "@dnd-kit/core";
 import { create } from "zustand";
 

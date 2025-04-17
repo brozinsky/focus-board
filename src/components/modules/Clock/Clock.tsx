@@ -1,7 +1,7 @@
 import { MONTHS } from "@/lib/constants/const-clock";
 import { cn } from "@/lib/utils";
 import { useClockStore } from "@/stores/zustand/useClockStore";
-import { getFormattedDate } from "@/utils/functions/fn-clock";
+import { getFormattedDate } from "@/utils/clock.utils";
 import React, { useEffect } from "react";
 import FlipNumbers from "react-flip-numbers";
 

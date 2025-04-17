@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useFormik } from "formik";
 import useUpdateHabitMutation from "@/stores/supabase/useUpdateHabitMutation";
-import { getWeekDays } from "@/utils/functions/fn-date";
-import { debounce } from "@/utils/functions/fn-common";
+import { getWeekDays } from "@/utils/date.utils";
 import useHabitsQuery from "@/stores/supabase/useHabitsQuery";
 
 const useHabitsForm = () => {

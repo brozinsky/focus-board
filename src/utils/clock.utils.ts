@@ -16,14 +16,26 @@ export const formatDuration = (time: number) => {
     .padStart(2, "0")}`;
 };
 
-export const getFormattedTime = (date: Date, isTimeFormat24: boolean): string => {
+export const getFormattedTime = (
+  date: Date,
+  isTimeFormat24: boolean
+): string => {
   if (!isTimeFormat24) {
     if (date.getHours() < 12) {
-      return formatTime(date, 0, "am") + "<span class='text-2xl tracking-normal'> am</span>";
+      return (
+        formatTime(date, 0, "am") +
+        "<span class='text-2xl tracking-normal'> am</span>"
+      );
     } else if (date.getHours() === 12) {
-      return formatTime(date, 0, "pm") + "<span class='text-2x  l tracking-normal'> pm</span>";
+      return (
+        formatTime(date, 0, "pm") +
+        "<span class='text-2x  l tracking-normal'> pm</span>"
+      );
     } else {
-      return formatTime(date, 12, "pm") + "<span class='text-2xl tracking-normal'> pm</span>";
+      return (
+        formatTime(date, 12, "pm") +
+        "<span class='text-2xl tracking-normal'> pm</span>"
+      );
     }
   } else {
     return formatTime(date, 0, "");

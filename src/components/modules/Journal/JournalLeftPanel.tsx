@@ -2,12 +2,12 @@ import { useEffect, useRef } from "react"; // Import useEffect
 import { NotebookPen, Plus } from "lucide-react";
 import JournalEntry from "./JournalEntry";
 import useAddJournalEntryMutation from "@/stores/supabase/journal/useAddJournalEntryMutation";
-import { dateToString } from "@/utils/functions/fn-common";
+import { dateToString } from "@/utils/common.utils";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/ScrollArea/ScrollArea";
 import { useJournalStore } from "@/stores/zustand/useJournalStore";
 import { TJournalData } from "@/types/query-types";
-import { formatJournalDate } from "@/utils/functions/fn-date";
+import { formatJournalDate } from "@/utils/date.utils";
 import SpinnerSVG from "@/components/elements/svg/icons/interface/SpinnerSVG";
 import clsx from "clsx";
 

@@ -1,13 +1,13 @@
 export const getWeekDays = (weekOffset: number = 0): Date[] => {
   const today = new Date();
   const days: Date[] = [];
-  
+
   for (let i = -6; i <= 0; i++) {
     const date = new Date();
-    date.setDate(today.getDate() + i + (weekOffset * 7));
+    date.setDate(today.getDate() + i + weekOffset * 7);
     days.push(date);
   }
-  
+
   return days;
 };
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Input } from "./Input";
 import { cn } from "@/lib/utils";
-import { extractYouTubeVideoId } from "@/utils/functions/fn-common";
+import { extractYouTubeVideoId } from "@/utils/common.utils";
 import useGetYoutubeDetailsQuery from "@/stores/queries/useGetYoutubeDetailsQuery";
 
 const AddLinkInput = () => {

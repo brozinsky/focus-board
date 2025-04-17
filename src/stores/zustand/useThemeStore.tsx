@@ -3,7 +3,7 @@ import { TThemeColor, TThemeStyle, TUIStyle } from "@/types/model-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
-} from "@/utils/functions/fn-common";
+} from "@/utils/common.utils";
 import { darkenHexColor, hexToRgba } from "@/utils/functions/fn-theme";
 import { create } from "zustand";
 

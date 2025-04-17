@@ -1,7 +1,7 @@
 import {
   getFromLocalStorage,
   setToLocalStorage,
-} from "@/utils/functions/fn-common";
+} from "@/utils/common.utils";
 import { create } from "zustand";
 
 // type TFrameType = "glass-frame" | "vignette";

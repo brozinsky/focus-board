@@ -3,7 +3,7 @@ import { TPosition, TStickyNote, TStickyNoteColor } from "@/types/model-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
-} from "@/utils/functions/fn-common";
+} from "@/utils/common.utils";
 
 type TStickyNoteDemo = TStickyNote & {
   position: TPosition;
