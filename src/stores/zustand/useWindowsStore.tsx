@@ -1,4 +1,4 @@
-import { TPosition } from "@/types/model-types";
+import { TPosition } from "@/types/model/global.model";
 import {
   getFromLocalStorage,
   setToLocalStorage,

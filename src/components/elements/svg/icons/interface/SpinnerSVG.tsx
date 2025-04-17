@@ -1,4 +1,4 @@
-import { TSVG } from "@/types/ui-types";
+import { TSVG } from "@/types/ui/svg.types";
 
 const SpinnerSVG = ({
   className,

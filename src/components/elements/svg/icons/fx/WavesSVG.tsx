@@ -1,4 +1,4 @@
-import { TSVG } from "@/types/ui-types";
+import { TSVG } from "@/types/ui/svg.types";
 
 export default function WavesSVG({ className, width = "24" }: TSVG) {
   return (

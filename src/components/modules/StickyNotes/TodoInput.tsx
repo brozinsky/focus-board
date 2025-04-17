@@ -1,9 +1,8 @@
-import AddSquareSVG from "@/components/elements/svg/icons/interface/AddSquareSVG";
 import PlusSVG from "@/components/elements/svg/icons/interface/PlusSVG";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { Input } from "@/components/ui/inputs/Input";
 import { cn } from "@/lib/utils";
-import { TStickyNoteColor } from "@/types/model-types";
+import { TStickyNoteColor } from "@/types/model/sticky-note.model";
 import React, { ChangeEvent, KeyboardEvent } from "react";
 
 type TProps = {

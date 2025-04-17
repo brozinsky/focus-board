@@ -1,4 +1,4 @@
-import { TThemeColors } from "@/types/model-types";
+import { TThemeColors } from "@/types/model/global.model";
 
 export const fontFamilyExt = [
   "ui-sans-serif",

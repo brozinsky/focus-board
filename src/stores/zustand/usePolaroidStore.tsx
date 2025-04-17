@@ -1,4 +1,4 @@
-import { TPolaroid } from "@/types/model-types";
+import { TPolaroid } from "@/types/model/photos.model";
 import {
   getFromLocalStorage,
   setToLocalStorage,

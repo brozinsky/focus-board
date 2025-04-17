@@ -1,4 +1,5 @@
-import { TPosition, TTimerTodoItem } from "@/types/model-types";
+import { TPosition } from "@/types/model/global.model";
+import { TTimerTodoItem } from "@/types/model/todo-list.model";
 import {
   getFromLocalStorage,
   setToLocalStorage,

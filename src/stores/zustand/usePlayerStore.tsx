@@ -1,5 +1,5 @@
 import { initCurrentAudio, initWallpaper } from "@/lib/constants/init.constants";
-import { ICurrentVideo, TActiveScene, TActiveYtScene, TAudioSource } from "@/types/query-types";
+import { ICurrentVideo, TActiveScene, TActiveYtScene, TAudioSource } from "@/types/query/playlist.types";
 import {
   getFromLocalStorage,
   setToLocalStorage,

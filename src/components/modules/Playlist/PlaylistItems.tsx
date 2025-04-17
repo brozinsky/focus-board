@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PlaylistItem from "../Card/PlaylistItem";
-import { ICurrentVideo, TSnippet } from "@/types/query-types";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
+import { ICurrentVideo, TSnippet } from "@/types/query/playlist.types";
 
 type TPlaylistItem = {
   snippet: TSnippet;

@@ -1,7 +1,7 @@
 import React from "react";
 import { supabaseClient } from "@/api/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { THabitsForm } from "@/types/query-types";
+import { THabitsForm } from "@/types/query/habits.types";
 
 const mutationFn = async (values: THabitsForm) => {
   const { data, error } = await supabaseClient

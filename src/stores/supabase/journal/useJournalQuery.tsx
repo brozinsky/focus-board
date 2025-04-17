@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabaseClient } from "@/api/client";
-import { TJournalData } from "@/types/query-types";
+import { TJournalData } from "@/types/query/journal.types";
 
 const getJournal = async (): Promise<TJournalData[]> => {
   try {

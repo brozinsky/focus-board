@@ -5,7 +5,9 @@ import Checkbox from "@/components/ui/inputs/Checkbox";
 import { cn } from "@/lib/utils";
 import useStickyNotesDb from "@/stores/supabase/useStickyNotesDb";
 import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
-import { TStickyNoteColor, TTodo, TUserStatus } from "@/types/model-types";
+import { TUserStatus } from "@/types/model/global.model";
+import { TStickyNoteColor } from "@/types/model/sticky-note.model";
+import { TTodo } from "@/types/model/todo-list.model";
 import { FormikProps } from "formik";
 
 const COLORS = [

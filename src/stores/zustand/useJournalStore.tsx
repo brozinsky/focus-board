@@ -1,9 +1,5 @@
-import {
-  TJournalBgColors,
-  TJournalFonts,
-  TJournalSheets,
-} from "@/types/model-types";
-import { TJournalPrompt } from "@/types/query-types";
+import { TJournalBgColors, TJournalFonts, TJournalSheets } from "@/types/model/journal.model";
+import { TJournalPrompt } from "@/types/query/journal.types";
 import {
   getFromLocalStorage,
   setToLocalStorage,

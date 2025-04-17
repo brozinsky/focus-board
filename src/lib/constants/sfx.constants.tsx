@@ -10,7 +10,7 @@ import softRainMP3 from "@/assets/audio/fx/soft-rain.mp3";
 import nightMP3 from "@/assets/audio/fx/night-forest.mp3";
 import wavesMP3 from "@/assets/audio/fx/waves.mp3";
 import windMP3 from "@/assets/audio/fx/wind.mp3";
-import { TSoundFX } from "@/types/model-types";
+import { TSoundFX } from "@/types/model/sound-fx.model";
 
 export const SFX_AUDIO: TSoundFX[] = [
   {

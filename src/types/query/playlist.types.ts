@@ -68,28 +68,3 @@ export type TActiveYtScene =
   | "yt-scifi";
 
 export type TAudioSource = "spotify" | "youtube";
-
-// Journal types
-
-export type TJournalPrompt = {
-  name: string;
-  id: number;
-  value: number;
-};
-
-export type TJournalData = {
-  id: number;
-  title: string;
-  created_at: string;
-  content: string;
-  question_prompt: number;
-  user_id: string;
-};
-
-// Habit tracker types
-export type THabitsForm = {
-  title: string;
-  startDate: Date;
-  endDate: Date | null;
-  selectedDays: { [key: number]: boolean };
-};

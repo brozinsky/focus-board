@@ -1,7 +1,7 @@
 import { useEffect, useRef, useCallback } from "react";
 import { YouTubeProps } from "react-youtube";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
-import { Player, PlayerState } from "@/types/model-types";
+import { Player, PlayerState } from "@/types/enum/player.enum";
 
 const useVideoPlayer = () => {
   const playerRef = useRef<Player | null>(null);

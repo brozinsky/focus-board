@@ -7,11 +7,11 @@ import { useJournalStore } from "@/stores/zustand/useJournalStore";
 import clsx from "clsx";
 import JournalSheetSettings from "./JournalSheetSettings";
 import JournalEditSettings from "./JournalEditSettings";
-import { TJournalData } from "@/types/query-types";
 import { Settings } from "lucide-react";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { JOURNALING_PROMPTS } from "@/lib/constants/journal.constants";
+import { TJournalData } from "@/types/query/journal.types";
 
 const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
   const {

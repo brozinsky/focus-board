@@ -6,10 +6,10 @@ import { dateToString } from "@/utils/common.utils";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/ScrollArea/ScrollArea";
 import { useJournalStore } from "@/stores/zustand/useJournalStore";
-import { TJournalData } from "@/types/query-types";
 import { formatJournalDate } from "@/utils/date.utils";
 import SpinnerSVG from "@/components/elements/svg/icons/interface/SpinnerSVG";
 import clsx from "clsx";
+import { TJournalData } from "@/types/query/journal.types";
 
 const JournalLeftPanel = ({ data }: { data: TJournalData[] }) => {
   const { activeEntry, setActiveEntry, isEditing } = useJournalStore();

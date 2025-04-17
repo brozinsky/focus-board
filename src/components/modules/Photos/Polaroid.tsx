@@ -7,10 +7,10 @@ import usePolaroid from "@/hooks/usePolaroid";
 import ButtonEdit from "@/components/ui/buttons/panel-edit/ButtonEdit";
 import ButtonDelete from "@/components/ui/buttons/panel-edit/ButtonDelete";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
-import { TPolaroid } from "@/types/model-types";
 import { useDraggable } from "@dnd-kit/core";
 import { getSticker } from "@/utils/photos.utils";
 import imageCompression from "browser-image-compression";
+import { TPolaroid } from "@/types/model/photos.model";
 
 const Polaroid = (props: TPolaroid) => {
   const { setActiveId, updatePolaroid, activeId, removePolaroid } =

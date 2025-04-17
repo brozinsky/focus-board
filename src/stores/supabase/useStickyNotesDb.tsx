@@ -1,16 +1,11 @@
 import { create } from "zustand";
 import {
-  TStickyNote,
-  TStickyNoteColor,
-  TStickyNotePosition,
-  TTodo,
-} from "@/types/model-types";
-import {
   getFromLocalStorage,
   setToLocalStorage,
 } from "@/utils/common.utils";
 import { supabaseClient } from "@/api/client";
 import { DragEndEvent } from "@dnd-kit/core";
+import { TStickyNote, TStickyNoteColor, TStickyNotePosition } from "@/types/model/sticky-note.model";
 
 interface IDb {
   stickyNotes: TStickyNote[];

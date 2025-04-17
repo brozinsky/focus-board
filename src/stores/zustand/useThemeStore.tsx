@@ -1,5 +1,5 @@
 import { themeColors } from "@/lib/constants/theme.constants";
-import { TThemeColor, TThemeStyle, TUIStyle } from "@/types/model-types";
+import { TThemeColor, TThemeStyle, TUIStyle } from "@/types/model/global.model";
 import {
   getFromLocalStorage,
   setToLocalStorage,

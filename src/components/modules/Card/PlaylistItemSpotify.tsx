@@ -1,7 +1,7 @@
-import { ICurrentVideo } from "@/types/query-types";
 import clsx from "clsx";
 import { useSpotifyStore } from "@/stores/zustand/useSpotifyStore";
 import { extractSpotifyPlaylistId } from "@/utils/common.utils";
+import { ICurrentVideo } from "@/types/query/playlist.types";
 
 type TProps = {
   id: string;

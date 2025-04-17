@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 // import TodoInput from "./TodoInput";
 // import TodoItem from "./TodoItem";
 import { FormikProps } from "formik";
-import { TTodo } from "@/types/model-types";
 import autoAnimate from "@formkit/auto-animate";
+import { TTodo } from "@/types/model/todo-list.model";
 
 const StickyNoteFormFields = ({
   isEditing,

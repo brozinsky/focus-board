@@ -1,9 +1,10 @@
 import { create } from "zustand";
-import { TPosition, TStickyNote, TStickyNoteColor } from "@/types/model-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
 } from "@/utils/common.utils";
+import { TStickyNote, TStickyNoteColor } from "@/types/model/sticky-note.model";
+import { TPosition } from "@/types/model/global.model";
 
 type TStickyNoteDemo = TStickyNote & {
   position: TPosition;

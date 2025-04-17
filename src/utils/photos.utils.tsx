@@ -1,7 +1,7 @@
 import HeartSVG from "@/components/elements/svg/scribble/HeartSVG";
 import SmileSVG from "@/components/elements/svg/scribble/SmileSVG";
 import StarSVG from "@/components/elements/svg/scribble/StarSVG ";
-import { TPolaroid } from "@/types/model-types";
+import { TPolaroid } from "@/types/model/photos.model";
 
 export const getSticker = (sticker: TPolaroid["sticker"]) => {
   switch (sticker) {

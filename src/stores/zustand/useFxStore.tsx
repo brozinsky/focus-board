@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Howl } from "howler";
 import { SFX_AUDIO } from "@/lib/constants/sfx.constants";
-import { TSoundFX } from "@/types/model-types";
+import { TSoundFX } from "@/types/model/sound-fx.model";
 
 interface IFXStore {
   activeSoundFX: TSoundFX[];

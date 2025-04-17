@@ -1,9 +1,9 @@
 import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
-import { ICurrentVideo } from "@/types/query-types";
 import clsx from "clsx";
 import { AsyncImage } from "loadable-image";
 import PlayIconSVG from "@/components/elements/svg/icons/media/PlayIconSVG";
 import { Blur, Grow } from "transitions-kit";
+import { ICurrentVideo } from "@/types/query/playlist.types";
 
 type TProps = {
   handleClick: (item: ICurrentVideo) => void;

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import CardYTVideo from "@/components/ui/cards/CardYTVideo";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
-import { ICurrentVideo, TActiveYtScene } from "@/types/query-types";
 import { cn } from "@/lib/utils";
 import useYoutubeBgQuery from "@/stores/queries/useYoutubeBgQuery";
+import { ICurrentVideo, TActiveYtScene } from "@/types/query/playlist.types";
 
 type TSnippet = {
   videoOwnerChannelTitle: string;

@@ -17,7 +17,7 @@ import useAppForm from "@/hooks/forms/useAppForm";
 import { format } from "date-fns";
 import { DAYS_OF_WEEK } from "@/lib/constants/habits.constants";
 import useAddHabitMutation from "@/stores/supabase/useAddHabitMutation";
-import { THabitsForm } from "@/types/query-types";
+import { THabitsForm } from "@/types/query/habits.types";
 
 type TProps = {
   isEditing: boolean;

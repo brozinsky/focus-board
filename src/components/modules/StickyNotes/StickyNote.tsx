@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { cn } from "@/lib/utils";
-import { TStickyNoteColor, TTodo, TUserStatus } from "@/types/model-types";
+import { TTodo } from "@/types/model/todo-list.model";
+import { TUserStatus } from "@/types/model/global.model";
 import StickyNoteEditUI from "./StickyNoteEditUI";
 import useStickyNoteForm from "@/hooks/forms/useStickyNoteForm";
 import StickyNoteFormFields from "./StickyNoteFormFields";
+import { TStickyNoteColor } from "@/types/model/sticky-note.model";
 
 type TProps = {
   id: string;

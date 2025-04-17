@@ -3,7 +3,8 @@ import TrashIconSVG from "@/components/elements/svg/icons/interface/TrashIconSVG
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import Checkbox from "@/components/ui/inputs/Checkbox";
 import { cn } from "@/lib/utils";
-import { TStickyNoteColor, TTodo } from "@/types/model-types";
+import { TStickyNoteColor } from "@/types/model/sticky-note.model";
+import { TTodo } from "@/types/model/todo-list.model";
 
 type TProps = {
   isCompleted: boolean;

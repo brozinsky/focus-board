@@ -5,11 +5,6 @@ import {
   JOURNAL_SHEETS,
 } from "@/lib/constants/journal.constants";
 import { Contrast, FileText, Type } from "lucide-react";
-import {
-  TJournalBgColors,
-  TJournalFonts,
-  TJournalSheets,
-} from "@/types/model-types";
 import { useJournalStore } from "@/stores/zustand/useJournalStore";
 import { motion } from "framer-motion";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
@@ -17,6 +12,7 @@ import SettingsIconSVG from "@/components/elements/svg/icons/interface/SettingsI
 import { cn } from "@/lib/utils";
 import useThemeStore from "@/stores/zustand/useThemeStore";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
+import { TJournalBgColors, TJournalFonts, TJournalSheets } from "@/types/model/journal.model";
 
 const JournalSheetSettings = () => {
   const { themeStyle } = useThemeStore();

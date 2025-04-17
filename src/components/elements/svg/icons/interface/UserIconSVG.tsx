@@ -1,4 +1,4 @@
-import { TSVG } from "@/types/ui-types";
+import { TSVG } from "@/types/ui/svg.types";
 
 export default function UserIconSVG({ className, width = "24" }: TSVG) {
   return (

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import useStickyNotesStore from "@/stores/zustand/useStickyNotesStore";
-import { TStickyNoteColor, TTodo } from "@/types/model-types";
 import useStickyNotesDb from "@/stores/supabase/useStickyNotesDb";
 import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
+import { TTodo } from "@/types/model/todo-list.model";
 
 const useStickyNoteForm = (
   id: string,

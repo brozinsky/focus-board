@@ -3,9 +3,9 @@ import PictureSVG from "@/components/elements/svg/icons/media/PictureSVG";
 import { cn } from "@/lib/utils";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
-import { ICurrentVideo, TActiveYtScene } from "@/types/query-types";
 import { AsyncImage } from "loadable-image";
 import { Blur } from "transitions-kit";
+import { ICurrentVideo, TActiveYtScene } from "@/types/query/playlist.types";
 
 const CardYTVideo = ({
   item,
