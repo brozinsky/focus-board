@@ -27,7 +27,7 @@ import { motion } from "framer-motion";
 import CloseIconSVG from "@/components/elements/svg/icons/interface/CloseIconSVG";
 import FxItemLg from "../FxItem/FxItemLg";
 import MixerIconSVG from "@/components/elements/svg/icons/interface/MixerIconSVG";
-import { SFX_AUDIO } from "@/lib/constants/const-sfx";
+import { SFX_AUDIO } from "@/lib/constants/sfx.constants";
 import { cn } from "@/lib/utils";
 import useThemeStore from "@/stores/zustand/useThemeStore";
 

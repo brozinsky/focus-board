@@ -9,7 +9,7 @@ import OnboardingAudioContent from "./OnboardingAudioContent";
 import OnboardingBackgroundContent from "./OnboardingBackgroundContent";
 import PlaylistItems from "@/components/modules/Playlist/PlaylistItems";
 import ButtonTab from "@/components/ui/buttons/ButtonTab";
-import { SFX_AUDIO } from "@/lib/constants/const-sfx";
+import { SFX_AUDIO } from "@/lib/constants/sfx.constants";
 import FxItem from "@/components/modules/FxItem/FxItem";
 import SceneSettings from "@/components/modules/settings/SceneSettings";
 import usePlayerStore from "@/stores/zustand/usePlayerStore";

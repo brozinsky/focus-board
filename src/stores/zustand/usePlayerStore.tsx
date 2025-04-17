@@ -1,4 +1,4 @@
-import { initCurrentAudio, initWallpaper } from "@/lib/constants/cons-init";
+import { initCurrentAudio, initWallpaper } from "@/lib/constants/init.constants";
 import { ICurrentVideo, TActiveScene, TActiveYtScene, TAudioSource } from "@/types/query-types";
 import {
   getFromLocalStorage,

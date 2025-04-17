@@ -1,10 +1,10 @@
-import { themeColors } from "@/lib/constants/const-theme";
+import { themeColors } from "@/lib/constants/theme.constants";
 import { TThemeColor, TThemeStyle, TUIStyle } from "@/types/model-types";
 import {
   getFromLocalStorage,
   setToLocalStorage,
 } from "@/utils/common.utils";
-import { darkenHexColor, hexToRgba } from "@/utils/functions/fn-theme";
+import { darkenHexColor, hexToRgba } from "@/utils/theme.utils";
 import { create } from "zustand";
 
 interface ISceneStore {

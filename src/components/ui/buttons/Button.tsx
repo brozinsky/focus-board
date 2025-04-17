@@ -11,7 +11,7 @@ import SpinnerSVG from "@/components/elements/svg/icons/interface/SpinnerSVG";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/stores/zustand/auth/useAuthStore";
 import { Crown, MoveRight, Plus } from "lucide-react";
-import { ROOT_COLORS } from "@/lib/constants/const-theme";
+import { ROOT_COLORS } from "@/lib/constants/theme.constants";
 import TrashIconSVG from "@/components/elements/svg/icons/interface/TrashIconSVG";
 
 type TProps = {

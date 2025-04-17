@@ -3,7 +3,7 @@ import {
   JOURNAL_BG_COLORS,
   JOURNAL_FONTS,
   JOURNAL_SHEETS,
-} from "@/lib/constants/const-journal";
+} from "@/lib/constants/journal.constants";
 import { Contrast, FileText, Type } from "lucide-react";
 import {
   TJournalBgColors,

@@ -1,4 +1,4 @@
-import { ROOT_COLORS } from "@/lib/constants/const-theme";
+import { ROOT_COLORS } from "@/lib/constants/theme.constants";
 import { cn } from "@/lib/utils";
 import { Crown } from "lucide-react";
 import React from "react";

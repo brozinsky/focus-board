@@ -1,4 +1,4 @@
-import { MONTHS } from "@/lib/constants/const-clock";
+import { MONTHS } from "@/lib/constants/clock.constants";
 import { cn } from "@/lib/utils";
 import { useClockStore } from "@/stores/zustand/useClockStore";
 import { getFormattedDate } from "@/utils/clock.utils";

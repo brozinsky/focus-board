@@ -1,5 +1,5 @@
 import Select from "@/components/ui/dropdowns/Select";
-import { JOURNALING_PROMPTS } from "@/lib/constants/const-journal";
+import { JOURNALING_PROMPTS } from "@/lib/constants/journal.constants";
 import { Input } from "@/components/ui/inputs/Input";
 import { useEffect } from "react";
 import { useJournalStore } from "@/stores/zustand/useJournalStore";

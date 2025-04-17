@@ -1,6 +1,6 @@
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import React, { useEffect, useRef } from "react";
-import { fontFamilyExt } from "@/lib/constants/const-theme";
+import { fontFamilyExt } from "@/lib/constants/theme.constants";
 
 const useRootRef = () => {
   const rootRef = useRef<HTMLDivElement>(null);

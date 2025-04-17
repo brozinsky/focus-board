@@ -1,5 +1,5 @@
 import Select from "@/components/ui/dropdowns/Select";
-import { themeColors } from "@/lib/constants/const-theme";
+import { themeColors } from "@/lib/constants/theme.constants";
 import useThemeStore from "@/stores/zustand/useThemeStore";
 
 const transformThemeColors = (colors: typeof themeColors) => {

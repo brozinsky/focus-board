@@ -11,7 +11,7 @@ import { TJournalData } from "@/types/query-types";
 import { Settings } from "lucide-react";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
-import { JOURNALING_PROMPTS } from "@/lib/constants/const-journal";
+import { JOURNALING_PROMPTS } from "@/lib/constants/journal.constants";
 
 const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
   const {

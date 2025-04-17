@@ -1,6 +1,6 @@
 import { Switch } from "@/components/ui/buttons/Switch";
 import Select from "@/components/ui/dropdowns/Select";
-import { themeColors } from "@/lib/constants/const-theme";
+import { themeColors } from "@/lib/constants/theme.constants";
 import useQuoteStore from "@/stores/zustand/useQuoteStore";
 import useSceneStore from "@/stores/zustand/useSceneStore";
 import useThemeStore from "@/stores/zustand/useThemeStore";

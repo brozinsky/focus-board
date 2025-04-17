@@ -5,7 +5,7 @@ import useVolume from "@/hooks/useVolume";
 import Button from "@/components/ui/buttons/Button";
 import { Separator } from "@/components/ui/Separator/Separator";
 import FxItem from "../FxItem/FxItem";
-import { SFX_AUDIO } from "@/lib/constants/const-sfx";
+import { SFX_AUDIO } from "@/lib/constants/sfx.constants";
 import useWindowsStore from "@/stores/zustand/useWindowsStore";
 import YouTubeSVG from "@/components/elements/svg/icons/social-media/YouTubeSVG";
 import { cn } from "@/lib/utils";

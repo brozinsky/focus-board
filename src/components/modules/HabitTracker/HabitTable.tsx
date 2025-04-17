@@ -8,7 +8,7 @@ import HabitHead from "./HabitHead";
 import { Ghost } from "lucide-react";
 import { useMemo } from "react";
 import useUpdateHabitBox from "@/stores/supabase/useUpdateHabitBox";
-import { EMPTY_STATE_HABIT_TRACKER } from "@/lib/constants/const-messages";
+import { EMPTY_STATE_HABIT_TRACKER } from "@/lib/constants/messages.constants";
 
 const HabitTable = () => {
   const { data, isPending, refetch, isRefetching } = useHabitsQuery();
@@ -53,6 +53,7 @@ const HabitTable = () => {
           return (
             <HabitRow
               key={item.id}
+              selectedDays={item.selected_days}
               id={item.id}
               name={item.title}
               dates={item.dates}
