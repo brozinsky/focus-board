@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import usePlayerStore from "@/stores/zustand/player/player.store";
-import usePlaylistQuery from "@/stores/queries/playlist.query";
+import usePlaylistQuery from "@/stores/queries/get-playlist.query";
 import Overlay from "@/components/modules/Overlay/Overlay";
 import YTAudio from "@/components/modules/Player/YTAudio";
 import YTVideo from "@/components/modules/Player/YTVideo";

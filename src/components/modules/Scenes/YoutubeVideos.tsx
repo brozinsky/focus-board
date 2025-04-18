@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import CardYTVideo from "@/components/ui/cards/CardYTVideo";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
-import usePlaylistQuery from "@/stores/queries/playlist.query";
+import usePlaylistQuery from "@/stores/queries/get-playlist.query";
 import { cn } from "@/lib/utils";
 import { ICurrentVideo, TActiveYtScene, TSnippet } from "@/types/query/playlist.types";
-import useYoutubeBgQuery from "@/stores/queries/youtube-bg.query";
+import useYoutubeBgQuery from "@/stores/queries/get-youtube-bg.query";
 
 type TPlaylistItem = {
   snippet: TSnippet;

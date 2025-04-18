@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PlaylistItem from "../Card/PlaylistItem";
 import usePlayerStore from "@/stores/zustand/player/player.store";
-import usePlaylistQuery from "@/stores/queries/playlist.query";
+import usePlaylistQuery from "@/stores/queries/get-playlist.query";
 import { ICurrentVideo, TSnippet } from "@/types/query/playlist.types";
 
 type TPlaylistItem = {

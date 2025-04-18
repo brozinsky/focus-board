@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useFormik } from "formik";
 import useUpdateHabitMutation from "@/stores/supabase/update-habit.mutation";
 import { getWeekDays } from "@/utils/date.utils";
-import useHabitsQuery from "@/stores/supabase/habits.query";
+import useHabitsQuery from "@/stores/supabase/get-habits.query";
 
 const useHabitsForm = () => {
   const { mutate: updateHabits } = useUpdateHabitMutation();

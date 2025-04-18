@@ -6,7 +6,7 @@ import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { ArrowUpLeft } from "lucide-react";
 import useWindowsStore from "@/stores/zustand/global/windows.store";
 import { ScrollArea } from "@/components/ui/ScrollArea/ScrollArea";
-import useQuoteQuery from "@/stores/queries/quote.query";
+import useQuoteQuery from "@/stores/queries/get-quote.query";
 
 const QuoteWindow = () => {
   const [lastRefreshTime, setLastRefreshTime] = useState<number | null>(null);
