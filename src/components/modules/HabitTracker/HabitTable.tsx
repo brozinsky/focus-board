@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import HabitRow from "./HabitRow";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
-import useHabitsQuery from "@/stores/supabase/useHabitsQuery";
-import useAddHabitMutation from "@/stores/supabase/useAddHabitMutation";
+import useHabitsQuery from "@/stores/supabase/habits.query";
+import useAddHabitMutation from "@/stores/supabase/add-habit.mutation";
 import AddHabit from "./AddHabit";
 import HabitHead from "./HabitHead";
 import { Ghost } from "lucide-react";
 import { useMemo } from "react";
-import useUpdateHabitBox from "@/stores/supabase/useUpdateHabitBox";
+import useUpdateHabitBox from "@/stores/supabase/update-habit-box.mutation";
 import { EMPTY_STATE_HABIT_TRACKER } from "@/lib/constants/messages.constants";
 
 const HabitTable = () => {

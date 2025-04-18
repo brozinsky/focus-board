@@ -1,8 +1,7 @@
 import RichTextEditor from "./RichTextEditor";
 import { useEffect } from "react";
 import Button from "@/components/ui/buttons/Button";
-import useEditJournalEntryMutation from "@/stores/supabase/journal/useEditJournalEntryMutation";
-import useRemoveJournalEntryMutation from "@/stores/supabase/journal/useRemoveJournalEntryMutation";
+import useEditJournalEntryMutation from "@/stores/supabase/journal/edit-journal-entry.mutation";
 import { useJournalStore } from "@/stores/zustand/journal/journal.store";
 import clsx from "clsx";
 import JournalSheetSettings from "./JournalSheetSettings";
@@ -12,6 +11,7 @@ import useWindowsStore from "@/stores/zustand/global/windows.store";
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon";
 import { JOURNALING_PROMPTS } from "@/lib/constants/journal.constants";
 import { TJournalData } from "@/types/query/journal.types";
+import useRemoveJournalEntryMutation from "@/stores/supabase/journal/remove-journal-entry.mutation";
 
 const JournalRightEditor = ({ data }: { data: TJournalData[] }) => {
   const {

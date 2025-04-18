@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import axios from "axios";
-import { TActiveYtScene } from "@/types/query-types";
+import { TActiveYtScene } from "@/types/query/playlist.types";
 
 const fetchPlaylistItems = async (category: string) => {
   if (!category) {

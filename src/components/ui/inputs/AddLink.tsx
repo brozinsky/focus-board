@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Input } from "./Input";
 import { cn } from "@/lib/utils";
 import { extractYouTubeVideoId } from "@/utils/common.utils";
-import useGetYoutubeDetailsQuery from "@/stores/queries/useGetYoutubeDetailsQuery";
+import useGetYoutubeDetailsQuery from "@/stores/queries/get-youtube-details.query";
 
 const AddLinkInput = () => {
   const [url, setUrl] = useState<string>("");

@@ -1,36 +1,10 @@
 import { useEffect, useState } from "react";
 import CardYTVideo from "@/components/ui/cards/CardYTVideo";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
-import usePlaylistQuery from "@/stores/queries/usePlaylistQuery";
+import usePlaylistQuery from "@/stores/queries/playlist.query";
 import { cn } from "@/lib/utils";
-import useYoutubeBgQuery from "@/stores/queries/useYoutubeBgQuery";
-import { ICurrentVideo, TActiveYtScene } from "@/types/query/playlist.types";
-
-type TSnippet = {
-  videoOwnerChannelTitle: string;
-  videoOwnerChannelId: string;
-  title: string;
-  thumbnails: {
-    high: {
-      url: string;
-      width: number;
-      height: number;
-    };
-    maxres: {
-      url: string;
-      width: number;
-      height: number;
-    };
-    default: {
-      url: string;
-      width: number;
-      height: number;
-    };
-  };
-  resourceId: {
-    videoId: string;
-  };
-};
+import { ICurrentVideo, TActiveYtScene, TSnippet } from "@/types/query/playlist.types";
+import useYoutubeBgQuery from "@/stores/queries/youtube-bg.query";
 
 type TPlaylistItem = {
   snippet: TSnippet;

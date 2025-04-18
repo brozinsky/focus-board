@@ -1,4 +1,4 @@
-import useEditJournalEntryMutation from "@/stores/supabase/journal/useEditJournalEntryMutation";
+import useEditJournalEntryMutation from "@/stores/supabase/journal/edit-journal-entry.mutation";
 import { useJournalStore } from "@/stores/zustand/journal/journal.store";
 import Button from "@/components/ui/buttons/Button";
 import useWindowsStore from "@/stores/zustand/global/windows.store";

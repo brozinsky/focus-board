@@ -1,4 +1,3 @@
-import useBgWallpapersQuery from "@/stores/queries/useBgWallpapersQuery";
 import { AdvancedImage, lazyload } from "@cloudinary/react";
 import React from "react";
 import { fill } from "@cloudinary/url-gen/actions/resize";
@@ -10,6 +9,7 @@ import useWindowsStore from "@/stores/zustand/global/windows.store";
 import { cn } from "@/lib/utils";
 import BadgePremium from "@/components/ui/badge/BadgePremium";
 import { useAuthStore } from "@/stores/zustand/auth/auth.store";
+import useBgWallpapersQuery from "@/stores/queries/bg-wallpapers.query";
 
 const cld = new Cloudinary({
   cloud: { cloudName: import.meta.env.VITE_CLOUD_NAME },

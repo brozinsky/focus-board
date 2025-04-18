@@ -3,13 +3,13 @@ import React from "react";
 import { fill } from "@cloudinary/url-gen/actions/resize";
 import usePlayerStore from "@/stores/zustand/player/player.store";
 import { Cloudinary } from "@cloudinary/url-gen/index";
-import useBgVideosQuery from "@/stores/queries/useBgVideosQuery";
 import clsx from "clsx";
 import LoadingSpinner from "@/components/ui/loaders/LoadingSpinner";
 import useWindowsStore from "@/stores/zustand/global/windows.store";
 import { cn } from "@/lib/utils";
 import BadgePremium from "@/components/ui/badge/BadgePremium";
 import { useAuthStore } from "@/stores/zustand/auth/auth.store";
+import useBgVideosQuery from "@/stores/queries/bg-videos.query";
 
 const cld = new Cloudinary({
   cloud: { cloudName: import.meta.env.VITE_CLOUD_NAME },

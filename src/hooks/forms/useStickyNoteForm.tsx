@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import useStickyNotesStore from "@/stores/zustand/sticky-notes/sticky-notes.store";
-import useStickyNotesDb from "@/stores/supabase/useStickyNotesDb";
+import useStickyNotesDb from "@/stores/supabase/sticky-notes.db";
 import { useAuthStore } from "@/stores/zustand/auth/auth.store";
 import { TTodo } from "@/types/model/todo-list.model";
 

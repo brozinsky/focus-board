@@ -7,7 +7,7 @@ import {
 import { StickyNote } from "./StickyNote";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { useEffect } from "react";
-import useStickyNotesDb from "@/stores/supabase/useStickyNotesDb";
+import useStickyNotesDb from "@/stores/supabase/sticky-notes.db";
 
 const StickyNotesDb = () => {
   const {

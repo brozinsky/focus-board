@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react"; // Import useEffect
 import { NotebookPen, Plus } from "lucide-react";
 import JournalEntry from "./JournalEntry";
-import useAddJournalEntryMutation from "@/stores/supabase/journal/useAddJournalEntryMutation";
 import { dateToString } from "@/utils/common.utils";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/ScrollArea/ScrollArea";
@@ -10,6 +9,7 @@ import { formatJournalDate } from "@/utils/date.utils";
 import SpinnerSVG from "@/components/elements/svg/icons/interface/SpinnerSVG";
 import clsx from "clsx";
 import { TJournalData } from "@/types/query/journal.types";
+import useAddJournalEntryMutation from "@/stores/supabase/journal/add-journal-entry.mutation";
 
 const JournalLeftPanel = ({ data }: { data: TJournalData[] }) => {
   const { activeEntry, setActiveEntry, isEditing } = useJournalStore();

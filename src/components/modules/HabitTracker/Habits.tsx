@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from "react";
-import useJournalQuery from "@/stores/supabase/journal/useJournalQuery";
+import useJournalQuery from "@/stores/supabase/journal/journal.query";
 import { cn } from "@/lib/utils";
 import useThemeStore from "@/stores/zustand/global/theme.store";
 import { motion } from "framer-motion";

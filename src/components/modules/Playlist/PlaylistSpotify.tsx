@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import PlaylistItemSpotify from "../Card/PlaylistItemSpotify";
-import useSpotifyPlaylistQuery from "@/stores/queries/useSpotifyPlaylistQuery";
 import DialogAddSpotifyPlaylist from "./DialogAddSpotifyPlaylist";
 import { useSpotifyStore } from "@/stores/zustand/player/spotify.store";
+import useSpotifyPlaylistQuery from "@/stores/queries/spotify-playlist.query";
 
 const PlaylistSpotify = () => {
   const query = useSpotifyPlaylistQuery();

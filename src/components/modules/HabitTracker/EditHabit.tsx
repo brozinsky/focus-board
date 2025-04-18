@@ -7,7 +7,6 @@ import {
   DialogOverlay,
   DialogTitle,
 } from "@/components/ui/dialog/Dialog";
-import useEditHabitMutation from "@/stores/supabase/useEditHabitMutation";
 import { cn } from "@/lib/utils";
 import Checkbox from "@/components/ui/inputs/Checkbox";
 import Button from "@/components/ui/buttons/Button";
@@ -16,8 +15,9 @@ import { z } from "zod";
 import useAppForm from "@/hooks/forms/useAppForm";
 import { format } from "date-fns";
 import { DAYS_OF_WEEK } from "@/lib/constants/habits.constants";
-import useAddHabitMutation from "@/stores/supabase/useAddHabitMutation";
+import useAddHabitMutation from "@/stores/supabase/add-habit.mutation";
 import { THabitsForm } from "@/types/query/habits.types";
+import useEditHabitMutation from "@/stores/supabase/edit-habit.mutation";
 
 type TProps = {
   isEditing: boolean;
